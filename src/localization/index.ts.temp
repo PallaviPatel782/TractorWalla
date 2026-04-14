@@ -1,0 +1,3 @@
+import './index'; // This might be confusing if the original was named index.ts
+// Wait, I should check what the original src/i18n/index.ts did.
+export * from './index'; // Oh wait, if I'm in index.ts, I can't export from ./index.
