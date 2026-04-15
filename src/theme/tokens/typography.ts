@@ -53,7 +53,7 @@ export const fontMap: Record<
   { normal: string; italic: string }
 > = {
   '100': {
-    normal: typography.fonts.robotoThin,
+    normal: typography.fonts.poppinsThin,
     italic: typography.fonts.poppinsItalic,
   },
   '200': {

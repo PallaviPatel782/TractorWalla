@@ -4,6 +4,7 @@ import { typography } from './tokens/typography';
 export const theme = (mode: 'light' | 'dark') => ({
   colors: mode === 'dark' ? darkColors : lightColors,
   typography,
+  fontfamily: typography.fonts,
   mode,
 });
 

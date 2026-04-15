@@ -20,3 +20,5 @@ export * from './Dropdown';
 export * from './Image';
 export * from './Loader';
 export { default as StatusBar } from './StatusBar';
+export { default as ProfileOptionItem } from './ProfileOptionItem/index';
+export { default as TractorCard } from './TractorCard/index';

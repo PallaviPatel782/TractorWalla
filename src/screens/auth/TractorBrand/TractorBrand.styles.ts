@@ -70,5 +70,7 @@ export const createStyles = (theme: AppTheme) =>
     brandName: {
       textAlign: 'center',
       color: theme.colors.textPrimary,
+      fontFamily: theme.fontfamily.poppinsMedium,
+      fontSize: SF(11),
     },
   });

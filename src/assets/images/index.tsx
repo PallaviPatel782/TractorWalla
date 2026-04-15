@@ -9,7 +9,6 @@ import Captain from './Captain.svg';
 import Eicher from './Eicher.svg';
 import Farmtrac from './Farmtrac.svg';
 import Force from './Force.svg';
-import Image3 from './image 3.svg';
 import JohnDeere from './JohnDeere.svg';
 import Kubota from './Kubota.svg';
 import Login from './Login.svg';
@@ -24,6 +23,7 @@ import Powertrac from './Powertrac.svg';
 import Solis from './Solis.svg';
 import Sonalika from './Sonalika.svg';
 import Swaraj from './Swaraj.svg';
+import Tractor from './Tractor.svg';
 import Vst from './VST.svg';
 
 export interface ISVGProps extends SvgProps {
@@ -44,7 +44,6 @@ export const CaptainImage = (props: ISVGProps) => <Captain fill={props.color} {.
 export const EicherImage = (props: ISVGProps) => <Eicher fill={props.color} {...resolveSize(props)} />;
 export const FarmtracImage = (props: ISVGProps) => <Farmtrac fill={props.color} {...resolveSize(props)} />;
 export const ForceImage = (props: ISVGProps) => <Force fill={props.color} {...resolveSize(props)} />;
-export const Image3Image = (props: ISVGProps) => <Image3 fill={props.color} {...resolveSize(props)} />;
 export const JohnDeereImage = (props: ISVGProps) => <JohnDeere fill={props.color} {...resolveSize(props)} />;
 export const KubotaImage = (props: ISVGProps) => <Kubota fill={props.color} {...resolveSize(props)} />;
 export const LoginImage = (props: ISVGProps) => <Login fill={props.color} {...resolveSize(props)} />;
@@ -59,4 +58,5 @@ export const PowertracImage = (props: ISVGProps) => <Powertrac fill={props.color
 export const SolisImage = (props: ISVGProps) => <Solis fill={props.color} {...resolveSize(props)} />;
 export const SonalikaImage = (props: ISVGProps) => <Sonalika fill={props.color} {...resolveSize(props)} />;
 export const SwarajImage = (props: ISVGProps) => <Swaraj fill={props.color} {...resolveSize(props)} />;
+export const TractorImage = (props: ISVGProps) => <Tractor fill={props.color} {...resolveSize(props)} />;
 export const VstImage = (props: ISVGProps) => <Vst fill={props.color} {...resolveSize(props)} />;

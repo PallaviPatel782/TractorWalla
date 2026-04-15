@@ -13,7 +13,7 @@ import {
   Dropdown,
 } from '@components';
 import { useAppDispatch } from '@store';
-import { updateUser, setCredentials } from '@store/slices/authSlice';
+import { addTractor, setCredentials } from '@store/slices/authSlice';
 import { createStyles } from './TractorBrandRegister.styles';
 import { SW, SH, SF } from '@utils/Dimensions';
 import { TRACTOR_MODELS } from '@constants/TractorData';
@@ -66,12 +66,13 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
   };
 
   const handleContinue = () => {
-    dispatch(updateUser({
-      tractorBrand: isOthers ? formData.customBrand : brand,
-      tractorModel: formData.model,
-      tractorRegNo: formData.registrationNo,
-      tractorYearWeight: formData.yearOfManufacture,
-      tractorPurchaseYear: formData.yearOfPurchase,
+    dispatch(addTractor({
+      id: Math.random().toString(36).substr(2, 9),
+      brand: isOthers ? formData.customBrand : brand,
+      model: formData.model,
+      registrationNo: formData.registrationNo,
+      yearOfManufacture: formData.yearOfManufacture,
+      yearOfPurchase: formData.yearOfPurchase,
       tractorType: formData.tractorType,
     }));
 

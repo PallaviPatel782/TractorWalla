@@ -140,34 +140,6 @@ const LocationScreen = ({ navigation, route }: any) => {
     [reverseGeocode],
   );
 
-  // ─── Search ──────────────────────────────────────────────────────────────
-
-  const handleSearch = useCallback(async () => {
-    if (!searchQuery.trim()) return;
-    Keyboard.dismiss();
-    setFetchingAddress(true);
-    try {
-      const coords = await searchLocationByQuery(searchQuery);
-      if (coords) {
-        const { latitude: lat, longitude: lng } = coords;
-        mapRef.current?.animateToRegion(
-          {
-            latitude: lat,
-            longitude: lng,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          },
-          500,
-        );
-        reverseGeocode(lat, lng);
-      } else {
-        setFetchingAddress(false);
-      }
-    } catch {
-      setFetchingAddress(false);
-    }
-  }, [searchQuery, reverseGeocode]);
-
   // ─── Confirm ─────────────────────────────────────────────────────────────
 
   const handleConfirm = useCallback(() => {

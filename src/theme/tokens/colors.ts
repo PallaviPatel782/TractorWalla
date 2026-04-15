@@ -76,6 +76,16 @@ export const lightColors = {
   brandTeal: '#1A9E8C',
   brandRedLight: '#FFF5F5',
   brandRedDark: '#C0213A',
+  
+  // New Semantic Colors
+  borderExtraLight: '#E8E8E8',
+  borderFaint: '#F1F1F1',
+  backgroundFaint: '#F9F9F9',
+  primaryFaint: '#FEF3F2',
+  backgroundExtraLight: '#FAF5F0',
+  successDeep: '#1E633F',
+  danger: '#D92D20',
+  overlay: 'rgba(0,0,0,0.5)',
 };
 
 export const darkColors: typeof lightColors = {

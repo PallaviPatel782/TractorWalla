@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from '@screens/main';
+import { HomeScreen, ProfileScreen } from '@screens/main';
 import { View } from '@components';
 import { MainTabParamList } from '@navigation/NavigationTypes';
 import { useTheme } from '@theme';
@@ -107,7 +107,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
           tabBarLabel: t('profile'),
           headerShown: false,

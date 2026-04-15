@@ -1,5 +1,15 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
+export interface Tractor {
+  id: string;
+  brand: string;
+  model: string;
+  registrationNo: string;
+  yearOfManufacture: string;
+  yearOfPurchase: string;
+  tractorType: string;
+}
+
 export interface User {
   id?: string;
   name: string;
@@ -12,12 +22,7 @@ export interface User {
   pincode?: string;
   latitude?: number;
   longitude?: number;
-  tractorBrand?: string;
-  tractorModel?: string;
-  tractorRegNo?: string;
-  tractorYearWeight?: string;
-  tractorPurchaseYear?: string;
-  tractorType?: string;
+  tractors?: Tractor[];
 }
 
 interface AuthState {
@@ -52,6 +57,27 @@ const authSlice = createSlice({
         state.user = action.payload as User;
       }
     },
+    addTractor: (state, action: PayloadAction<Tractor>) => {
+      if (state.user) {
+        if (!state.user.tractors) {
+          state.user.tractors = [];
+        }
+        state.user.tractors.push(action.payload);
+      }
+    },
+    updateTractor: (state, action: PayloadAction<Tractor>) => {
+      if (state.user && state.user.tractors) {
+        const index = state.user.tractors.findIndex(t => t.id === action.payload.id);
+        if (index !== -1) {
+          state.user.tractors[index] = action.payload;
+        }
+      }
+    },
+    deleteTractor: (state, action: PayloadAction<string>) => {
+      if (state.user && state.user.tractors) {
+        state.user.tractors = state.user.tractors.filter(t => t.id !== action.payload);
+      }
+    },
     logout: (state) => {
       state.token = null;
       state.user = null;
@@ -60,5 +86,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {setCredentials, updateUser, logout} = authSlice.actions;
+export const {setCredentials, updateUser, addTractor, updateTractor, deleteTractor, logout} = authSlice.actions;
 export default authSlice.reducer;

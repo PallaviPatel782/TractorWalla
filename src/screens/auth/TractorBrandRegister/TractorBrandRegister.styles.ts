@@ -55,6 +55,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     typeText: {
       color: theme.colors.textPrimary,
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
     radioCircle: {
       width: SW(16),
@@ -77,12 +78,12 @@ export const createStyles = (theme: AppTheme) =>
     label: {
       marginBottom: SH(8),
       color: theme.colors.textPrimary,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     brandDisplayContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: theme.colors.white,
       borderRadius: SW(12),
 
     },
@@ -94,6 +95,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     brandDisplayName: {
       color: theme.colors.textPrimary,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     dropdownButton: {
       backgroundColor: theme.colors.white,

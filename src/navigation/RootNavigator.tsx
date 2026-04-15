@@ -9,13 +9,20 @@ import {
   LocationAccess,
   ProfileDetails,
   TractorBrand,
-  TractorSelection,
   TractorBrandRegister,
 } from '@screens/auth';
 
-import TabNavigator from '@navigation/TabNavigator';
-import { useAppSelector } from '@store';
+import {
+  MyTractorsScreen,
+  AddTractorDetailsScreen,
+  MainTractorBrandScreen,
+  ManageAddressScreen,
+  BookingsScreen,
+  AddLocation,
+} from '@screens/main';
 
+import { useAppSelector } from '@store';
+import TabNavigator from '@navigation/TabNavigator';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -30,7 +37,6 @@ const AuthNavigator = () => (
     <AuthStack.Screen name="LocationAccess" component={LocationAccess} />
     <AuthStack.Screen name="ProfileDetails" component={ProfileDetails} />
     <AuthStack.Screen name="TractorBrand" component={TractorBrand} />
-    <AuthStack.Screen name="TractorSelection" component={TractorSelection} />
     <AuthStack.Screen name="TractorBrandRegister" component={TractorBrandRegister} />
   </AuthStack.Navigator>
 );
@@ -43,6 +49,13 @@ const RootNavigator = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Auth" component={AuthNavigator} />
         <Stack.Screen name="Main" component={TabNavigator} />
+        <Stack.Screen name="MyTractors" component={MyTractorsScreen} />
+        <Stack.Screen name="MainTractorBrand" component={MainTractorBrandScreen} />
+        <Stack.Screen name="ManageAddress" component={ManageAddressScreen} />
+        <Stack.Screen name="Bookings" component={BookingsScreen} />
+        <Stack.Screen name="TractorDetails" component={AddTractorDetailsScreen} />
+        <Stack.Screen name="AddTractorDetails" component={AddTractorDetailsScreen} />
+        <Stack.Screen name="AddLocation" component={AddLocation} />
         {/* {!isAuthenticated ? (
           <Stack.Screen name="Auth" component={AuthNavigator} />
         ) : (

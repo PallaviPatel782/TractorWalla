@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import { SF } from '@utils/Dimensions';
 import { Text, Button, View, TouchableOpacity, ScreenWrapper } from '@components';
-import { createStyles } from './HomeScreen.styles';
+import { createStyles } from './Home.styles';
 
 const HomeScreen = () => {
   const { t, i18n } = useTranslation();
