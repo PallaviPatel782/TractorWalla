@@ -43,8 +43,8 @@ const generateIndex = (dirPath, suffix = 'Icon') => {
       icons
         .map(icon => {
           const name = toPascalCase(icon);
-          // Passing fill={props.color} ensures the SVG takes the tab bar's tint color
-          return `export const ${name}${suffix} = (props: ISVGProps) => <${name} fill={props.color} {...resolveSize(props)} />;`;
+          // Removed forced fill={props.color} so SVG can retain its native multiple colors
+          return `export const ${name}${suffix} = (props: ISVGProps) => <${name} {...resolveSize(props)} />;`;
         })
         .join('\n'),
       '',

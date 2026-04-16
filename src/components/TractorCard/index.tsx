@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, Image } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import View from '../View';
 import Text from '../Text';
 import TouchableOpacity from '../TouchableOpacity';
@@ -24,6 +25,7 @@ interface TractorCardProps {
 
 const TractorCard = ({ tractor, onPress, onDelete }: TractorCardProps) => {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
@@ -37,7 +39,7 @@ const TractorCard = ({ tractor, onPress, onDelete }: TractorCardProps) => {
       </View>
       <View style={styles.detailsContainer}>
         <Text variant="semiBold" size={14} color={theme.colors.gray900}>
-          {tractor.brand}
+          {t(`common.brands.${tractor.brand}`)}
         </Text>
         <Text variant="regular" size={12} color={theme.colors.gray500}>
           {tractor.model}

@@ -76,7 +76,7 @@ const TabNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarLabel: t('home'),
+          tabBarLabel: t('main.home.home'),
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <RenderTabIcon Icon={HomeIcon} color={color} focused={focused} />
@@ -87,7 +87,7 @@ const TabNavigator = () => {
         name="Services"
         component={HomeScreen}
         options={{
-          tabBarLabel: t('services'),
+          tabBarLabel: t('main.home.services'),
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <RenderTabIcon Icon={AllServicesIcon} color={color} focused={focused} />
@@ -98,7 +98,7 @@ const TabNavigator = () => {
         name="Parts"
         component={HomeScreen}
         options={{
-          tabBarLabel: t('parts'),
+          tabBarLabel: t('main.home.parts'),
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <RenderTabIcon Icon={SettingIcon} color={color} focused={focused} />
@@ -109,7 +109,7 @@ const TabNavigator = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarLabel: t('profile'),
+          tabBarLabel: t('main.home.profile'),
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <RenderTabIcon Icon={ProfileIcon} color={color} focused={focused} />

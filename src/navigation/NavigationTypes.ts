@@ -10,6 +10,19 @@ export type RootStackParamList = {
   ManageAddress: undefined;
   Bookings: undefined;
   AddLocation: undefined;
+  ChooseLanguage: undefined;
+  SendFeedback: undefined;
+  ReportIssue: undefined;
+  Invoice: { type: 'General' | 'Inventory'; bookingId: string };
+  About: undefined;
+  AboutTractorWalla: undefined;
+  JoinTeam: undefined;
+  PrivacyPolicy: undefined;
+  TermsConditions: undefined;
+  ContactUs: undefined;
+  FAQ: undefined;
+  UpdateProfile: undefined;
+  BookingDetails: { bookingId?: string };
 };
 
 export type AuthStackParamList = {

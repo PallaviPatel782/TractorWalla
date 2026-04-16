@@ -19,9 +19,20 @@ import {
   ManageAddressScreen,
   BookingsScreen,
   AddLocation,
+  ChooseLanguageScreen,
+  SendFeedbackScreen,
+  ReportIssueScreen,
+  InvoiceScreen,
+  AboutScreen,
+  FaqScreen,
+  UpdateProfileScreen,
+  BookingDetailsScreen,
+  AboutTractorWalla,
+  JoinTeam,
+  PrivacyPolicy,
+  TermsConditions,
+  ContactUs,
 } from '@screens/main';
-
-import { useAppSelector } from '@store';
 import TabNavigator from '@navigation/TabNavigator';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
@@ -56,6 +67,19 @@ const RootNavigator = () => {
         <Stack.Screen name="TractorDetails" component={AddTractorDetailsScreen} />
         <Stack.Screen name="AddTractorDetails" component={AddTractorDetailsScreen} />
         <Stack.Screen name="AddLocation" component={AddLocation} />
+        <Stack.Screen name="ChooseLanguage" component={ChooseLanguageScreen} />
+        <Stack.Screen name="SendFeedback" component={SendFeedbackScreen} />
+        <Stack.Screen name="ReportIssue" component={ReportIssueScreen} />
+        <Stack.Screen name="Invoice" component={InvoiceScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="FAQ" component={FaqScreen} />
+        <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} />
+        <Stack.Screen name="BookingDetails" component={BookingDetailsScreen} />
+        <Stack.Screen name="AboutTractorWalla" component={AboutTractorWalla} />
+        <Stack.Screen name="JoinTeam" component={JoinTeam} />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+        <Stack.Screen name="TermsConditions" component={TermsConditions} />
+        <Stack.Screen name="ContactUs" component={ContactUs} />
         {/* {!isAuthenticated ? (
           <Stack.Screen name="Auth" component={AuthNavigator} />
         ) : (

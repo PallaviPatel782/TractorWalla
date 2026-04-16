@@ -86,8 +86,8 @@ const Dropdown: React.FC<DropdownProps> = ({
         const spaceBelow = SCREEN_HEIGHT - (py + height);
         const fitsBelow = spaceBelow >= dropdownHeight;
         const top = fitsBelow
-          ? py + height + SH(4) // open downward
-          : py - dropdownHeight - SH(4); // flip upward
+          ? py + height // open downward
+          : py - dropdownHeight; // flip upward
 
         // ── Horizontal: shift left if overflows right edge
         const estimatedWidth = Math.max(width, SW(140));
@@ -175,6 +175,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         transparent
         animationType="fade"
         onRequestClose={closeDropdown}
+        statusBarTranslucent={true}
       >
         {/* Backdrop */}
         <TouchableOpacity

@@ -14,6 +14,7 @@ interface ProfileOptionItemProps {
   showChevron?: boolean;
   isFirst?: boolean;
   isLast?: boolean;
+  showBorder?: boolean;
 }
 
 const ProfileOptionItem = ({
@@ -21,9 +22,10 @@ const ProfileOptionItem = ({
   title,
   onPress,
   showChevron = true,
+  showBorder = true,
 }: ProfileOptionItemProps) => {
   const { theme } = useTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const styles = useMemo(() => createStyles(theme, showBorder), [theme, showBorder]);
 
   return (
     <TouchableOpacity
@@ -50,7 +52,7 @@ const ProfileOptionItem = ({
 
 export default ProfileOptionItem;
 
-const createStyles = (theme: any) =>
+const createStyles = (theme: any, showBorder: boolean) =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -59,7 +61,7 @@ const createStyles = (theme: any) =>
       paddingVertical: SH(14),
       paddingBottom: SH(5),
       paddingHorizontal: SW(16),
-      borderBottomWidth: 1,
+      borderBottomWidth: showBorder ? 1 : 0,
       borderBottomColor: theme.colors.gray300,
     },
     leftContainer: {

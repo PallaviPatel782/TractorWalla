@@ -1,10 +1,353 @@
 {
-  "welcome": "Welcome",
-  "home": "Home",
-  "services": "All Services",
-  "parts": "Parts",
-  "profile": "Profile",
-  "login": "Login",
-  "logout": "Logout",
-  "language": "Language"
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "back": "Back",
+    "continue": "CONTINUE",
+    "submit": "SUBMIT",
+    "getOtp": "GET OTP",
+    "apply": "Apply Language",
+    "edit": "Edit",
+    "remove": "Remove",
+    "download": "Download",
+    "added": "Added",
+    "default": "Default",
+    "delete": "Delete",
+    "supportEmail": "support@tractorwalla.com",
+    "brands": {
+      "Mahindra": "Mahindra",
+      "Swaraj": "Swaraj",
+      "John Deere": "John Deere",
+      "Eicher": "Eicher",
+      "Sonalika": "Sonalika",
+      "Solis": "Solis",
+      "Captain": "Captain",
+      "VST": "VST",
+      "Force": "Force",
+      "New Holland": "New Holland",
+      "Farmtrac": "Farmtrac",
+      "Powertrac": "Powertrac",
+      "Kubota": "Kubota",
+      "Massey Ferguson": "Massey Ferguson",
+      "Others": "Others"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Get Your Tractor Back to Work",
+      "subtitle": "Tractor Service Made Easy",
+      "mobileLabel": "Mobile Number",
+      "mobilePlaceholder": "Enter mobile number",
+      "agreementText": "By signing up, you agree to the",
+      "terms": "Terms of Service",
+      "and": "and",
+      "privacy": "Privacy Policy"
+    },
+    "otp": {
+      "title": "Verify Your Mobile Number",
+      "subtitle": "Enter the 6-digit OTP sent to Your Mobile Number",
+      "resendText": "Resend OTP in",
+      "sliders": {
+        "book": "Book Service",
+        "track": "Track Service Engineer",
+        "fixed": "Get it Fixed"
+      }
+    }
+  },
+  "main": {
+    "home": {
+      "title": "TractorWalla Home",
+      "welcome": "Welcome",
+      "home": "Home",
+      "services": "All Services",
+      "parts": "Parts",
+      "profile": "Profile",
+      "language": "Language"
+    },
+    "profile": {
+      "title": "My Account",
+      "editProfile": "Update Profile",
+      "myTractor": "My Tractor",
+      "myBookings": "My Bookings",
+      "manageAddress": "Manage Address",
+      "yourBookings": "Your bookings",
+      "faq": "Frequently asked questions",
+      "more": "More",
+      "language": "Language",
+      "about": "About",
+      "sendFeedback": "Send feedback",
+      "reportIssue": "Report an Issue",
+      "logout": "Log out",
+      "connectWithUs": "Connect With Us",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "youtube": "Youtube",
+      "threads": "Threads",
+      "updateProfile": {
+        "title": "Update Profile",
+        "fullName": "Full Name",
+        "email": "Email ID",
+        "placeholderName": "Enter your full name",
+        "placeholderEmail": "Enter email",
+        "button": "Update Profile"
+      },
+      "feedback": {
+        "title": "Send Feedback",
+        "description": "Tell us what you love about the app, or what we could be doing better.",
+        "placeholder": "Enter feedback",
+        "button": "SUBMIT FEEDBACK"
+      },
+      "report": {
+        "title": "Report an Issue",
+        "helpText": "How can we help you*",
+        "selectIssue": "Select Issue",
+        "message": "Message*",
+        "placeholder": "Message",
+        "addPhoto": "Add photo",
+        "needHelp": "Need direct help?",
+        "urgentHelp": "For urgent assistance, email us at",
+        "options": {
+          "report_issue": "Report an Issue",
+          "general_inquiry": "General Inquiry for buy / sell Tractor",
+          "report_incident": "Report an Incident",
+          "report_mechanic": "Report Mechanic"
+        }
+      },
+      "about_info": {
+        "title": "About TractorWalla",
+        "whyChoose": "Why Choose TractorWalla?",
+        "description": "TractorWalla is your one-stop digital solution for all tractor-related needs. We are dedicated to making tractor buying, servicing, and maintenance simple, affordable, and accessible for everyone—especially farmers and tractor owners.\n\nAt TractorWalla, we understand how important tractors are in daily agricultural work. That's why we have built a platform where you can buy tractors, book services, and purchase spare parts—all in one place.",
+        "features": [
+          "Affordable & transparent pricing",
+          "Trusted service providers",
+          "Easy booking & user-friendly app",
+          "Wide range of tractors & spare parts",
+          "Complete tractor solution in one app"
+        ]
+      },
+      "faq_data": [
+        {
+          "question": "How can I book a tractor service?",
+          "answer": "You can easily book a service by selecting your tractor type, choosing the required service and confirming your booking."
+        },
+        {
+          "question": "What types of services are available?",
+          "answer": "We offer basic servicing, advanced repair, emergency breakdown support, and part replacement services."
+        },
+        {
+          "question": "Can I track my service status?",
+          "answer": "Yes, you can track real-time status like:\n• Accepted\n• Mechanic on the way\n• In progress\n• Completed"
+        },
+        {
+          "question": "Can I cancel my booking?",
+          "answer": "Yes, you can cancel your booking anytime before the mechanic begins the service from your Bookings tab."
+        },
+        {
+          "question": "How can I buy tractor parts?",
+          "answer": "Navigate to the Parts section in the app, browse through the catalog, and add the required parts to your cart."
+        },
+        {
+          "question": "Are the parts genuine?",
+          "answer": "Yes, all parts sold on TractorWalla are 100% genuine and verified by original manufacturers."
+        },
+        {
+          "question": "Can I buy both new and old tractors?",
+          "answer": "Yes, our platform connects buyers with certified sellers for both brand new and pre-owned tractors."
+        },
+        {
+          "question": "Are old tractors verified?",
+          "answer": "All pre-owned tractors go through a multi-point inspection process before they are listed on our app."
+        }
+      ]
+    },
+    "language": {
+      "title": "Choose Language"
+    },
+    "myTractor": {
+      "title": "My Tractor",
+      "addNew": "Add New Tractor +",
+      "emptyText": "No tractors added yet. Add your first tractor to get started!",
+      "deleteTitle": "Delete",
+      "deleteSubtitle": "If you delete your tractor, you will permanently lose your tractor data.",
+      "deleteConfirm": "Delete Tractor"
+    },
+    "manageAddress": {
+      "title": "Manage Address",
+      "addNew": "Add New Location +",
+      "emptyText": "No addresses added yet. Add your first address to get started!",
+      "deleteTitle": "Delete",
+      "deleteSubtitle": "If you delete your address, you will permanently lose your address data.",
+      "deleteConfirm": "Delete Address",
+      "yourAddress": "Your Address",
+      "addNewFooter": "Add a new location"
+    },
+    "bookings": {
+      "details": {
+        "title": "Booking Details",
+        "id": "Booking ID",
+        "bookService": "Book Service",
+        "brakeKits": "Brake Service Kits"
+      },
+      "services": {
+        "basic": "Basic Service",
+        "advanced": "Advanced Service",
+        "brake_repair": "Advanced Brake Repair Kit"
+      },
+      "features": {
+        "engine_oil": "Engine oil change",
+        "oil_filter": "Oil filter replacement",
+        "air_filter": "Air filter cleaning",
+        "brake_check": "Brake check & inspection",
+        "hydraulic_oil": "Hydraulic oil check",
+        "brake_adj": "Brake adjustment",
+        "battery_test": "Battery testing",
+        "coolant_insp": "Cooling system inspection",
+        "brake_shoe": "Brake Shoe Replacement",
+        "brake_drum": "Brake Drum Inspection",
+        "brake_cable": "Brake Cable Adjustment",
+        "pedal_lub": "Brake Pedal Lubrication"
+      },
+      "invoice": {
+        "title": "Invoice",
+        "mainTitle": "INVOICE",
+        "billedTo": "Billed To",
+        "paymentStatus": "Payment Status",
+        "summary": "Bill Summary",
+        "product": "Product",
+        "qty": "QTY",
+        "price": "Price",
+        "total": "Total",
+        "estimate": "Total Estimate",
+        "taxNotice": "* Taxes applicable at checkout    Included",
+        "date": "Invoice Date",
+        "itemTotal": "Item Total",
+        "inventoryItems": "Inventory Items",
+        "serviceFee": "Service Fee (Labor)"
+      },
+      "list": {
+        "title": "Your Bookings",
+        "bookingId": "BOOKING ID",
+        "assignedEngineer": "Assigned Service Engineer",
+        "totalAmount": "Total Amount",
+        "viewDetails": "View Details",
+        "invoice": "Invoice",
+        "generalInvoice": "General Invoice",
+        "inventoryInvoice": "Inventory Invoice",
+        "cancelBooking": "Cancel Booking",
+        "writeReason": "Write your reason here",
+        "others": "Others",
+        "othersPlaceholder": "eg. Had to postpone due to a work commitment.",
+        "statuses": {
+          "Scheduled": "Scheduled",
+          "Completed": "Completed",
+          "Cancelled": "Cancelled"
+        },
+        "reasons": {
+          "plan_change": "Plan Change",
+          "better_offer": "Found a better offer elsewhere",
+          "mistake": "Booked by mistake",
+          "others": "Others"
+        }
+      }
+    },
+    "tractor": {
+      "selectBrand": "Select Your Tractor",
+      "searchBrand": "Search by Brand"
+    },
+    "register": {
+      "title": "Tractor Registration",
+      "myTractorTitle": "My Tractor Details",
+      "brandNameLabel": "Brand Name",
+      "placeholderBrandName": "Enater brand name",
+      "modelNameLabel": "Model Name",
+      "placeholderModelName": "Enter model name",
+      "placeholderModel": "Enter Model Number",
+      "registrationLabel": "Registration No.",
+      "placeholderRegistration": "Enter Registration No.",
+      "manufactureYearLabel": "Year of Manufacture",
+      "purchaseYearLabel": "Year of Purchase",
+      "placeholderYearEntry": "YYYY",
+      "typeLabel": "Tractor Type",
+      "commercial": "Commercial",
+      "agricultural": "Agricultural",
+      "button": "Register Tractor",
+      "updateButton": "Update Details"
+    },
+    "about_menu": {
+      "about_tractorwalla": "About TractorWalla",
+      "join_team": "Join the Team",
+      "privacy_policy": "Privacy Policy",
+      "terms_conditions": "Terms & Conditions",
+      "contact_us": "Contact Us"
+    },
+    "privacy_policy": {
+      "sections": [
+        {
+          "title": "Information We Collect",
+          "content": "We collect your profile details, saved addresses, tractor preferences, service history, and contact information to provide smooth booking and support."
+        },
+        {
+          "title": "Location Usage",
+          "content": "Your live location is used only to connect you with nearby service engineers, suppliers, and accurate service availability."
+        },
+        {
+          "title": "Document Safety",
+          "content": "Your OTP, booking history, saved vehicles, and service details are securely stored for faster and safer future bookings."
+        },
+        {
+          "title": "Payment Security",
+          "content": "Your wallet, refunds, and transaction details are encrypted and protected for secure payments."
+        }
+      ]
+    },
+    "terms_conditions": {
+      "points": [
+        "By using TractorWalla, customers agree to provide accurate service details, tractor model information, and location data.",
+        "Booking cancellations after mechanic assignment may affect service priority and availability.",
+        "Payments, refunds, and support requests are managed according to TractorWalla's service policies."
+      ]
+    },
+    "contact_us": {
+      "helpTitle": "Need help with a booking or spare parts issue?",
+      "supportTeamPrompt": "Our support team is here to assist with:",
+      "reasons": [
+        "booking issues",
+        "payment support",
+        "cancellation help",
+        "location problems",
+        "supplier delays"
+      ],
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email"
+    },
+    "join_team": {
+      "title": "Join the TractorWalla Team",
+      "description": "Grow with TractorWalla as a Service Engineer, Supplier, or Trusted Dealership Partner. Start earning, expand your network, and be part of smarter tractor servicing.",
+      "button": "Join Us"
+    },
+    "location": {
+      "detecting": "Detecting location...",
+      "selected": "Location Selected",
+      "fetching": "Fetching address...",
+      "useCurrent": "Use Current Location",
+      "confirm": "Confirm Location"
+    },
+    "profileDetails": {
+      "title": "Profile Details",
+      "fullName": "Full Name",
+      "email": "Email ID",
+      "placeholderName": "Enter your full name",
+      "placeholderEmail": "Enter email",
+      "button": "Save & Continue",
+      "setupTitle": "Setup Your Profile Details",
+      "permanentAddress": "Permanent Address*",
+      "stateLabel": "State*",
+      "pincodeLabel": "Pincode*",
+      "placeholderAddress": "Enter address",
+      "placeholderState": "Enter state",
+      "placeholderPincode": "Enter pincode"
+    }
+  }
 }
