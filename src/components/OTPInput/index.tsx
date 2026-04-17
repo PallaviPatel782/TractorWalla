@@ -47,7 +47,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ length = 6, onComplete }) => {
               backgroundColor: theme.colors.white,
               borderColor: otp[index] ? theme.colors.greenBtn : theme.colors.borderLight,
               color: theme.colors.textPrimary,
-              fontFamily: theme.typography.fonts.poppinsRegular,
+              fontFamily: theme.typography.fonts.robotoRegular,
             },
           ]}
           maxLength={1}

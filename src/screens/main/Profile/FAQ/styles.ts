@@ -29,7 +29,7 @@ export const createStyles = (theme: AppTheme) =>
     questionText: {
       flex: 1,
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.robotoMedium,
       fontSize: SF(14),
       paddingRight: SW(16),
     },
@@ -43,7 +43,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     answerText: {
       color: theme.colors.gray600,
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(13),
       lineHeight: SH(20),
     },

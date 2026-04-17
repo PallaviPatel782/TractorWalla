@@ -23,7 +23,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     logoTitle: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.poppinsBold,
+      fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(28),
       letterSpacing: 1,
       lineHeight: SF(34),
@@ -34,14 +34,14 @@ export const createStyles = (theme: AppTheme) =>
     },
     description: {
       color: theme.colors.gray700,
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(13),
       lineHeight: SH(20),
       marginBottom: SH(20),
     },
     whyChooseTitle: {
       color: theme.colors.primary,
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
       fontSize: SF(14),
       marginBottom: SH(12),
       flexDirection: 'row',
@@ -57,7 +57,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     listText: {
       color: theme.colors.gray800,
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(13),
     },
   });

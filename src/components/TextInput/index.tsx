@@ -17,6 +17,7 @@ import View from '../View';
 export interface TextInputProps extends RNTextInputProps {
   label?: string;
   error?: string;
+  wrapperStyle?: StyleProp<ViewStyle>;
   containerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
   size?: 'xs' | 'sm' | 'md' | 'lg';
@@ -34,6 +35,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
       label,
       error,
       style,
+      wrapperStyle,
       containerStyle,
       inputStyle,
       size = 'md',
@@ -42,6 +44,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
       leftIcon,
       rightIcon,
       hasBorder = true,
+      multiline,
       onFocus,
       onBlur,
       ...rest
@@ -76,7 +79,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
     };
 
     return (
-      <View style={[themedStyles.wrapper, style]}>
+      <View style={[themedStyles.wrapper, wrapperStyle]}>
         {label && (
           <Text variant="medium" size={14} style={themedStyles.label}>
             {label}
@@ -91,8 +94,8 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
               backgroundColor: theme.colors.white,
               borderWidth: hasBorder ? (containerStyle as any)?.borderWidth ?? 1.5 : 0,
               borderColor: error ? theme.colors.error : focused ? theme.colors.primary : theme.colors.borderLight,
+              alignItems: multiline ? 'flex-start' : 'center',
             },
-
             containerStyle,
           ]}
         >
@@ -113,6 +116,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
 
           <RNTextInput
             ref={ref}
+            multiline={multiline}
             onFocus={handleFocus}
             onBlur={handleBlur}
             placeholderTextColor={theme.colors.gray400}
@@ -120,9 +124,10 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
               themedStyles.input,
               {
                 color: theme.colors.textPrimary,
-                fontFamily: theme.typography.fonts.poppinsRegular,
+                fontFamily: theme.typography.fonts.robotoRegular,
               },
               inputStyle,
+              style,
             ]}
             {...rest}
           />

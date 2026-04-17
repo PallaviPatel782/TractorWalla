@@ -10,6 +10,7 @@ import {
 import { useTheme } from '@theme';
 import Text from '../Text';
 import { createStyles } from './GlobalBottomSheet.styles';
+import { CloseIcon } from '@assets/icons';
 
 export interface GlobalBottomSheetProps {
   visible: boolean;
@@ -50,9 +51,7 @@ const GlobalBottomSheet: React.FC<GlobalBottomSheetProps> = ({
                 <View style={styles.header}>
                   <Text style={styles.title}>{title}</Text>
                   <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-                    <Text variant="bold" color={theme.colors.gray500} size={14}>
-                      ✕
-                    </Text>
+                    <CloseIcon width={20} height={20} />
                   </TouchableOpacity>
                 </View>
               )}

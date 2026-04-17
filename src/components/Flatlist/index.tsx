@@ -2,6 +2,7 @@ import { SearchIcon } from '@assets/icons';
 import Text from '../Text';
 import View from '../View';
 import TextInput from '../TextInput';
+import { SW, SH, SF } from '@utils/Dimensions';
 import React, { forwardRef, memo, useCallback, useMemo, useState } from 'react';
 import {
   FlatList as RNFlatList,
@@ -196,6 +197,7 @@ function FlatListComponent<T extends Record<string, any>>(
     searchText,
     handleSearch,
     searchPlaceholder,
+    searchBarProps,
   ]);
 
   /**
@@ -248,18 +250,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   footer: {
-    paddingVertical: 16,
+    paddingVertical: SH(16),
   },
   emptyText: {
-    fontSize: 14,
+    fontSize: SF(14),
     color: '#999',
   },
   errorText: {
-    fontSize: 14,
+    fontSize: SF(14),
     color: 'red',
   },
   searchContainer: {
-    marginHorizontal: 10,
-    paddingVertical: 10,
+    marginHorizontal: SW(10),
+    paddingVertical: SH(10),
   },
 });

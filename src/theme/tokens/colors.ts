@@ -17,6 +17,7 @@ export const lightColors = {
   DeepGreen: '#105D38',
   AzureBlue: '#3281D1',
   GoldenYellow: '#F4C542',
+  YellowLight: '#FBF3E4',
   BLUE_BG: '#3580FF',
   Teal: '#1A9E8C',
   splashBackground: '#FFF6E9',
@@ -76,7 +77,7 @@ export const lightColors = {
   brandTeal: '#1A9E8C',
   brandRedLight: '#FFF5F5',
   brandRedDark: '#C0213A',
-  
+
   // New Semantic Colors
   borderExtraLight: '#E8E8E8',
   borderFaint: '#F1F1F1',

@@ -15,7 +15,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     description: {
       color: theme.colors.gray600,
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(14),
       marginBottom: SH(24),
       lineHeight: SH(22),
@@ -31,7 +31,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     input: {
       flex: 1,
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(14),
       color: theme.colors.gray900,
       marginTop: Platform.OS === 'ios' ? 0 : -SH(10),

@@ -51,13 +51,13 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(4),
     },
     inputLabel: {
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
       fontSize: SF(12),
       color: theme.colors.gray900,
     },
     asterisk: {
       color: theme.colors.danger || '#D92D20',
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
       fontSize: SF(12),
     },
     inputWrapper: {

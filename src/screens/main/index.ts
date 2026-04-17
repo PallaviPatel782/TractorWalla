@@ -1,4 +1,4 @@
-export { default as HomeScreen } from './Home';
+export { default as HomeScreen } from './Home/Home';
 export { default as ProfileScreen } from './Profile';
 export { default as MyTractorsScreen } from './Profile/MyTractor/MyTractors';
 export { default as AddTractorDetailsScreen } from './Profile/MyTractor/AddTractorDetails';
@@ -19,3 +19,4 @@ export { default as ContactUs } from './Profile/About/ContactUs/index';
 export { default as FaqScreen } from './Profile/FAQ';
 export { default as UpdateProfileScreen } from './Profile/UpdateProfile';
 export { default as BookingDetailsScreen } from './Profile/Bookings/BookingDetails';
+export { default as NotificationScreen } from './Home/Notifications';

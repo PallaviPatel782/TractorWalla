@@ -7,6 +7,7 @@ import {
   ViewStyle,
   StyleProp,
 } from 'react-native';
+import { SH, SF } from '@utils/Dimensions';
 import Text from '../Text';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -82,16 +83,16 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
-    gap: 12,
+    gap: SH(12),
   },
   message: {
-    fontSize: 14,
+    fontSize: SF(14),
     letterSpacing: 0.2,
   },
   inlineContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 40,
+    paddingVertical: SH(40),
   },
 });
 

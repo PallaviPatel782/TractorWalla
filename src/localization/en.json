@@ -62,7 +62,69 @@
       "services": "All Services",
       "parts": "Parts",
       "profile": "Profile",
-      "language": "Language"
+      "language": "Language",
+      "deliverTo": "Deliver to",
+      "searchPlaceholder": "Search Services",
+      "seeMore": "See More",
+      "whatServices": "What services do you need?",
+      "partsAccessories": "Parts & Accessories",
+      "categories": "Categories",
+      "howItWorks": "How It Works",
+      "howItWorksTitle": "How TractorWalla Works?",
+      "brandsTitle": "Brands we work with",
+      "jobsDone": "Jobs done",
+      "hero": {
+        "slider1": "Genuine parts, affordable pricing, lower than market rates",
+        "slider2": "Expert mechanics at your doorstep, anytime",
+        "slider3": "Fast & reliable tractor service across India",
+        "cta": "Book Service Now"
+      },
+      "serviceCards": {
+        "bookService": {
+          "title": "Book Service",
+          "sub": "General repairs and field support"
+        },
+        "buyParts": {
+          "title": "Buy Parts",
+          "sub": "Purchase genuine tractor spare parts and accessories."
+        },
+        "tractorPurchase": {
+          "title": "Tractor Purchase",
+          "sub": "Browse new & used tractors with ease"
+        },
+        "emergencyVisit": {
+          "title": "Emergency Visit",
+          "sub": "Get instant roadside help from nearby mechanics."
+        }
+      },
+      "categoryLabels": {
+        "maintenance": "General\nMaintenance",
+        "clutch": "Transmission &\nClutch",
+        "tyre": "Tyre & Wheel\nServices",
+        "electrical": "Electrical\nServices",
+        "hydraulic": "Hydraulic\nServices",
+        "brake": "Brake Services",
+        "painting": "Denting &\nPainting",
+        "engine": "Engine\nServices"
+      },
+      "steps": {
+        "step1": {
+          "title": "Add Your Tractor Details",
+          "desc": "Enter your tractor's brand, model, and issue details so we can understand your needs better."
+        },
+        "step2": {
+          "title": "Book a Repair Service",
+          "desc": "Choose the type of service you need — repair, maintenance, or emergency breakdown support."
+        },
+        "step3": {
+          "title": "Get Matched with a Mechanic",
+          "desc": "We connect you with a nearby verified mechanic who specializes in your tractor type."
+        }
+      },
+      "network": {
+        "title": "Join the TractorWalla Network",
+        "sub": "Grow with us as a service engineer, supplier, or trusted dealership partner"
+      }
     },
     "profile": {
       "title": "My Account",

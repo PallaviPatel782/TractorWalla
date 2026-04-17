@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ onPressLogo }) => {
         <Text
           variant="bold"
           size={theme.typography.sizes.xl}
-          style={[styles.brandText, { fontFamily: theme.typography.fonts.poppinsBold }]}
+          style={[styles.brandText, { fontFamily: theme.typography.fonts.robotoBold }]}
         >
           TractorWalla
         </Text>

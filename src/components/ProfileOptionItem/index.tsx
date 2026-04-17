@@ -4,7 +4,7 @@ import View from '../View';
 import Text from '../Text';
 import TouchableOpacity from '../TouchableOpacity';
 import { useTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
+import { SW, SH } from '@utils/Dimensions';
 import { ChevronBackwardIcon } from '@assets/icons';
 
 interface ProfileOptionItemProps {

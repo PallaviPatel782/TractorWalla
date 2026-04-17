@@ -30,7 +30,7 @@ const ContactUs = ({ navigation }: any) => {
               {t('main.contact_us.helpTitle')}
             </Text>
 
-            <Text variant="medium" size={14} color={theme.colors.primary} style={{ marginBottom: 8 }}>
+            <Text variant="medium" size={14} color={theme.colors.BLUE_BG} style={{ marginBottom: 8 }}>
               {t('main.contact_us.supportTeamPrompt')}
             </Text>
 

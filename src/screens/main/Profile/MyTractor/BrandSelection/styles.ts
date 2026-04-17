@@ -34,7 +34,7 @@ export const createStyles = (theme: AppTheme) =>
     searchInputWrapper: {
       flex: 1,
       marginBottom: 0,
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(14),
       color: theme.colors.textPrimary,
     },
@@ -72,7 +72,7 @@ export const createStyles = (theme: AppTheme) =>
     brandName: {
       textAlign: 'center',
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.robotoMedium,
       fontSize: SF(11),
     },
   });

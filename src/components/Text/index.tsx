@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text as RNText, TextProps as RNTextProps, StyleSheet } from 'react-native';
+import { Text as RNText, TextProps as RNTextProps } from 'react-native';
 import { useTheme } from '@theme';
 import { SF } from '@utils/Dimensions';
 
@@ -8,7 +8,7 @@ export interface TextProps extends RNTextProps {
   size?: number;
   color?: string;
   align?: 'left' | 'center' | 'right';
-  fontFamily?: 'poppins' | 'roboto';
+  fontFamily?: 'roboto' | 'roboto';
 }
 
 const Text: React.FC<TextProps> = ({
@@ -17,7 +17,7 @@ const Text: React.FC<TextProps> = ({
   size = 14,
   color,
   align = 'left',
-  fontFamily = 'poppins',
+  fontFamily = 'roboto',
   style,
   ...props
 }) => {
@@ -26,7 +26,7 @@ const Text: React.FC<TextProps> = ({
   const getFontFamily = () => {
     const capitalizedVariant = variant.charAt(0).toUpperCase() + variant.slice(1);
     const fontKey = `${fontFamily}${capitalizedVariant}` as keyof typeof theme.typography.fonts;
-    return theme.typography.fonts[fontKey] || theme.typography.fonts.poppinsRegular;
+    return theme.typography.fonts[fontKey] || theme.typography.fonts.robotoRegular;
   };
 
   const textStyle = {

@@ -45,11 +45,11 @@ export const createStyles = (theme: AppTheme) =>
       marginTop: SH(12),
     },
     userName: {
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
     },
     userEmail: {
       marginVertical: SH(2),
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
     },
     sectionContainer: {
       marginBottom: SH(16),

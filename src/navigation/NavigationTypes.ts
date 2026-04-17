@@ -23,6 +23,7 @@ export type RootStackParamList = {
   FAQ: undefined;
   UpdateProfile: undefined;
   BookingDetails: { bookingId?: string };
+  NotificationScreen: undefined
 };
 
 export type AuthStackParamList = {

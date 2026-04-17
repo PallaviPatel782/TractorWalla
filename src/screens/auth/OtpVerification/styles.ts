@@ -31,7 +31,7 @@ export const createStyles = (theme: AppTheme) =>
       marginTop: SH(10),
       color: theme.colors.textPrimary,
       textAlign: 'center',
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
     },
     paginationDots: {
       flexDirection: 'row',
@@ -64,7 +64,7 @@ export const createStyles = (theme: AppTheme) =>
     subText: {
       marginTop: SH(8),
       lineHeight: SH(18),
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
     },
     otpWrapper: {
       height: SH(70),

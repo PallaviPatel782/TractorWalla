@@ -78,7 +78,7 @@ export const createStyles = (theme: AppTheme) =>
       borderWidth: 1,
       borderColor: theme.colors.gray300,
       alignItems: 'center',
-      fontFamily: theme.fontfamily.poppinsRegular
+      fontFamily: theme.fontfamily.robotoRegular
     },
     deleteButton: {
       flex: 1,
@@ -86,6 +86,6 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(8),
       backgroundColor: theme.colors.danger,
       alignItems: 'center',
-      fontFamily: theme.fontfamily.poppinsRegular
+      fontFamily: theme.fontfamily.robotoRegular
     },
   });

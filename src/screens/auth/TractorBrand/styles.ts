@@ -70,7 +70,7 @@ export const createStyles = (theme: AppTheme) =>
     brandName: {
       textAlign: 'center',
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.robotoMedium,
       fontSize: SF(11),
     },
   });

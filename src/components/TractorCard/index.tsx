@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import View from '../View';
 import Text from '../Text';
 import TouchableOpacity from '../TouchableOpacity';
 import { useTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
+import { SW, SH } from '@utils/Dimensions';
 import { DeleteIcon } from '@assets/icons';
 import { TractorImage } from '@assets/images';
 

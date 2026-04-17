@@ -22,14 +22,14 @@ import {
   LogoutIcon,
   ReportIcon,
   ChangelanguageIcon,
-  LocationIcon,
   BookingIcon,
   InstagramIcon,
   FacebookIcon,
   YoutubeIcon,
   ThreadsIcon,
   ChevronBackwardIcon,
-  BikeIcon
+  BikeIcon,
+  LocationEditIcon
 } from '@assets/icons';
 import { SW, SH } from '@utils/Dimensions';
 
@@ -112,7 +112,7 @@ const ProfileScreen = ({ navigation }: any) => {
               </Text>
             </View>
             <ProfileOptionItem
-              icon={<LocationIcon size={20} color={theme.colors.primary} />}
+              icon={<LocationEditIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.manageAddress')}
               onPress={() => navigation.navigate('ManageAddress')}
             />

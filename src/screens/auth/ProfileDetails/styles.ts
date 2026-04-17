@@ -26,7 +26,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     headerBannerText: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
     },
     content: {
       flex: 1,

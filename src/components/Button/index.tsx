@@ -6,7 +6,7 @@ import {
   TextStyle,
 } from 'react-native';
 import { useTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
+import { SW, SH } from '@utils/Dimensions';
 import Text from '../Text';
 import TouchableOpacity from '../TouchableOpacity';
 

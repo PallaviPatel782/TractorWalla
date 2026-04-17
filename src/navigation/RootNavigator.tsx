@@ -32,6 +32,7 @@ import {
   PrivacyPolicy,
   TermsConditions,
   ContactUs,
+  NotificationScreen,
 } from '@screens/main';
 import TabNavigator from '@navigation/TabNavigator';
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -80,6 +81,7 @@ const RootNavigator = () => {
         <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
         <Stack.Screen name="TermsConditions" component={TermsConditions} />
         <Stack.Screen name="ContactUs" component={ContactUs} />
+        <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
         {/* {!isAuthenticated ? (
           <Stack.Screen name="Auth" component={AuthNavigator} />
         ) : (

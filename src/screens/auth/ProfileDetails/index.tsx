@@ -124,7 +124,7 @@ const ProfileDetails = ({ navigation, route }: any) => {
               title={t('common.submit')}
               onPress={handleSubmit}
               style={styles.button}
-              disabled={!formData.fullName || !formData.address || !formData.state || !formData.pincode}
+            // disabled={!formData.fullName || !formData.address || !formData.state || !formData.pincode}
             />
           </ScrollView>
         </KeyboardWrapper>

@@ -19,7 +19,7 @@ export const createStyles = (theme: AppTheme) =>
     sectionTitle: {
       marginBottom: SH(16),
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
     },
     listContent: {
       paddingBottom: SH(100),
@@ -73,7 +73,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(4),
     },
     addressLabel: {
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
       color: theme.colors.gray500,
     },
     addressText: {
@@ -94,7 +94,7 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
     },
     actionText: {
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.robotoMedium,
       color: theme.colors.gray900,
     },
     footer: {
@@ -113,6 +113,6 @@ export const createStyles = (theme: AppTheme) =>
     },
     footerText: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
     },
   });

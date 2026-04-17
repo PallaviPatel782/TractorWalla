@@ -69,7 +69,7 @@ const TabNavigator = () => {
         },
         tabBarLabelStyle: {
           fontSize: SF(12),
-          fontWeight: '500'
+          fontFamily: theme.fontfamily.robotoRegular
         },
       }}>
       <Tab.Screen

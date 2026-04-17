@@ -70,7 +70,9 @@ const TractorBrand = ({ navigation }: any) => {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <SecondaryHeader title={t('main.tractor.selectBrand')} onBack={() => navigation.goBack()} />
+        <SecondaryHeader title={t('main.tractor.selectBrand')} onBack={() => navigation.goBack()}
+          backgroundColor={theme.colors.YellowLight}
+          titleColor={theme.colors.black} />
 
         <View style={styles.content}>
           <View style={styles.searchContainer}>

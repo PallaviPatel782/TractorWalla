@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useThemedStyles, AppTheme } from '@theme';
+import { SW, SH, SF } from '@utils/Dimensions';
 
 interface CustomDatePickerModalProps {
   visible: boolean;
@@ -224,49 +225,49 @@ const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
     },
     dragHandle: {
-      width: 40,
-      height: 4,
-      borderRadius: 2,
+      width: SW(40),
+      height: SH(4),
+      borderRadius: SW(2),
       backgroundColor: '#DDDDDD',
       alignSelf: 'center',
-      marginBottom: 16,
+      marginBottom: SH(16),
     },
     card: {
       backgroundColor: '#FFFFFF',
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-      padding: 20,
-      paddingBottom: 30, // extra padding for bottom safe area
+      borderTopLeftRadius: SW(20),
+      borderTopRightRadius: SW(20),
+      padding: SW(20),
+      paddingBottom: SH(30), // extra padding for bottom safe area
       width: '100%',
       elevation: 16,
       shadowColor: '#000',
       shadowOpacity: 0.2,
-      shadowRadius: 16,
-      shadowOffset: { width: 0, height: -4 },
+      shadowRadius: SW(16),
+      shadowOffset: { width: 0, height: SH(-4) },
     },
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: 20,
+      marginBottom: SH(20),
     },
     monthText: {
-      fontSize: 16,
+      fontSize: SF(16),
       fontWeight: '600',
       color: '#1A1A1A',
     },
     arrowsContainer: {
       flexDirection: 'row',
-      gap: 16,
+      gap: SW(16),
     },
     arrowButton: {
-      paddingHorizontal: 8,
+      paddingHorizontal: SW(8),
     },
     arrowButtonDisabled: {
       opacity: 0.4,
     },
     arrowText: {
-      fontSize: 16,
+      fontSize: SF(16),
       color: '#1A1A1A',
       fontWeight: '600',
     },
@@ -276,12 +277,12 @@ const createStyles = (theme: AppTheme) =>
     daysOfWeekContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      marginBottom: 10,
+      marginBottom: SH(10),
     },
     dayOfWeekText: {
-      fontSize: 14,
+      fontSize: SF(14),
       color: '#8C8C8C',
-      width: 40,
+      width: SW(40),
       textAlign: 'center',
     },
     grid: {
@@ -297,7 +298,7 @@ const createStyles = (theme: AppTheme) =>
       aspectRatio: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      marginVertical: 4,
+      marginVertical: SH(4),
     },
     rangeBackground: {
       position: 'absolute',
@@ -308,19 +309,19 @@ const createStyles = (theme: AppTheme) =>
       backgroundColor: '#AEE4D4', // light teal
     },
     rangeBackgroundStart: {
-      borderTopLeftRadius: 20,
-      borderBottomLeftRadius: 20,
+      borderTopLeftRadius: SW(20),
+      borderBottomLeftRadius: SW(20),
       left: '10%', // start from circle edge
     },
     rangeBackgroundEnd: {
-      borderTopRightRadius: 20,
-      borderBottomRightRadius: 20,
+      borderTopRightRadius: SW(20),
+      borderBottomRightRadius: SW(20),
       right: '10%',
     },
     dayTouchable: {
-      width: 36,
-      height: 36,
-      borderRadius: 18,
+      width: SW(36),
+      height: SW(36),
+      borderRadius: SW(18),
       justifyContent: 'center',
       alignItems: 'center',
       zIndex: 1,
@@ -335,7 +336,7 @@ const createStyles = (theme: AppTheme) =>
       borderColor: '#CCCCCC',
     },
     dayText: {
-      fontSize: 15,
+      fontSize: SF(15),
       color: '#1A1A1A',
     },
     dayTextDisabled: {
@@ -347,14 +348,14 @@ const createStyles = (theme: AppTheme) =>
     },
     applyButton: {
       backgroundColor: theme.colors.DeepGreen || '#1E5128', // Fallback to dark green
-      borderRadius: 24,
-      paddingVertical: 14,
+      borderRadius: SW(24),
+      paddingVertical: SH(14),
       alignItems: 'center',
-      marginTop: 20,
+      marginTop: SH(20),
     },
     applyButtonText: {
       color: '#FFFFFF',
-      fontSize: 16,
+      fontSize: SF(16),
       fontWeight: '600',
     },
   });

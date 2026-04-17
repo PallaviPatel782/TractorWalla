@@ -34,7 +34,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(12),
     },
     bookingId: {
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.robotoMedium,
       color: theme.colors.gray500,
       fontSize: SF(11),
     },
@@ -42,12 +42,7 @@ export const createStyles = (theme: AppTheme) =>
       padding: SW(4),
       borderColor: theme.colors.gray100,
       borderWidth: 1,
-      borderRadius: 20,
-      elevation: 0.5,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 0.5 },
-      shadowOpacity: 0.05,
-      shadowRadius: 0.5,
+      borderRadius: 50,
     },
     engineerSection: {
       flexDirection: 'row',
@@ -87,7 +82,7 @@ export const createStyles = (theme: AppTheme) =>
       gap: SW(4),
     },
     statusValue: {
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.robotoMedium,
     },
     divider: {
       height: 1,

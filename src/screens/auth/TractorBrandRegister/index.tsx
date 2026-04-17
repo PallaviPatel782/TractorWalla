@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Dropdown,
   ScrollView,
+  GlobalBottomSheet,
 } from '@components';
 import { useAppDispatch } from '@store';
 import { addTractor } from '@store/slices/authSlice';
@@ -48,6 +49,8 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
 
   const isOthers = brand === 'Others';
 
+  const [showTypeSheet, setShowTypeSheet] = useState(false);
+
   const [formData, setFormData] = useState({
     customBrand: isOthers ? '' : brand,
     model: '',
@@ -83,24 +86,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
   };
 
 
-  const renderTractorTypeOption = (typeKey: 'commercial' | 'agricultural') => {
-    const isActive = formData.tractorType === typeKey;
-    const typeLabel = t(`main.register.${typeKey}`);
-    return (
-      <TouchableOpacity
-        style={[styles.typeItem, isActive && styles.typeItemActive]}
-        onPress={() => handleInputChange('tractorType', typeKey)}
-        activeOpacity={0.7}
-      >
-        <Text variant="medium" size={12} style={styles.typeText}>
-          {typeLabel}
-        </Text>
-        <View style={[styles.radioCircle, isActive && styles.radioCircleActive]}>
-          {isActive && <View style={styles.radioInner} />}
-        </View>
-      </TouchableOpacity>
-    );
-  };
+
 
   const BrandLogo = BRAND_LOGOS[brand] || Brands.OthersImage;
 
@@ -186,10 +172,15 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
 
                 <View>
                   <Text variant="medium" size={14} style={styles.label}>{t('main.register.typeLabel')}</Text>
-                  <View style={styles.typeSelectionContainer}>
-                    {renderTractorTypeOption('commercial')}
-                    {renderTractorTypeOption('agricultural')}
-                  </View>
+                  <TouchableOpacity
+                    style={styles.typeTriggerButton}
+                    onPress={() => setShowTypeSheet(true)}
+                    activeOpacity={0.7}
+                  >
+                    <Text variant="regular" size={13} style={styles.typeTriggerText}>
+                      {t(`main.register.${formData.tractorType}`)}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
 
               </View>
@@ -200,10 +191,38 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
 
               onPress={handleContinue}
               style={styles.button}
-              disabled={!formData.registrationNo || !formData.model || (!formData.customBrand && isOthers)}
+            // disabled={!formData.registrationNo || !formData.model || (!formData.customBrand && isOthers)}
             />
           </ScrollView>
         </KeyboardWrapper>
+
+        <GlobalBottomSheet
+          visible={showTypeSheet}
+          onClose={() => setShowTypeSheet(false)}
+          title="Select Type of Tractor"
+        >
+          {['commercial', 'agricultural'].map((typeKey: any) => {
+            const isActive = formData.tractorType === typeKey;
+            return (
+              <TouchableOpacity
+                key={typeKey}
+                style={styles.bottomSheetItem}
+                onPress={() => {
+                  handleInputChange('tractorType', typeKey);
+                  setShowTypeSheet(false);
+                }}
+                activeOpacity={0.7}
+              >
+                <Text variant="regular" size={14} style={isActive ? styles.bottomSheetItemTextActive : styles.bottomSheetItemText}>
+                  {t(`main.register.${typeKey}`)}
+                </Text>
+                <View style={[styles.radioCircle, isActive && styles.radioCircleActive]}>
+                  {isActive && <View style={styles.radioInner} />}
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </GlobalBottomSheet>
       </View>
     </ScreenWrapper>
   );

@@ -46,9 +46,9 @@ const ManageAddress = ({ navigation }: any) => {
         </View>
         <View style={styles.addressInfo}>
           <View style={styles.labelRow}>
-          <Text variant="semiBold" size={13} style={styles.addressLabel}>
-            {item.label === 'Default' ? t('common.default') : t('main.manageAddress.yourAddress')}
-          </Text>
+            <Text variant="semiBold" size={13} style={styles.addressLabel}>
+              {item.label === 'Default' ? t('common.default') : t('main.manageAddress.yourAddress')}
+            </Text>
           </View>
           <Text variant="regular" size={12} style={styles.addressText}>
             {item.address}
@@ -70,7 +70,8 @@ const ManageAddress = ({ navigation }: any) => {
     <ScreenWrapper>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <SecondaryHeader title={t('main.manageAddress.title')} onBack={() => navigation.goBack()} />
+          <SecondaryHeader title={t('main.manageAddress.title')} onBack={() => navigation.goBack()} backgroundColor={theme.colors.YellowLight}
+            titleColor={theme.colors.black} />
         </View>
 
         <View style={styles.content}>

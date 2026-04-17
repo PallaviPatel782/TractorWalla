@@ -23,14 +23,14 @@ export const createStyles = (theme: AppTheme) =>
     },
     subText: {
       marginTop: SH(4),
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
     },
     inputCard: {
       width: '100%',
       padding: SW(20),
       borderRadius: SW(20),
       backgroundColor: theme.colors.white,
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
       marginTop: SH(40),
       marginBottom: SH(10),
       shadowColor: '#000',

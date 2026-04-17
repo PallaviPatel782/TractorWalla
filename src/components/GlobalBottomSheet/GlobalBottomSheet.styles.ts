@@ -28,11 +28,11 @@ export const createStyles = (theme: AppTheme) =>
     title: {
       fontSize: SF(18),
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
     },
     closeButton: {
-      padding: SW(4),
-      backgroundColor: theme.colors.neutral100,
-      borderRadius: SW(20),
+      padding: SW(5),
+      backgroundColor: theme.colors.gray400,
+      borderRadius: SW(50),
     },
   });

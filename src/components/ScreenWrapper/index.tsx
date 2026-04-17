@@ -45,7 +45,8 @@ const ScreenWrapper = ({
       <View style={[
         styles.innerContainer,
         {
-          paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
           backgroundColor: finalBackgroundColor
         },
         style

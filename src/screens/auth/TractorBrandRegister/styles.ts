@@ -32,30 +32,38 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(20),
     },
     // Selection Group Styles
-    typeSelectionContainer: {
+    typeTriggerButton: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: theme.colors.white,
+      borderColor: theme.colors.borderLight,
+      borderWidth: 1.5,
+      paddingHorizontal: SW(12),
+      paddingVertical: SH(10),
+      borderRadius: SW(10),
       marginTop: SH(8),
     },
-    typeItem: {
-      flex: 1,
+    typeTriggerText: {
+      color: theme.colors.textPrimary,
+      fontFamily: theme.fontfamily.robotoRegular,
+    },
+    bottomSheetItem: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: SW(12),
-      height: SH(35),
-      borderRadius: SW(10),
-      borderWidth: 1.5,
-      borderColor: theme.colors.borderLight,
-      marginHorizontal: SW(4),
+      paddingVertical: SH(16),
+      borderBottomWidth: 1.5,
+      borderBottomColor: theme.colors.gray300,
+      paddingHorizontal: SW(8),
     },
-    typeItemActive: {
-      borderColor: theme.colors.brandGreen,
-      backgroundColor: theme.colors.white,
-    },
-    typeText: {
+    bottomSheetItemText: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.robotoRegular,
+    },
+    bottomSheetItemTextActive: {
+      color: theme.colors.brandGreen,
+      fontFamily: theme.fontfamily.robotoSemiBold,
     },
     radioCircle: {
       width: SW(16),
@@ -78,7 +86,7 @@ export const createStyles = (theme: AppTheme) =>
     label: {
       marginBottom: SH(8),
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.robotoMedium,
     },
     brandDisplayContainer: {
       flexDirection: 'row',
@@ -95,7 +103,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     brandDisplayName: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.robotoSemiBold,
     },
     dropdownButton: {
       backgroundColor: theme.colors.white,

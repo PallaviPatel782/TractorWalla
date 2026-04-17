@@ -24,3 +24,4 @@ export { default as StatusBar } from './StatusBar';
 export { default as ProfileOptionItem } from './ProfileOptionItem/index';
 export { default as TractorCard } from './TractorCard/index';
 export { default as GlobalBottomSheet } from './GlobalBottomSheet';
+export { default as ImagePicker } from './ImagePicker';

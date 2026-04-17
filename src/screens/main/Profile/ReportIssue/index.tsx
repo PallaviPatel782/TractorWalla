@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Image, KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import {
@@ -9,12 +9,11 @@ import {
   Dropdown,
   SecondaryHeader,
   ScreenWrapper,
-  TouchableOpacity,
   View,
   ScrollView,
+  ImagePicker,
 } from '@components';
 import { createStyles } from './styles';
-import { CloseIcon } from '@assets/icons';
 
 const ReportIssue = ({ navigation }: any) => {
   const { theme } = useTheme();
@@ -31,10 +30,9 @@ const ReportIssue = ({ navigation }: any) => {
 
   const [issueType, setIssueType] = useState('report_issue');
   const [message, setMessage] = useState('');
-  const [photo, setPhoto] = useState<string | null>('https://i.pravatar.cc/100'); // Placeholder photo mimicking the image
+  const [photos, setPhotos] = useState<string[]>([]);
 
   const handleSubmit = () => {
-    // Implement issue report submission logic
     navigation.goBack();
   };
 
@@ -64,6 +62,7 @@ const ReportIssue = ({ navigation }: any) => {
                   selectedValue={issueType}
                   onSelect={(opt) => setIssueType(opt.value)}
                   placeholder={t('main.profile.report.selectIssue')}
+                  buttonStyle={styles.dropdownButton}
                 />
               </View>
 
@@ -74,26 +73,17 @@ const ReportIssue = ({ navigation }: any) => {
                   value={message}
                   onChangeText={setMessage}
                   multiline
-                  style={{ minHeight: 120, textAlignVertical: 'top' }}
+                  style={{ minHeight: 150, textAlignVertical: 'top' }}
                 />
               </View>
 
               <View style={[styles.photoSection, { zIndex: 1 }]}>
-                <View style={styles.addPhotoLabelContainer}>
-                  <Text style={styles.addPhotoLabel}>{t('main.profile.report.addPhoto')}</Text>
-                </View>
-
-                {photo && (
-                  <View style={styles.photoBox}>
-                    <Image source={{ uri: photo }} style={styles.photoImage} />
-                    <TouchableOpacity
-                      style={styles.removePhotoButton}
-                      onPress={() => setPhoto(null)}
-                    >
-                      <CloseIcon size={16} color={theme.colors.white} />
-                    </TouchableOpacity>
-                  </View>
-                )}
+                <ImagePicker
+                  photos={photos}
+                  onPhotosChange={setPhotos}
+                  label={t('main.profile.report.addPhoto')}
+                  maxPhotos={5}
+                />
               </View>
             </View>
           </ScrollView>
@@ -120,3 +110,4 @@ const ReportIssue = ({ navigation }: any) => {
 };
 
 export default ReportIssue;
+

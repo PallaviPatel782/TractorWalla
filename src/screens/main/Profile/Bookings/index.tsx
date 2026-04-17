@@ -93,13 +93,11 @@ const Bookings = ({ navigation }: any) => {
       <View style={[styles.bookingCard, isActive && { zIndex: Number.MAX_SAFE_INTEGER, elevation: 10 }]}>
         <View style={styles.cardHeader}>
           <Text style={styles.bookingId}>#{t('main.bookings.list.bookingId')}: {item.id}</Text>
-          <TouchableOpacity style={styles.optionsIcon} onPress={() => {
-            if (item.status === 'Scheduled') {
-              handleOpenCancelModal(item);
-            }
-          }}>
-            <ThreedotsIcon size={24} color={theme.colors.gray400} />
-          </TouchableOpacity>
+          {item.status === 'Scheduled' && (
+            <TouchableOpacity style={styles.optionsIcon} onPress={() => handleOpenCancelModal(item)}>
+              <ThreedotsIcon size={24} color={theme.colors.gray400} />
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.engineerSection}>
