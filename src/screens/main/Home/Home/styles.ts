@@ -17,6 +17,7 @@ export const createStyles = (theme: AppTheme) =>
       paddingTop: SH(12),
       paddingBottom: SH(16),
       paddingHorizontal: SW(16),
+      marginBottom: SH(10)
     },
     searchRow: {
       flexDirection: 'row',
@@ -29,9 +30,8 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(30),
+      borderRadius: SW(50), // Fully rounded as in SS
       paddingHorizontal: SW(16),
-      paddingVertical: SH(8),
       gap: SW(10),
     },
     searchInput: {
@@ -40,6 +40,7 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.textPrimary,
       fontFamily: theme.fontfamily.robotoRegular,
       padding: 0,
+
     },
     headerActions: {
       flexDirection: 'row',
@@ -86,45 +87,77 @@ export const createStyles = (theme: AppTheme) =>
 
     // ── Slider Sections ───────────────────────────────────────────────
     sliderSection: {
-      marginVertical: SH(16),
+      marginBottom: SH(16),
+      marginHorizontal: SW(15)
     },
     heroCardContainer: {
-      width: SCREEN_WIDTH,
-      paddingHorizontal: SW(16),
-    },
-    heroCard: {
-      width: SCREEN_WIDTH - SW(32),
+      width: SW(343),
+      height: SH(154),
       borderRadius: SW(20),
       overflow: 'hidden',
-      backgroundColor: theme.colors.gray200,
+      alignItems: 'center',
     },
-    heroOverlay: {
+    heroCard: {
+      height: SH(160),
+      width: SW(343),
+      borderRadius: SW(20),
+      overflow: 'hidden',
+      position: 'relative',
+      shadowRadius: 8,
+      marginRight: SW(15)
+    },
+    heroGradient: {
       position: 'absolute',
       bottom: 0,
       left: 0,
       right: 0,
-      padding: SW(60),
-      paddingBottom: SH(24),
-      backgroundColor: 'rgba(0,0,0,0.3)', // Subtle dark overlay for text readability
+      height: '100%', // Fade from middle to bottom
+      justifyContent: 'flex-end',
+      paddingHorizontal: SW(20),
+      paddingBottom: SH(20),
+    },
+    heroOverlay: {
+      // Background color fallback if gradient not used
+      backgroundColor: 'rgba(0,0,0,0.3)',
+      position: 'absolute',
+      top: 0, left: 0, right: 0, bottom: 0,
     },
     heroTitle: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.robotoBold,
-      fontSize: SF(18),
-      marginBottom: SH(16),
+      fontSize: SF(15),
+      marginBottom: SH(12),
       lineHeight: SF(24),
     },
     heroCta: {
       alignSelf: 'flex-start',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(25),
-      paddingHorizontal: SW(20),
-      paddingVertical: SH(8),
+      borderRadius: SW(25), // Pill shape
+      paddingHorizontal: SW(24),
+      paddingVertical: SH(10),
     },
     heroCtaText: {
       color: '#000',
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(14),
+    },
+    // Middle Slider Container
+    middleCardContainer: {
+      width: SW(343),
+      height: SH(154),
+      borderRadius: SW(20),
+      overflow: 'hidden',
+      alignItems: 'center',
+      marginRight: SW(10)
+    },
+    // Network Slider Container
+    networkCardContainer: {
+      width: SW(343),
+      height: SH(154),
+      borderRadius: SW(20),
+      overflow: 'hidden',
+      alignItems: 'center',
+      marginRight: SW(10)
     },
     dots: {
       flexDirection: 'row',
@@ -132,15 +165,35 @@ export const createStyles = (theme: AppTheme) =>
       gap: SW(8),
       marginTop: SH(12),
     },
-    dot: {
+    heroDot: {
       width: SW(8),
       height: SW(8),
       borderRadius: SW(4),
       backgroundColor: '#EBEBEB',
     },
-    dotActive: {
+    heroDotActive: {
       backgroundColor: theme.colors.DeepGreen || '#105D38',
-      width: SW(24), // Active indicator is longer like in SS
+      width: SW(24),
+    },
+    middleDot: {
+      width: SW(8),
+      height: SW(8),
+      borderRadius: SW(4),
+      backgroundColor: '#EBEBEB',
+    },
+    middleDotActive: {
+      backgroundColor: '#E84040', // Red as requested
+      width: SW(24),
+    },
+    networkDot: {
+      width: SW(8),
+      height: SW(8),
+      borderRadius: SW(4),
+      backgroundColor: '#EBEBEB',
+    },
+    networkDotActive: {
+      backgroundColor: theme.colors.red,
+      width: SW(24),
     },
 
     // ── Generic Section ───────────────────────────────────────────────
@@ -158,6 +211,7 @@ export const createStyles = (theme: AppTheme) =>
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(17),
       color: '#000',
+      marginBottom: SH(10)
     },
     seeMore: {
       fontFamily: theme.fontfamily.robotoMedium,
@@ -172,30 +226,51 @@ export const createStyles = (theme: AppTheme) =>
       flexWrap: 'wrap',
       gap: SW(12),
     },
+
     serviceCard: {
-      width: (SCREEN_WIDTH - SW(32) - SW(12)) / 2,
+      width: SW(164),
       borderRadius: SW(20),
       padding: SW(16),
-      minHeight: SH(140),
+      minHeight: SH(90),
+      overflow: 'hidden',
+      position: 'relative',
+      elevation: 3,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.08,
+      shadowRadius: 6,
+    },
+    serviceCardDecorator: {
+      position: 'absolute',
+      top: SH(-9), // Exact from SS layout
+      left: SW(-18), // Exact from SS layout
+      width: SW(94), // Exact from SS layout
+      height: SW(94), // Exact from SS layout
+      borderRadius: SW(47), // Half of width for perfect circle
+    },
+    serviceTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: SW(8),
+      marginBottom: SH(12),
+      zIndex: 1,
     },
     serviceIconWrap: {
-      width: SW(44),
-      height: SW(44),
-      borderRadius: SW(12),
+      paddingHorizontal: SW(6),
+      paddingVertical: SH(6),
+      borderRadius: SW(10),
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: SH(12),
     },
     serviceLabel: {
+      flex: 1,
       fontFamily: theme.fontfamily.robotoBold,
-      fontSize: SF(15),
-      marginBottom: SH(6),
+      fontSize: SF(12),
     },
     serviceSub: {
       fontFamily: theme.fontfamily.robotoRegular,
-      fontSize: SF(12),
+      fontSize: SF(9),
       color: '#666',
-      lineHeight: SF(16),
     },
 
     // ── Parts Card ────────────────────────────────────────────────────
@@ -245,28 +320,29 @@ export const createStyles = (theme: AppTheme) =>
     categoryGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       rowGap: SH(20),
+      columnGap: SW(10),
     },
     categoryItem: {
-      width: (SCREEN_WIDTH - SW(32)) / 3.2,
+      width: (SCREEN_WIDTH - SW(32) - SW(20)) / 3, // 3 columns, 2 gaps of SW(10)
       alignItems: 'center',
     },
     categoryImageWrap: {
-      width: SW(76),
-      height: SW(76),
-      backgroundColor: '#F5F5F5',
-      borderRadius: SW(12),
+      width: SW(72),
+      height: SW(72),
+      borderRadius: SW(14),
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: SH(8),
+      marginBottom: SH(6),
+      overflow: 'hidden',
     },
     categoryLabel: {
       fontFamily: theme.fontfamily.robotoRegular,
-      fontSize: SF(12),
+      fontSize: SF(11),
       color: '#444',
       textAlign: 'center',
-      lineHeight: SF(16),
+      lineHeight: SF(15),
     },
 
     // ── Ad Banner ─────────────────────────────────────────────────────
@@ -275,6 +351,226 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(24),
       borderRadius: SW(16),
       overflow: 'hidden',
+    },
+
+    // ── Pro Banner Card (TOP ASSIST / BEST DEALS style) ───────────────
+    proBannerCard: {
+      borderRadius: SW(16),
+      overflow: 'hidden',
+      minHeight: SH(154),
+    },
+    proBannerContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flex: 1,
+      paddingLeft: SW(16),
+    },
+    proBannerLeft: {
+      flex: 1,
+      paddingRight: SW(8),
+      marginRight: SW(15)
+    },
+    proBannerBadge: {
+      alignSelf: 'flex-start',
+      backgroundColor: 'rgba(255,255,255,0.22)',
+      borderRadius: SW(6),
+      paddingHorizontal: SW(8),
+      paddingVertical: SH(3),
+      marginBottom: SH(8),
+    },
+    proBannerBadgeText: {
+      color: theme.colors.white,
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(11),
+      letterSpacing: 1,
+    },
+    proBannerTitle: {
+      color: theme.colors.white,
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(12),
+      lineHeight: SF(22),
+      marginBottom: SH(8),
+    },
+    proBannerTitleDark: {
+      color: '#1A2744',
+    },
+    proBannerBullets: {
+      marginBottom: SH(12),
+      gap: SH(4),
+    },
+    proBannerBullet: {
+      color: 'rgba(255,255,255,0.9)',
+      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(12),
+      lineHeight: SF(15),
+    },
+    proBannerBulletDark: {
+      color: '#555',
+    },
+    proBannerBtn: {
+      alignSelf: 'flex-start',
+      backgroundColor: theme.colors.white,
+      borderRadius: SW(6),
+      paddingHorizontal: SW(14),
+      paddingVertical: SH(6),
+    },
+    proBannerBtnText: {
+      color: '#C41E1E',
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(12),
+    },
+    proBannerImageWrap: {
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      paddingRight: SW(4),
+    },
+
+    // ── Middle Banner Styles ──────────────────────────────────────────
+    middleBannerCard: {
+      width: SW(343), // Fixed width to prevent collapse
+      borderRadius: SW(16),
+      overflow: 'hidden',
+      minHeight: SH(154),
+      marginRight: SW(15), // Gap for sliders
+    },
+    middleBannerContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flex: 1,
+      paddingLeft: SW(16),
+    },
+    middleBannerLeft: {
+      flex: 1,
+      paddingRight: SW(8),
+      marginRight: SW(15),
+    },
+    middleBannerBadge: {
+      alignSelf: 'flex-start',
+      backgroundColor: 'rgba(255,255,255,0.22)',
+      borderRadius: SW(6),
+      paddingHorizontal: SW(8),
+      paddingVertical: SH(3),
+      marginBottom: SH(8),
+    },
+    middleBannerBadgeText: {
+      color: theme.colors.white,
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(11),
+      letterSpacing: 1,
+    },
+    middleBannerTitle: {
+      color: theme.colors.white,
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(12),
+      lineHeight: SF(22),
+      marginBottom: SH(8),
+    },
+    middleBannerTitleDark: {
+      color: '#1A2744',
+    },
+    middleBannerBullets: {
+      marginBottom: SH(12),
+      gap: SH(4),
+    },
+    middleBannerBullet: {
+      color: 'rgba(255,255,255,0.9)',
+      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(12),
+      lineHeight: SF(15),
+    },
+    middleBannerBulletDark: {
+      color: '#555',
+    },
+    middleBannerBtn: {
+      alignSelf: 'flex-start',
+      backgroundColor: theme.colors.white,
+      borderRadius: SW(6),
+      paddingHorizontal: SW(14),
+      paddingVertical: SH(6),
+    },
+    middleBannerBtnText: {
+      color: '#C41E1E',
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(12),
+    },
+    middleBannerImageWrap: {
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      paddingRight: SW(4),
+    },
+
+    // ── Network Banner Styles ─────────────────────────────────────────
+    networkBannerCard: {
+      width: SW(343), // Fixed width to prevent collapse
+      borderRadius: SW(16),
+      overflow: 'hidden',
+      minHeight: SH(154),
+      marginRight: SW(15), // Gap for sliders
+    },
+    networkBannerContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flex: 1,
+      paddingLeft: SW(16),
+    },
+    networkBannerLeft: {
+      flex: 1,
+      paddingRight: SW(8),
+      marginRight: SW(15),
+    },
+    networkBannerBadge: {
+      alignSelf: 'flex-start',
+      backgroundColor: 'rgba(255,255,255,0.22)',
+      borderRadius: SW(6),
+      paddingHorizontal: SW(8),
+      paddingVertical: SH(3),
+      marginBottom: SH(8),
+    },
+    networkBannerBadgeText: {
+      color: theme.colors.white,
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(11),
+      letterSpacing: 1,
+    },
+    networkBannerTitle: {
+      color: theme.colors.white,
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(12),
+      lineHeight: SF(22),
+      marginBottom: SH(8),
+    },
+    networkBannerTitleDark: {
+      color: '#1A2744',
+    },
+    networkBannerBullets: {
+      marginBottom: SH(12),
+      gap: SH(4),
+    },
+    networkBannerBullet: {
+      color: 'rgba(255,255,255,0.9)',
+      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(12),
+      lineHeight: SF(15),
+    },
+    networkBannerBulletDark: {
+      color: '#555',
+    },
+    networkBannerBtn: {
+      alignSelf: 'flex-start',
+      backgroundColor: theme.colors.white,
+      borderRadius: SW(6),
+      paddingHorizontal: SW(14),
+      paddingVertical: SH(6),
+    },
+    networkBannerBtnText: {
+      color: '#C41E1E',
+      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(12),
+    },
+    networkBannerImageWrap: {
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      paddingRight: SW(4),
     },
 
     // ── How It Works ──────────────────────────────────────────────────
@@ -300,22 +596,22 @@ export const createStyles = (theme: AppTheme) =>
       marginLeft: SW(4),
     },
     stepsCard: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.cardBackground || theme.colors.white,
       borderRadius: SW(20),
-      padding: SW(20),
+      padding: SW(24),
       borderWidth: 1,
-      borderColor: '#F0F0F0',
+      borderColor: theme.colors.borderFaint || '#F0F0F0',
     },
     stepsHeader: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: SW(12),
-      marginBottom: SH(20),
+      marginBottom: SH(24),
     },
     stepsBorderLeft: {
-      width: SW(4),
-      height: SH(24),
-      backgroundColor: '#CF2C3E', // Vertical red line from SS
+      width: SW(3),
+      height: SH(28),
+      backgroundColor: theme.colors.primaryRed || '#CF2C3E',
       borderRadius: SW(2),
     },
     stepsTitle: {

@@ -1,29 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import {
+  Dimensions,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  Linking,
+  FlatList as RNFlatList,
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 import {
   ScrollView,
   FlatList,
   TouchableOpacity,
-  TextInput,
-  Dimensions,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+  View,
+  Text,
+  ScreenWrapper,
+  SearchInput
+} from '@components';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
-import { View, Text, ScreenWrapper } from '@components';
 import { createStyles } from './styles';
+import { HOME_PARTS_LIST } from '../../Parts/dummyData';
 
 import {
-  SearchIcon,
   BellIcon,
   LocationIcon,
-  BookingIcon,
   BuyIcon,
   TractorIcon,
   EmergencybellIcon,
   KeyboardArrowUpIcon,
   LangauageIcon,
+  NextIcon,
+  BagtimerIcon,
+  Tractor2Icon
 } from '@assets/icons';
 
 import {
@@ -45,8 +54,8 @@ import {
   SwarajImage,
   JohnDeereImage,
   EicherImage,
-  Product1Image,
-  Product2Image,
+  VedioImage,
+  DummyUserImage,
 } from '@assets/images';
 
 import { SW, SH } from '@utils/Dimensions';
@@ -60,10 +69,14 @@ const HomeScreen = () => {
   const styles = createStyles(theme);
 
   const [heroIndex, setHeroIndex] = useState(0);
+  const [middleIndex, setMiddleIndex] = useState(0);
   const [networkIndex, setNetworkIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const heroFlatListRef = useRef<RNFlatList>(null);
+  const middleFlatListRef = useRef<RNFlatList>(null);
+  const networkFlatListRef = useRef<RNFlatList>(null);
 
-  const HERO_SLIDERS = [
+  const HERO_SLIDERS = useMemo(() => [
     {
       id: '1',
       Image: HomeTopbanner1Image,
@@ -82,48 +95,48 @@ const HomeScreen = () => {
       title: t('main.home.hero.slider3'),
       cta: t('main.home.hero.cta'),
     },
-  ];
+  ], [t]);
 
   const SERVICE_CARDS = [
     {
       id: 'book',
       label: t('main.home.serviceCards.bookService.title'),
       sub: t('main.home.serviceCards.bookService.sub'),
-      Icon: BookingIcon,
-      bgColor: '#FFF0F3',
-      iconBg: '#C8332A',
+      Icon: TractorIcon,
+      bgColor: '#FEE5E5',
+      iconBg: '#793745',
+      decorColors: ['#FFCEDD', '#FFE5EE'],
     },
     {
       id: 'parts',
       label: t('main.home.serviceCards.buyParts.title'),
       sub: t('main.home.serviceCards.buyParts.sub'),
       Icon: BuyIcon,
-      bgColor: '#F3F0FF',
-      iconBg: '#5C3FA3',
+      bgColor: '#F4EEF8',
+      iconBg: '#3E2D5A',
+      decorColors: ['#DAC7E3', '#F4EEF8'],
     },
     {
       id: 'tractor',
       label: t('main.home.serviceCards.tractorPurchase.title'),
       sub: t('main.home.serviceCards.tractorPurchase.sub'),
-      Icon: TractorIcon,
-      bgColor: '#EAF4FF',
-      iconBg: '#2563EB',
+      Icon: Tractor2Icon,
+      bgColor: '#D4E7F6',
+      iconBg: '#094B7D',
+      decorColors: ['#BDD9EE', '#D4E7F6'],
     },
     {
       id: 'emergency',
       label: t('main.home.serviceCards.emergencyVisit.title'),
       sub: t('main.home.serviceCards.emergencyVisit.sub'),
       Icon: EmergencybellIcon,
-      bgColor: '#FFF5F5',
-      iconBg: '#EF4444',
+      bgColor: '#FFDDDE',
+      iconBg: '#D1072A',
+      decorColors: ['#FFC2C3', '#FFDDDE'],
     },
   ];
 
-  const PARTS_LIST = [
-    { id: '1', Image: Product1Image, name: 'Utto 5 Ltr- Wet Disc Brake Oil Mobil', price: 1231, mrp: 1960, discount: '10% Off', rating: 4.9 },
-    { id: '2', Image: Product2Image, name: 'Transmax Manual Gear Oil', price: 1231, mrp: 1960, discount: '10% Off', rating: 4.9 },
-    { id: '3', Image: Product1Image, name: 'Tractor Coolant 5L', price: 1231, mrp: 1960, discount: '10% Off', rating: 4.9 },
-  ];
+  const PARTS_LIST = HOME_PARTS_LIST;
 
   const CATEGORIES = [
     { id: 'maintenance', label: t('main.home.categoryLabels.maintenance'), Image: GeneralMaintenanceImage },
@@ -136,16 +149,113 @@ const HomeScreen = () => {
     { id: 'engine', label: t('main.home.categoryLabels.engine'), Image: EngineServicesImage },
   ];
 
-  const NETWORK_BANNERS = [
-    { id: '1', Image: Homemiddlebanner1Image },
-    { id: '2', Image: Homebottombanner1Image },
-  ];
+  const MIDDLE_BANNERS = useMemo(() => [
+    {
+      id: '1',
+      Image: Homemiddlebanner1Image,
+      bgColor: '#E84040',
+      badge: 'TOP ASSIST',
+      title: t('main.home.banners.assist.title'),
+      bullets: [
+        t('main.home.banners.assist.bullet1'),
+        t('main.home.banners.assist.bullet2'),
+      ],
+      buttonText: t('main.home.banners.assist.cta'),
+      btnColor: theme.colors.white,
+      btnTextColor: '#E84040',
+      isDark: false,
+    },
+    {
+      id: '2',
+      Image: HomeTopbanner2Image,
+      bgColor: '#1A2744',
+      badge: '',
+      title: t('main.home.banners.repair.title'),
+      bullets: [
+        t('main.home.banners.repair.sub'),
+      ],
+      buttonText: t('main.home.banners.repair.cta'),
+      btnColor: '#E84040',
+      btnTextColor: theme.colors.white,
+      isDark: false,
+    },
+    {
+      id: '3',
+      Image: Homemiddlebanner1Image,
+      bgColor: '#2563EB',
+      badge: '',
+      title: t('main.home.banners.emergency.title'),
+      bullets: [
+        t('main.home.banners.emergency.sub'),
+      ],
+      buttonText: t('main.home.banners.emergency.cta'),
+      btnColor: theme.colors.white,
+      btnTextColor: '#2563EB',
+      isDark: false,
+    },
+  ], [t, theme.colors.white]);
+
+  const NETWORK_BANNERS = useMemo(() => [
+    {
+      id: '1',
+      Image: Homebottombanner1Image,
+      bgColor: '#FFF5E6',
+      badge: '',
+      title: t('main.home.network.title'),
+      bullets: [
+        t('main.home.network.sub'),
+      ],
+      buttonText: t('main.home.banners.assist.cta'),
+      btnColor: '#1A2744',
+      btnTextColor: theme.colors.white,
+      isDark: true,
+    },
+    {
+      id: '2',
+      Image: Homebottombanner2Image,
+      bgColor: '#E84040',
+      badge: 'EARN MONEY',
+      title: t('main.home.banners.earn.title'),
+      bullets: [
+        t('main.home.banners.earn.sub'),
+      ],
+      buttonText: t('main.home.banners.earn.cta'),
+      btnColor: theme.colors.white,
+      btnTextColor: '#E84040',
+      isDark: false,
+    },
+  ], [t, theme.colors.white]);
 
   const HOW_IT_WORKS_STEPS = [
-    { step: 1, title: t('main.home.steps.step1.title'), desc: t('main.home.steps.step1.desc') },
-    { step: 2, title: t('main.home.steps.step2.title'), desc: t('main.home.steps.step2.desc') },
-    { step: 3, title: t('main.home.steps.step3.title'), desc: t('main.home.steps.step3.desc') },
+    {
+      id: '1',
+      thumbnail: VedioImage,
+      url: 'https://youtube.com/shorts/mosXzrYdtIs',
+    },
+    {
+      id: '2',
+      thumbnail: VedioImage,
+      url: 'https://youtube.com/shorts/mosXzrYdtIs',
+    },
   ];
+
+  const TRACTOR_WORKS_STEPS = useMemo(() => [
+    {
+      id: '1',
+      title: t('main.home.steps.step1.title', 'Add Your Tractor Details'),
+      desc: t('main.home.steps.step1.desc', "Enter your tractor's brand, model, and issue details so we can understand your needs better."),
+    },
+    {
+      id: '2',
+      title: t('main.home.steps.step2.title', 'Book a Repair Service'),
+      desc: t('main.home.steps.step2.desc', 'Choose the type of service you need — repair, maintenance, or emergency breakdown support.'),
+    },
+    {
+      id: '3',
+      title: t('main.home.steps.step3.title', 'Get Matched with a Mechanic'),
+      desc: t('main.home.steps.step3.desc', 'We connect you with a nearby verified mechanic who specializes in your tractor type.'),
+    },
+  ], [t]);
 
   const BRANDS = [
     { id: '1', label: t('common.brands.Mahindra'), Image: MahindraImage },
@@ -154,15 +264,34 @@ const HomeScreen = () => {
     { id: '4', label: t('common.brands.Eicher'), Image: EicherImage },
   ];
 
+  // Auto-scroll hero slider every 4 seconds
+  useEffect(() => {
+    const autoScroll = setInterval(() => {
+      const nextIndex = (heroIndex + 1) % HERO_SLIDERS.length;
+      setHeroIndex(nextIndex);
+      heroFlatListRef.current?.scrollToIndex({
+        index: nextIndex,
+        animated: true,
+      });
+    }, 4000);
+    return () => clearInterval(autoScroll);
+  }, [heroIndex, HERO_SLIDERS.length]);
+
   const onHeroScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const idx = Math.round(x / (SCREEN_WIDTH - SW(32)));
+    const idx = Math.round(x / SCREEN_WIDTH);
     if (idx !== heroIndex) setHeroIndex(idx);
+  };
+
+  const onMiddleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const x = e.nativeEvent.contentOffset.x;
+    const idx = Math.round(x / SCREEN_WIDTH);
+    if (idx !== middleIndex) setMiddleIndex(idx);
   };
 
   const onNetworkScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const idx = Math.round(x / (SCREEN_WIDTH - SW(32)));
+    const idx = Math.round(x / SCREEN_WIDTH);
     if (idx !== networkIndex) setNetworkIndex(idx);
   };
 
@@ -172,16 +301,24 @@ const HomeScreen = () => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.searchRow}>
-            <View style={styles.searchBox}>
-              <SearchIcon size={SW(18)} color={theme.colors.gray500} />
-              <TextInput
-                style={styles.searchInput}
-                placeholder={t('main.home.searchPlaceholder')}
-                placeholderTextColor={theme.colors.gray400}
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-              />
-            </View>
+            <TouchableOpacity
+              style={styles.searchBox}
+              activeOpacity={1}
+              onPress={() => navigation.navigate('SearchServices')}
+            >
+              <View pointerEvents="none" style={{ flex: 1 }}>
+                <SearchInput
+                  placeholder={t('main.home.searchPlaceholder')}
+                  containerStyle={{ marginBottom: 0 }}
+                  inputStyle={styles.searchInput}
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                  hasBorder={false}
+                  wrapperStyle={{ marginBottom: 0, flex: 1 }}
+                  editable={false}
+                />
+              </View>
+            </TouchableOpacity>
             <View style={styles.headerActions}>
               <TouchableOpacity
                 style={styles.iconCircle}
@@ -194,7 +331,7 @@ const HomeScreen = () => {
                 style={styles.iconCircle}
                 onPress={() => navigation.navigate('ChooseLanguage')}
               >
-                <LangauageIcon size={SW(18)} color={theme.colors.white} />
+                <LangauageIcon size={SW(24)} color={theme.colors.white} />
               </TouchableOpacity>
             </View>
           </View>
@@ -214,32 +351,41 @@ const HomeScreen = () => {
           {/* Hero Slider */}
           <View style={styles.sliderSection}>
             <FlatList
+              ref={heroFlatListRef}
               data={HERO_SLIDERS}
               horizontal
               pagingEnabled
-              snapToAlignment="center"
+              snapToInterval={SCREEN_WIDTH}
+              snapToAlignment="start"
               decelerationRate="fast"
               showsHorizontalScrollIndicator={false}
               onScroll={onHeroScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}
-              renderItem={({ item }) => (
+              renderItem={({ item }: { item: any }) => (
                 <View style={styles.heroCardContainer}>
                   <View style={styles.heroCard}>
-                    <item.Image width={SCREEN_WIDTH - SW(32)} height={SH(220)} />
-                    <View style={styles.heroOverlay}>
+                    <item.Image
+                      width={SW(343)}
+                      height={SH(190)}
+                      style={{ borderRadius: SW(20) }}
+                    />
+                    <LinearGradient
+                      colors={['transparent', 'rgba(0,0,0,0.87)']}
+                      style={styles.heroGradient}
+                    >
                       <Text style={styles.heroTitle}>{item.title}</Text>
                       <TouchableOpacity style={styles.heroCta}>
                         <Text style={styles.heroCtaText}>{item.cta}</Text>
                       </TouchableOpacity>
-                    </View>
+                    </LinearGradient>
                   </View>
                 </View>
               )}
             />
             <View style={styles.dots}>
-              {HERO_SLIDERS.map((_, i) => (
-                <View key={i} style={[styles.dot, i === heroIndex && styles.dotActive]} />
+              {HERO_SLIDERS.map((_, i: number) => (
+                <View key={i} style={[styles.heroDot, i === heroIndex && styles.heroDotActive]} />
               ))}
             </View>
           </View>
@@ -248,28 +394,103 @@ const HomeScreen = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('main.home.whatServices')}</Text>
             <View style={styles.serviceGrid}>
-              {SERVICE_CARDS.map((svc) => (
-                <TouchableOpacity key={svc.id} style={[styles.serviceCard, { backgroundColor: svc.bgColor }]}>
-                  <View style={[styles.serviceIconWrap, { backgroundColor: svc.iconBg }]}>
-                    <svc.Icon size={SW(22)} color={theme.colors.white} />
+              {SERVICE_CARDS.map((svc: any) => (
+                <TouchableOpacity
+                  key={svc.id}
+                  style={[styles.serviceCard, { backgroundColor: svc.bgColor }]}
+                  onPress={() => {
+                    if (svc.id === 'parts') {
+                      navigation.navigate('Parts');
+                    } else if (svc.id === 'book') {
+                      navigation.navigate('Services');
+                    } else if (svc.id === 'emergency') {
+                      navigation.navigate('EmergencyRoadside');
+                    } else if (svc.id === 'tractor') {
+                      navigation.navigate('TractorPurchase');
+                    }
+                  }}
+                >
+                  <LinearGradient
+                    colors={svc.decorColors}
+                    style={styles.serviceCardDecorator}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                  />
+                  <View style={styles.serviceTopRow}>
+                    <View style={[styles.serviceIconWrap, { backgroundColor: svc.iconBg }]}>
+                      <svc.Icon size={SW(16)} color={theme.colors.white} />
+                    </View>
+                    <Text style={[styles.serviceLabel, { color: svc.iconBg }]}>{svc.label}</Text>
                   </View>
-                  <Text style={[styles.serviceLabel, { color: svc.iconBg }]}>{svc.label}</Text>
-                  <Text style={styles.serviceSub}>{svc.sub}</Text>
+                  <Text style={[styles.serviceSub, { color: svc.iconBg, opacity: 0.8 }]}>{svc.sub}</Text>
                 </TouchableOpacity>
               ))}
             </View>
           </View>
 
-          {/* Middle Banner */}
-          <View style={styles.adBannerWrap}>
-            <Homebottombanner2Image width={SCREEN_WIDTH - SW(32)} height={SH(154)} />
+          {/* Middle Banner — 3 slide FlatList */}
+          <View style={styles.sliderSection}>
+            <FlatList
+              ref={middleFlatListRef}
+              data={MIDDLE_BANNERS}
+              horizontal
+              pagingEnabled
+              snapToInterval={SCREEN_WIDTH}
+              snapToAlignment="start"
+              decelerationRate="fast"
+              showsHorizontalScrollIndicator={false}
+              onScroll={onMiddleScroll}
+              scrollEventThrottle={16}
+              keyExtractor={(i) => i.id}
+              renderItem={({ item }) => (
+                <View style={[styles.middleCardContainer, { backgroundColor: item.bgColor }]}>
+                  <View style={[styles.middleBannerCard, { backgroundColor: item.bgColor }]}>
+                    <View style={styles.middleBannerContent}>
+                      <View style={styles.middleBannerLeft}>
+                        {item.badge ? (
+                          <View style={styles.middleBannerBadge}>
+                            <Text style={styles.middleBannerBadgeText}>{item.badge}</Text>
+                          </View>
+                        ) : null}
+                        <Text style={[styles.middleBannerTitle, item.isDark && styles.middleBannerTitleDark]}>
+                          {item.title}
+                        </Text>
+                        <View style={styles.middleBannerBullets}>
+                          {item.bullets.map((b: string, idx: number) => (
+                            <Text
+                              key={idx}
+                              style={[styles.middleBannerBullet, item.isDark && styles.middleBannerBulletDark]}
+                            >
+                              {item.bullets.length > 1 ? '• ' : ''}{b}
+                            </Text>
+                          ))}
+                        </View>
+                        <TouchableOpacity style={[styles.middleBannerBtn, { backgroundColor: item.btnColor }]}>
+                          <Text style={[styles.middleBannerBtnText, { color: item.btnTextColor }]}>
+                            {item.buttonText} ▶
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.middleBannerImageWrap}>
+                        <item.Image width={SW(120)} height={SH(140)} />
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              )}
+            />
+            <View style={styles.dots}>
+              {MIDDLE_BANNERS.map((_, i: number) => (
+                <View key={i} style={[styles.middleDot, i === middleIndex && styles.middleDotActive]} />
+              ))}
+            </View>
           </View>
 
           {/* Parts & Accessories */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>{t('main.home.partsAccessories')}</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={navigation.navigate('Parts')}>
                 <Text style={styles.seeMore}>{t('main.home.seeMore')}</Text>
               </TouchableOpacity>
             </View>
@@ -278,8 +499,8 @@ const HomeScreen = () => {
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ gap: SW(12) }}
-              keyExtractor={(i) => i.id}
-              renderItem={({ item }) => (
+              keyExtractor={(i: any) => i.id}
+              renderItem={({ item }: { item: any }) => (
                 <View style={styles.partCard}>
                   <View style={styles.partImageWrap}>
                     <item.Image width={SW(120)} height={SW(120)} />
@@ -303,10 +524,14 @@ const HomeScreen = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('main.home.categories')}</Text>
             <View style={styles.categoryGrid}>
-              {CATEGORIES.map((cat) => (
-                <TouchableOpacity key={cat.id} style={styles.categoryItem}>
+              {CATEGORIES.map((cat: any) => (
+                <TouchableOpacity
+                  key={cat.id}
+                  style={styles.categoryItem}
+                  onPress={() => navigation.navigate('CategoryOverview', { categoryId: cat.id })}
+                >
                   <View style={styles.categoryImageWrap}>
-                    <cat.Image width={SW(64)} height={SW(64)} />
+                    <cat.Image width={SW(52)} height={SW(52)} />
                   </View>
                   <Text style={styles.categoryLabel}>{cat.label}</Text>
                 </TouchableOpacity>
@@ -314,29 +539,60 @@ const HomeScreen = () => {
             </View>
           </View>
 
-          {/* Network Banner */}
+          {/* Network Banner Slider */}
           <View style={styles.sliderSection}>
             <FlatList
+              ref={networkFlatListRef}
               data={NETWORK_BANNERS}
               horizontal
               pagingEnabled
-              snapToAlignment="center"
+              snapToInterval={SCREEN_WIDTH}
+              snapToAlignment="start"
               decelerationRate="fast"
               showsHorizontalScrollIndicator={false}
               onScroll={onNetworkScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}
               renderItem={({ item }) => (
-                <View style={styles.heroCardContainer}>
-                  <View style={[styles.heroCard, { height: SH(160) }]}>
-                    <item.Image width={SCREEN_WIDTH - SW(32)} height={SH(160)} />
+                <View style={[styles.networkCardContainer, { backgroundColor: item.bgColor }]}>
+                  <View style={[styles.networkBannerCard, { backgroundColor: item.bgColor }]}>
+                    <View style={styles.networkBannerContent}>
+                      <View style={styles.networkBannerLeft}>
+                        {item.badge ? (
+                          <View style={styles.networkBannerBadge}>
+                            <Text style={styles.networkBannerBadgeText}>{item.badge}</Text>
+                          </View>
+                        ) : null}
+                        <Text style={[styles.networkBannerTitle, item.isDark && styles.networkBannerTitleDark]}>
+                          {item.title}
+                        </Text>
+                        <View style={styles.networkBannerBullets}>
+                          {item.bullets.map((b: string, idx: number) => (
+                            <Text
+                              key={idx}
+                              style={[styles.networkBannerBullet, item.isDark && styles.networkBannerBulletDark]}
+                            >
+                              {b}
+                            </Text>
+                          ))}
+                        </View>
+                        <TouchableOpacity style={[styles.networkBannerBtn, { backgroundColor: item.btnColor }]}>
+                          <Text style={[styles.networkBannerBtnText, { color: item.btnTextColor }]}>
+                            {item.buttonText} ▶
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.networkBannerImageWrap}>
+                        <item.Image width={SW(120)} height={SH(140)} />
+                      </View>
+                    </View>
                   </View>
                 </View>
               )}
             />
             <View style={styles.dots}>
-              {NETWORK_BANNERS.map((_, i) => (
-                <View key={i} style={[styles.dot, i === networkIndex && styles.dotActive]} />
+              {NETWORK_BANNERS.map((_, i: number) => (
+                <View key={i} style={[styles.networkDot, i === networkIndex && styles.networkDotActive]} />
               ))}
             </View>
           </View>
@@ -345,28 +601,31 @@ const HomeScreen = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('main.home.howItWorks')}</Text>
             <FlatList
-              data={[{ id: '1' }, { id: '2' }]}
+              data={HOW_IT_WORKS_STEPS}
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ gap: SW(12), marginBottom: SH(16) }}
-              renderItem={() => (
-                <View style={styles.videoThumb}>
-                  <View style={styles.playButton}>
-                    <Text style={styles.playIcon}>▶</Text>
-                  </View>
-                </View>
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={styles.videoThumb}
+                  onPress={() => Linking.openURL(item.url)} // 🔥 opens YouTube Shorts
+                >
+                  <item.thumbnail width="100%" height="100%" />
+                </TouchableOpacity>
               )}
             />
-
             <View style={styles.stepsCard}>
               <View style={styles.stepsHeader}>
                 <View style={styles.stepsBorderLeft} />
-                <Text style={styles.stepsTitle}>{t('main.home.howItWorksTitle')}</Text>
+                <Text style={styles.stepsTitle}>
+                  {t('main.home.howTractorWallaWorks', 'How TractorWalla Works?')}
+                </Text>
               </View>
-              {HOW_IT_WORKS_STEPS.map((s) => (
-                <View key={s.step} style={styles.stepRow}>
+              {TRACTOR_WORKS_STEPS.map((s: any) => (
+                <View key={s.id} style={styles.stepRow}>
                   <View style={styles.stepBadge}>
-                    <Text style={styles.stepNum}>{s.step}</Text>
+                    <Text style={styles.stepNum}>{s.id}</Text>
                   </View>
                   <View style={styles.stepContent}>
                     <Text style={styles.stepTitle}>{s.title}</Text>
@@ -385,7 +644,8 @@ const HomeScreen = () => {
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ gap: SW(16) }}
-              renderItem={({ item }) => (
+              keyExtractor={(i: any) => i.id}
+              renderItem={({ item }: { item: any }) => (
                 <View style={styles.brandItem}>
                   <item.Image width={SW(60)} height={SW(36)} />
                   <Text style={styles.brandLabel}>{item.label}</Text>
@@ -397,11 +657,11 @@ const HomeScreen = () => {
           {/* Mechanic Bar */}
           <TouchableOpacity style={styles.mechanicBar}>
             <View style={styles.mechanicLeft}>
-              <View style={styles.mechanicAvatar} />
+              <DummyUserImage width={40} height={40} />
               <View>
                 <Text style={styles.mechanicName}>Rajat Tiwari</Text>
                 <View style={styles.mechanicMeta}>
-                  <TractorIcon size={SW(12)} color={theme.colors.gray500} />
+                  <BagtimerIcon size={SW(12)} color={theme.colors.gray500} />
                   <Text style={styles.mechanicJobs}>120+ {t('main.home.jobsDone')}</Text>
                 </View>
                 <View style={styles.ratingRow}>
@@ -414,7 +674,7 @@ const HomeScreen = () => {
               <Text style={styles.mechanicPriceText}>₹3150</Text>
             </View>
             <View style={styles.mechanicArrow}>
-              <Text style={styles.mechanicArrowText}>→</Text>
+              <NextIcon width={20} height={20} color={theme.colors.white} />
             </View>
           </TouchableOpacity>
 

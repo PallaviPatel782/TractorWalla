@@ -32,7 +32,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     closeButton: {
       padding: SW(5),
-      backgroundColor: theme.colors.gray400,
+      backgroundColor: theme.colors.gray100,
       borderRadius: SW(50),
     },
   });

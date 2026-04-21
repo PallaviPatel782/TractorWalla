@@ -1,5 +1,5 @@
 export const lightColors = {
-  primary: '#D11C3D',
+  primary: '#E11D48',
   secondary: '#000000',
   background: '#F8F9FB',
   surface: '#F5F5F5',
@@ -62,6 +62,7 @@ export const lightColors = {
   darkSlaty: '#36404F',
   pinkCrm: '#E54570',
   greenBtn: '#41A863',
+  lightgreen: '#E9F3E6',
   iconBgYellow: '#FDF4DF',
   iconBgPurple: '#F7EDFA',
   softBlue: '#6597F5',

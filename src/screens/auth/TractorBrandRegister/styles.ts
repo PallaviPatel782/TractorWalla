@@ -54,7 +54,7 @@ export const createStyles = (theme: AppTheme) =>
       justifyContent: 'space-between',
       paddingVertical: SH(16),
       borderBottomWidth: 1.5,
-      borderBottomColor: theme.colors.gray300,
+      borderBottomColor: theme.colors.gray100,
       paddingHorizontal: SW(8),
     },
     bottomSheetItemText: {

@@ -33,6 +33,18 @@ import {
   TermsConditions,
   ContactUs,
   NotificationScreen,
+  BuyPartsScreen,
+  PartsOverviewScreen,
+  BookServiceScreen,
+  ApplyCouponsScreen,
+  ServiceOverviewScreen,
+  ServiceCheckoutScreen,
+  EmergencyRoadsideScreen,
+  CategoryOverviewScreen,
+  SearchServicesScreen,
+  TractorPurchaseScreen,
+  SelectTractorScreen,
+  ServiceAvailabilityScreen,
 } from '@screens/main';
 import TabNavigator from '@navigation/TabNavigator';
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -82,6 +94,18 @@ const RootNavigator = () => {
         <Stack.Screen name="TermsConditions" component={TermsConditions} />
         <Stack.Screen name="ContactUs" component={ContactUs} />
         <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+        <Stack.Screen name="BuyParts" component={BuyPartsScreen} />
+        <Stack.Screen name="PartsOverview" component={PartsOverviewScreen} />
+        <Stack.Screen name="BookService" component={BookServiceScreen} />
+        <Stack.Screen name="ApplyCoupons" component={ApplyCouponsScreen} />
+        <Stack.Screen name="ServiceOverview" component={ServiceOverviewScreen} />
+        <Stack.Screen name="ServiceCheckout" component={ServiceCheckoutScreen} />
+        <Stack.Screen name="EmergencyRoadside" component={EmergencyRoadsideScreen} />
+        <Stack.Screen name="CategoryOverview" component={CategoryOverviewScreen} />
+        <Stack.Screen name="SearchServices" component={SearchServicesScreen} />
+        <Stack.Screen name="TractorPurchase" component={TractorPurchaseScreen} />
+        <Stack.Screen name="SelectTractor" component={SelectTractorScreen} />
+        <Stack.Screen name="ServiceAvailability" component={ServiceAvailabilityScreen} />
         {/* {!isAuthenticated ? (
           <Stack.Screen name="Auth" component={AuthNavigator} />
         ) : (

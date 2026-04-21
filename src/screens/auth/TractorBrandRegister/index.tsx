@@ -57,7 +57,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
     registrationNo: '',
     yearOfManufacture: '',
     yearOfPurchase: '',
-    tractorType: 'agricultural', // Default as per common use
+    tractorType: 'agricultural',
   });
 
   const modelOptions = useMemo(() => {
@@ -80,8 +80,6 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
       yearOfPurchase: formData.yearOfPurchase,
       tractorType: formData.tractorType,
     }));
-
-    // Directly navigate to Main Tab Navigator
     navigation.navigate('Main');
   };
 

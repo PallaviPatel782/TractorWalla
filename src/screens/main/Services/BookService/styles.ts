@@ -1,0 +1,95 @@
+import { StyleSheet } from 'react-native';
+import { SW, SH, SF } from '@utils/Dimensions';
+import { AppTheme } from '@theme';
+
+export const createStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background || '#F8F9FB',
+    },
+    header: {
+      backgroundColor: theme.colors.DeepGreen || '#105D38',
+      paddingBottom: SH(15),
+      borderBottomLeftRadius: SW(25),
+      borderBottomRightRadius: SW(25),
+    },
+    searchContainer: {
+      paddingHorizontal: SW(16),
+      marginTop: SH(10),
+    },
+    tabsContainer: {
+      flexDirection: 'row',
+      paddingHorizontal: SW(16),
+      backgroundColor: theme.colors.white,
+      paddingVertical: SH(12),
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.gray100,
+    },
+    tabPill: {
+      paddingHorizontal: SW(16),
+      paddingVertical: SH(6),
+      borderRadius: SW(10),
+      backgroundColor: theme.colors.white,
+      borderWidth: 1,
+      borderColor: theme.colors.border || '#E5E7EB',
+      marginRight: SW(10),
+    },
+    tabPillActive: {
+      backgroundColor: theme.colors.DeepGreen || '#105D38',
+      borderColor: theme.colors.DeepGreen || '#105D38',
+    },
+    tabText: {
+      fontSize: SF(13),
+      fontFamily: theme.fontfamily.robotoMedium,
+      color: theme.colors.textSecondary || '#666666',
+    },
+    tabTextActive: {
+      color: theme.colors.white,
+    },
+    listContent: {
+      // paddingHorizontal: SW(16),
+      paddingTop: SH(15),
+      paddingBottom: SH(40),
+    },
+    sectionTitle: {
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.robotoBold,
+      color: theme.colors.danger || '#D11C3D',
+      marginBottom: SH(15),
+      marginTop: SH(5),
+      paddingHorizontal: SW(16),
+    },
+    // Modal Styles (copied from BuyParts for consistency)
+    modalContainer: {
+      backgroundColor: theme.colors.white,
+      padding: SW(20),
+      borderTopLeftRadius: SW(24),
+      borderTopRightRadius: SW(24),
+      position: 'relative',
+    },
+    modalCloseBtn: {
+      position: 'absolute',
+      top: SH(20),
+      right: SW(20),
+      zIndex: 10,
+    },
+    modalHeaderTitle: {
+      fontSize: SF(18),
+      fontFamily: theme.fontfamily.robotoBold,
+      color: theme.colors.DeepGreen || '#105D38',
+      marginTop: SH(5),
+      marginBottom: SH(10),
+    },
+    modalMsg: {
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.robotoRegular,
+      color: theme.colors.textSecondary,
+      lineHeight: SH(20),
+      marginBottom: SH(25),
+    },
+    modalImageWrapper: {
+      alignItems: 'center',
+      marginBottom: SH(30),
+    },
+  });

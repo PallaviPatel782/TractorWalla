@@ -7,7 +7,7 @@ import {
   ScreenWrapper,
   View,
   TouchableOpacity,
-  Input,
+  SearchInput,
   ScrollView,
 } from '@components';
 import {
@@ -29,7 +29,7 @@ import {
 } from '@images';
 import { createStyles } from './styles';
 import { SW, SH } from '@utils/Dimensions';
-import { SearchIcon } from '@icons';
+// Removed SearchIcon import since SearchInput handles it
 
 const BRANDS = [
   { id: '1', name: 'Mahindra', logo: MahindraImage },
@@ -77,8 +77,7 @@ const TractorBrand = ({ navigation }: any) => {
         <View style={styles.content}>
           <View style={styles.searchContainer}>
             <View style={styles.searchBar}>
-              <SearchIcon size={20} color={theme.colors.gray400} style={styles.searchIcon} />
-              <Input
+              <SearchInput
                 placeholder={t('main.tractor.searchBrand')}
                 placeholderTextColor={theme.colors.gray400}
                 style={styles.searchInputWrapper}
@@ -88,7 +87,6 @@ const TractorBrand = ({ navigation }: any) => {
                 hasBorder={false}
               />
             </View>
-
           </View>
 
           <ScrollView

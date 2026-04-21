@@ -59,7 +59,7 @@
       "title": "TractorWalla Home",
       "welcome": "Welcome",
       "home": "Home",
-      "services": "All Services",
+      "all_services": "All Services",
       "parts": "Parts",
       "profile": "Profile",
       "language": "Language",
@@ -124,6 +124,81 @@
       "network": {
         "title": "Join the TractorWalla Network",
         "sub": "Grow with us as a service engineer, supplier, or trusted dealership partner"
+      },
+      "banners": {
+        "assist": {
+          "title": "Road Side Assistance Program",
+          "bullet1": "24x7 Assistance Program",
+          "bullet2": "Fast Service",
+          "cta": "BOOK NOW"
+        },
+        "repair": {
+          "title": "Need Tractor Repair?",
+          "sub": "Expert mechanics ready to fix your tractor anytime.",
+          "cta": "Schedule Service"
+        },
+        "emergency": {
+          "title": "Emergency Tractor Repair",
+          "sub": "Breakdown in the field? We provide quick on-site repair support.",
+          "cta": "Request Help"
+        },
+        "earn": {
+          "title": "Earn Money",
+          "sub": "Earn money, become a service engineer.",
+          "cta": "Join Now"
+        },
+        "deals": {
+          "title": "Best Deals on Genuine Parts",
+          "bullet1": "Verified OEM Parts",
+          "bullet2": "Lowest Market Price",
+          "cta": "SHOP NOW"
+        }
+      },
+      "buyParts": {
+        "title": "Buy Parts",
+        "searchPlaceholder": "Search for Kits",
+        "engineOil": "Engine Oil"
+      },
+      "serviceOverview": {
+        "title": "Book Service Overview",
+        "details": "Details",
+        "otherParts": "Other Parts",
+        "purchaseNow": "Purchase Now",
+        "bookingRequired": {
+          "title": "Book Service",
+          "message": "Please book service to Purchase Parts",
+          "button": "GO TO SERVICE"
+        }
+      },
+      "services": {
+        "title": "Book Service",
+        "book": "Book",
+        "bookNow": "Book Now",
+        "includes": "Service Includes",
+        "otherServices": "Other Services",
+        "durationWarranty": "Duration & Warranty",
+        "instantRoadside": "INSTANT ROADSIDE HELP",
+        "serviceBenefits": "SERVICE BENEFITS",
+        "topRated": "TOP RATED SERVICE",
+        "searchPlaceholder": "Search Services",
+        "schedule_packages": "Schedule Packages",
+        "denting_painting": "Denting & Painting",
+        "bookingConfirmed": {
+          "title": "Booking Confirmed!",
+          "message": "Your service booking has been received. Our expert mechanic will be assigned shortly.",
+          "button": "VIEW BOOKINGS"
+        },
+        "bookingDetails": "Booking Details",
+        "bookService_card": "Book Service",
+        "issueDesc": "Issue Description (Optional)",
+        "selectTractor": "Select Tractor",
+        "addAddress": "Add Address",
+        "applyCoupons": "Apply Coupons",
+        "billSummary": "Bill Summary",
+        "paymentType": "CHOOSE PAYMENT TYPE",
+        "partialPayment": "Partial Payment",
+        "fullPayment": "Full Payment",
+        "proceedToPay": "Proceed to Pay"
       }
     },
     "profile": {

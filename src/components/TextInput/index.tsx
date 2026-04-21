@@ -26,6 +26,7 @@ export interface TextInputProps extends RNTextInputProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   hasBorder?: boolean;
+  required?: boolean;
 }
 
 
@@ -44,6 +45,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
       leftIcon,
       rightIcon,
       hasBorder = true,
+      required = false,
       multiline,
       onFocus,
       onBlur,
@@ -83,6 +85,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
         {label && (
           <Text variant="medium" size={14} style={themedStyles.label}>
             {label}
+            {required && <Text style={{ color: theme.colors.error }}> *</Text>}
           </Text>
         )}
 
@@ -164,7 +167,7 @@ const createStyles = (theme: AppTheme) =>
     },
     input: {
       flex: 1,
-      paddingVertical: 0,
+      paddingVertical: SH(5),
       textAlignVertical: 'center',
       fontSize: SF(13),
     },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen, ProfileScreen } from '@screens/main';
+import { HomeScreen, ProfileScreen, BuyPartsScreen, BookServiceScreen } from '@screens/main';
 import { View } from '@components';
 import { MainTabParamList } from '@navigation/NavigationTypes';
 import { useTheme } from '@theme';
@@ -85,9 +85,9 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Services"
-        component={HomeScreen}
+        component={BookServiceScreen}
         options={{
-          tabBarLabel: t('main.home.services'),
+          tabBarLabel: t('main.home.all_services'),
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <RenderTabIcon Icon={AllServicesIcon} color={color} focused={focused} />
@@ -96,7 +96,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Parts"
-        component={HomeScreen}
+        component={BuyPartsScreen}
         options={{
           tabBarLabel: t('main.home.parts'),
           headerShown: false,

@@ -23,7 +23,19 @@ export type RootStackParamList = {
   FAQ: undefined;
   UpdateProfile: undefined;
   BookingDetails: { bookingId?: string };
-  NotificationScreen: undefined
+  NotificationScreen: undefined;
+  BuyParts: undefined;
+  PartsOverview: { kitId: string };
+  BookService: undefined;
+  ApplyCoupons: undefined;
+  ServiceOverview: { serviceId: string; category: string };
+  ServiceCheckout: { serviceId: string; category: string; appliedCoupon?: any };
+  EmergencyRoadside: undefined;
+  CategoryOverview: { categoryId?: string };
+  SearchServices: undefined;
+  TractorPurchase: undefined;
+  SelectTractor: { brand: string; brandLogo: any };
+  ServiceAvailability: undefined;
 };
 
 export type AuthStackParamList = {

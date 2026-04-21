@@ -1,0 +1,274 @@
+import React, { useState } from 'react';
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+  TextInput,
+} from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '@theme';
+import {
+  SecondaryHeader,
+  ScreenWrapper,
+  Button,
+} from '@components';
+import {
+  CheckIcon,
+  LocationIcon,
+  NextIcon,
+  BillIcon,
+  BikeIcon,
+} from '@assets/icons';
+import { MahindraImage } from '@assets/images';
+import { createStyles } from './styles';
+import { SERVICES_DATA, IService } from '../dummyData';
+import { SW, SH, SF } from '@utils/Dimensions';
+
+const ServiceCheckoutScreen = () => {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const styles = createStyles(theme);
+  const navigation = useNavigation<any>();
+  const route = useRoute<any>();
+  const { serviceId, category } = route.params || {};
+
+  const [issue, setIssue] = useState('');
+  const [paymentType, setPaymentType] = useState<'partial' | 'full'>('partial');
+
+  const currentCategory = SERVICES_DATA.find(c => c.category === category);
+  const service = currentCategory?.services.find(s => s.id === serviceId) as IService | undefined;
+  const ServiceImage = service?.image;
+
+  if (!service) {
+    return (
+      <ScreenWrapper>
+        <SecondaryHeader title="Checkout" onBack={() => navigation.goBack()} />
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Service Not Found</Text>
+        </View>
+      </ScreenWrapper>
+    );
+  }
+
+  const appliedCoupon = route.params?.appliedCoupon;
+
+  const billSummary = {
+    itemTotal: parseFloat(service.price) || 0,
+    addons: 500,
+    labor: 500,
+    discount: 0,
+  };
+
+  // Calculate discount based on applied coupon
+  if (appliedCoupon?.code === 'STEAL50') {
+    billSummary.discount = Math.min((billSummary.itemTotal + billSummary.addons + billSummary.labor) * 0.5, 500);
+  } else if (appliedCoupon?.code === 'FLAT100') {
+    billSummary.discount = 100;
+  } else if (appliedCoupon?.code === 'DIWALI500') {
+    billSummary.discount = 500;
+  }
+
+  const totalEstimate = billSummary.itemTotal + billSummary.addons + billSummary.labor - billSummary.discount;
+  const payableNow = paymentType === 'partial' ? totalEstimate * 0.3 : totalEstimate;
+
+  return (
+    <ScreenWrapper style={styles.container}>
+      <SecondaryHeader
+        title={t('main.home.services.bookingDetails', 'Booking Details')}
+        onBack={() => navigation.goBack()}
+        backgroundColor={theme.colors.DeepGreen}
+        titleColor={theme.colors.white}
+      />
+
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
+        <Text style={styles.bookingId}>#Booking ID: ID1234</Text>
+
+        {/* Service Card */}
+        <View style={styles.sectionCard}>
+          <Text style={styles.serviceType}>{t('main.home.services.bookService_card', 'Book Service')}</Text>
+          <View style={styles.serviceInfoRow}>
+            <View style={styles.serviceDetails}>
+              <Text style={styles.serviceTitle}>{service.title}</Text>
+              {service.bullets?.slice(0, 3).map((bullet, idx) => (
+                <View key={idx} style={styles.bulletRow}>
+                  <CheckIcon size={14} color={theme.colors.success || '#10B981'} />
+                  <Text style={styles.bulletText}>{bullet}</Text>
+                </View>
+              ))}
+              <View style={styles.ratingPriceRow}>
+                <Text style={{ color: theme.colors.GoldenYellow }}>★</Text>
+                <Text style={styles.ratingText}>{service.rating}</Text>
+                <Text style={styles.priceText}>₹{service.price}</Text>
+                <Text style={styles.strikePrice}>₹{service.mrp}</Text>
+              </View>
+            </View>
+            <View style={styles.serviceImageWrapper}>
+              {ServiceImage && <ServiceImage width={SW(130)} height={SH(105)} style={styles.serviceImage} />}
+              <View style={styles.addedBadge}>
+                <View style={styles.circle}>
+                  <CheckIcon size={10} />
+                </View>
+                <Text style={styles.addedText}>Added</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* Issue Description */}
+        <View style={styles.sectionCard}>
+          <View style={styles.sectionTitleRow}>
+            <BillIcon size={20} />
+            <Text style={styles.sectionTitle}>{t('main.home.services.issueDesc', 'Issue Description (Optional)')}</Text>
+          </View>
+          <TextInput
+            style={styles.issueInput}
+            placeholder="Describe any issues or symptoms..."
+            multiline
+            numberOfLines={3}
+            value={issue}
+            onChangeText={setIssue}
+          />
+        </View>
+
+        {/* Select Tractor */}
+        <TouchableOpacity style={styles.sectionCard} onPress={() => navigation.navigate('MyTractors')}>
+          <View style={styles.selectorRow}>
+            <View style={styles.selectorLeft}>
+              <BikeIcon size={18} color={theme.colors.DeepGreen} />
+              <Text style={styles.selectorText}>Select Tractor</Text>
+            </View>
+            <NextIcon size={18} color={theme.colors.DeepGreen} />
+          </View>
+          <View style={styles.selectionBox}>
+            <MahindraImage width={SW(40)} height={SH(30)} />
+            <View style={styles.selectionInfo}>
+              <Text style={styles.selectionTitle}>Mahindra 575 DI</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        {/* Add Address */}
+        <TouchableOpacity style={styles.sectionCard} onPress={() => navigation.navigate('ManageAddress')}>
+          <View style={styles.selectorRow}>
+            <View style={styles.selectorLeft}>
+              <LocationIcon size={18} color={theme.colors.DeepGreen} />
+              <Text style={styles.selectorText}>Add Address</Text>
+            </View>
+            <NextIcon size={18} color={theme.colors.DeepGreen} />
+          </View>
+          <View style={styles.selectionInfo}>
+            <Text style={styles.selectionSub}>Sopanbagh Colony Dagdoba Chowk Narayan nagar Chinchwad Pune 411033</Text>
+            <TouchableOpacity style={styles.addAddressBtn} onPress={() => navigation.navigate('AddLocation')}>
+              <Text style={{ color: theme.colors.danger, fontSize: SF(16) }}>+</Text>
+              <Text style={styles.addAddressText}>Add address</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+
+        {/* Coupons */}
+        <TouchableOpacity style={styles.sectionCard} onPress={() => navigation.navigate('ApplyCoupons', { serviceId, category })}>
+          <View style={styles.selectorRow}>
+            <View style={styles.selectorLeft}>
+              <Text style={styles.PercentageContainer}>%</Text>
+              <Text style={styles.selectorText}>Apply Coupons</Text>
+            </View>
+            <NextIcon size={18} color={theme.colors.DeepGreen} />
+          </View>
+          <View style={styles.couponBadge}>
+            <Text style={styles.couponCode}>{appliedCoupon ? appliedCoupon.code : 'SELECT COUPON'}</Text>
+            {appliedCoupon && <Text style={styles.couponDesc}>{appliedCoupon.title}</Text>}
+          </View>
+        </TouchableOpacity>
+
+          <View style={styles.savingBanner}>
+            <Text style={[styles.PercentageContainer, {
+              backgroundColor: theme.colors.white,
+              color: theme.colors.red || '#FF0000'
+            }]}>%</Text>
+            <Text style={styles.savingText}>
+              {billSummary.discount > 0 
+                ? `You have Saved ₹${billSummary.discount.toFixed(0)} on this order!` 
+                : 'Apply a coupon to save more!'}
+            </Text>
+          </View>
+
+        {/* Bill Summary */}
+        <View style={styles.sectionCard}>
+          <View style={styles.sectionTitleRow}>
+            <Text style={styles.sectionTitle}>Bill Summary</Text>
+          </View>
+          <View style={styles.billRow}>
+            <Text style={styles.billLabel}>Item Total</Text>
+            <Text style={styles.billValue}>₹{billSummary.itemTotal.toFixed(2)}</Text>
+          </View>
+          <View style={styles.billRow}>
+            <Text style={styles.billLabel}>Add-ons total</Text>
+            <Text style={styles.billValue}>₹{billSummary.addons.toFixed(2)}</Text>
+          </View>
+          <View style={styles.billRow}>
+            <Text style={styles.billLabel}>Service Fee (Labor)</Text>
+            <Text style={styles.billValue}>₹{billSummary.labor.toFixed(2)}</Text>
+          </View>
+          {appliedCoupon && (
+            <View style={styles.billRow}>
+              <Text style={[styles.billLabel, styles.discountLabel]}>{appliedCoupon.code}</Text>
+              <Text style={[styles.billValue, styles.discountValue]}>-₹{billSummary.discount.toFixed(2)}</Text>
+            </View>
+          )}
+          <View style={styles.billRow}>
+            <Text style={styles.taxNote}>* Taxes applicable at checkout</Text>
+            <Text style={styles.taxNote}>Included</Text>
+          </View>
+
+          <View style={styles.divider} />
+
+          <View style={styles.totalRow}>
+            <Text style={styles.totalLabel}>Total Estimate</Text>
+            <Text style={styles.totalValue}>₹{totalEstimate.toFixed(2)}</Text>
+          </View>
+        </View>
+
+        {/* Payment Type */}
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>CHOOSE PAYMENT TYPE</Text>
+          <View style={styles.paymentTypeSection}>
+            <View style={styles.paymentTypeRow}>
+              <TouchableOpacity
+                style={[styles.paymentOption, paymentType === 'partial' && styles.paymentOptionSelected]}
+                onPress={() => setPaymentType('partial')}
+              >
+                <Text style={styles.paymentOptionTitle}>Partial Payment</Text>
+                <Text style={styles.paymentOptionSub}>(30% Advance)</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.paymentOption, paymentType === 'full' && styles.paymentOptionSelected]}
+                onPress={() => setPaymentType('full')}
+              >
+                <Text style={styles.paymentOptionTitle}>Full Payment</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.payableCard}>
+              <View>
+                <Text style={styles.payableLabel}>Payable Now (30%)</Text>
+                <Text style={styles.payableSub}>Balance at service</Text>
+              </View>
+              <Text style={styles.payableValue}>₹{payableNow.toFixed(2)}</Text>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+
+      <View style={styles.footer}>
+        <Button
+          title="Proceed to Pay"
+          onPress={() => { }}
+        />
+      </View>
+    </ScreenWrapper>
+  );
+};
+
+export default ServiceCheckoutScreen;

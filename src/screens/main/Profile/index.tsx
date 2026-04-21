@@ -96,7 +96,7 @@ const ProfileScreen = ({ navigation }: any) => {
           >
             <View style={styles.myTractorLeft}>
               <View style={styles.tractorIconContainer}>
-                <BikeIcon width={SW(24)} height={SW(24)} />
+                <BikeIcon width={SW(24)} height={SW(24)} color={theme.colors.danger} />
               </View>
               <Text variant="medium" size={16} color={theme.colors.gray800}>
                 {t('main.profile.myTractor')}
