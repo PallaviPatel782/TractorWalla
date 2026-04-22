@@ -86,7 +86,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(15),
     },
     highlights: {
-      marginBottom: SH(20),
+      marginBottom: SH(0),
     },
     highlightItem: {
       flexDirection: 'row',
@@ -99,28 +99,37 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.textSecondary,
       marginLeft: SW(10),
     },
-    priceRow: {
+    serviceFooter: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: SH(20),
+      marginVertical: SH(10),
+    },
+    ratingRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginRight: SW(12),
+    },
+    starIcon: {
+      fontSize: SF(12),
+      color: theme.colors.GoldenYellow || '#F4C542',
+      marginRight: SW(4),
     },
     ratingText: {
-      fontSize: SF(14),
+      fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary,
-      marginRight: SW(8),
+      color: theme.colors.textSecondary || '#666666',
     },
     price: {
-      fontSize: SF(20),
+      fontSize: SF(15),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary,
+      color: theme.colors.textPrimary || '#111827',
     },
     mrp: {
-      fontSize: SF(14),
+      fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textMuted,
+      color: theme.colors.textMuted || '#9CA3AF',
       textDecorationLine: 'line-through',
-      marginLeft: SW(10),
+      marginLeft: SW(6),
     },
     sectionHeading: {
       fontSize: SF(16),
@@ -128,16 +137,24 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.textPrimary,
       marginBottom: SH(15),
     },
+    includesGrid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+    },
     bulletRow: {
       flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: SH(12),
+      alignItems: 'flex-start',
+      width: '48%',
+      marginBottom: SH(20),
+      paddingRight: SW(4),
     },
     bulletText: {
-      fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textSecondary,
-      marginLeft: SW(12),
+      fontSize: SF(11),
+      fontFamily: theme.fontfamily.robotoMedium,
+      color: theme.colors.gray600,
+      flex: 1,
+      marginLeft: SW(10),
     },
     footer: {
       position: 'absolute',

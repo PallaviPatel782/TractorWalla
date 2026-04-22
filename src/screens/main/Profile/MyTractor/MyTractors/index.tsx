@@ -18,13 +18,14 @@ import { createStyles } from './styles';
 import { TractorImage } from '@assets/images';
 import { SW, SH } from '@utils/Dimensions';
 
-const MyTractorsScreen = ({ navigation }: any) => {
+const MyTractorsScreen = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const tractors = user?.tractors || [];
+  const isSelectionMode = route.params?.isSelectionMode;
 
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedTractor, setSelectedTractor] = useState<any>(null);
@@ -66,7 +67,18 @@ const MyTractorsScreen = ({ navigation }: any) => {
             renderItem={({ item }) => (
               <TractorCard
                 tractor={item}
-                onPress={() => navigation.navigate('TractorDetails', { tractor: item })}
+                isSelectionMode={isSelectionMode}
+                selected={route.params?.selectedTractorId === item.id}
+                onPress={() => {
+                  if (isSelectionMode) {
+                    navigation.navigate('ServiceCheckout', { 
+                      ...route.params,
+                      selectedTractor: item 
+                    });
+                  } else {
+                    navigation.navigate('TractorDetails', { tractor: item });
+                  }
+                }}
                 onDelete={() => handleDeletePress(item)}
               />
             )}

@@ -15,7 +15,7 @@ import {
   GlobalBottomSheet,
 } from '@components';
 import { useAppDispatch } from '@store';
-import { addTractor } from '@store/slices/authSlice';
+import { addTractor, completeOnboarding } from '@store/slices/authSlice';
 import { createStyles } from './styles';
 import { SW, SH } from '@utils/Dimensions';
 import { TRACTOR_MODELS } from '@constants/TractorData';
@@ -80,7 +80,8 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
       yearOfPurchase: formData.yearOfPurchase,
       tractorType: formData.tractorType,
     }));
-    navigation.navigate('Main');
+    dispatch(completeOnboarding());
+    navigation.replace('Main');
   };
 
 
@@ -186,10 +187,9 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
 
             <Button
               title={isOthers ? t('main.register.button') : t('common.continue')}
-
               onPress={handleContinue}
               style={styles.button}
-            // disabled={!formData.registrationNo || !formData.model || (!formData.customBrand && isOthers)}
+              disabled={!formData.registrationNo || !formData.model || (isOthers && !formData.customBrand)}
             />
           </ScrollView>
         </KeyboardWrapper>

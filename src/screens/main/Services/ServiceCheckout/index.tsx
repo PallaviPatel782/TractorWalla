@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   ScrollView,
@@ -14,14 +14,16 @@ import {
   ScreenWrapper,
   Button,
 } from '@components';
+import { useAppSelector } from '@store';
+import * as Brands from '@assets/images';
 import {
   CheckIcon,
   LocationIcon,
-  NextIcon,
   BillIcon,
   BikeIcon,
+  ChevronArrowIcon,
 } from '@assets/icons';
-import { MahindraImage } from '@assets/images';
+
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
 import { SW, SH, SF } from '@utils/Dimensions';
@@ -36,6 +38,46 @@ const ServiceCheckoutScreen = () => {
 
   const [issue, setIssue] = useState('');
   const [paymentType, setPaymentType] = useState<'partial' | 'full'>('partial');
+
+  const { user } = useAppSelector((state) => state.auth);
+  const tractors = useMemo(() => user?.tractors || [], [user?.tractors]);
+
+  // Get selected tractor from params or default to first tractor
+  const [selectedTractor, setSelectedTractor] = useState<any>(null);
+  const prevTractorsLength = React.useRef(tractors.length);
+
+  React.useEffect(() => {
+    if (route.params?.selectedTractor) {
+      setSelectedTractor(route.params.selectedTractor);
+    } else if (tractors.length > 0) {
+      // Select the last one if nothing is selected OR a new tractor was added
+      if (!selectedTractor || tractors.length > prevTractorsLength.current) {
+        setSelectedTractor(tractors[tractors.length - 1]);
+      }
+    }
+    prevTractorsLength.current = tractors.length;
+  }, [route.params?.selectedTractor, tractors, selectedTractor]);
+
+  const BRAND_LOGOS: Record<string, any> = {
+    Mahindra: Brands.MahindraImage,
+    Swaraj: Brands.SwarajImage,
+    'John Deere': Brands.JohnDeereImage,
+    Eicher: Brands.EicherImage,
+    Sonalika: Brands.SonalikaImage,
+    Solis: Brands.SolisImage,
+    Captain: Brands.CaptainImage,
+    VST: Brands.VstImage,
+    Force: Brands.ForceImage,
+    'New Holland': Brands.NewHollandImage,
+    Farmtrac: Brands.FarmtracImage,
+    Powertrac: Brands.PowertracImage,
+    Kubota: Brands.KubotaImage,
+    'Massey Ferguson': Brands.MasseyFergusonImage,
+    Others: Brands.OthersImage,
+  };
+
+  const SelectedBrandLogo = selectedTractor ? (BRAND_LOGOS[selectedTractor.brand] || Brands.OthersImage) : Brands.OthersImage;
+
 
   const currentCategory = SERVICES_DATA.find(c => c.category === category);
   const service = currentCategory?.services.find(s => s.id === serviceId) as IService | undefined;
@@ -133,20 +175,36 @@ const ServiceCheckoutScreen = () => {
         </View>
 
         {/* Select Tractor */}
-        <TouchableOpacity style={styles.sectionCard} onPress={() => navigation.navigate('MyTractors')}>
+        <TouchableOpacity
+          style={styles.sectionCard}
+          onPress={() => navigation.navigate('MyTractors', { 
+            isSelectionMode: true,
+            selectedTractorId: selectedTractor?.id,
+            serviceId,
+            category
+          })}
+        >
           <View style={styles.selectorRow}>
             <View style={styles.selectorLeft}>
               <BikeIcon size={18} color={theme.colors.DeepGreen} />
-              <Text style={styles.selectorText}>Select Tractor</Text>
+              <Text style={styles.selectorText}>{t('main.home.services.selectTractor', 'Select Tractor')}</Text>
             </View>
-            <NextIcon size={18} color={theme.colors.DeepGreen} />
+            <ChevronArrowIcon size={18} color={theme.colors.DeepGreen} />
           </View>
-          <View style={styles.selectionBox}>
-            <MahindraImage width={SW(40)} height={SH(30)} />
-            <View style={styles.selectionInfo}>
-              <Text style={styles.selectionTitle}>Mahindra 575 DI</Text>
+          {selectedTractor ? (
+            <View style={styles.selectionBox}>
+              <SelectedBrandLogo width={SW(40)} height={SH(30)} />
+              <View style={styles.selectionInfo}>
+                <Text style={styles.selectionTitle}>
+                  {t(`common.brands.${selectedTractor.brand}`) === `common.brands.${selectedTractor.brand}` ? selectedTractor.brand : t(`common.brands.${selectedTractor.brand}`)} {selectedTractor.model}
+                </Text>
+              </View>
             </View>
-          </View>
+          ) : (
+            <View style={styles.selectionBox}>
+              <Text style={styles.selectionTitle}>No Tractor Selected</Text>
+            </View>
+          )}
         </TouchableOpacity>
 
         {/* Add Address */}
@@ -156,7 +214,7 @@ const ServiceCheckoutScreen = () => {
               <LocationIcon size={18} color={theme.colors.DeepGreen} />
               <Text style={styles.selectorText}>Add Address</Text>
             </View>
-            <NextIcon size={18} color={theme.colors.DeepGreen} />
+            <ChevronArrowIcon size={18} color={theme.colors.DeepGreen} />
           </View>
           <View style={styles.selectionInfo}>
             <Text style={styles.selectionSub}>Sopanbagh Colony Dagdoba Chowk Narayan nagar Chinchwad Pune 411033</Text>
@@ -174,7 +232,7 @@ const ServiceCheckoutScreen = () => {
               <Text style={styles.PercentageContainer}>%</Text>
               <Text style={styles.selectorText}>Apply Coupons</Text>
             </View>
-            <NextIcon size={18} color={theme.colors.DeepGreen} />
+            <ChevronArrowIcon size={18} color={theme.colors.DeepGreen} />
           </View>
           <View style={styles.couponBadge}>
             <Text style={styles.couponCode}>{appliedCoupon ? appliedCoupon.code : 'SELECT COUPON'}</Text>
@@ -182,17 +240,17 @@ const ServiceCheckoutScreen = () => {
           </View>
         </TouchableOpacity>
 
-          <View style={styles.savingBanner}>
-            <Text style={[styles.PercentageContainer, {
-              backgroundColor: theme.colors.white,
-              color: theme.colors.red || '#FF0000'
-            }]}>%</Text>
-            <Text style={styles.savingText}>
-              {billSummary.discount > 0 
-                ? `You have Saved ₹${billSummary.discount.toFixed(0)} on this order!` 
-                : 'Apply a coupon to save more!'}
-            </Text>
-          </View>
+        <View style={styles.savingBanner}>
+          <Text style={[styles.PercentageContainer, {
+            backgroundColor: theme.colors.white,
+            color: theme.colors.red || '#FF0000'
+          }]}>%</Text>
+          <Text style={styles.savingText}>
+            {billSummary.discount > 0
+              ? `You have Saved ₹${billSummary.discount.toFixed(0)} on this order!`
+              : 'Apply a coupon to save more!'}
+          </Text>
+        </View>
 
         {/* Bill Summary */}
         <View style={styles.sectionCard}>

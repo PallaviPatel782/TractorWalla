@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList, AuthStackParamList } from '@navigation/NavigationTypes';
+import { useAppSelector } from '@store';
 import {
   Loading,
   LoginScreen,
@@ -47,6 +48,7 @@ import {
   ServiceAvailabilityScreen,
 } from '@screens/main';
 import TabNavigator from '@navigation/TabNavigator';
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -66,51 +68,51 @@ const AuthNavigator = () => (
 );
 
 const RootNavigator = () => {
-  // const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Auth" component={AuthNavigator} />
-        <Stack.Screen name="Main" component={TabNavigator} />
-        <Stack.Screen name="MyTractors" component={MyTractorsScreen} />
-        <Stack.Screen name="MainTractorBrand" component={MainTractorBrandScreen} />
-        <Stack.Screen name="ManageAddress" component={ManageAddressScreen} />
-        <Stack.Screen name="Bookings" component={BookingsScreen} />
-        <Stack.Screen name="TractorDetails" component={AddTractorDetailsScreen} />
-        <Stack.Screen name="AddTractorDetails" component={AddTractorDetailsScreen} />
-        <Stack.Screen name="AddLocation" component={AddLocation} />
-        <Stack.Screen name="ChooseLanguage" component={ChooseLanguageScreen} />
-        <Stack.Screen name="SendFeedback" component={SendFeedbackScreen} />
-        <Stack.Screen name="ReportIssue" component={ReportIssueScreen} />
-        <Stack.Screen name="Invoice" component={InvoiceScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
-        <Stack.Screen name="FAQ" component={FaqScreen} />
-        <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} />
-        <Stack.Screen name="BookingDetails" component={BookingDetailsScreen} />
-        <Stack.Screen name="AboutTractorWalla" component={AboutTractorWalla} />
-        <Stack.Screen name="JoinTeam" component={JoinTeam} />
-        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-        <Stack.Screen name="TermsConditions" component={TermsConditions} />
-        <Stack.Screen name="ContactUs" component={ContactUs} />
-        <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
-        <Stack.Screen name="BuyParts" component={BuyPartsScreen} />
-        <Stack.Screen name="PartsOverview" component={PartsOverviewScreen} />
-        <Stack.Screen name="BookService" component={BookServiceScreen} />
-        <Stack.Screen name="ApplyCoupons" component={ApplyCouponsScreen} />
-        <Stack.Screen name="ServiceOverview" component={ServiceOverviewScreen} />
-        <Stack.Screen name="ServiceCheckout" component={ServiceCheckoutScreen} />
-        <Stack.Screen name="EmergencyRoadside" component={EmergencyRoadsideScreen} />
-        <Stack.Screen name="CategoryOverview" component={CategoryOverviewScreen} />
-        <Stack.Screen name="SearchServices" component={SearchServicesScreen} />
-        <Stack.Screen name="TractorPurchase" component={TractorPurchaseScreen} />
-        <Stack.Screen name="SelectTractor" component={SelectTractorScreen} />
-        <Stack.Screen name="ServiceAvailability" component={ServiceAvailabilityScreen} />
-        {/* {!isAuthenticated ? (
+        {!isAuthenticated ? (
           <Stack.Screen name="Auth" component={AuthNavigator} />
         ) : (
-          <Stack.Screen name="Main" component={TabNavigator} />
-        )} */}
+          <>
+            <Stack.Screen name="Main" component={TabNavigator} />
+            <Stack.Screen name="MyTractors" component={MyTractorsScreen} />
+            <Stack.Screen name="MainTractorBrand" component={MainTractorBrandScreen} />
+            <Stack.Screen name="ManageAddress" component={ManageAddressScreen} />
+            <Stack.Screen name="Bookings" component={BookingsScreen} />
+            <Stack.Screen name="TractorDetails" component={AddTractorDetailsScreen} />
+            <Stack.Screen name="AddTractorDetails" component={AddTractorDetailsScreen} />
+            <Stack.Screen name="AddLocation" component={AddLocation} />
+            <Stack.Screen name="ChooseLanguage" component={ChooseLanguageScreen} />
+            <Stack.Screen name="SendFeedback" component={SendFeedbackScreen} />
+            <Stack.Screen name="ReportIssue" component={ReportIssueScreen} />
+            <Stack.Screen name="Invoice" component={InvoiceScreen} />
+            <Stack.Screen name="About" component={AboutScreen} />
+            <Stack.Screen name="FAQ" component={FaqScreen} />
+            <Stack.Screen name="UpdateProfile" component={UpdateProfileScreen} />
+            <Stack.Screen name="BookingDetails" component={BookingDetailsScreen} />
+            <Stack.Screen name="AboutTractorWalla" component={AboutTractorWalla} />
+            <Stack.Screen name="JoinTeam" component={JoinTeam} />
+            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+            <Stack.Screen name="TermsConditions" component={TermsConditions} />
+            <Stack.Screen name="ContactUs" component={ContactUs} />
+            <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+            <Stack.Screen name="BuyParts" component={BuyPartsScreen} />
+            <Stack.Screen name="PartsOverview" component={PartsOverviewScreen} />
+            <Stack.Screen name="BookService" component={BookServiceScreen} />
+            <Stack.Screen name="ApplyCoupons" component={ApplyCouponsScreen} />
+            <Stack.Screen name="ServiceOverview" component={ServiceOverviewScreen} />
+            <Stack.Screen name="ServiceCheckout" component={ServiceCheckoutScreen} />
+            <Stack.Screen name="EmergencyRoadside" component={EmergencyRoadsideScreen} />
+            <Stack.Screen name="CategoryOverview" component={CategoryOverviewScreen} />
+            <Stack.Screen name="SearchServices" component={SearchServicesScreen} />
+            <Stack.Screen name="TractorPurchase" component={TractorPurchaseScreen} />
+            <Stack.Screen name="SelectTractor" component={SelectTractorScreen} />
+            <Stack.Screen name="ServiceAvailability" component={ServiceAvailabilityScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

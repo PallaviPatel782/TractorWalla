@@ -11,10 +11,11 @@ import { useTheme } from '@theme';
 import {
   ChevronBackwardIcon,
   ShareIcon,
-  CheckIcon,
-  BagtimerIcon,
-  LocationIcon,
-  NextIcon,
+  CheckedIcon,
+  TimeLineIcon,
+  HumbsupIcon,
+  LoudspeakerIcon,
+  WarrantyBadgeIcon,
 } from '@assets/icons';
 import { Button } from '@components';
 import { createStyles } from './styles';
@@ -79,60 +80,60 @@ const ServiceOverviewScreen = () => {
             <Text style={styles.mrp}>₹{service.mrp}</Text>
           </View>
 
-          {/* Highlights */}
           <View style={styles.highlights}>
             {service.highlight && (
               <View style={styles.highlightItem}>
-                <BagtimerIcon size={18} color={theme.colors.DeepGreen || '#105D38'} />
+                <TimeLineIcon size={18} color={theme.colors.danger || '#D11C3D'} />
                 <Text style={styles.highlightText}>{service.highlight}</Text>
               </View>
             )}
             {service.warranty && (
               <View style={styles.highlightItem}>
-                <CheckIcon size={18} color={theme.colors.DeepGreen || '#105D38'} />
+                <WarrantyBadgeIcon size={18} color={theme.colors.danger || '#D11C3D'} />
                 <Text style={styles.highlightText}>{service.warranty}</Text>
               </View>
             )}
             {service.frequency && (
               <View style={styles.highlightItem}>
-                <NextIcon size={18} color={theme.colors.DeepGreen || '#105D38'} />
+                <HumbsupIcon size={18} color={theme.colors.danger || '#D11C3D'} />
                 <Text style={styles.highlightText}>{service.frequency}</Text>
               </View>
             )}
             {service.pickup && (
               <View style={styles.highlightItem}>
-                <LocationIcon size={18} color={theme.colors.DeepGreen || '#105D38'} />
+                <LoudspeakerIcon size={18} color={theme.colors.danger || '#D11C3D'} />
                 <Text style={styles.highlightText}>{service.pickup}</Text>
               </View>
             )}
           </View>
 
           {/* Service Includes */}
-          <Text style={styles.sectionHeading}>{t('main.home.services.includes', 'Service Includes')}</Text>
+          <Text style={[styles.sectionHeading, { marginHorizontal: 0 }]}>{t('main.home.services.includes', 'Service Includes')}</Text>
           <View style={styles.includesGrid}>
             {service.bullets?.map((bullet: string, idx: number) => (
               <View key={idx} style={styles.detailBulletRow}>
-                <CheckIcon size={16} color={theme.colors.success || '#10B981'} />
+                <CheckedIcon size={16} color={theme.colors.success || '#10B981'} />
                 <Text style={styles.detailBulletText}>{bullet}</Text>
               </View>
             ))}
           </View>
-
-          {/* Other Services */}
-          {otherServices.length > 0 && (
-            <View style={styles.otherServicesSection}>
-              <Text style={styles.sectionHeading}>{t('main.home.services.otherServices', 'Other Services')}</Text>
-              {otherServices.map((item) => (
-                <ServiceCard
-                  key={item.id}
-                  item={item}
-                  onPress={() => navigation.push('ServiceOverview', { serviceId: item.id, category })}
-                  onBookPress={() => { }} // Handle booking from here if needed
-                />
-              ))}
-            </View>
-          )}
         </View>
+
+        {/* Other Services */}
+        {otherServices.length > 0 && (
+          <View style={styles.otherServicesSection}>
+            <Text style={styles.sectionHeading}>{t('main.home.services.otherServices', 'Other Services')}</Text>
+            {otherServices.map((item) => (
+              <ServiceCard
+                key={item.id}
+                item={item}
+                onPress={() => navigation.push('ServiceOverview', { serviceId: item.id, category })}
+                onBookPress={() => { }} // Handle booking from here if needed
+              />
+            ))}
+          </View>
+        )}
+
       </ScrollView>
 
       {/* Footer Action */}

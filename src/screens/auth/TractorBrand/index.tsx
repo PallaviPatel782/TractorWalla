@@ -70,23 +70,23 @@ const TractorBrand = ({ navigation }: any) => {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <SecondaryHeader title={t('main.tractor.selectBrand')} onBack={() => navigation.goBack()}
-          backgroundColor={theme.colors.YellowLight}
-          titleColor={theme.colors.black} />
+        <View style={styles.header}>
+          <SecondaryHeader
+            title={t('main.tractor.selectBrand')}
+            onBack={() => navigation.goBack()}
+            titleColor={theme.colors.black}
+            backIconColor={theme.colors.black}
+            backgroundColor="transparent"
+          />
+        </View>
 
         <View style={styles.content}>
           <View style={styles.searchContainer}>
-            <View style={styles.searchBar}>
-              <SearchInput
-                placeholder={t('main.tractor.searchBrand')}
-                placeholderTextColor={theme.colors.gray400}
-                style={styles.searchInputWrapper}
-                containerStyle={styles.searchInputContainer}
-                value={search}
-                onChangeText={setSearch}
-                hasBorder={false}
-              />
-            </View>
+            <SearchInput
+              placeholder={t('main.tractor.searchBrand')}
+              value={search}
+              onChangeText={setSearch}
+            />
           </View>
 
           <ScrollView

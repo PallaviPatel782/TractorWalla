@@ -20,6 +20,7 @@ import {
   ShareIcon,
   CloseIcon,
   CartIcon,
+  CheckedIcon,
 } from '@assets/icons';
 import { ServiceModalImageImage } from '@assets/images';
 import { PARTS_DATA } from '../dummyData';
@@ -45,14 +46,14 @@ const ServiceOverviewScreen = () => {
 
   const onGoToService = () => {
     setModalVisible(false);
-    navigation.navigate('Services');
+    navigation.navigate('Main', { screen: 'Services' });
   };
 
   const renderKitCard = (kit: any) => (
     <TouchableOpacity
       key={kit.id}
       style={styles.kitCard}
-      onPress={() => navigation.navigate('ServiceOverview', { kitId: kit.id })}
+      onPress={() => navigation.push('PartsOverview', { kitId: kit.id })}
     >
       <View style={styles.kitLeft}>
         <Text style={styles.kitTitle}>{kit.title}</Text>
@@ -62,10 +63,13 @@ const ServiceOverviewScreen = () => {
             <Text style={styles.bulletText}>{bullet}</Text>
           </View>
         ))}
-        <View style={styles.kitFooter}>
-          <Text style={styles.ratingText}>★ {kit.rating}</Text>
+        <View style={styles.serviceFooter}>
+          <View style={styles.ratingRow}>
+            <Text style={styles.starIcon}>★</Text>
+            <Text style={styles.ratingText}>{kit.rating}</Text>
+          </View>
           <Text style={styles.price}>₹{kit.price}</Text>
-          <Text style={styles.mrp}>₹{kit.price}</Text>
+          <Text style={styles.mrp}>₹{kit.mrp}</Text>
         </View>
       </View>
       <View style={styles.kitRight}>
@@ -120,7 +124,7 @@ const ServiceOverviewScreen = () => {
           <View style={styles.detailsGrid}>
             {kit.bullets.map((bullet: string, idx: number) => (
               <View key={idx} style={styles.detailBulletRow}>
-                <CheckIcon size={16} color="#1E633F" />
+                <CheckedIcon size={16} color="#1E633F" />
                 <Text style={styles.detailBulletText}>{bullet}</Text>
               </View>
             ))}

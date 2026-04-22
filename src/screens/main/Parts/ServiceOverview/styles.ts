@@ -71,10 +71,7 @@ export const createStyles = (theme: AppTheme) =>
     titleRow: {
       marginBottom: SH(5),
     },
-    starIcon: {
-      color: '#F4C542',
-      fontSize: SF(18),
-    },
+
     divider: {
       height: 1,
       backgroundColor: '#F1F1F1',
@@ -97,28 +94,11 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
       marginLeft: SW(10),
     },
-    ratingText: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textSecondary,
-      marginLeft: SW(4),
-    },
+
     priceRow: {
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: SH(10),
-    },
-    price: {
-      fontSize: SF(22),
-      fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textPrimary,
-    },
-    mrp: {
-      fontSize: SF(16),
-      fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textMuted || '#9CA3AF',
-      textDecorationLine: 'line-through',
-      marginLeft: SW(10),
     },
     sectionTitle: {
       fontSize: SF(16),
@@ -139,8 +119,10 @@ export const createStyles = (theme: AppTheme) =>
     },
     detailBulletRow: {
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       width: '48%',
+      marginBottom: SH(20),
+      paddingRight: SW(4),
     },
     detailBulletText: {
       fontSize: SF(11),
@@ -169,7 +151,7 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
       // marginHorizontal: SW(16),
       marginBottom: SH(10),
-      borderRadius: SW(12),
+      // borderRadius: SW(12),
       padding: SW(12),
       borderWidth: 1,
       borderColor: theme.colors.borderFaint || '#F1F1F1',
@@ -250,5 +232,38 @@ export const createStyles = (theme: AppTheme) =>
       padding: SW(10),
       alignItems: 'center',
       marginBottom: SH(30),
+    },
+
+    serviceFooter: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: SH(10),
+    },
+    ratingRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginRight: SW(12),
+    },
+    starIcon: {
+      fontSize: SF(12),
+      color: theme.colors.GoldenYellow || '#F4C542',
+      marginRight: SW(4),
+    },
+    ratingText: {
+      fontSize: SF(12),
+      fontFamily: theme.fontfamily.robotoBold,
+      color: theme.colors.textSecondary || '#666666',
+    },
+    price: {
+      fontSize: SF(15),
+      fontFamily: theme.fontfamily.robotoBold,
+      color: theme.colors.textPrimary || '#111827',
+    },
+    mrp: {
+      fontSize: SF(12),
+      fontFamily: theme.fontfamily.robotoRegular,
+      color: theme.colors.textMuted || '#9CA3AF',
+      textDecorationLine: 'line-through',
+      marginLeft: SW(6),
     },
   });

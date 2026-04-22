@@ -88,7 +88,7 @@ export const createStyles = (theme: AppTheme) =>
     // ── Slider Sections ───────────────────────────────────────────────
     sliderSection: {
       marginBottom: SH(16),
-      marginHorizontal: SW(15)
+      // Removed marginHorizontal to allow full-width scroll area
     },
     heroCardContainer: {
       width: SW(343),
@@ -104,7 +104,6 @@ export const createStyles = (theme: AppTheme) =>
       overflow: 'hidden',
       position: 'relative',
       shadowRadius: 8,
-      marginRight: SW(15)
     },
     heroGradient: {
       position: 'absolute',
@@ -148,7 +147,6 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(20),
       overflow: 'hidden',
       alignItems: 'center',
-      marginRight: SW(10)
     },
     // Network Slider Container
     networkCardContainer: {
@@ -157,7 +155,6 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(20),
       overflow: 'hidden',
       alignItems: 'center',
-      marginRight: SW(10)
     },
     dots: {
       flexDirection: 'row',
@@ -431,7 +428,6 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(16),
       overflow: 'hidden',
       minHeight: SH(154),
-      marginRight: SW(15), // Gap for sliders
     },
     middleBannerContent: {
       flexDirection: 'row',
@@ -505,7 +501,6 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(16),
       overflow: 'hidden',
       minHeight: SH(154),
-      marginRight: SW(15), // Gap for sliders
     },
     networkBannerContent: {
       flexDirection: 'row',

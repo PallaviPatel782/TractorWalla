@@ -33,7 +33,7 @@ const BuyPartsScreen = () => {
 
   const onGoToService = () => {
     setModalVisible(false);
-    navigation.navigate('Services');
+    navigation.navigate('Main', { screen: 'Services' });
   };
 
   const onTabPress = (id: string) => {

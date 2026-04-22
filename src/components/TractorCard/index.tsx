@@ -20,17 +20,19 @@ interface TractorCardProps {
     tractorType: string;
   };
   onPress: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
+  isSelectionMode?: boolean;
+  selected?: boolean;
 }
 
-const TractorCard = ({ tractor, onPress, onDelete }: TractorCardProps) => {
+const TractorCard = ({ tractor, onPress, onDelete, isSelectionMode, selected }: TractorCardProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={[styles.container, selected && styles.selectedContainer]}
       onPress={onPress}
       activeOpacity={0.8}
     >
@@ -39,19 +41,29 @@ const TractorCard = ({ tractor, onPress, onDelete }: TractorCardProps) => {
       </View>
       <View style={styles.detailsContainer}>
         <Text variant="semiBold" size={14} color={theme.colors.gray900}>
-          {t(`common.brands.${tractor.brand}`)}
+          {t(`common.brands.${tractor.brand}`) === `common.brands.${tractor.brand}` ? tractor.brand : t(`common.brands.${tractor.brand}`)}
         </Text>
         <Text variant="regular" size={12} color={theme.colors.gray500}>
           {tractor.model}
         </Text>
       </View>
-      <TouchableOpacity
-        style={styles.deleteButton}
-        onPress={onDelete}
-        activeOpacity={0.6}
-      >
-        <DeleteIcon size={24} color={theme.colors.gray500} />
-      </TouchableOpacity>
+      {isSelectionMode ? (
+        <View style={[styles.selectButton, selected && { backgroundColor: theme.colors.brandRed }]}>
+          <Text variant="semiBold" size={12} color={selected ? theme.colors.white : theme.colors.brandRed}>
+            {selected ? 'Selected' : 'Select'}
+          </Text>
+        </View>
+      ) : (
+        onDelete && (
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={onDelete}
+            activeOpacity={0.6}
+          >
+            <DeleteIcon size={24} color={theme.colors.gray500} />
+          </TouchableOpacity>
+        )
+      )}
     </TouchableOpacity>
   );
 };
@@ -89,5 +101,16 @@ const createStyles = (theme: any) =>
     },
     deleteButton: {
       padding: SW(8),
+    },
+    selectedContainer: {
+      borderColor: theme.colors.brandRed,
+      backgroundColor: theme.colors.backgroundFaint,
+    },
+    selectButton: {
+      paddingHorizontal: SW(12),
+      paddingVertical: SH(6),
+      borderRadius: SW(20),
+      borderWidth: 1,
+      borderColor: theme.colors.brandRed,
     },
   });

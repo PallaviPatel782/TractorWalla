@@ -142,6 +142,8 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingVertical: SH(8),
+      borderBottomColor: theme.colors.gray200,
+      borderBottomWidth: 1
     },
     selectorLeft: {
       flexDirection: 'row',

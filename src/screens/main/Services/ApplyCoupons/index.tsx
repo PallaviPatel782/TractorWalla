@@ -14,6 +14,7 @@ import {
   ScreenWrapper,
 } from '@components';
 import { createStyles } from './styles';
+import { SH } from '@utils/Dimensions';
 
 const COUPONS = [
   {
@@ -77,14 +78,13 @@ const ApplyCouponsScreen = () => {
 
   return (
     <ScreenWrapper style={styles.container}>
-      <SecondaryHeader
-        title={t('main.home.services.applyCoupons', 'Apply Coupons')}
-        onBack={() => navigation.goBack()}
-        backgroundColor={theme.colors.DeepGreen}
-        titleColor={theme.colors.white}
-      />
-
-      <View style={styles.content}>
+      <View style={styles.headerContainer}>
+        <SecondaryHeader
+          title={t('main.home.services.applyCoupons', 'Apply Coupons')}
+          onBack={() => navigation.goBack()}
+          backgroundColor="transparent"
+          titleColor={theme.colors.black}
+        />
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.searchInput}
@@ -97,7 +97,9 @@ const ApplyCouponsScreen = () => {
             <Text style={styles.applyBtnText}>{t('main.home.services.apply', 'Apply')}</Text>
           </TouchableOpacity>
         </View>
+      </View>
 
+      <View style={styles.content}>
         <Text style={styles.sectionTitle}>{t('main.home.services.availableOffers', 'Available Offers')}</Text>
 
         <FlatList
@@ -105,7 +107,7 @@ const ApplyCouponsScreen = () => {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 40 }}
+          contentContainerStyle={{ paddingBottom: SH(100) }}
         />
       </View>
     </ScreenWrapper>

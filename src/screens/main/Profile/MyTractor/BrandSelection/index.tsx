@@ -6,7 +6,7 @@ import {
   ScreenWrapper,
   View,
   TouchableOpacity,
-  Input,
+  SearchInput,
   ScrollView,
 } from '@components';
 import {
@@ -28,7 +28,7 @@ import {
 } from '@images';
 import { createStyles } from './styles';
 import { SW, SH } from '@utils/Dimensions';
-import { SearchIcon } from '@icons';
+import { useTranslation } from 'react-i18next';
 
 const BRANDS = [
   { id: '1', name: 'Mahindra', logo: MahindraImage },
@@ -52,6 +52,7 @@ const MainTractorBrand = ({ navigation }: any) => {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   const [search, setSearch] = useState('');
+  const { t } = useTranslation();
 
   const filteredBrands = BRANDS.filter(brand =>
     brand.name.toLowerCase().includes(search.toLowerCase())
@@ -68,22 +69,23 @@ const MainTractorBrand = ({ navigation }: any) => {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <SecondaryHeader title="Select Your Tractor" onBack={() => navigation.goBack()} />
+        <View style={styles.header}>
+          <SecondaryHeader
+            title={t('main.tractor.selectBrand', 'Select Your Tractor')}
+            onBack={() => navigation.goBack()}
+            titleColor={theme.colors.black}
+            backIconColor={theme.colors.black}
+            backgroundColor="transparent"
+          />
+        </View>
 
         <View style={styles.content}>
           <View style={styles.searchContainer}>
-            <View style={styles.searchBar}>
-              <SearchIcon size={20} color={theme.colors.gray400} style={styles.searchIcon} />
-              <Input
-                placeholder="Search by Brand"
-                placeholderTextColor={theme.colors.gray400}
-                style={styles.searchInputWrapper}
-                containerStyle={styles.searchInputContainer}
-                value={search}
-                onChangeText={setSearch}
-                hasBorder={false}
-              />
-            </View>
+            <SearchInput
+              placeholder={t('main.tractor.searchBrand', 'Search by Brand')}
+              value={search}
+              onChangeText={setSearch}
+            />
           </View>
 
           <ScrollView

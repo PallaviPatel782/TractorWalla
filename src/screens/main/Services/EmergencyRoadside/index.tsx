@@ -15,6 +15,7 @@ import {
   BagtimerIcon,
   LocationIcon,
   TractorIcon,
+  CheckedIcon,
 } from '@assets/icons';
 import { Button } from '@components';
 import { createStyles } from './styles';
@@ -76,19 +77,26 @@ const EmergencyRoadsideScreen = () => {
             </View>
           </View>
 
-          <View style={styles.priceRow}>
+          <View style={styles.serviceFooter}>
+            <View style={styles.ratingRow}>
+              <Text style={styles.starIcon}>★</Text>
+              <Text style={styles.ratingText}>{data.rating}</Text>
+            </View>
             <Text style={styles.price}>₹{data.price}</Text>
             <Text style={styles.mrp}>₹{data.mrp}</Text>
           </View>
 
+
           {/* Service Includes */}
           <Text style={styles.sectionHeading}>{t('main.home.services.includes', 'Service Includes')}</Text>
-          {data.includes?.map((point: string, idx: number) => (
-            <View key={idx} style={styles.bulletRow}>
-              <CheckIcon size={20} color={theme.colors.success || '#41A863'} />
-              <Text style={styles.bulletText}>{point}</Text>
-            </View>
-          ))}
+          <View style={styles.includesGrid}>
+            {data.bullets?.map((point: string, idx: number) => (
+              <View key={idx} style={styles.bulletRow}>
+                <CheckedIcon size={16} color={theme.colors.success || '#41A863'} />
+                <Text style={styles.bulletText}>{point}</Text>
+              </View>
+            ))}
+          </View>
 
           {/* Duration & Warranty */}
           <View style={styles.warrantySection}>

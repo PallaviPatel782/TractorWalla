@@ -172,10 +172,10 @@ const createStyles = (theme: AppTheme) =>
       fontSize: SF(13),
     },
     leftIcon: {
-      marginRight: SW(SW(8)),
+      marginRight: SW(8),
     },
     rightIcon: {
-      marginLeft: SW(SW(8)),
+      marginLeft: SW(8),
     },
     countryCodeContainer: {
       flexDirection: 'row',

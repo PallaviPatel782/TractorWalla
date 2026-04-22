@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
-  Dimensions,
   NativeSyntheticEvent,
   NativeScrollEvent,
   Linking,
@@ -59,8 +58,6 @@ import {
 } from '@assets/images';
 
 import { SW, SH } from '@utils/Dimensions';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const HomeScreen = () => {
   const navigation = useNavigation<any>();
@@ -279,20 +276,23 @@ const HomeScreen = () => {
 
   const onHeroScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const idx = Math.round(x / SCREEN_WIDTH);
-    if (idx !== heroIndex) setHeroIndex(idx);
+    const interval = SW(343) + SW(15);
+    const idx = Math.round(x / interval);
+    if (idx !== heroIndex && idx >= 0 && idx < HERO_SLIDERS.length) setHeroIndex(idx);
   };
 
   const onMiddleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const idx = Math.round(x / SCREEN_WIDTH);
-    if (idx !== middleIndex) setMiddleIndex(idx);
+    const interval = SW(343) + SW(15);
+    const idx = Math.round(x / interval);
+    if (idx !== middleIndex && idx >= 0 && idx < MIDDLE_BANNERS.length) setMiddleIndex(idx);
   };
 
   const onNetworkScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const idx = Math.round(x / SCREEN_WIDTH);
-    if (idx !== networkIndex) setNetworkIndex(idx);
+    const interval = SW(343) + SW(15);
+    const idx = Math.round(x / interval);
+    if (idx !== networkIndex && idx >= 0 && idx < NETWORK_BANNERS.length) setNetworkIndex(idx);
   };
 
   return (
@@ -354,11 +354,11 @@ const HomeScreen = () => {
               ref={heroFlatListRef}
               data={HERO_SLIDERS}
               horizontal
-              pagingEnabled
-              snapToInterval={SCREEN_WIDTH}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: SW(15), gap: SW(15) }}
+              snapToInterval={SW(343) + SW(15)}
               snapToAlignment="start"
               decelerationRate="fast"
-              showsHorizontalScrollIndicator={false}
               onScroll={onHeroScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}
@@ -434,11 +434,11 @@ const HomeScreen = () => {
               ref={middleFlatListRef}
               data={MIDDLE_BANNERS}
               horizontal
-              pagingEnabled
-              snapToInterval={SCREEN_WIDTH}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: SW(15), gap: SW(15) }}
+              snapToInterval={SW(343) + SW(15)}
               snapToAlignment="start"
               decelerationRate="fast"
-              showsHorizontalScrollIndicator={false}
               onScroll={onMiddleScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}
@@ -487,10 +487,10 @@ const HomeScreen = () => {
           </View>
 
           {/* Parts & Accessories */}
-          <View style={styles.section}>
+          <View style={[styles.section, { backgroundColor: theme.colors.YellowLight, paddingVertical: SH(10) }]}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>{t('main.home.partsAccessories')}</Text>
-              <TouchableOpacity onPress={navigation.navigate('Parts')}>
+              <TouchableOpacity onPress={() => navigation.navigate('Parts')}>
                 <Text style={styles.seeMore}>{t('main.home.seeMore')}</Text>
               </TouchableOpacity>
             </View>
@@ -501,7 +501,10 @@ const HomeScreen = () => {
               contentContainerStyle={{ gap: SW(12) }}
               keyExtractor={(i: any) => i.id}
               renderItem={({ item }: { item: any }) => (
-                <View style={styles.partCard}>
+                <TouchableOpacity
+                  style={styles.partCard}
+                  onPress={() => navigation.navigate('PartsOverview', { kitId: item.id })}
+                >
                   <View style={styles.partImageWrap}>
                     <item.Image width={SW(120)} height={SW(120)} />
                   </View>
@@ -515,7 +518,7 @@ const HomeScreen = () => {
                     <Text style={styles.starIcon}>★</Text>
                     <Text style={styles.ratingText}>{item.rating}</Text>
                   </View>
-                </View>
+                </TouchableOpacity>
               )}
             />
           </View>
@@ -545,11 +548,11 @@ const HomeScreen = () => {
               ref={networkFlatListRef}
               data={NETWORK_BANNERS}
               horizontal
-              pagingEnabled
-              snapToInterval={SCREEN_WIDTH}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: SW(15), gap: SW(15) }}
+              snapToInterval={SW(343) + SW(15)}
               snapToAlignment="start"
               decelerationRate="fast"
-              showsHorizontalScrollIndicator={false}
               onScroll={onNetworkScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}

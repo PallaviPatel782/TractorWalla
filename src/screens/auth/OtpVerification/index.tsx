@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import {
@@ -76,6 +76,11 @@ const OtpVerification = ({ navigation }: any) => {
         navigation.navigate('LocationAccess')
     };
 
+    const handleResendOTP = () => {
+        setTimer(30);
+        // Add resend API call here if needed
+    };
+
     const renderSlide = ({ item }: { item: any }) => (
         <View style={styles.slide}>
             <item.image width={SW(170)} height={SH(140)} />
@@ -146,14 +151,25 @@ const OtpVerification = ({ navigation }: any) => {
                             </View>
 
                             <View style={styles.timerSection}>
-                                <View style={styles.timerRow}>
-                                    <Text size={12} color={theme.colors.gray500}>
-                                        {t('auth.otp.resendText')}{' '}
-                                    </Text>
-                                    <Text size={12} color={theme.colors.AzureBlue} variant="bold">
-                                        00:{timer < 10 ? `0${timer}` : timer}
-                                    </Text>
-                                </View>
+                                {timer > 0 ? (
+                                    <View style={styles.timerRow}>
+                                        <Text size={12} color={theme.colors.gray500}>
+                                            {t('auth.otp.resendText')}{' '}
+                                        </Text>
+                                        <Text size={12} color={theme.colors.AzureBlue} variant="bold">
+                                            00:{timer < 10 ? `0${timer}` : timer}
+                                        </Text>
+                                    </View>
+                                ) : (
+                                    <TouchableOpacity 
+                                        onPress={handleResendOTP}
+                                        style={styles.resendBtn}
+                                    >
+                                        <Text size={12} color={theme.colors.brandRed} variant="bold">
+                                            {t('auth.otp.resendBtn')}
+                                        </Text>
+                                    </TouchableOpacity>
+                                )}
                             </View>
 
                             <Button

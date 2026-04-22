@@ -11,8 +11,6 @@ export const createStyles = (theme: AppTheme) =>
     header: {
       backgroundColor: theme.colors.DeepGreen || '#105D38',
       paddingBottom: SH(15),
-      borderBottomLeftRadius: SW(25),
-      borderBottomRightRadius: SW(25),
     },
     searchContainer: {
       paddingHorizontal: SW(16),
@@ -21,14 +19,13 @@ export const createStyles = (theme: AppTheme) =>
     tabsContainer: {
       flexDirection: 'row',
       paddingHorizontal: SW(16),
-      backgroundColor: theme.colors.white,
-      paddingVertical: SH(12),
-      borderBottomWidth: 1,
-      borderBottomColor: theme.colors.gray100,
+      marginBottom: SH(5),
+      backgroundColor: theme.colors.YellowLight,
+      paddingVertical: SH(10),
     },
     tabPill: {
       paddingHorizontal: SW(16),
-      paddingVertical: SH(6),
+      paddingVertical: SH(5),
       borderRadius: SW(10),
       backgroundColor: theme.colors.white,
       borderWidth: 1,
@@ -57,7 +54,7 @@ export const createStyles = (theme: AppTheme) =>
       fontFamily: theme.fontfamily.robotoBold,
       color: theme.colors.danger || '#D11C3D',
       marginBottom: SH(15),
-      marginTop: SH(5),
+      // marginTop: SH(5),
       paddingHorizontal: SW(16),
     },
     // Modal Styles (copied from BuyParts for consistency)

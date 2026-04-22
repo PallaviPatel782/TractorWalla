@@ -50,11 +50,15 @@ export const createStyles = (theme: AppTheme) =>
     },
     contentCard: {
       backgroundColor: theme.colors.white,
-      borderTopLeftRadius: SW(30),
-      borderTopRightRadius: SW(30),
       marginTop: SH(-30),
-      padding: SW(20),
-      minHeight: SH(500),
+      marginHorizontal: SW(10),
+      borderRadius: SW(20),
+      paddingHorizontal: SW(20),
+      paddingVertical: SH(15),
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.1,
+      elevation: 5,
     },
     budgeSection: {
       flexDirection: "row",
@@ -63,16 +67,16 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(5)
     },
     badgePill: {
-      backgroundColor: '#FEF3F2',
+      backgroundColor: theme.colors.DeepGreen || '#1E633F',
       paddingHorizontal: SW(10),
       paddingVertical: SH(4),
-      borderRadius: SW(4),
-      alignSelf: 'flex-start',
+      borderRadius: SW(6),
     },
     badgeText: {
-      fontSize: SF(10),
+      fontSize: SF(11),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.danger || '#D11C3D',
+      color: theme.colors.white,
+      textTransform: 'uppercase',
     },
     title: {
       fontSize: SF(20),
@@ -109,10 +113,10 @@ export const createStyles = (theme: AppTheme) =>
       marginLeft: SW(10),
     },
     highlights: {
-      backgroundColor: theme.colors.backgroundExtraLight || '#FAF5F0',
+
       borderRadius: SW(12),
-      padding: SW(15),
-      marginBottom: SH(25),
+      paddingBottom: SH(15),
+
     },
     highlightItem: {
       flexDirection: 'row',
@@ -130,28 +134,30 @@ export const createStyles = (theme: AppTheme) =>
       fontFamily: theme.fontfamily.robotoBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(15),
+      marginHorizontal: SW(12)
     },
     includesGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'space-between',
-      marginBottom: SH(25),
     },
     detailBulletRow: {
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       width: '48%',
-      marginBottom: SH(10),
+      marginBottom: SH(20),
+      paddingRight: SW(4),
     },
     detailBulletText: {
-      fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textSecondary,
-      marginLeft: SW(8),
+      fontSize: SF(11),
+      fontFamily: theme.fontfamily.robotoMedium,
+      color: theme.colors.gray600,
+      flex: 1,
+      marginLeft: SW(10),
     },
     otherServicesSection: {
       marginTop: SH(10),
-      marginBottom: SH(20),
+      marginBottom: SH(20)
     },
     footer: {
       position: 'absolute',

@@ -40,7 +40,7 @@ export const EMERGENCY_SERVICE: IService = {
   mechanics: 'Nearby verified mechanics',
   feature1: 'On-spot repair / towing',
   feature2: 'Tractor breakdown support',
-  includes: [
+  bullets: [
     'Quick response assistance',
     'Basic on-site inspection',
     'Minor repairs support',
@@ -64,10 +64,11 @@ export const CATEGORY_OVERVIEW_DATA: IService = {
   mechanics: '3 Months Warranty',
   feature1: 'Recommended every 5000 km',
   feature2: 'Free Pick-up & Drop',
-  includes: [
+  bullets: [
     'Engine oil change',
     'Oil filter replacement',
     'Air filter cleaning',
+    '3 Months Warranty',
   ],
 };
 
@@ -174,20 +175,35 @@ export const SERVICES_DATA: IServiceCategory[] = [
         description: 'Full bonnet restoration service including scratch removal and premium clear coat protection.',
       },
       {
-         id: 'd3',
-         title: 'Full Body Dent Paint',
-         price: '4500',
-         mrp: '5000',
-         rating: 4.9,
-         image: DentingPaintingImage,
-         bullets: [
-           'Removal of Minor Dent & Scratches',
-           'Grade A Primer Applied',
-           'High Quality DuPont Paint',
-           'Clear Coat Protective Layer Paint',
-         ],
-         description: 'Complete tractor body restoration from dent removal to a brand-new high-gloss paint finish.',
-       },
+        id: 'd3',
+        title: 'Full Body Dent Paint',
+        price: '8500',
+        mrp: '10000',
+        rating: 4.9,
+        image: DentingPaintingImage,
+        bullets: [
+          'Full Body Scratch Removal',
+          'Anti-Rust Coating Applied',
+          'Premium High Gloss Paint',
+          '1 Year Color Warranty',
+        ],
+        description: 'Complete tractor body restoration from dent removal to a brand-new high-gloss paint finish.',
+      },
+      {
+        id: 'd4',
+        title: 'Door Paint (Per Side)',
+        price: '1200',
+        mrp: '1500',
+        rating: 4.8,
+        image: DentingPaintingImage,
+        bullets: [
+          'Edge to Edge Painting',
+          'Perfect Color Matching',
+          'Surface Leveling & Primer',
+          'Quick 24h Delivery',
+        ],
+        description: 'Individual door painting service with professional color matching and quick turnaround.',
+      },
     ],
   },
   {

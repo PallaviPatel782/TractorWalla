@@ -11,40 +11,22 @@ export const createStyles = (theme: AppTheme) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
+    header: {
+      borderBottomLeftRadius: SW(20),
+      borderBottomRightRadius: SW(20),
+    },
     content: {
       flex: 1,
-      paddingHorizontal: SW(20),
     },
     searchContainer: {
-      marginVertical: SH(15),
-    },
-    searchBar: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: theme.colors.white,
-      height: SH(44),
-      borderRadius: SW(8),
-      paddingHorizontal: SW(12),
-      borderWidth: 1.5,
-      borderColor: theme.colors.borderLight,
-    },
-    searchIcon: {
-      marginRight: SW(10),
-    },
-    searchInputWrapper: {
-      flex: 1,
-      marginBottom: 0,
-      fontFamily: theme.fontfamily.robotoRegular,
-      fontSize: SF(14),
-      color: theme.colors.textPrimary,
-    },
-    searchInputContainer: {
-      paddingVertical: 0,
+      paddingHorizontal: SW(16)
     },
     brandGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'flex-start',
+      paddingHorizontal: SW(20),
+      marginTop: SH(20),
     },
     brandItem: {
       width: ITEM_WIDTH,

@@ -92,7 +92,7 @@ const BookServiceScreen = () => {
         contentContainerStyle={styles.listContent}
         scrollEventThrottle={16}
       >
-        {SERVICES_DATA.map((section) => (
+        {SERVICES_DATA.filter(s => SERVICES_CATEGORIES.some(c => c.id === s.category)).map((section) => (
           <View
             key={section.category}
             onLayout={(e) => onSectionLayout(section.category, e.nativeEvent.layout.y)}

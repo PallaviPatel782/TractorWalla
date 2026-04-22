@@ -5,6 +5,7 @@ import React from 'react';
 import { SvgProps } from 'react-native-svg';
 
 import Bike from './Bike.svg';
+import Checked from './Checked.svg';
 import Location from './Location.svg';
 import About from './about.svg';
 import Aboutinfo from './aboutinfo.svg';
@@ -19,6 +20,7 @@ import Camera from './camera.svg';
 import Cart from './cart.svg';
 import Changelanguage from './changelanguage.svg';
 import Check from './check.svg';
+import ChevronArrow from './chevron_arrow.svg';
 import ChevronBackward from './chevron_backward.svg';
 import Close from './close.svg';
 import Contactus from './contactus.svg';
@@ -31,11 +33,13 @@ import Facebook from './facebook.svg';
 import Faq from './faq.svg';
 import Feedback from './feedback.svg';
 import Home from './home.svg';
+import Humbsup from './humbsup.svg';
 import Instagram from './instagram.svg';
 import KeyboardArrowUp from './keyboard_arrow_up.svg';
 import Langauage from './langauage.svg';
 import LocationEdit from './location_edit.svg';
 import Logout from './logout.svg';
+import Loudspeaker from './loudspeaker.svg';
 import Next from './next.svg';
 import Profile from './profile.svg';
 import Report from './report.svg';
@@ -46,9 +50,11 @@ import Share from './share.svg';
 import Team from './team.svg';
 import Threads from './threads.svg';
 import Threedots from './threedots.svg';
+import TimeLine from './time-line.svg';
 import Tractor from './tractor.svg';
 import Tractor2 from './tractor2.svg';
 import User from './user.svg';
+import WarrantyBadge from './warranty-badge.svg';
 import Youtube from './youtube.svg';
 
 export interface ISVGProps extends SvgProps {
@@ -65,6 +71,7 @@ const resolveSize = (props: ISVGProps) => {
 };
 
 export const BikeIcon = (props: ISVGProps) => <Bike {...resolveSize(props)} />;
+export const CheckedIcon = (props: ISVGProps) => <Checked {...resolveSize(props)} />;
 export const LocationIcon = (props: ISVGProps) => <Location {...resolveSize(props)} />;
 export const AboutIcon = (props: ISVGProps) => <About {...resolveSize(props)} />;
 export const AboutinfoIcon = (props: ISVGProps) => <Aboutinfo {...resolveSize(props)} />;
@@ -79,6 +86,7 @@ export const CameraIcon = (props: ISVGProps) => <Camera {...resolveSize(props)} 
 export const CartIcon = (props: ISVGProps) => <Cart {...resolveSize(props)} />;
 export const ChangelanguageIcon = (props: ISVGProps) => <Changelanguage {...resolveSize(props)} />;
 export const CheckIcon = (props: ISVGProps) => <Check {...resolveSize(props)} />;
+export const ChevronArrowIcon = (props: ISVGProps) => <ChevronArrow {...resolveSize(props)} />;
 export const ChevronBackwardIcon = (props: ISVGProps) => <ChevronBackward {...resolveSize(props)} />;
 export const CloseIcon = (props: ISVGProps) => <Close {...resolveSize(props)} />;
 export const ContactusIcon = (props: ISVGProps) => <Contactus {...resolveSize(props)} />;
@@ -91,11 +99,13 @@ export const FacebookIcon = (props: ISVGProps) => <Facebook {...resolveSize(prop
 export const FaqIcon = (props: ISVGProps) => <Faq {...resolveSize(props)} />;
 export const FeedbackIcon = (props: ISVGProps) => <Feedback {...resolveSize(props)} />;
 export const HomeIcon = (props: ISVGProps) => <Home {...resolveSize(props)} />;
+export const HumbsupIcon = (props: ISVGProps) => <Humbsup {...resolveSize(props)} />;
 export const InstagramIcon = (props: ISVGProps) => <Instagram {...resolveSize(props)} />;
 export const KeyboardArrowUpIcon = (props: ISVGProps) => <KeyboardArrowUp {...resolveSize(props)} />;
 export const LangauageIcon = (props: ISVGProps) => <Langauage {...resolveSize(props)} />;
 export const LocationEditIcon = (props: ISVGProps) => <LocationEdit {...resolveSize(props)} />;
 export const LogoutIcon = (props: ISVGProps) => <Logout {...resolveSize(props)} />;
+export const LoudspeakerIcon = (props: ISVGProps) => <Loudspeaker {...resolveSize(props)} />;
 export const NextIcon = (props: ISVGProps) => <Next {...resolveSize(props)} />;
 export const ProfileIcon = (props: ISVGProps) => <Profile {...resolveSize(props)} />;
 export const ReportIcon = (props: ISVGProps) => <Report {...resolveSize(props)} />;
@@ -106,7 +116,9 @@ export const ShareIcon = (props: ISVGProps) => <Share {...resolveSize(props)} />
 export const TeamIcon = (props: ISVGProps) => <Team {...resolveSize(props)} />;
 export const ThreadsIcon = (props: ISVGProps) => <Threads {...resolveSize(props)} />;
 export const ThreedotsIcon = (props: ISVGProps) => <Threedots {...resolveSize(props)} />;
+export const TimeLineIcon = (props: ISVGProps) => <TimeLine {...resolveSize(props)} />;
 export const TractorIcon = (props: ISVGProps) => <Tractor {...resolveSize(props)} />;
 export const Tractor2Icon = (props: ISVGProps) => <Tractor2 {...resolveSize(props)} />;
 export const UserIcon = (props: ISVGProps) => <User {...resolveSize(props)} />;
+export const WarrantyBadgeIcon = (props: ISVGProps) => <WarrantyBadge {...resolveSize(props)} />;
 export const YoutubeIcon = (props: ISVGProps) => <Youtube {...resolveSize(props)} />;

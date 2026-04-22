@@ -9,12 +9,13 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background || '#F8F9FB',
     },
     header: {
-      borderBottomLeftRadius: SW(25),
-      borderBottomRightRadius: SW(25),
+      backgroundColor: theme.colors.DeepGreen || '#105D38',
+      paddingBottom: SH(15)
     },
     searchContainer: {
       paddingHorizontal: SW(16),
       marginTop: SH(10),
+      borderRadius: SW(50)
     },
     tabsContainer: {
       flexDirection: 'row',
@@ -22,9 +23,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(5),
       backgroundColor: theme.colors.YellowLight,
       paddingVertical: SH(10),
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      borderColor: theme.colors.gray100
+
     },
     tabPill: {
       paddingHorizontal: SW(16),
@@ -36,8 +35,8 @@ export const createStyles = (theme: AppTheme) =>
       marginRight: SW(10),
     },
     tabPillActive: {
-      backgroundColor: '#1E633F', // Dark Green from SS
-      borderColor: '#1E633F',
+      backgroundColor: theme.colors.DeepGreen || '#105D38',
+      borderColor: theme.colors.DeepGreen || '#105D38',
     },
     tabText: {
       fontSize: SF(13),

@@ -124,7 +124,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                 </View>
               )}
 
-              {!isOthers && !isEdit && (
+              {!isOthers && (
                 <View>
                   <Dropdown
                     options={modelOptions}

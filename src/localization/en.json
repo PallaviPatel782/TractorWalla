@@ -47,6 +47,7 @@
       "title": "Verify Your Mobile Number",
       "subtitle": "Enter the 6-digit OTP sent to Your Mobile Number",
       "resendText": "Resend OTP in",
+      "resendBtn": "Resend OTP",
       "sliders": {
         "book": "Book Service",
         "track": "Track Service Engineer",

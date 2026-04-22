@@ -78,6 +78,9 @@ const authSlice = createSlice({
         state.user.tractors = state.user.tractors.filter(t => t.id !== action.payload);
       }
     },
+    completeOnboarding: (state) => {
+      state.isAuthenticated = true;
+    },
     logout: (state) => {
       state.token = null;
       state.user = null;
@@ -86,5 +89,13 @@ const authSlice = createSlice({
   },
 });
 
-export const {setCredentials, updateUser, addTractor, updateTractor, deleteTractor, logout} = authSlice.actions;
+export const {
+  setCredentials,
+  updateUser,
+  addTractor,
+  updateTractor,
+  deleteTractor,
+  completeOnboarding,
+  logout,
+} = authSlice.actions;
 export default authSlice.reducer;
