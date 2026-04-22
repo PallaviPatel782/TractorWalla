@@ -18,6 +18,7 @@ interface ButtonProps {
   loading?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
+  backgroundColor?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -28,11 +29,13 @@ const Button: React.FC<ButtonProps> = ({
   loading = false,
   style,
   textStyle,
+  backgroundColor,
 }) => {
   const { theme } = useTheme();
 
   const getBackgroundColor = () => {
     if (disabled) return theme.colors.gray300;
+    if (backgroundColor) return backgroundColor;
     if (variant === 'secondary') return theme.colors.secondary;
     if (variant === 'outline') return 'transparent';
     return theme.colors.DeepGreen;

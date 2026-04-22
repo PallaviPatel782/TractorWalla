@@ -486,6 +486,35 @@
       "placeholderAddress": "Enter address",
       "placeholderState": "Enter state",
       "placeholderPincode": "Enter pincode"
+    },
+    "serviceFlow": {
+      "trackTitle": "Track",
+      "waitingConfirmation": "Waiting for mechanic Confirmation...",
+      "requestSent": "Request Sent",
+      "mechanicReviewing": "Mechanic Reviewing",
+      "awaitingConfirmation": "Awaiting Confirmation",
+      "cancelBooking": "Cancel Booking",
+      "writeReason": "Write your reason here",
+      "others": "Others",
+      "othersPlaceholder": "eg. Had to postpone due to a work commitment.",
+      "onTheWay": "Service Engineer On the way...",
+      "reached": "Reached...",
+      "viewProgress": "View Service Progress",
+      "thankYou": "Thank You!",
+      "paymentSuccess": "Payment done Successfully",
+      "shareOtp": "Share OTP with Mechanic for Completion Status",
+      "serviceCompleted": "Service Completed Successfully!",
+      "verifiedMsg": "The otp has been verified and your tractor service has been marked as completed.",
+      "downloadInvoice": "Download Invoice",
+      "goHome": "Go to Home",
+      "paymentOptions": "Payment Options",
+      "payRazorpay": "Pay by Razorpay",
+      "proceed": "Proceed",
+      "noServicesAdded": "No services added yet",
+      "diagnosingMsg": "Rajat is diagnosing your vehicle. Once issues are identified, proposed services will appear here for your approval.",
+      "partsAdded": "Parts Added by Mechanic",
+      "inventoryParts": "Inventory parts",
+      "viewCart": "View Cart"
     }
   }
 }

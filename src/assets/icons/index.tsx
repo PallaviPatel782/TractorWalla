@@ -7,6 +7,8 @@ import { SvgProps } from 'react-native-svg';
 import Bike from './Bike.svg';
 import Checked from './Checked.svg';
 import Location from './Location.svg';
+import Phone from './Phone.svg';
+import Sucess from './Sucess.svg';
 import About from './about.svg';
 import Aboutinfo from './aboutinfo.svg';
 import Addlocation from './addlocation.svg';
@@ -73,6 +75,8 @@ const resolveSize = (props: ISVGProps) => {
 export const BikeIcon = (props: ISVGProps) => <Bike {...resolveSize(props)} />;
 export const CheckedIcon = (props: ISVGProps) => <Checked {...resolveSize(props)} />;
 export const LocationIcon = (props: ISVGProps) => <Location {...resolveSize(props)} />;
+export const PhoneIcon = (props: ISVGProps) => <Phone {...resolveSize(props)} />;
+export const SucessIcon = (props: ISVGProps) => <Sucess {...resolveSize(props)} />;
 export const AboutIcon = (props: ISVGProps) => <About {...resolveSize(props)} />;
 export const AboutinfoIcon = (props: ISVGProps) => <Aboutinfo {...resolveSize(props)} />;
 export const AddlocationIcon = (props: ISVGProps) => <Addlocation {...resolveSize(props)} />;

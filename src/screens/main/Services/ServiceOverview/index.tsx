@@ -1,10 +1,4 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
@@ -17,7 +11,13 @@ import {
   LoudspeakerIcon,
   WarrantyBadgeIcon,
 } from '@assets/icons';
-import { Button } from '@components';
+import { 
+  Button,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+} from '@components';
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
 import ServiceCard from '../components/ServiceCard';

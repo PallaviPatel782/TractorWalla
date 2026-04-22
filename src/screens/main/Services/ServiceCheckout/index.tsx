@@ -13,20 +13,15 @@ import {
   SecondaryHeader,
   ScreenWrapper,
   Button,
+  PaymentModal,
 } from '@components';
 import { useAppSelector } from '@store';
 import * as Brands from '@assets/images';
-import {
-  CheckIcon,
-  LocationIcon,
-  BillIcon,
-  BikeIcon,
-  ChevronArrowIcon,
-} from '@assets/icons';
-
+import { CheckIcon, LocationIcon, BillIcon, BikeIcon, ChevronArrowIcon } from '@assets/icons';
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
 import { SW, SH, SF } from '@utils/Dimensions';
+import { Address } from '@store/slices/authSlice';
 
 const ServiceCheckoutScreen = () => {
   const { t } = useTranslation();
@@ -37,10 +32,32 @@ const ServiceCheckoutScreen = () => {
   const { serviceId, category } = route.params || {};
 
   const [issue, setIssue] = useState('');
+  const [paymentModalVisible, setPaymentModalVisible] = useState(false);
   const [paymentType, setPaymentType] = useState<'partial' | 'full'>('partial');
+
+  const onProceedToPay = () => {
+    setPaymentModalVisible(true);
+  };
+
+  const onConfirmPayment = () => {
+    setPaymentModalVisible(false);
+    navigation.navigate('BookingStatus', { bookingId: 'ID1234', paymentType: paymentType });
+  };
 
   const { user } = useAppSelector((state) => state.auth);
   const tractors = useMemo(() => user?.tractors || [], [user?.tractors]);
+  const userAddresses = useMemo(() => user?.addresses || [], [user?.addresses]);
+
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+  const addresses = userAddresses;
+
+  React.useEffect(() => {
+    if (route.params?.selectedAddress) {
+      setSelectedAddress(route.params.selectedAddress);
+    } else if (!selectedAddress && addresses.length > 0) {
+      setSelectedAddress(addresses[0]);
+    }
+  }, [route.params?.selectedAddress, addresses, selectedAddress]);
 
   // Get selected tractor from params or default to first tractor
   const [selectedTractor, setSelectedTractor] = useState<any>(null);
@@ -177,7 +194,7 @@ const ServiceCheckoutScreen = () => {
         {/* Select Tractor */}
         <TouchableOpacity
           style={styles.sectionCard}
-          onPress={() => navigation.navigate('MyTractors', { 
+          onPress={() => navigation.navigate('MyTractors', {
             isSelectionMode: true,
             selectedTractorId: selectedTractor?.id,
             serviceId,
@@ -208,16 +225,24 @@ const ServiceCheckoutScreen = () => {
         </TouchableOpacity>
 
         {/* Add Address */}
-        <TouchableOpacity style={styles.sectionCard} onPress={() => navigation.navigate('ManageAddress')}>
+        <TouchableOpacity
+          style={styles.sectionCard}
+          onPress={() => navigation.navigate('ManageAddress', {
+            isSelectionMode: true,
+            selectedAddressId: selectedAddress?.id,
+            serviceId,
+            category
+          })}
+        >
           <View style={styles.selectorRow}>
             <View style={styles.selectorLeft}>
               <LocationIcon size={18} color={theme.colors.DeepGreen} />
-              <Text style={styles.selectorText}>Add Address</Text>
+              <Text style={styles.selectorText}>{t('main.manageAddress.title', 'Manage Address')}</Text>
             </View>
             <ChevronArrowIcon size={18} color={theme.colors.DeepGreen} />
           </View>
           <View style={styles.selectionInfo}>
-            <Text style={styles.selectionSub}>Sopanbagh Colony Dagdoba Chowk Narayan nagar Chinchwad Pune 411033</Text>
+            <Text style={styles.selectionSub}>{selectedAddress ? selectedAddress.address : 'Select an address'}</Text>
             <TouchableOpacity style={styles.addAddressBtn} onPress={() => navigation.navigate('AddLocation')}>
               <Text style={{ color: theme.colors.danger, fontSize: SF(16) }}>+</Text>
               <Text style={styles.addAddressText}>Add address</Text>
@@ -255,6 +280,7 @@ const ServiceCheckoutScreen = () => {
         {/* Bill Summary */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionTitleRow}>
+            <BillIcon size={20} />
             <Text style={styles.sectionTitle}>Bill Summary</Text>
           </View>
           <View style={styles.billRow}>
@@ -322,9 +348,15 @@ const ServiceCheckoutScreen = () => {
       <View style={styles.footer}>
         <Button
           title="Proceed to Pay"
-          onPress={() => { }}
+          onPress={onProceedToPay}
         />
       </View>
+
+      <PaymentModal
+        visible={paymentModalVisible}
+        onClose={() => setPaymentModalVisible(false)}
+        onConfirm={onConfirmPayment}
+      />
     </ScreenWrapper>
   );
 };

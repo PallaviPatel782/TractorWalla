@@ -6,6 +6,7 @@ import { SvgProps } from 'react-native-svg';
 
 import AppLogo from './AppLogo.svg';
 import AppLogoWhite from './AppLogoWhite.svg';
+import BookingDetailBanner from './BookingDetailBanner.svg';
 import BrakeServices from './BrakeServices.svg';
 import Captain from './Captain.svg';
 import DentingPainting from './DentingPainting.svg';
@@ -19,6 +20,7 @@ import GeneralMaintenance from './GeneralMaintenance.svg';
 import HydraulicServices from './HydraulicServices.svg';
 import JohnDeere from './JohnDeere.svg';
 import Kubota from './Kubota.svg';
+import LeaveReview from './LeaveReview.svg';
 import Login from './Login.svg';
 import Mahindra from './Mahindra.svg';
 import MasseyFerguson from './MasseyFerguson.svg';
@@ -66,6 +68,7 @@ const resolveSize = (props: ISVGProps) => {
 
 export const AppLogoImage = (props: ISVGProps) => <AppLogo {...resolveSize(props)} />;
 export const AppLogoWhiteImage = (props: ISVGProps) => <AppLogoWhite {...resolveSize(props)} />;
+export const BookingDetailBannerImage = (props: ISVGProps) => <BookingDetailBanner {...resolveSize(props)} />;
 export const BrakeServicesImage = (props: ISVGProps) => <BrakeServices {...resolveSize(props)} />;
 export const CaptainImage = (props: ISVGProps) => <Captain {...resolveSize(props)} />;
 export const DentingPaintingImage = (props: ISVGProps) => <DentingPainting {...resolveSize(props)} />;
@@ -79,6 +82,7 @@ export const GeneralMaintenanceImage = (props: ISVGProps) => <GeneralMaintenance
 export const HydraulicServicesImage = (props: ISVGProps) => <HydraulicServices {...resolveSize(props)} />;
 export const JohnDeereImage = (props: ISVGProps) => <JohnDeere {...resolveSize(props)} />;
 export const KubotaImage = (props: ISVGProps) => <Kubota {...resolveSize(props)} />;
+export const LeaveReviewImage = (props: ISVGProps) => <LeaveReview {...resolveSize(props)} />;
 export const LoginImage = (props: ISVGProps) => <Login {...resolveSize(props)} />;
 export const MahindraImage = (props: ISVGProps) => <Mahindra {...resolveSize(props)} />;
 export const MasseyFergusonImage = (props: ISVGProps) => <MasseyFerguson {...resolveSize(props)} />;

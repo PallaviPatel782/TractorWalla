@@ -10,6 +10,12 @@ export interface Tractor {
   tractorType: string;
 }
 
+export interface Address {
+  id: string;
+  label: string;
+  address: string;
+}
+
 export interface User {
   id?: string;
   name: string;
@@ -23,6 +29,7 @@ export interface User {
   latitude?: number;
   longitude?: number;
   tractors?: Tractor[];
+  addresses?: Address[];
 }
 
 interface AuthState {
@@ -78,6 +85,27 @@ const authSlice = createSlice({
         state.user.tractors = state.user.tractors.filter(t => t.id !== action.payload);
       }
     },
+    addAddress: (state, action: PayloadAction<Address>) => {
+      if (state.user) {
+        if (!state.user.addresses) {
+          state.user.addresses = [];
+        }
+        state.user.addresses.push(action.payload);
+      }
+    },
+    updateAddress: (state, action: PayloadAction<Address>) => {
+      if (state.user && state.user.addresses) {
+        const index = state.user.addresses.findIndex(a => a.id === action.payload.id);
+        if (index !== -1) {
+          state.user.addresses[index] = action.payload;
+        }
+      }
+    },
+    deleteAddress: (state, action: PayloadAction<string>) => {
+      if (state.user && state.user.addresses) {
+        state.user.addresses = state.user.addresses.filter(a => a.id !== action.payload);
+      }
+    },
     completeOnboarding: (state) => {
       state.isAuthenticated = true;
     },
@@ -95,6 +123,9 @@ export const {
   addTractor,
   updateTractor,
   deleteTractor,
+  addAddress,
+  updateAddress,
+  deleteAddress,
   completeOnboarding,
   logout,
 } = authSlice.actions;

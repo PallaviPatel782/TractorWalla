@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import {
@@ -11,32 +11,73 @@ import {
 } from '@components';
 import { createStyles } from './styles';
 import { AddlocationIcon } from '@icons';
+import { Alert } from 'react-native';
+import { useAppSelector, useAppDispatch } from '@store';
+import { addAddress, deleteAddress, Address } from '@store/slices/authSlice';
 
-const MOCK_ADDRESSES = [
-  {
-    id: '1',
-    label: 'Default',
-    address: 'No. 26/1, Brigade World Trade Centre, 10th Floor, Dr. Raj Kumar Road, Malleshwaram (W) Bengaluru, Karnataka, India - 560055',
-  },
-  {
-    id: '2',
-    label: 'Your Address',
-    address: 'No. 26/1, Brigade World Trade Centre, 10th Floor, Dr. Raj Kumar Road, Malleshwaram (W) Bengaluru, Karnataka, India - 560055',
-  },
-];
-
-const ManageAddress = ({ navigation }: any) => {
+const ManageAddress = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-  const [selectedId, setSelectedId] = useState('1');
+  const dispatch = useAppDispatch();
+  
+  const { user } = useAppSelector(state => state.auth);
+  const userAddresses = useMemo(() => user?.addresses || [], [user?.addresses]);
+  
+  const addresses = userAddresses;
 
-  const renderAddressItem = ({ item }: { item: typeof MOCK_ADDRESSES[0] }) => {
+  const { isSelectionMode, selectedAddressId, serviceId, category, newAddress } = route.params || {};
+  const [selectedId, setSelectedId] = useState(selectedAddressId || (addresses.length > 0 ? addresses[0].id : ''));
+
+  useEffect(() => {
+    if (newAddress) {
+      // Prevent duplicates
+      if (!userAddresses.find(a => a.id === newAddress.id)) {
+        dispatch(addAddress(newAddress));
+      }
+      navigation.setParams({ newAddress: undefined });
+    }
+  }, [newAddress, navigation, dispatch, userAddresses]);
+
+  const onSelectAddress = (item: any) => {
+    setSelectedId(item.id);
+    if (isSelectionMode) {
+      navigation.navigate('ServiceCheckout', {
+        serviceId,
+        category,
+        selectedAddress: item
+      });
+    }
+  };
+
+  const onRemoveAddress = (id: string) => {
+    Alert.alert(
+      t('common.remove', 'Remove'),
+      'Are you sure you want to remove this address?',
+      [
+        { text: t('common.cancel', 'Cancel'), style: 'cancel' },
+        { 
+          text: t('common.remove', 'Remove'), 
+          style: 'destructive',
+          onPress: () => {
+            dispatch(deleteAddress(id));
+            if (selectedId === id) setSelectedId('');
+          }
+        },
+      ]
+    );
+  };
+
+  const onEditAddress = (item: any) => {
+    navigation.navigate('AddLocation', { addressToEdit: item });
+  };
+
+  const renderAddressItem = ({ item }: { item: Address }) => {
     const isSelected = selectedId === item.id;
     return (
       <TouchableOpacity
         style={[styles.addressCard, isSelected && styles.addressCardSelected]}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => onSelectAddress(item)}
         activeOpacity={0.9}
       >
         <View style={styles.radioContainer}>
@@ -54,10 +95,16 @@ const ManageAddress = ({ navigation }: any) => {
             {item.address}
           </Text>
           <View style={styles.actionRow}>
-            <TouchableOpacity style={styles.actionButton}>
+            <TouchableOpacity 
+              style={styles.actionButton} 
+              onPress={() => onEditAddress(item)}
+            >
               <Text variant="medium" size={11} style={styles.actionText}>{t('common.edit')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
+            <TouchableOpacity 
+              style={styles.actionButton}
+              onPress={() => onRemoveAddress(item.id)}
+            >
               <Text variant="medium" size={11} style={styles.actionText}>{t('common.remove')}</Text>
             </TouchableOpacity>
           </View>
@@ -80,7 +127,7 @@ const ManageAddress = ({ navigation }: any) => {
           </Text>
 
           <FlatList
-            data={MOCK_ADDRESSES}
+            data={addresses}
             renderItem={renderAddressItem}
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listContent}

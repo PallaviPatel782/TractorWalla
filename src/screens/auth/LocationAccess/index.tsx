@@ -7,14 +7,11 @@ import { useTranslation } from 'react-i18next';
 import MapView, { Region, PROVIDER_DEFAULT } from 'react-native-maps';
 import { CurrentLocationIcon, LocationIcon } from '@assets/icons';
 import { Button, Text, ScreenWrapper, View, TouchableOpacity } from '@components';
-import {
-  requestLocationPermission,
-  getCurrentLocation,
-  reverseGeocodeLocation,
-  LocationData,
-} from '@utils/locationHelper';
+import { requestLocationPermission, getCurrentLocation, reverseGeocodeLocation, LocationData } from '@utils/locationHelper';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthStackParamList } from '@navigation/NavigationTypes';
 
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -30,7 +27,11 @@ const DEBOUNCE_MS = 350;
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-const LocationScreen = ({ navigation }: any) => {
+type LocationScreenProps = {
+  navigation: NativeStackNavigationProp<AuthStackParamList, 'LocationAccess'>;
+};
+
+const LocationScreen = ({ navigation }: LocationScreenProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);

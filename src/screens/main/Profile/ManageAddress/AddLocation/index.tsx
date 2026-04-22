@@ -142,7 +142,13 @@ const LocationScreen = ({ navigation }: any) => {
 
   const handleConfirm = useCallback(() => {
     if (!currentLocation) return;
-    navigation.goBack();
+    navigation.navigate('ManageAddress', { 
+      newAddress: {
+        id: Date.now().toString(),
+        label: 'New Address',
+        address: currentLocation.fullAddress || currentLocation.address
+      }
+    });
   }, [currentLocation, navigation]);
 
   return (

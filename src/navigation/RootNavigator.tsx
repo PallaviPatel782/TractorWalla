@@ -46,6 +46,11 @@ import {
   TractorPurchaseScreen,
   SelectTractorScreen,
   ServiceAvailabilityScreen,
+  BookingStatusScreen,
+  TrackMechanicScreen,
+  ServiceCompletionScreen,
+  ServiceProgressScreen,
+  ServiceFinalPaymentScreen,
 } from '@screens/main';
 import TabNavigator from '@navigation/TabNavigator';
 
@@ -111,6 +116,11 @@ const RootNavigator = () => {
             <Stack.Screen name="TractorPurchase" component={TractorPurchaseScreen} />
             <Stack.Screen name="SelectTractor" component={SelectTractorScreen} />
             <Stack.Screen name="ServiceAvailability" component={ServiceAvailabilityScreen} />
+            <Stack.Screen name="BookingStatus" component={BookingStatusScreen} />
+            <Stack.Screen name="TrackMechanic" component={TrackMechanicScreen} />
+            <Stack.Screen name="ServiceCompletion" component={ServiceCompletionScreen} />
+            <Stack.Screen name="ServiceProgress" component={ServiceProgressScreen} />
+        <Stack.Screen name="ServiceFinalPayment" component={ServiceFinalPaymentScreen} />
           </>
         )}
       </Stack.Navigator>

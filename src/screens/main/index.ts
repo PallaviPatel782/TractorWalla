@@ -32,3 +32,8 @@ export { default as SearchServicesScreen } from './Services/SearchServices';
 export { default as TractorPurchaseScreen } from './Home/TractorPurchase';
 export { default as SelectTractorScreen } from './Home/SelectTractor';
 export { default as ServiceAvailabilityScreen } from './Services/ServiceAvailability';
+export { default as BookingStatusScreen } from './Services/BookingStatus';
+export { default as TrackMechanicScreen } from './Services/TrackMechanic';
+export { default as ServiceCompletionScreen } from './Services/ServiceCompletion';
+export { default as ServiceProgressScreen } from './Services/ServiceProgress';
+export { default as ServiceFinalPaymentScreen } from './Services/ServiceFinalPayment/index';
