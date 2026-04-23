@@ -4,7 +4,6 @@ import {
   ScrollView,
   TouchableOpacity,
   Text,
-  TextInput,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +13,7 @@ import {
   ScreenWrapper,
   Button,
   PaymentModal,
+  Input,
 } from '@components';
 import { useAppSelector } from '@store';
 import * as Brands from '@assets/images';
@@ -103,9 +103,9 @@ const ServiceCheckoutScreen = () => {
   if (!service) {
     return (
       <ScreenWrapper>
-        <SecondaryHeader title="Checkout" onBack={() => navigation.goBack()} />
+        <SecondaryHeader title={t('main.bookings.details.title')} onBack={() => navigation.goBack()} />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Service Not Found</Text>
+          <Text>{t('main.bookings.details.serviceNotFound', 'Service Not Found')}</Text>
         </View>
       </ScreenWrapper>
     );
@@ -142,7 +142,7 @@ const ServiceCheckoutScreen = () => {
       />
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
-        <Text style={styles.bookingId}>#Booking ID: ID1234</Text>
+        <Text style={styles.bookingId}>#{t('main.bookings.details.id')}: ID1234</Text>
 
         {/* Service Card */}
         <View style={styles.sectionCard}>
@@ -169,7 +169,7 @@ const ServiceCheckoutScreen = () => {
                 <View style={styles.circle}>
                   <CheckIcon size={10} />
                 </View>
-                <Text style={styles.addedText}>Added</Text>
+                <Text style={styles.addedText}>{t('common.added')}</Text>
               </View>
             </View>
           </View>
@@ -179,11 +179,11 @@ const ServiceCheckoutScreen = () => {
         <View style={styles.sectionCard}>
           <View style={styles.sectionTitleRow}>
             <BillIcon size={20} />
-            <Text style={styles.sectionTitle}>{t('main.home.services.issueDesc', 'Issue Description (Optional)')}</Text>
+            <Text style={styles.sectionTitle}>{t('main.home.services.issueDesc')}</Text>
           </View>
-          <TextInput
-            style={styles.issueInput}
-            placeholder="Describe any issues or symptoms..."
+          <Input
+            inputStyle={styles.issueInput}
+            placeholder={t('main.home.services.issuePlaceholder', 'Describe any issues or symptoms...')}
             multiline
             numberOfLines={3}
             value={issue}
@@ -219,7 +219,7 @@ const ServiceCheckoutScreen = () => {
             </View>
           ) : (
             <View style={styles.selectionBox}>
-              <Text style={styles.selectionTitle}>No Tractor Selected</Text>
+              <Text style={styles.selectionTitle}>{t('main.home.services.noTractorSelected', 'No Tractor Selected')}</Text>
             </View>
           )}
         </TouchableOpacity>
@@ -245,7 +245,7 @@ const ServiceCheckoutScreen = () => {
             <Text style={styles.selectionSub}>{selectedAddress ? selectedAddress.address : 'Select an address'}</Text>
             <TouchableOpacity style={styles.addAddressBtn} onPress={() => navigation.navigate('AddLocation')}>
               <Text style={{ color: theme.colors.danger, fontSize: SF(16) }}>+</Text>
-              <Text style={styles.addAddressText}>Add address</Text>
+              <Text style={styles.addAddressText}>{t('main.manageAddress.addNewFooter')}</Text>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -255,12 +255,12 @@ const ServiceCheckoutScreen = () => {
           <View style={styles.selectorRow}>
             <View style={styles.selectorLeft}>
               <Text style={styles.PercentageContainer}>%</Text>
-              <Text style={styles.selectorText}>Apply Coupons</Text>
+              <Text style={styles.selectorText}>{t('main.home.services.applyCoupons')}</Text>
             </View>
             <ChevronArrowIcon size={18} color={theme.colors.DeepGreen} />
           </View>
           <View style={styles.couponBadge}>
-            <Text style={styles.couponCode}>{appliedCoupon ? appliedCoupon.code : 'SELECT COUPON'}</Text>
+            <Text style={styles.couponCode}>{appliedCoupon ? appliedCoupon.code : t('main.home.services.selectCoupon', 'SELECT COUPON')}</Text>
             {appliedCoupon && <Text style={styles.couponDesc}>{appliedCoupon.title}</Text>}
           </View>
         </TouchableOpacity>
@@ -272,8 +272,8 @@ const ServiceCheckoutScreen = () => {
           }]}>%</Text>
           <Text style={styles.savingText}>
             {billSummary.discount > 0
-              ? `You have Saved ₹${billSummary.discount.toFixed(0)} on this order!`
-              : 'Apply a coupon to save more!'}
+              ? t('main.home.services.savedMessage', { amount: billSummary.discount.toFixed(0) })
+              : t('main.home.services.applyCouponToSave')}
           </Text>
         </View>
 
@@ -281,18 +281,18 @@ const ServiceCheckoutScreen = () => {
         <View style={styles.sectionCard}>
           <View style={styles.sectionTitleRow}>
             <BillIcon size={20} />
-            <Text style={styles.sectionTitle}>Bill Summary</Text>
+            <Text style={styles.sectionTitle}>{t('main.home.services.billSummary')}</Text>
           </View>
           <View style={styles.billRow}>
-            <Text style={styles.billLabel}>Item Total</Text>
+            <Text style={styles.billLabel}>{t('main.bookings.invoice.itemTotal')}</Text>
             <Text style={styles.billValue}>₹{billSummary.itemTotal.toFixed(2)}</Text>
           </View>
           <View style={styles.billRow}>
-            <Text style={styles.billLabel}>Add-ons total</Text>
+            <Text style={styles.billLabel}>{t('main.home.services.addonsTotal', 'Add-ons total')}</Text>
             <Text style={styles.billValue}>₹{billSummary.addons.toFixed(2)}</Text>
           </View>
           <View style={styles.billRow}>
-            <Text style={styles.billLabel}>Service Fee (Labor)</Text>
+            <Text style={styles.billLabel}>{t('main.bookings.invoice.serviceFee')}</Text>
             <Text style={styles.billValue}>₹{billSummary.labor.toFixed(2)}</Text>
           </View>
           {appliedCoupon && (
@@ -302,42 +302,42 @@ const ServiceCheckoutScreen = () => {
             </View>
           )}
           <View style={styles.billRow}>
-            <Text style={styles.taxNote}>* Taxes applicable at checkout</Text>
-            <Text style={styles.taxNote}>Included</Text>
+            <Text style={styles.taxNote}>{t('main.bookings.invoice.taxNotice')}</Text>
+            <Text style={styles.taxNote}>{t('common.included', 'Included')}</Text>
           </View>
 
           <View style={styles.divider} />
 
           <View style={styles.totalRow}>
-            <Text style={styles.totalLabel}>Total Estimate</Text>
+            <Text style={styles.totalLabel}>{t('main.bookings.invoice.estimate')}</Text>
             <Text style={styles.totalValue}>₹{totalEstimate.toFixed(2)}</Text>
           </View>
         </View>
 
         {/* Payment Type */}
         <View style={styles.sectionCard}>
-          <Text style={styles.sectionTitle}>CHOOSE PAYMENT TYPE</Text>
+          <Text style={styles.sectionTitle}>{t('main.home.services.paymentType')}</Text>
           <View style={styles.paymentTypeSection}>
             <View style={styles.paymentTypeRow}>
               <TouchableOpacity
                 style={[styles.paymentOption, paymentType === 'partial' && styles.paymentOptionSelected]}
                 onPress={() => setPaymentType('partial')}
               >
-                <Text style={styles.paymentOptionTitle}>Partial Payment</Text>
+                <Text style={styles.paymentOptionTitle}>{t('main.home.services.partialPayment')}</Text>
                 <Text style={styles.paymentOptionSub}>(30% Advance)</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.paymentOption, paymentType === 'full' && styles.paymentOptionSelected]}
                 onPress={() => setPaymentType('full')}
               >
-                <Text style={styles.paymentOptionTitle}>Full Payment</Text>
+                <Text style={styles.paymentOptionTitle}>{t('main.home.services.fullPayment')}</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.payableCard}>
               <View>
-                <Text style={styles.payableLabel}>Payable Now (30%)</Text>
-                <Text style={styles.payableSub}>Balance at service</Text>
+                <Text style={styles.payableLabel}>{t('main.home.services.payableNow', 'Payable Now (30%)')}</Text>
+                <Text style={styles.payableSub}>{t('main.home.services.balanceAtService', 'Balance at service')}</Text>
               </View>
               <Text style={styles.payableValue}>₹{payableNow.toFixed(2)}</Text>
             </View>
@@ -347,7 +347,7 @@ const ServiceCheckoutScreen = () => {
 
       <View style={styles.footer}>
         <Button
-          title="Proceed to Pay"
+          title={t('main.home.services.proceedToPay')}
           onPress={onProceedToPay}
         />
       </View>

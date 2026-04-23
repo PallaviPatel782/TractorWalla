@@ -51,6 +51,8 @@ import {
   ServiceCompletionScreen,
   ServiceProgressScreen,
   ServiceFinalPaymentScreen,
+  ServiceInvoiceSummaryScreen,
+  LeaveReviewScreen,
 } from '@screens/main';
 import TabNavigator from '@navigation/TabNavigator';
 
@@ -120,7 +122,9 @@ const RootNavigator = () => {
             <Stack.Screen name="TrackMechanic" component={TrackMechanicScreen} />
             <Stack.Screen name="ServiceCompletion" component={ServiceCompletionScreen} />
             <Stack.Screen name="ServiceProgress" component={ServiceProgressScreen} />
-        <Stack.Screen name="ServiceFinalPayment" component={ServiceFinalPaymentScreen} />
+            <Stack.Screen name="ServiceFinalPayment" component={ServiceFinalPaymentScreen} />
+            <Stack.Screen name="ServiceInvoiceSummary" component={ServiceInvoiceSummaryScreen} />
+            <Stack.Screen name="LeaveReview" component={LeaveReviewScreen} />
           </>
         )}
       </Stack.Navigator>

@@ -196,11 +196,19 @@
         "selectTractor": "ट्रैक्टर चुनें",
         "addAddress": "पता जोड़ें",
         "applyCoupons": "कूपन लागू करें",
+        "selectCoupon": "कूपन चुनें",
+        "savedMessage": "आपने इस ऑर्डर पर ₹{{amount}} बचाए हैं!",
+        "applyCouponToSave": "अधिक बचत करने के लिए कूपन लागू करें!",
         "billSummary": "बिल का विवरण",
+        "addonsTotal": "ऐड-ऑन कुल",
         "paymentType": "भुगतान का प्रकार चुनें",
         "partialPayment": "आंशिक भुगतान",
         "fullPayment": "पूर्ण भुगतान",
-        "proceedToPay": "भुगतान के लिए आगे बढ़ें"
+        "payableNow": "अभी देय (30%)",
+        "balanceAtService": "सेवा के समय शेष राशि",
+        "proceedToPay": "भुगतान के लिए आगे बढ़ें",
+        "issuePlaceholder": "किसी भी समस्या या लक्षण का वर्णन करें...",
+        "noTractorSelected": "कोई ट्रैक्टर नहीं चुना गया"
       }
     },
     "profile": {
@@ -381,6 +389,9 @@
           "Completed": "पूरा हुआ",
           "Cancelled": "रद्द"
         },
+        "invoice": "इनवॉइस",
+        "generalInvoice": "सामान्य इनवॉइस",
+        "inventoryInvoice": "इन्वेंटरी इनवॉइस",
         "reasons": {
           "plan_change": "योजना परिवर्तन",
           "better_offer": "कहीं और बेहतर प्रस्ताव मिला",
@@ -519,7 +530,21 @@
       "diagnosingMsg": "रजत आपके वाहन की जांच कर रहा है। समस्या की पहचान होने के बाद, प्रस्तावित सेवाएं आपकी मंजूरी के लिए यहां दिखाई देंगी।",
       "partsAdded": "मैकेनिक द्वारा जोड़े गए पार्ट्स",
       "inventoryParts": "इन्वेंट्री पार्ट्स",
-      "viewCart": "कार्ट देखें"
+      "viewCart": "कार्ट देखें",
+      "addReview": "समीक्षा जोड़ें"
+    },
+    "review": {
+      "title": "अपनी समीक्षा दें",
+      "addDetailedReview": "विस्तृत समीक्षा जोड़ें",
+      "placeholder": "यहाँ टाइप करना शुरू करें...",
+      "experience": "मेरा अनुभव रहा",
+      "labels": {
+        "poor": "खराब",
+        "fair": "ठीक",
+        "average": "औसत",
+        "good": "अच्छा",
+        "excellent": "उत्कृष्ट"
+      }
     }
   }
 }

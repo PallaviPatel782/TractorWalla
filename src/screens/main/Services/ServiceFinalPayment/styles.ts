@@ -88,7 +88,7 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: SW(10),
     paddingVertical: SH(4),
-    borderRadius: SW(15),
+    borderRadius: SW(5),
     marginTop: SH(-15),
   },
   addedText: {
@@ -159,12 +159,12 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   },
   totalLabel: {
     fontSize: SF(18),
-    fontFamily: theme.fontfamily.robotoBold,
+    fontFamily: theme.fontfamily.robotoRegular,
     color: theme.colors.black,
   },
   totalValue: {
     fontSize: SF(18),
-    fontFamily: theme.fontfamily.robotoBold,
+    fontFamily: theme.fontfamily.robotoRegular,
     color: theme.colors.black,
   },
   footer: {

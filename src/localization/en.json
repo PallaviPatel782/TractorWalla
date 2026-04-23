@@ -195,11 +195,19 @@
         "selectTractor": "Select Tractor",
         "addAddress": "Add Address",
         "applyCoupons": "Apply Coupons",
+        "selectCoupon": "SELECT COUPON",
+        "savedMessage": "You have Saved ₹{{amount}} on this order!",
+        "applyCouponToSave": "Apply a coupon to save more!",
         "billSummary": "Bill Summary",
+        "addonsTotal": "Add-ons total",
         "paymentType": "CHOOSE PAYMENT TYPE",
         "partialPayment": "Partial Payment",
         "fullPayment": "Full Payment",
-        "proceedToPay": "Proceed to Pay"
+        "payableNow": "Payable Now (30%)",
+        "balanceAtService": "Balance at service",
+        "proceedToPay": "Proceed to Pay",
+        "issuePlaceholder": "Describe any issues or symptoms...",
+        "noTractorSelected": "No Tractor Selected"
       }
     },
     "profile": {
@@ -380,6 +388,9 @@
           "Completed": "Completed",
           "Cancelled": "Cancelled"
         },
+        "invoice": "Invoice",
+        "generalInvoice": "General Invoice",
+        "inventoryInvoice": "Inventory Invoice",
         "reasons": {
           "plan_change": "Plan Change",
           "better_offer": "Found a better offer elsewhere",
@@ -514,7 +525,21 @@
       "diagnosingMsg": "Rajat is diagnosing your vehicle. Once issues are identified, proposed services will appear here for your approval.",
       "partsAdded": "Parts Added by Mechanic",
       "inventoryParts": "Inventory parts",
-      "viewCart": "View Cart"
+      "viewCart": "View Cart",
+      "addReview": "Add Review"
+    },
+    "review": {
+      "title": "Leave a review",
+      "addDetailedReview": "Add detailed review",
+      "placeholder": "Start typing here...",
+      "experience": "My experience was",
+      "labels": {
+        "poor": "Poor",
+        "fair": "Fair",
+        "average": "Average",
+        "good": "Good",
+        "excellent": "Excellent"
+      }
     }
   }
 }

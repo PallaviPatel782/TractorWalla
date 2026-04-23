@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, Modal, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import { GlobalBottomSheet } from '@components';
-import { CheckedIcon } from '@assets/icons';
+import { SucessIcon } from '@assets/icons';
 import { SW, SH, SF } from '@utils/Dimensions';
 import { AppTheme } from '@theme';
 
@@ -79,7 +79,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
         <View style={styles.successOverlay}>
           <View style={styles.successContent}>
             <View style={[styles.successIconCircle, { backgroundColor: theme.colors.DeepGreen + '20' }]}>
-              <CheckedIcon size={50} color={theme.colors.DeepGreen} />
+              <SucessIcon size={50} color={theme.colors.DeepGreen} />
             </View>
             <Text style={styles.successTitle}>{t('main.serviceFlow.thankYou')}</Text>
             <Text style={[styles.successSubTitle, { color: theme.colors.DeepGreen }]}>

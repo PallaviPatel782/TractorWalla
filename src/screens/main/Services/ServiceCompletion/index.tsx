@@ -1,26 +1,42 @@
-import React from 'react';
-import { Linking } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   Text,
   ScreenWrapper,
   View,
   ScrollView,
-  TouchableOpacity,
+  GlobalBottomSheet,
+  Button,
 } from '@components';
 import { createStyles } from './styles';
-import { CheckedIcon, DownloadIcon, PhoneIcon } from '@assets/icons';
+import { SucessIcon, CheckedIcon } from '@assets/icons';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@navigation/NavigationTypes';
 
 const ServiceCompletion = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = createStyles(theme);
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute<any>();
+  const { bookingId = 'ID1234' } = route.params || {};
 
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
   const otp = ['4', '5', '7', '3', '2', '8'];
 
-  const onDownloadInvoice = () => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setBottomSheetVisible(true);
+    }, 3000); // 3 seconds delay
 
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleGoToSummary = () => {
+    setBottomSheetVisible(false);
+    navigation.navigate('ServiceInvoiceSummary', { bookingId });
   };
 
   return (
@@ -28,9 +44,7 @@ const ServiceCompletion = () => {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.successContainer}>
-            <View style={styles.iconCircle}>
-              <CheckedIcon size={60} color={theme.colors.DeepGreen} />
-            </View>
+            <SucessIcon size={100} color={theme.colors.DeepGreen} />
             <Text variant="bold" size={20} style={styles.thankYouText}>
               {t('main.serviceFlow.thankYou')}
             </Text>
@@ -51,36 +65,30 @@ const ServiceCompletion = () => {
               ))}
             </View>
           </View>
-
-          <View style={styles.infoCard}>
-            <View style={styles.completionBadge}>
-              <CheckedIcon size={30} color={theme.colors.DeepGreen} />
-            </View>
-            <Text variant="semiBold" size={16} style={styles.completionText}>
-              {t('main.serviceFlow.serviceCompleted')}
-            </Text>
-            <Text variant="regular" size={12} style={styles.completionSubText}>
-              {t('main.serviceFlow.verifiedMsg')}
-            </Text>
-
-            <TouchableOpacity
-              style={styles.downloadBtn}
-              onPress={onDownloadInvoice}
-            >
-              <DownloadIcon size={18} color={theme.colors.white} />
-              <Text style={styles.downloadText}>{t('main.serviceFlow.downloadInvoice')}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.supportRow}
-              onPress={() => Linking.openURL('tel:1234567890')}
-            >
-              <PhoneIcon size={16} color={theme.colors.gray500} />
-              <Text style={styles.supportText}>Need Help? Call Support</Text>
-            </TouchableOpacity>
-          </View>
         </ScrollView>
       </View>
+
+      <GlobalBottomSheet
+        visible={bottomSheetVisible}
+        onClose={() => setBottomSheetVisible(false)}
+      >
+        <View style={styles.modalContent}>
+          <View style={styles.modalIconContainer}>
+             <CheckedIcon size={60} color={theme.colors.DeepGreen} />
+          </View>
+          <Text variant="bold" size={18} style={styles.modalTitle}>
+            {t('main.serviceFlow.serviceCompleted')}
+          </Text>
+          <Text variant="regular" size={12} style={styles.modalSubText}>
+            {t('main.serviceFlow.verifiedMsg')}
+          </Text>
+          <Button
+            title={t('main.serviceFlow.downloadInvoice')}
+            onPress={handleGoToSummary}
+            backgroundColor={theme.colors.DeepGreen}
+          />
+        </View>
+      </GlobalBottomSheet>
     </ScreenWrapper>
   );
 };

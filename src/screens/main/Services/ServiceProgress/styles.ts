@@ -192,6 +192,11 @@ export const createStyles = (theme: AppTheme) =>
       fontSize: SF(15),
       fontFamily: theme.fontfamily.robotoBold,
       color: theme.colors.textPrimary,
+      marginLeft: SW(10),
+    },
+    billHeaderRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
       marginBottom: SH(15),
     },
     billRow: {

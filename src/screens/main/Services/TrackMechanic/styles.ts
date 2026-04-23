@@ -98,6 +98,7 @@ export const createStyles = (theme: AppTheme) =>
       justifyContent: 'center',
       borderWidth: 1,
       borderColor: theme.colors.gray200,
+      margin: SW(5)
     },
     callIcon: {
       fontSize: SF(20),

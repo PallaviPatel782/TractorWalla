@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Image } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useRoute } from '@react-navigation/native';
@@ -17,7 +17,7 @@ import { createStyles } from './styles';
 import { CheckIcon, BillIcon } from '@assets/icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-import { DummyUserImage } from '@assets/images';
+import { DummyUserImage, Product1Image, Product2Image } from '@assets/images';
 
 const ServiceProgress = () => {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ const ServiceProgress = () => {
   const { bookingId, paymentType } = route.params || { bookingId: 'ID1234', paymentType: 'full' };
 
   // For demo: toggle between empty and populated state
-  const [hasParts, setHasParts] = useState(false);
+  const [hasParts, setHasParts] = useState(true);
   const [paymentModalVisible, setPaymentModalVisible] = useState(false);
 
   const [parts, setParts] = useState([
@@ -45,7 +45,7 @@ const ServiceProgress = () => {
       ],
       price: 2883,
       mrp: 3139,
-      image: 'https://via.placeholder.com/100',
+      image: Product1Image,
       quantity: 1
     },
     {
@@ -61,7 +61,7 @@ const ServiceProgress = () => {
       ],
       price: 2883,
       mrp: 3139,
-      image: 'https://via.placeholder.com/100',
+      image: Product2Image,
       quantity: 1
     }
   ]);
@@ -121,13 +121,13 @@ const ServiceProgress = () => {
             />
             <View style={styles.mechanicInfo}>
               <Text style={styles.mechanicName}>Rajat Tiwari</Text>
-              <Text style={styles.mechanicStats}>120+ {t('main.home.home.jobsDone')} • ★ 4.8</Text>
+              <Text style={styles.mechanicStats}>120+ {t('main.home.jobsDone')} • ★ 4.8</Text>
             </View>
           </TouchableOpacity>
 
           {!hasParts ? (
             <View style={styles.emptyContainer}>
-              <BillIcon size={50} color={theme.colors.gray300} />
+
               <Text style={styles.emptyTitle}>{t('main.serviceFlow.noServicesAdded')}</Text>
               <Text style={styles.emptySub}>
                 {t('main.serviceFlow.diagnosingMsg')}
@@ -136,47 +136,55 @@ const ServiceProgress = () => {
           ) : (
             <>
               <Text style={styles.partsSectionTitle}>{t('main.serviceFlow.partsAdded')}</Text>
-              {parts.map((item) => (
-                <View key={item.id} style={styles.partCard}>
-                  <View style={styles.partHeader}>
-                    <View>
-                      <Text style={styles.partVendor}>{item.vendor}</Text>
-                      <Text style={styles.partLocation}>{item.location}</Text>
+              {parts.map((item) => {
+                const PartImage = item.image as any;
+                return (
+                  <View key={item.id} style={styles.partCard}>
+                    <View style={styles.partHeader}>
+                      <View>
+                        <Text style={styles.partVendor}>{item.vendor}</Text>
+                        <Text style={styles.partLocation}>{item.location}</Text>
+                      </View>
+                      <Text style={styles.partRating}>★ {item.rating}</Text>
                     </View>
-                    <Text style={styles.partRating}>★ {item.rating}</Text>
-                  </View>
-                  <View style={styles.partBody}>
-                    <View style={styles.partDetails}>
-                      <Text style={styles.partTitle}>{item.title}</Text>
-                      {item.bullets.map((bullet, idx) => (
-                        <View key={idx} style={styles.partBullet}>
-                          <CheckIcon size={12} color={theme.colors.success} />
-                          <Text style={styles.partBulletText}>{bullet}</Text>
+                    <View style={styles.partBody}>
+                      <View style={styles.partDetails}>
+                        <Text style={styles.partTitle}>{item.title}</Text>
+                        {item.bullets.map((bullet, idx) => (
+                          <View key={idx} style={styles.partBullet}>
+                            <CheckIcon size={12} color={theme.colors.success} />
+                            <Text style={styles.partBulletText}>{bullet}</Text>
+                          </View>
+                        ))}
+                        <View style={styles.partPriceRow}>
+                          <Text style={styles.partPrice}>₹{item.price * item.quantity}</Text>
+                          <Text style={styles.partMrp}>₹{item.mrp * item.quantity}</Text>
                         </View>
-                      ))}
-                      <View style={styles.partPriceRow}>
-                        <Text style={styles.partPrice}>₹{item.price * item.quantity}</Text>
-                        <Text style={styles.partMrp}>₹{item.mrp * item.quantity}</Text>
                       </View>
-                    </View>
-                    <View style={{ alignItems: 'flex-end' }}>
-                      <Image source={{ uri: item.image }} style={styles.partImage} />
-                      <View style={styles.quantityContainer}>
-                        <TouchableOpacity onPress={() => updateQuantity(item.id, -1)}>
-                          <Text style={styles.quantityBtn}>-</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.quantityText}>{item.quantity}</Text>
-                        <TouchableOpacity onPress={() => updateQuantity(item.id, 1)}>
-                          <Text style={styles.quantityBtn}>+</Text>
-                        </TouchableOpacity>
+                      <View style={{ alignItems: 'flex-end' }}>
+                        <View style={styles.partImage}>
+                          <PartImage size={70} />
+                        </View>
+                        <View style={styles.quantityContainer}>
+                          <TouchableOpacity onPress={() => updateQuantity(item.id, -1)}>
+                            <Text style={styles.quantityBtn}>-</Text>
+                          </TouchableOpacity>
+                          <Text style={styles.quantityText}>{item.quantity}</Text>
+                          <TouchableOpacity onPress={() => updateQuantity(item.id, 1)}>
+                            <Text style={styles.quantityBtn}>+</Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
                     </View>
                   </View>
-                </View>
-              ))}
+                );
+              })}
 
               <View style={styles.billSummaryCard}>
-                <Text style={styles.billTitle}>{t('main.home.services.billSummary')}</Text>
+                <View style={styles.billHeaderRow}>
+                  <BillIcon size={20} />
+                  <Text style={styles.billTitle}>{t('main.home.services.billSummary')}</Text>
+                </View>
                 <View style={styles.billRow}>
                   <Text style={styles.billLabel}>{t('main.serviceFlow.inventoryParts')}</Text>
                   <Text style={styles.billValue}>₹{totalPartsPrice.toFixed(2)}</Text>

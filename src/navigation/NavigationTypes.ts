@@ -53,6 +53,8 @@ export type RootStackParamList = {
   ServiceAvailability: undefined;
   ServiceProgress: { bookingId?: string; paymentType?: 'partial' | 'full' };
   ServiceFinalPayment: { bookingId: string };
+  ServiceInvoiceSummary: { bookingId: string };
+  LeaveReview: { bookingId: string };
 };
 
 export type AuthStackParamList = {
