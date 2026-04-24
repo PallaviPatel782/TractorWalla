@@ -8,12 +8,12 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     root: {
       flex: 1,
-      backgroundColor: '#F8F9FB', // Light gray background like SS
+      backgroundColor: theme.colors.background, // Light gray background like SS
     },
 
     // ── Header ────────────────────────────────────────────────────────
     header: {
-      backgroundColor: theme.colors.DeepGreen || '#105D38',
+      backgroundColor: theme.colors.DeepGreen,
       paddingTop: SH(12),
       paddingBottom: SH(16),
       paddingHorizontal: SW(16),
@@ -50,7 +50,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(40),
       height: SW(40),
       borderRadius: SW(20),
-      backgroundColor: 'rgba(255,255,255,0.15)', // Glass effect
+      backgroundColor: theme.colors.white + '26', // Glass effect
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -61,7 +61,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(8),
       height: SW(8),
       borderRadius: SW(4),
-      backgroundColor: '#CF2C3E',
+      backgroundColor: theme.colors.primaryRed,
       borderWidth: 1.5,
       borderColor: theme.colors.white,
     },
@@ -71,7 +71,7 @@ export const createStyles = (theme: AppTheme) =>
       gap: SW(6),
     },
     addressText: {
-      color: 'rgba(255,255,255,0.8)',
+      color: theme.colors.white + 'CC',
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
     },
@@ -117,7 +117,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     heroOverlay: {
       // Background color fallback if gradient not used
-      backgroundColor: 'rgba(0,0,0,0.3)',
+      backgroundColor: theme.colors.black + '4D',
       position: 'absolute',
       top: 0, left: 0, right: 0, bottom: 0,
     },
@@ -136,7 +136,7 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(10),
     },
     heroCtaText: {
-      color: '#000',
+      color: theme.colors.black,
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(14),
     },
@@ -166,27 +166,27 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(8),
       height: SW(8),
       borderRadius: SW(4),
-      backgroundColor: '#EBEBEB',
+      backgroundColor: theme.colors.gray200,
     },
     heroDotActive: {
-      backgroundColor: theme.colors.DeepGreen || '#105D38',
+      backgroundColor: theme.colors.DeepGreen,
       width: SW(24),
     },
     middleDot: {
       width: SW(8),
       height: SW(8),
       borderRadius: SW(4),
-      backgroundColor: '#EBEBEB',
+      backgroundColor: theme.colors.gray200,
     },
     middleDotActive: {
-      backgroundColor: '#E84040', // Red as requested
+      backgroundColor: theme.colors.brightRed, // Red as requested
       width: SW(24),
     },
     networkDot: {
       width: SW(8),
       height: SW(8),
       borderRadius: SW(4),
-      backgroundColor: '#EBEBEB',
+      backgroundColor: theme.colors.gray200,
     },
     networkDotActive: {
       backgroundColor: theme.colors.red,
@@ -207,13 +207,13 @@ export const createStyles = (theme: AppTheme) =>
     sectionTitle: {
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(17),
-      color: '#000',
+      color: theme.colors.black,
       marginBottom: SH(10)
     },
     seeMore: {
       fontFamily: theme.fontfamily.robotoMedium,
       fontSize: SF(14),
-      color: theme.colors.DeepGreen || '#105D38',
+      color: theme.colors.DeepGreen,
       textDecorationLine: 'underline',
     },
 
@@ -232,7 +232,7 @@ export const createStyles = (theme: AppTheme) =>
       overflow: 'hidden',
       position: 'relative',
       elevation: 3,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.08,
       shadowRadius: 6,
@@ -267,7 +267,7 @@ export const createStyles = (theme: AppTheme) =>
     serviceSub: {
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(9),
-      color: '#666',
+      color: theme.colors.textSecondary,
     },
 
     // ── Parts Card ────────────────────────────────────────────────────
@@ -277,7 +277,7 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(16),
       padding: SW(12),
       borderWidth: 1,
-      borderColor: '#F0F0F0',
+      borderColor: theme.colors.faintGray,
     },
     partImageWrap: {
       alignItems: 'center',
@@ -286,7 +286,7 @@ export const createStyles = (theme: AppTheme) =>
     partName: {
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(13),
-      color: '#333',
+      color: theme.colors.gray800,
       marginBottom: SH(8),
       lineHeight: SF(18),
     },
@@ -299,18 +299,18 @@ export const createStyles = (theme: AppTheme) =>
     partPrice: {
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(15),
-      color: '#000',
+      color: theme.colors.black,
     },
     partMrp: {
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
-      color: '#999',
+      color: theme.colors.gray400,
       textDecorationLine: 'line-through',
     },
     partDiscount: {
       fontFamily: theme.fontfamily.robotoMedium,
       fontSize: SF(12),
-      color: '#28A745',
+      color: theme.colors.greenSuccess,
     },
 
     // ── Categories ────────────────────────────────────────────────────
@@ -337,7 +337,7 @@ export const createStyles = (theme: AppTheme) =>
     categoryLabel: {
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(11),
-      color: '#444',
+      color: theme.colors.gray700,
       textAlign: 'center',
       lineHeight: SF(15),
     },
@@ -369,7 +369,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     proBannerBadge: {
       alignSelf: 'flex-start',
-      backgroundColor: 'rgba(255,255,255,0.22)',
+      backgroundColor: theme.colors.white + '38',
       borderRadius: SW(6),
       paddingHorizontal: SW(8),
       paddingVertical: SH(3),
@@ -389,20 +389,20 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(8),
     },
     proBannerTitleDark: {
-      color: '#1A2744',
+      color: theme.colors.navyBlue,
     },
     proBannerBullets: {
       marginBottom: SH(12),
       gap: SH(4),
     },
     proBannerBullet: {
-      color: 'rgba(255,255,255,0.9)',
+      color: theme.colors.white + 'E6',
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
       lineHeight: SF(15),
     },
     proBannerBulletDark: {
-      color: '#555',
+      color: theme.colors.gray600,
     },
     proBannerBtn: {
       alignSelf: 'flex-start',
@@ -412,7 +412,7 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(6),
     },
     proBannerBtnText: {
-      color: '#C41E1E',
+      color: theme.colors.darkRed,
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(12),
     },
@@ -442,7 +442,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     middleBannerBadge: {
       alignSelf: 'flex-start',
-      backgroundColor: 'rgba(255,255,255,0.22)',
+      backgroundColor: theme.colors.white + '38',
       borderRadius: SW(6),
       paddingHorizontal: SW(8),
       paddingVertical: SH(3),
@@ -462,20 +462,20 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(8),
     },
     middleBannerTitleDark: {
-      color: '#1A2744',
+      color: theme.colors.navyBlue,
     },
     middleBannerBullets: {
       marginBottom: SH(12),
       gap: SH(4),
     },
     middleBannerBullet: {
-      color: 'rgba(255,255,255,0.9)',
+      color: theme.colors.white + 'E6',
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
       lineHeight: SF(15),
     },
     middleBannerBulletDark: {
-      color: '#555',
+      color: theme.colors.gray600,
     },
     middleBannerBtn: {
       alignSelf: 'flex-start',
@@ -485,7 +485,7 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(6),
     },
     middleBannerBtnText: {
-      color: '#C41E1E',
+      color: theme.colors.darkRed,
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(12),
     },
@@ -515,7 +515,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     networkBannerBadge: {
       alignSelf: 'flex-start',
-      backgroundColor: 'rgba(255,255,255,0.22)',
+      backgroundColor: theme.colors.white + '38',
       borderRadius: SW(6),
       paddingHorizontal: SW(8),
       paddingVertical: SH(3),
@@ -535,20 +535,20 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(8),
     },
     networkBannerTitleDark: {
-      color: '#1A2744',
+      color: theme.colors.navyBlue,
     },
     networkBannerBullets: {
       marginBottom: SH(12),
       gap: SH(4),
     },
     networkBannerBullet: {
-      color: 'rgba(255,255,255,0.9)',
+      color: theme.colors.white + 'E6',
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
       lineHeight: SF(15),
     },
     networkBannerBulletDark: {
-      color: '#555',
+      color: theme.colors.gray600,
     },
     networkBannerBtn: {
       alignSelf: 'flex-start',
@@ -558,7 +558,7 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(6),
     },
     networkBannerBtnText: {
-      color: '#C41E1E',
+      color: theme.colors.darkRed,
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(12),
     },
@@ -572,7 +572,7 @@ export const createStyles = (theme: AppTheme) =>
     videoThumb: {
       width: SW(200),
       height: SH(120),
-      backgroundColor: '#E0E0E0',
+      backgroundColor: theme.colors.grayLight,
       borderRadius: SW(16),
       alignItems: 'center',
       justifyContent: 'center',
@@ -581,21 +581,21 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(48),
       height: SW(48),
       borderRadius: SW(24),
-      backgroundColor: 'rgba(255,255,255,0.9)',
+      backgroundColor: theme.colors.white + 'E6',
       alignItems: 'center',
       justifyContent: 'center',
     },
     playIcon: {
       fontSize: SF(18),
-      color: '#000',
+      color: theme.colors.black,
       marginLeft: SW(4),
     },
     stepsCard: {
-      backgroundColor: theme.colors.cardBackground || theme.colors.white,
+      backgroundColor: theme.colors.white,
       borderRadius: SW(20),
       padding: SW(24),
       borderWidth: 1,
-      borderColor: theme.colors.borderFaint || '#F0F0F0',
+      borderColor: theme.colors.borderFaint,
     },
     stepsHeader: {
       flexDirection: 'row',
@@ -606,13 +606,13 @@ export const createStyles = (theme: AppTheme) =>
     stepsBorderLeft: {
       width: SW(3),
       height: SH(28),
-      backgroundColor: theme.colors.primaryRed || '#CF2C3E',
+      backgroundColor: theme.colors.primaryRed,
       borderRadius: SW(2),
     },
     stepsTitle: {
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(16),
-      color: '#000',
+      color: theme.colors.black,
     },
     stepRow: {
       flexDirection: 'row',
@@ -624,7 +624,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(34),
       height: SW(34),
       borderRadius: SW(17),
-      backgroundColor: '#36404F', // Dark gray/black badge
+      backgroundColor: theme.colors.darkSlaty, // Dark gray/black badge
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
@@ -640,13 +640,13 @@ export const createStyles = (theme: AppTheme) =>
     stepTitle: {
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(14),
-      color: '#000',
+      color: theme.colors.black,
       marginBottom: SH(6),
     },
     stepDesc: {
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
-      color: '#666',
+      color: theme.colors.textSecondary,
       lineHeight: SF(18),
     },
 
@@ -658,7 +658,7 @@ export const createStyles = (theme: AppTheme) =>
     brandLabel: {
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
-      color: '#555',
+      color: theme.colors.gray600,
     },
 
     // ── Mechanic Bar ──────────────────────────────────────────────────
@@ -670,7 +670,7 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       elevation: 4,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.1,
       shadowRadius: 8,
@@ -685,12 +685,12 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(52),
       height: SW(52),
       borderRadius: SW(26),
-      backgroundColor: '#F0F0F0',
+      backgroundColor: theme.colors.faintGray,
     },
     mechanicName: {
       fontFamily: theme.fontfamily.robotoBold,
       fontSize: SF(14),
-      color: '#000',
+      color: theme.colors.black,
       marginBottom: SH(4),
     },
     mechanicMeta: {
@@ -702,10 +702,10 @@ export const createStyles = (theme: AppTheme) =>
     mechanicJobs: {
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
-      color: '#777',
+      color: theme.colors.gray500,
     },
     mechanicPrice: {
-      backgroundColor: '#000',
+      backgroundColor: theme.colors.black,
       borderRadius: SW(20),
       paddingHorizontal: SW(16),
       paddingVertical: SH(8),
@@ -720,7 +720,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(40),
       height: SW(40),
       borderRadius: SW(20),
-      backgroundColor: '#212529',
+      backgroundColor: theme.colors.darkGray,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -734,12 +734,12 @@ export const createStyles = (theme: AppTheme) =>
       gap: SW(4),
     },
     starIcon: {
-      color: '#FFB800',
+      color: theme.colors.GoldenYellow,
       fontSize: SF(14),
     },
     ratingText: {
       fontFamily: theme.fontfamily.robotoRegular,
       fontSize: SF(12),
-      color: '#666',
+      color: theme.colors.textSecondary,
     },
   });

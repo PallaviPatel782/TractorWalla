@@ -128,7 +128,7 @@ const SelectTractorScreen = () => {
             </View>
 
             <Button
-              title={t('common.submit', 'Submit')}
+              title={t('main.home.addTractor', 'Add Tractor')}
               onPress={handleSubmit}
               disabled={!selectedModel || !name || !contact || !date}
               style={styles.submitButton}

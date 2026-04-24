@@ -240,7 +240,7 @@ const createStyles = (theme: AppTheme) =>
       paddingBottom: SH(30), // extra padding for bottom safe area
       width: '100%',
       elevation: 16,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOpacity: 0.2,
       shadowRadius: SW(16),
       shadowOffset: { width: 0, height: SH(-4) },

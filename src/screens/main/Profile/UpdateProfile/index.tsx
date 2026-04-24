@@ -4,17 +4,36 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import { Text, SecondaryHeader, ScreenWrapper, Input, Button, View, ScrollView, TouchableOpacity } from '@components';
 import { createStyles } from './styles';
-import { EditIcon } from '@assets/icons'; // Assuming an edit pencil icon exists
+import { EditIcon, UserIcon } from '@assets/icons';
 import { SW } from '@utils/Dimensions';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { useAppSelector } from '@store';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@navigation/NavigationTypes';
 
-const UpdateProfileScreen = ({ navigation }: any) => {
+type Props = NativeStackScreenProps<RootStackParamList, 'UpdateProfile'>;
+
+const UpdateProfileScreen = ({ navigation }: Props) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
+  const { user } = useAppSelector((state) => state.auth);
 
+  const [fullName, setFullName] = useState(user?.name || '');
+  const [email, setEmail] = useState(user?.email || '');
+  const [profileImage, setProfileImage] = useState(user?.profileImage || '');
 
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
+  const handlePickImage = async () => {
+    const result = await launchImageLibrary({
+      mediaType: 'photo',
+      quality: 1,
+      includeBase64: false,
+    });
+
+    if (result.assets && result.assets.length > 0) {
+      setProfileImage(result.assets[0].uri || '');
+    }
+  };
 
   return (
     <ScreenWrapper>
@@ -30,11 +49,21 @@ const UpdateProfileScreen = ({ navigation }: any) => {
         >
           <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
             <View style={styles.avatarContainer}>
-              <Image
-                source={{ uri: 'https://i.pravatar.cc/150?img=11' }} // Placeholder face
-                style={styles.avatarImage}
-              />
-              <TouchableOpacity style={styles.editBadge} activeOpacity={0.8}>
+              {profileImage ? (
+                <Image
+                  source={{ uri: profileImage }}
+                  style={styles.avatarImage}
+                />
+              ) : (
+                <View style={[styles.avatarImage, { alignItems: 'center', justifyContent: 'center' }]}>
+                  <UserIcon size={SW(45)} color={theme.colors.gray400} />
+                </View>
+              )}
+              <TouchableOpacity 
+                style={styles.editBadge} 
+                activeOpacity={0.8}
+                onPress={handlePickImage}
+              >
                 <EditIcon size={SW(14)} color={theme.colors.white} />
               </TouchableOpacity>
             </View>

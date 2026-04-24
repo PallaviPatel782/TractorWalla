@@ -9,7 +9,7 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background,
     },
     headerContainer: {
-      backgroundColor: theme.colors.backgroundExtraLight || '#FAF5F0',
+      backgroundColor: theme.colors.backgroundExtraLight,
     },
     content: {
       flex: 1,
@@ -33,7 +33,7 @@ export const createStyles = (theme: AppTheme) =>
       borderWidth: 1,
       borderColor: theme.colors.borderLight,
       elevation: 2,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 4,

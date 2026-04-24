@@ -18,7 +18,7 @@ export const createStyles = (theme: AppTheme) =>
             alignItems: 'center',
             borderWidth: 1,
             borderColor: theme.colors.gray100,
-            shadowColor: '#000',
+            shadowColor: theme.colors.black,
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.1,
             shadowRadius: 4,

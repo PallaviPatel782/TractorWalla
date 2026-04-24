@@ -63,15 +63,15 @@ const CategoryOverviewScreen = () => {
               <Text style={styles.highlightText}>{data.arrival}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <CheckIcon size={16} color={theme.colors.AzureBlue || '#3281D1'} />
+              <CheckIcon size={16} color={theme.colors.AzureBlue} />
               <Text style={styles.highlightText}>{data.mechanics}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <LocationIcon size={16} color={theme.colors.AzureBlue || '#3281D1'} />
+              <LocationIcon size={16} color={theme.colors.AzureBlue} />
               <Text style={styles.highlightText}>{data.feature1}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <LocationIcon size={16} color={theme.colors.danger || '#D11C3D'} />
+              <LocationIcon size={16} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.feature2}</Text>
             </View>
           </View>
@@ -90,7 +90,7 @@ const CategoryOverviewScreen = () => {
           <View style={styles.includesGrid}>
             {data.bullets?.map((point: string, idx: number) => (
               <View key={idx} style={styles.bulletRow}>
-                <CheckedIcon size={16} color={theme.colors.success || '#41A863'} />
+                <CheckedIcon size={16} color={theme.colors.success} />
                 <Text style={styles.bulletText}>{point}</Text>
               </View>
             ))}

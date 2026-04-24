@@ -6,7 +6,7 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#F8F9FA',
+      backgroundColor: theme.colors.background,
     },
     content: {
       paddingHorizontal: SW(16),
@@ -108,7 +108,7 @@ export const createStyles = (theme: AppTheme) =>
     partRating: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textSecondary,
+      color: theme.colors.GoldenYellow,
     },
     partBody: {
       flexDirection: 'row',

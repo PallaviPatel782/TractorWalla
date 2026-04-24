@@ -75,7 +75,7 @@ const LeaveReview = () => {
                 >
                   <Text style={[
                     styles.star,
-                    { color: star <= rating ? theme.colors.DeepGreen : theme.colors.gray300 }
+                    { color: star <= rating ? theme.colors.GoldenYellow : theme.colors.gray300 }
                   ]}>
                     ★
                   </Text>

@@ -21,6 +21,7 @@ export interface User {
   name: string;
   email: string;
   phone?: string;
+  profileImage?: string;
   // Onboarding fields
   address?: string;
   city?: string;

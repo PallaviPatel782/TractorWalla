@@ -6,7 +6,7 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.backgroundFaint || '#F9FAFB',
+      backgroundColor: theme.colors.backgroundFaint,
     },
     menuContent: {
       flex: 1,
@@ -18,7 +18,7 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(16),
       overflow: 'hidden',
       elevation: 2,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 1 },
       shadowOpacity: 0.1,
       shadowRadius: 2,
@@ -79,6 +79,6 @@ export const createStyles = (theme: AppTheme) =>
       padding: SW(20),
       backgroundColor: theme.colors.white,
       borderTopWidth: 1,
-      borderTopColor: theme.colors.borderFaint || '#E5E7EB',
+      borderTopColor: theme.colors.borderFaint,
     },
   });

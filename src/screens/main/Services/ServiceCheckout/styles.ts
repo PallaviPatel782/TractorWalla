@@ -6,7 +6,7 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#F8F9FA',
+      backgroundColor: theme.colors.background,
     },
     content: {
       paddingHorizontal: SW(16),
@@ -18,7 +18,7 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(12),
       padding: SW(16),
       marginBottom: SH(16),
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 4,
@@ -34,7 +34,7 @@ export const createStyles = (theme: AppTheme) =>
     serviceType: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.danger || '#D11C3D',
+      color: theme.colors.danger,
       marginBottom: SH(12),
     },
     serviceInfoRow: {
@@ -156,7 +156,7 @@ export const createStyles = (theme: AppTheme) =>
     selectorText: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.DeepGreen || '#105D38',
+      color: theme.colors.DeepGreen,
       marginLeft: SW(8),
     },
     selectionBox: {
@@ -184,7 +184,7 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
       marginTop: SH(10),
       borderWidth: 1,
-      borderColor: theme.colors.danger || '#D11C3D',
+      borderColor: theme.colors.danger,
       paddingHorizontal: SW(12),
       paddingVertical: SH(6),
       borderRadius: SW(6),
@@ -193,11 +193,11 @@ export const createStyles = (theme: AppTheme) =>
     addAddressText: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoMedium,
-      color: theme.colors.danger || '#D11C3D',
+      color: theme.colors.danger,
       marginLeft: SW(4),
     },
     couponBadge: {
-      backgroundColor: '#ECFDF5',
+      backgroundColor: theme.colors.lightGreenSuccess,
       padding: SW(10),
       borderRadius: SW(8),
       marginTop: SH(10),
@@ -223,7 +223,7 @@ export const createStyles = (theme: AppTheme) =>
     couponDesc: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.success || '#10B981',
+      color: theme.colors.success,
       marginTop: SH(2),
     },
     savingBanner: {
@@ -256,11 +256,11 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.textPrimary,
     },
     discountLabel: {
-      color: theme.colors.success || '#10B981',
+      color: theme.colors.success,
       fontFamily: theme.fontfamily.robotoBold,
     },
     discountValue: {
-      color: theme.colors.success || '#10B981',
+      color: theme.colors.success,
     },
     taxNote: {
       fontSize: SF(11),
@@ -269,7 +269,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     divider: {
       height: 1,
-      backgroundColor: theme.colors.border || '#E5E7EB',
+      backgroundColor: theme.colors.border,
       marginVertical: SH(15),
     },
     totalRow: {
@@ -298,15 +298,15 @@ export const createStyles = (theme: AppTheme) =>
     paymentOption: {
       flex: 1,
       borderWidth: 1,
-      borderColor: theme.colors.border || '#E5E7EB',
+      borderColor: theme.colors.border,
       borderRadius: SW(10),
       padding: SW(12),
       marginHorizontal: SW(4),
       alignItems: 'center',
     },
     paymentOptionSelected: {
-      borderColor: theme.colors.danger || '#D11C3D',
-      backgroundColor: '#FEF2F2',
+      borderColor: theme.colors.danger,
+      backgroundColor: theme.colors.brandRedLight,
     },
     paymentOptionTitle: {
       fontSize: SF(13),
@@ -321,7 +321,7 @@ export const createStyles = (theme: AppTheme) =>
       marginTop: SH(4),
     },
     payableCard: {
-      backgroundColor: '#FFF7ED',
+      backgroundColor: theme.colors.YellowLight,
       padding: SW(15),
       borderRadius: SW(10),
       flexDirection: 'row',
@@ -332,12 +332,12 @@ export const createStyles = (theme: AppTheme) =>
     payableLabel: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoBold,
-      color: '#9A3412',
+      color: theme.colors.darkOrange,
     },
     payableSub: {
       fontSize: SF(11),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: '#C2410C',
+      color: theme.colors.orange,
       marginTop: SH(2),
     },
     payableValue: {
@@ -380,7 +380,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(32),
       height: SW(32),
       borderRadius: SW(6),
-      backgroundColor: '#3399FF',
+      backgroundColor: theme.colors.razorpayBlue,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -439,7 +439,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     successModalOverlay: {
       flex: 1,
-      backgroundColor: 'rgba(0,0,0,0.6)',
+      backgroundColor: theme.colors.overlay,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -454,7 +454,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(80),
       height: SW(80),
       borderRadius: SW(40),
-      backgroundColor: theme.colors.success || '#10B981',
+      backgroundColor: theme.colors.success,
       justifyContent: 'center',
       alignItems: 'center',
       marginBottom: SH(20),
@@ -468,7 +468,7 @@ export const createStyles = (theme: AppTheme) =>
     successSubTitle: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoMedium,
-      color: theme.colors.success || '#10B981',
+      color: theme.colors.success,
       textAlign: 'center',
     },
   });

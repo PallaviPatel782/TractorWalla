@@ -33,7 +33,7 @@ export const createStyles = (theme: AppTheme) =>
       fontFamily: theme.fontfamily.robotoRegular,
       marginTop: SH(40),
       marginBottom: SH(10),
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: {
         width: 0,
         height: 4,

@@ -15,7 +15,6 @@ import { useAppSelector, useAppDispatch } from '@store';
 import { logout } from '@store/slices/authSlice';
 import { createStyles } from './styles';
 import {
-  EditIcon,
   AboutIcon,
   FaqIcon,
   FeedbackIcon,
@@ -29,11 +28,21 @@ import {
   ThreadsIcon,
   ChevronBackwardIcon,
   BikeIcon,
-  LocationEditIcon
+  LocationEditIcon,
+  UserIcon
 } from '@assets/icons';
 import { SW, SH } from '@utils/Dimensions';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { MainTabParamList, RootStackParamList } from '@navigation/NavigationTypes';
 
-const ProfileScreen = ({ navigation }: any) => {
+type Props = CompositeScreenProps<
+  BottomTabScreenProps<MainTabParamList, 'Profile'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+const ProfileScreen = ({ navigation }: Props) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
@@ -64,18 +73,22 @@ const ProfileScreen = ({ navigation }: any) => {
           onBack={() => navigation.goBack()}
         />
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: SH(30) }}>
-          <View style={styles.profileSection}>
+          <TouchableOpacity
+            style={styles.profileSection}
+            onPress={() => navigation.navigate('UpdateProfile' as never)}
+            activeOpacity={0.7}
+          >
             <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: 'https://i.pravatar.cc/300' }} // Placeholder as per screenshot
-                style={styles.profileImage}
-              />
-              <TouchableOpacity
-                style={styles.editButton}
-                onPress={() => navigation.navigate('UpdateProfile')}
-              >
-                <EditIcon size={14} color={theme.colors.background} />
-              </TouchableOpacity>
+              {user?.profileImage ? (
+                <Image
+                  source={{ uri: user.profileImage }}
+                  style={styles.profileImage}
+                />
+              ) : (
+                <View style={[styles.profileImage, { alignItems: 'center', justifyContent: 'center', backgroundColor: theme.colors.gray100 }]}>
+                  <UserIcon size={SW(50)} color={theme.colors.gray400} />
+                </View>
+              )}
             </View>
             <View style={styles.userInfo}>
               <Text variant="semiBold" size={18} color={theme.colors.gray900}>
@@ -88,11 +101,11 @@ const ProfileScreen = ({ navigation }: any) => {
                 {user?.phone || '+91 1234567890'}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.myTractorButton}
-            onPress={() => navigation.navigate('MyTractors')}
+            onPress={() => navigation.navigate('MyTractors' as never)}
           >
             <View style={styles.myTractorLeft}>
               <View style={styles.tractorIconContainer}>
@@ -114,17 +127,18 @@ const ProfileScreen = ({ navigation }: any) => {
             <ProfileOptionItem
               icon={<LocationEditIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.manageAddress')}
-              onPress={() => navigation.navigate('ManageAddress')}
+              onPress={() => navigation.navigate('ManageAddress' as never)}
             />
             <ProfileOptionItem
               icon={<BookingIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.yourBookings')}
-              onPress={() => navigation.navigate('Bookings')}
+              onPress={() => navigation.navigate('Bookings' as never)}
             />
             <ProfileOptionItem
               icon={<FaqIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.faq')}
-              onPress={() => navigation.navigate('FAQ')}
+              onPress={() => navigation.navigate('FAQ' as never)}
+              showBorder={false}
             />
           </View>
 
@@ -137,27 +151,28 @@ const ProfileScreen = ({ navigation }: any) => {
             <ProfileOptionItem
               icon={<ChangelanguageIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.language')}
-              onPress={() => navigation.navigate('ChooseLanguage')}
+              onPress={() => navigation.navigate('ChooseLanguage' as never)}
             />
             <ProfileOptionItem
               icon={<AboutIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.about')}
-              onPress={() => navigation.navigate('About')}
+              onPress={() => navigation.navigate('About' as never)}
             />
             <ProfileOptionItem
               icon={<FeedbackIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.sendFeedback')}
-              onPress={() => navigation.navigate('SendFeedback')}
+              onPress={() => navigation.navigate('SendFeedback' as never)}
             />
             <ProfileOptionItem
               icon={<ReportIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.reportIssue')}
-              onPress={() => navigation.navigate('ReportIssue')}
+              onPress={() => navigation.navigate('ReportIssue' as never)}
             />
             <ProfileOptionItem
               icon={<LogoutIcon size={20} color={theme.colors.primary} />}
               title={t('main.profile.logout')}
               onPress={handleLogout}
+              showBorder={false}
             />
           </View>
 

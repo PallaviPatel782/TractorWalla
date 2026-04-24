@@ -91,13 +91,13 @@ const ServiceOverviewScreen = () => {
         <View style={styles.heroSection}>
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
-              <ChevronBackwardIcon size={24} color="#000" />
+              <ChevronBackwardIcon size={24} color={theme.colors.white} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconCircle}>
-              <ShareIcon size={18} color="#000" />
+              <ShareIcon size={18} color={theme.colors.white} />
             </TouchableOpacity>
           </View>
-          <kit.image width={SW(240)} height={SH(200)} />
+          <kit.image width={SW(240)} height={SH(150)} />
         </View>
 
         <View style={styles.contentCard}>

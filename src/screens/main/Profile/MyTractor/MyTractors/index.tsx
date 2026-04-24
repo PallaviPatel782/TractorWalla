@@ -91,7 +91,7 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
         <View style={styles.footer}>
           <Button
             title={t('main.myTractor.addNew')}
-            onPress={() => navigation.navigate('MainTractorBrand')}
+            onPress={() => navigation.navigate('MainTractorBrand', { ...route.params })}
           />
         </View>
 
@@ -122,7 +122,7 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
                   style={styles.deleteButton}
                   onPress={confirmDelete}
                 >
-                  <Text variant="regular" size={13} color="#FFFFFF">
+                  <Text variant="regular" size={13} color={theme.colors.white}>
                     {t('main.myTractor.deleteConfirm')}
                   </Text>
                 </TouchableOpacity>

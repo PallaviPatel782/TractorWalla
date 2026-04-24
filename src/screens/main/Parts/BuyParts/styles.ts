@@ -6,10 +6,10 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background || '#F8F9FB',
+      backgroundColor: theme.colors.background,
     },
     header: {
-      backgroundColor: theme.colors.DeepGreen || '#105D38',
+      backgroundColor: theme.colors.DeepGreen,
       paddingBottom: SH(15)
     },
     searchContainer: {
@@ -31,17 +31,17 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(10),
       backgroundColor: theme.colors.white,
       borderWidth: 1,
-      borderColor: theme.colors.border || '#E5E7EB',
+      borderColor: theme.colors.border,
       marginRight: SW(10),
     },
     tabPillActive: {
-      backgroundColor: theme.colors.DeepGreen || '#105D38',
-      borderColor: theme.colors.DeepGreen || '#105D38',
+      backgroundColor: theme.colors.DeepGreen,
+      borderColor: theme.colors.DeepGreen,
     },
     tabText: {
       fontSize: SF(13),
       fontFamily: theme.fontfamily.robotoMedium,
-      color: theme.colors.textSecondary || '#666666',
+      color: theme.colors.textSecondary,
     },
     tabTextActive: {
       color: theme.colors.white,
@@ -56,7 +56,7 @@ export const createStyles = (theme: AppTheme) =>
     sectionTitle: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoBold,
-      color: '#D11C3D', // Red from SS
+      color: theme.colors.danger, // Red from SS
     },
     kitCard: {
       flexDirection: 'row',
@@ -66,7 +66,7 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(12),
       padding: SW(12),
       borderWidth: 1,
-      borderColor: theme.colors.borderFaint || '#F1F1F1',
+      borderColor: theme.colors.borderFaint,
     },
     kitLeft: {
       flex: 1,
@@ -76,7 +76,7 @@ export const createStyles = (theme: AppTheme) =>
     kitTitle: {
       fontSize: SF(15),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },
     bulletRow: {
@@ -87,7 +87,7 @@ export const createStyles = (theme: AppTheme) =>
     bulletText: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textSecondary || '#666666',
+      color: theme.colors.textSecondary,
       flex: 1,
       marginLeft: SW(10)
     },
@@ -99,18 +99,18 @@ export const createStyles = (theme: AppTheme) =>
     ratingText: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.GoldenYellow || '#F4C542',
+      color: theme.colors.GoldenYellow,
       marginRight: SW(8),
     },
     price: {
       fontSize: SF(15),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
     },
     mrp: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textMuted || '#9CA3AF',
+      color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
       marginLeft: SW(6),
     },
@@ -131,12 +131,12 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(6),
       borderRadius: SW(15),
       borderWidth: 1,
-      borderColor: '#1E633F',
+      borderColor: theme.colors.successDeep,
     },
     purchaseText: {
       fontSize: SF(11),
       fontFamily: theme.fontfamily.robotoBold,
-      color: '#1E633F',
+      color: theme.colors.successDeep,
     },
     modalContainer: {
       backgroundColor: theme.colors.white,
@@ -154,7 +154,7 @@ export const createStyles = (theme: AppTheme) =>
     modalHeaderTitle: {
       fontSize: SF(16),
       fontFamily: theme.fontfamily.robotoBold,
-      color: '#1E633F',
+      color: theme.colors.successDeep,
       marginTop: SH(5),
       marginBottom: SH(20),
     },

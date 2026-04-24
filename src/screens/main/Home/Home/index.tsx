@@ -336,14 +336,18 @@ const HomeScreen = () => {
             </View>
           </View>
 
-          <View style={styles.addressRow}>
+          <TouchableOpacity 
+            style={styles.addressRow}
+            onPress={() => navigation.navigate('ManageAddress')}
+            activeOpacity={0.7}
+          >
             <LocationIcon size={SW(14)} color={theme.colors.white} />
             <Text style={styles.addressText}>
               {t('main.home.deliverTo')}{' '}
               <Text style={styles.addressBold}>3517 W. Gray St. Utica, Pennsyl..</Text>
             </Text>
             <KeyboardArrowUpIcon size={SW(14)} color={theme.colors.white} />
-          </View>
+          </TouchableOpacity>
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>

@@ -46,7 +46,7 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(32),
       marginBottom: SH(8),
       elevation: 2,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 1 },
       shadowOpacity: 0.1,
       shadowRadius: 2,

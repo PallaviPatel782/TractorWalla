@@ -5,14 +5,14 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background || '#F8F9FB',
+      backgroundColor: theme.colors.background,
     },
     heroSection: {
       height: SH(280),
       position: 'relative',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#042C21',
+      backgroundColor: theme.colors.white,
     },
     headerRow: {
       position: 'absolute',
@@ -27,10 +27,10 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(36),
       height: SW(36),
       borderRadius: SW(18),
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.DeepGreen,
       alignItems: 'center',
       justifyContent: 'center',
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       elevation: 3,
@@ -45,7 +45,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(15),
     },
     badgePill: {
-      backgroundColor: '#1E633F',
+      backgroundColor: theme.colors.successDeep,
       paddingHorizontal: SW(10),
       paddingVertical: SH(4),
       borderRadius: SW(6),
@@ -63,7 +63,7 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(20),
       paddingHorizontal: SW(20),
       paddingVertical: SH(15),
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.1,
       elevation: 5,
@@ -74,19 +74,19 @@ export const createStyles = (theme: AppTheme) =>
 
     divider: {
       height: 1,
-      backgroundColor: '#F1F1F1',
+      backgroundColor: theme.colors.borderFaint,
       marginVertical: SH(20),
     },
     kitTitle: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
       marginBottom: SH(6),
     },
     mainKitTitle: {
       fontSize: SF(18),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
       marginBottom: SH(10),
     },
     ratingWrap: {
@@ -103,7 +103,7 @@ export const createStyles = (theme: AppTheme) =>
     sectionTitle: {
       fontSize: SF(16),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
       marginBottom: SH(15),
     },
     detailsGrid: {
@@ -134,7 +134,7 @@ export const createStyles = (theme: AppTheme) =>
     bulletText: {
       fontSize: SF(11),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textSecondary || '#6B7280',
+      color: theme.colors.textSecondary,
       flex: 1,
       marginLeft: SW(6),
     },
@@ -154,7 +154,7 @@ export const createStyles = (theme: AppTheme) =>
       // borderRadius: SW(12),
       padding: SW(12),
       borderWidth: 1,
-      borderColor: theme.colors.borderFaint || '#F1F1F1',
+      borderColor: theme.colors.borderFaint,
     },
     kitLeft: {
       flex: 1,
@@ -186,12 +186,12 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(6),
       borderRadius: SW(15),
       borderWidth: 1,
-      borderColor: '#1E633F',
+      borderColor: theme.colors.successDeep,
     },
     purchaseText: {
       fontSize: SF(11),
       fontFamily: theme.fontfamily.robotoBold,
-      color: '#1E633F',
+      color: theme.colors.successDeep,
     },
     footer: {
       paddingHorizontal: SW(16),
@@ -199,7 +199,7 @@ export const createStyles = (theme: AppTheme) =>
       paddingTop: SH(10),
       backgroundColor: theme.colors.white,
       borderTopWidth: 1,
-      borderTopColor: '#F1F1F1',
+      borderTopColor: theme.colors.borderFaint,
     },
     modalContainer: {
       backgroundColor: theme.colors.white,
@@ -217,7 +217,7 @@ export const createStyles = (theme: AppTheme) =>
     modalHeaderTitle: {
       fontSize: SF(16),
       fontFamily: theme.fontfamily.robotoBold,
-      color: '#1E633F',
+      color: theme.colors.successDeep,
       marginTop: SH(5),
       marginBottom: SH(20),
     },
@@ -246,23 +246,23 @@ export const createStyles = (theme: AppTheme) =>
     },
     starIcon: {
       fontSize: SF(12),
-      color: theme.colors.GoldenYellow || '#F4C542',
+      color: theme.colors.GoldenYellow,
       marginRight: SW(4),
     },
     ratingText: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textSecondary || '#666666',
+      color: theme.colors.textSecondary,
     },
     price: {
       fontSize: SF(15),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
     },
     mrp: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textMuted || '#9CA3AF',
+      color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
       marginLeft: SW(6),
     },

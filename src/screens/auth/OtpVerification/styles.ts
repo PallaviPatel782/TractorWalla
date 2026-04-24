@@ -53,7 +53,7 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.borderLight,
       // Shadow for iOS
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 10,

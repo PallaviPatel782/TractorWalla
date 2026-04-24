@@ -35,9 +35,18 @@ const ManageAddress = ({ navigation, route }: any) => {
       if (!userAddresses.find(a => a.id === newAddress.id)) {
         dispatch(addAddress(newAddress));
       }
+      
+      if (isSelectionMode) {
+        navigation.navigate('ServiceCheckout', {
+          serviceId,
+          category,
+          selectedAddress: newAddress
+        });
+      }
+      
       navigation.setParams({ newAddress: undefined });
     }
-  }, [newAddress, navigation, dispatch, userAddresses]);
+  }, [newAddress, navigation, dispatch, userAddresses, isSelectionMode, serviceId, category]);
 
   const onSelectAddress = (item: any) => {
     setSelectedId(item.id);
@@ -138,7 +147,7 @@ const ManageAddress = ({ navigation, route }: any) => {
         <TouchableOpacity
           style={styles.footer}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('AddLocation')}
+          onPress={() => navigation.navigate('AddLocation', { ...route.params })}
         >
           <AddlocationIcon size={20} color={theme.colors.white} />
           <Text variant="semiBold" size={14} style={styles.footerText}>

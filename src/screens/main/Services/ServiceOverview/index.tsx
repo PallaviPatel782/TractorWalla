@@ -11,7 +11,7 @@ import {
   LoudspeakerIcon,
   WarrantyBadgeIcon,
 } from '@assets/icons';
-import { 
+import {
   Button,
   View,
   ScrollView,
@@ -52,13 +52,13 @@ const ServiceOverviewScreen = () => {
         <View style={styles.heroSection}>
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
-              <ChevronBackwardIcon size={24} color="#000" />
+              <ChevronBackwardIcon size={24} color={theme.colors.white} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconCircle}>
-              <ShareIcon size={18} color="#000" />
+              <ShareIcon size={18} color={theme.colors.white} />
             </TouchableOpacity>
           </View>
-          {ServiceImage && <ServiceImage width={SW(240)} height={SH(200)} />}
+          {ServiceImage && <ServiceImage width={SW(240)} height={SH(150)} />}
         </View>
 
         {/* Content */}
@@ -83,25 +83,25 @@ const ServiceOverviewScreen = () => {
           <View style={styles.highlights}>
             {service.highlight && (
               <View style={styles.highlightItem}>
-                <TimeLineIcon size={18} color={theme.colors.danger || '#D11C3D'} />
+                <TimeLineIcon size={18} color={theme.colors.danger} />
                 <Text style={styles.highlightText}>{service.highlight}</Text>
               </View>
             )}
             {service.warranty && (
               <View style={styles.highlightItem}>
-                <WarrantyBadgeIcon size={18} color={theme.colors.danger || '#D11C3D'} />
+                <WarrantyBadgeIcon size={18} color={theme.colors.danger} />
                 <Text style={styles.highlightText}>{service.warranty}</Text>
               </View>
             )}
             {service.frequency && (
               <View style={styles.highlightItem}>
-                <HumbsupIcon size={18} color={theme.colors.danger || '#D11C3D'} />
+                <HumbsupIcon size={18} color={theme.colors.danger} />
                 <Text style={styles.highlightText}>{service.frequency}</Text>
               </View>
             )}
             {service.pickup && (
               <View style={styles.highlightItem}>
-                <LoudspeakerIcon size={18} color={theme.colors.danger || '#D11C3D'} />
+                <LoudspeakerIcon size={18} color={theme.colors.danger} />
                 <Text style={styles.highlightText}>{service.pickup}</Text>
               </View>
             )}
@@ -112,7 +112,7 @@ const ServiceOverviewScreen = () => {
           <View style={styles.includesGrid}>
             {service.bullets?.map((bullet: string, idx: number) => (
               <View key={idx} style={styles.detailBulletRow}>
-                <CheckedIcon size={16} color={theme.colors.success || '#10B981'} />
+                <CheckedIcon size={16} color={theme.colors.success} />
                 <Text style={styles.detailBulletText}>{bullet}</Text>
               </View>
             ))}

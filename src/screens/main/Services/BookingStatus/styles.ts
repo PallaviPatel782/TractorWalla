@@ -26,7 +26,7 @@ export const createStyles = (theme: AppTheme) =>
     cancelBadge: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: '#FFE5E5',
+      backgroundColor: theme.colors.dangerFaint,
       paddingHorizontal: SW(12),
       paddingVertical: SH(6),
       borderRadius: SW(20),

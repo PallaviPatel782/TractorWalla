@@ -6,7 +6,7 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.backgroundTertiary || '#F4F6F8',
+      backgroundColor: theme.colors.backgroundTertiary,
     },
     content: {
       flex: 1,
@@ -22,7 +22,7 @@ export const createStyles = (theme: AppTheme) =>
       padding: SW(16),
       marginBottom: SH(16),
       elevation: 2,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 4,
@@ -105,7 +105,7 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.gray900,
     },
     viewDetailsButton: {
-      backgroundColor: theme.colors.iconBgYellow || '#FDF4DF',
+      backgroundColor: theme.colors.iconBgYellow,
       paddingHorizontal: SW(16),
       paddingVertical: SH(8),
       borderRadius: SW(6),
@@ -135,7 +135,7 @@ export const createStyles = (theme: AppTheme) =>
       borderWidth: 1,
       borderColor: theme.colors.gray100,
       elevation: 3,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 4,

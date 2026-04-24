@@ -23,7 +23,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ item, onPress, onBookPress })
         <Text style={styles.serviceTitle}>{item.title}</Text>
         {item.bullets?.slice(0, 3).map((bullet: string, idx: number) => (
           <View key={idx} style={styles.bulletRow}>
-            <CheckIcon size={15} color={theme.colors.DeepGreen || '#105D38'} />
+            <CheckIcon size={15} color={theme.colors.DeepGreen} />
             <Text style={styles.bulletText}>{bullet}</Text>
           </View>
         ))}
@@ -39,7 +39,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ item, onPress, onBookPress })
       <View style={styles.serviceRight}>
         {item.image && <item.image width={SW(100)} height={SW(85)} style={styles.serviceImage} />}
         <TouchableOpacity style={styles.bookBtn} onPress={onBookPress}>
-          <CartIcon size={14} color="#1E633F" />
+          <CartIcon size={14} color={theme.colors.successDeep} />
           <Text style={styles.bookText}> {t('main.home.services.book', 'Book')}</Text>
         </TouchableOpacity>
       </View>

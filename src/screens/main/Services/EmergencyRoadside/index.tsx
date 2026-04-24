@@ -64,15 +64,15 @@ const EmergencyRoadsideScreen = () => {
               <Text style={styles.highlightText}>{data.arrival}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <View style={styles.highlightIconWrap}><CheckIcon size={16} color={theme.colors.AzureBlue || '#3281D1'} /></View>
+              <View style={styles.highlightIconWrap}><CheckIcon size={16} color={theme.colors.AzureBlue} /></View>
               <Text style={styles.highlightText}>{data.mechanics}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <View style={styles.highlightIconWrap}><LocationIcon size={16} color={theme.colors.AzureBlue || '#3281D1'} /></View>
+              <View style={styles.highlightIconWrap}><LocationIcon size={16} color={theme.colors.AzureBlue} /></View>
               <Text style={styles.highlightText}>{data.feature1}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <View style={styles.highlightIconWrap}><TractorIcon size={16} color={theme.colors.danger || '#D11C3D'} /></View>
+              <View style={styles.highlightIconWrap}><TractorIcon size={16} color={theme.colors.danger} /></View>
               <Text style={styles.highlightText}>{data.feature2}</Text>
             </View>
           </View>
@@ -92,7 +92,7 @@ const EmergencyRoadsideScreen = () => {
           <View style={styles.includesGrid}>
             {data.bullets?.map((point: string, idx: number) => (
               <View key={idx} style={styles.bulletRow}>
-                <CheckedIcon size={16} color={theme.colors.success || '#41A863'} />
+                <CheckedIcon size={16} color={theme.colors.success} />
                 <Text style={styles.bulletText}>{point}</Text>
               </View>
             ))}
@@ -103,7 +103,7 @@ const EmergencyRoadsideScreen = () => {
             <Text style={styles.sectionHeading}>{t('main.home.services.durationWarranty', 'Duration & Warranty')}</Text>
             {Array.isArray(data.warranty) ? data.warranty.map((point: string, idx: number) => (
               <View key={idx} style={styles.bulletRow}>
-                <CheckIcon size={16} color={theme.colors.success || '#41A863'} />
+                <CheckIcon size={16} color={theme.colors.success} />
                 <Text style={styles.bulletText}>{point}</Text>
               </View>
             )) : null}

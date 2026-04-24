@@ -19,7 +19,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(24),
       height: SW(24),
       borderRadius: SW(12),
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      backgroundColor: theme.colors.white + '33',
       justifyContent: 'center',
       alignItems: 'center',
       marginRight: SW(12),
@@ -41,7 +41,7 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.borderLight,
       // Shadow for iOS/Android
       elevation: 3,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 5,

@@ -13,7 +13,7 @@ export type RootStackParamList = {
     selectedAddressId?: string;
     serviceId?: string;
     category?: string;
-  };
+  } | undefined;
   Bookings: undefined;
   AddLocation: undefined;
   ChooseLanguage: undefined;

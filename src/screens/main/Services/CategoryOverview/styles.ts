@@ -6,7 +6,7 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background || '#F8F9FB',
+      backgroundColor: theme.colors.background,
     },
     scrollContent: {
       paddingBottom: SH(100),
@@ -25,7 +25,7 @@ export const createStyles = (theme: AppTheme) =>
       bottom: 0,
       left: 0,
       right: 0,
-      backgroundColor: 'rgba(0,0,0,0.6)',
+      backgroundColor: theme.colors.overlay,
       padding: SW(20),
       paddingBottom: SH(40),
       alignItems: 'center',
@@ -111,23 +111,23 @@ export const createStyles = (theme: AppTheme) =>
     },
     starIcon: {
       fontSize: SF(12),
-      color: theme.colors.GoldenYellow || '#F4C542',
+      color: theme.colors.GoldenYellow,
       marginRight: SW(4),
     },
     ratingText: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textSecondary || '#666666',
+      color: theme.colors.textSecondary,
     },
     price: {
       fontSize: SF(15),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
     },
     mrp: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textMuted || '#9CA3AF',
+      color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
       marginLeft: SW(6),
     },

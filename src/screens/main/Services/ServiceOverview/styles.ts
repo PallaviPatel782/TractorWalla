@@ -6,7 +6,7 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background || '#F8F9FB',
+      backgroundColor: theme.colors.background,
     },
     scrollContent: {
       paddingBottom: SH(100),
@@ -16,7 +16,7 @@ export const createStyles = (theme: AppTheme) =>
       position: 'relative',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#042C21',
+      backgroundColor: theme.colors.white,
     },
     headerRow: {
       position: 'absolute',
@@ -31,10 +31,10 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(36),
       height: SW(36),
       borderRadius: SW(18),
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.DeepGreen,
       alignItems: 'center',
       justifyContent: 'center',
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       elevation: 3,
@@ -55,7 +55,7 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(20),
       paddingHorizontal: SW(20),
       paddingVertical: SH(15),
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.1,
       elevation: 5,
@@ -67,7 +67,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(5)
     },
     badgePill: {
-      backgroundColor: theme.colors.DeepGreen || '#1E633F',
+      backgroundColor: theme.colors.DeepGreen,
       paddingHorizontal: SW(10),
       paddingVertical: SH(4),
       borderRadius: SW(6),

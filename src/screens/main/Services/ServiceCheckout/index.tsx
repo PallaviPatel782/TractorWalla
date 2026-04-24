@@ -152,7 +152,7 @@ const ServiceCheckoutScreen = () => {
               <Text style={styles.serviceTitle}>{service.title}</Text>
               {service.bullets?.slice(0, 3).map((bullet, idx) => (
                 <View key={idx} style={styles.bulletRow}>
-                  <CheckIcon size={14} color={theme.colors.success || '#10B981'} />
+                  <CheckIcon size={14} color={theme.colors.success} />
                   <Text style={styles.bulletText}>{bullet}</Text>
                 </View>
               ))}
@@ -268,7 +268,7 @@ const ServiceCheckoutScreen = () => {
         <View style={styles.savingBanner}>
           <Text style={[styles.PercentageContainer, {
             backgroundColor: theme.colors.white,
-            color: theme.colors.red || '#FF0000'
+            color: theme.colors.red
           }]}>%</Text>
           <Text style={styles.savingText}>
             {billSummary.discount > 0

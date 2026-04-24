@@ -6,7 +6,7 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.white || '#fff',
+      backgroundColor: theme.colors.white,
       paddingBottom: SH(30),
     },
     currentLocRow: {
@@ -14,17 +14,17 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
       paddingHorizontal: 16,
       paddingVertical: 11,
-      backgroundColor: theme.colors.white || '#fff',
+      backgroundColor: theme.colors.white,
     },
     currentLocIcon: {
       fontSize: 18,
-      color: '#00BCD4',
+      color: theme.colors.cyan,
       marginRight: 8,
       lineHeight: 22,
     },
     currentLocText: {
       fontSize: 14,
-      color: '#00BCD4',
+      color: theme.colors.cyan,
       fontWeight: '500',
     },
     mapWrapper: {
@@ -37,7 +37,7 @@ export const createStyles = (theme: AppTheme) =>
       transform: [{ translateX: -16 }, { translateY: -42 }],
     },
     addressCard: {
-      backgroundColor: '#00897B',
+      backgroundColor: theme.colors.teal,
       paddingHorizontal: 16,
       paddingVertical: 14,
     },
@@ -56,7 +56,7 @@ export const createStyles = (theme: AppTheme) =>
     addressTitle: {
       fontSize: 16,
       fontWeight: '700',
-      color: '#fff',
+      color: theme.colors.white,
       marginBottom: 3,
     },
     addressLoadRow: {
@@ -66,17 +66,17 @@ export const createStyles = (theme: AppTheme) =>
     },
     addressLoadText: {
       fontSize: 13,
-      color: 'rgba(255,255,255,0.75)',
+      color: theme.colors.white + 'BF',
     },
     addressSubtitle: {
       fontSize: 13,
-      color: 'rgba(255,255,255,0.88)',
+      color: theme.colors.white + 'E0',
       lineHeight: 18,
     },
     confirmWrapper: {
       paddingHorizontal: 14,
       paddingTop: 12,
       paddingBottom: Platform.OS === 'ios' ? 34 : 14,
-      backgroundColor: theme.colors.white || '#fff',
+      backgroundColor: theme.colors.white,
     },
   });

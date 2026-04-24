@@ -50,7 +50,7 @@ export const createStyles = (theme: AppTheme) =>
     recentItem: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: '#333333',
+      backgroundColor: theme.colors.darkBg,
       paddingHorizontal: SW(12),
       paddingVertical: SH(8),
       borderRadius: SW(20),
@@ -107,7 +107,7 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
     },
     starText: {
-      color: '#F4C542',
+      color: theme.colors.GoldenYellow,
       fontSize: SF(14),
       marginRight: SW(4),
     },
@@ -139,16 +139,16 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(8),
     },
     bookButton: {
-      backgroundColor: '#E9F5ED',
+      backgroundColor: theme.colors.paleGreen,
       paddingHorizontal: SW(12),
       paddingVertical: SH(6),
       borderRadius: SW(20),
       borderWidth: 1,
-      borderColor: '#41A863',
+      borderColor: theme.colors.greenBtn,
     },
     bookButtonText: {
       fontSize: SF(14),
-      color: '#41A863',
+      color: theme.colors.greenBtn,
       fontWeight: '600',
     },
   });

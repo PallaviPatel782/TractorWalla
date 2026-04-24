@@ -6,13 +6,13 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#F8F9FA',
+      backgroundColor: theme.colors.background,
     },
     content: {
       padding: SW(16),
     },
     headerContainer: {
-      backgroundColor: theme.colors.YellowLight || '#FFF9C4',
+      backgroundColor: theme.colors.YellowLight,
       paddingBottom: SH(15),
       borderBottomLeftRadius: SW(20),
       borderBottomRightRadius: SW(20),
@@ -26,7 +26,7 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
       marginHorizontal: SW(16),
       marginTop: SH(5),
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       elevation: 2,
@@ -44,7 +44,7 @@ export const createStyles = (theme: AppTheme) =>
     applyBtnText: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.DeepGreen || '#105D38',
+      color: theme.colors.DeepGreen,
     },
     sectionTitle: {
       fontSize: SF(16),
@@ -58,7 +58,7 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       marginBottom: SH(16),
       overflow: 'hidden',
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 4,
@@ -66,7 +66,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     redTag: {
       width: SW(40),
-      backgroundColor: theme.colors.danger || '#D11C3D',
+      backgroundColor: theme.colors.danger,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -104,11 +104,11 @@ export const createStyles = (theme: AppTheme) =>
       paddingHorizontal: SW(16),
       justifyContent: 'center',
       borderLeftWidth: 1,
-      borderLeftColor: '#F3F4F6',
+      borderLeftColor: theme.colors.gray100,
     },
     cardApplyText: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.DeepGreen || '#105D38',
+      color: theme.colors.DeepGreen,
     },
   });

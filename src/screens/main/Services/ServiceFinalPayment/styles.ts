@@ -59,24 +59,39 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
     alignItems: 'center',
     marginTop: SH(10),
   },
-  rating: {
-    fontSize: SF(14),
+  serviceFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: SH(10),
+  },
+  ratingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: SW(12),
+  },
+  starIcon: {
+    fontSize: SF(12),
     color: theme.colors.GoldenYellow,
-    fontFamily: theme.fontfamily.robotoMedium,
-    marginRight: SW(10),
+    marginRight: SW(4),
+  },
+  ratingText: {
+    fontSize: SF(12),
+    fontFamily: theme.fontfamily.robotoBold,
+    color: theme.colors.textSecondary,
   },
   price: {
-    fontSize: SF(16),
+    fontSize: SF(15),
     fontFamily: theme.fontfamily.robotoBold,
-    color: theme.colors.black,
-    marginRight: SW(8),
+    color: theme.colors.textPrimary,
   },
   mrp: {
-    fontSize: SF(14),
-    color: theme.colors.gray400,
+    fontSize: SF(12),
     fontFamily: theme.fontfamily.robotoRegular,
+    color: theme.colors.textMuted,
     textDecorationLine: 'line-through',
+    marginLeft: SW(6),
   },
+
   imageContainer: {
     alignItems: 'center',
   },

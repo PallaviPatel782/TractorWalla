@@ -62,8 +62,10 @@ const ServiceFinalPayment = () => {
                 </View>
               ))}
               <View style={styles.priceRow}>
-                <Text style={styles.rating}>★ 4.9</Text>
-                <Text style={styles.price}>₹1500</Text>
+                <View style={styles.ratingRow}>
+                  <Text style={styles.starIcon}>★</Text>
+                  <Text style={styles.ratingText}>4.9</Text>
+                </View>
                 <Text style={styles.mrp}>₹1880</Text>
               </View>
             </View>
@@ -102,16 +104,21 @@ const ServiceFinalPayment = () => {
 
             <View style={styles.dividerDashed} />
 
-            <View style={styles.billRow}>
-              <Text style={styles.taxNote}>* {t('main.bookings.invoice.taxNotice')}</Text>
-              <Text style={styles.taxValue}>{t('common.default')}</Text>
+            <View style={styles.serviceFooter}>
+              <View style={styles.ratingRow}>
+                <Text style={styles.starIcon}>★</Text>
+                <Text style={styles.ratingText}>4.9</Text>
+              </View>
+              <Text style={styles.price}>₹{t('main.bookings.invoice.taxNotice')}</Text>
+              <Text style={styles.mrp}>{t('common.default')}</Text>
             </View>
 
-            <View style={styles.totalRow}>
-              <Text style={styles.totalLabel}>{t('main.bookings.invoice.estimate')}</Text>
-              <Text style={styles.totalValue}>₹4380.00</Text>
+            <View style={styles.billRow}>
+              <Text style={styles.taxNote}>* {t('main.bookings.invoice.estimate')}</Text>
+              <Text style={styles.taxValue}>₹4380.00</Text>
             </View>
           </View>
+
         </ScrollView>
 
         <View style={styles.footer}>

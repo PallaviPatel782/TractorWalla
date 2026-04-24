@@ -30,7 +30,7 @@ const DEBOUNCE_MS = 350;
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-const LocationScreen = ({ navigation }: any) => {
+const LocationScreen = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
@@ -143,13 +143,14 @@ const LocationScreen = ({ navigation }: any) => {
   const handleConfirm = useCallback(() => {
     if (!currentLocation) return;
     navigation.navigate('ManageAddress', { 
+      ...route.params,
       newAddress: {
         id: Date.now().toString(),
         label: 'New Address',
         address: currentLocation.fullAddress || currentLocation.address
       }
     });
-  }, [currentLocation, navigation]);
+  }, [currentLocation, navigation, route.params]);
 
   return (
     <ScreenWrapper>

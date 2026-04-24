@@ -5,7 +5,7 @@ import { Text, SecondaryHeader, ScreenWrapper, View, ScrollView } from '@compone
 import { createStyles } from './styles';
 import { OilImage, OilcheckImage, MahindraImage } from '@assets/images';
 import { SW, SH } from '@utils/Dimensions';
-import { CheckIcon, BillIcon } from '@assets/icons';
+import { CheckIcon, BillIcon, CheckedIcon } from '@assets/icons';
 
 const BookingDetailsScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
@@ -140,7 +140,7 @@ const BookingDetailsScreen = ({ navigation }: any) => {
                         {renderServiceImage(item.image)}
                       </View>
                       <View style={styles.addedBadge}>
-                        <CheckIcon width={SW(16)} height={SW(16)} />
+                        <CheckedIcon width={SW(16)} height={SW(16)} color={theme.colors.white} />
                         <Text style={styles.addedText}>{t('common.added')}</Text>
                       </View>
                     </View>
@@ -177,7 +177,7 @@ const BookingDetailsScreen = ({ navigation }: any) => {
                       {renderServiceImage(item.image)}
                     </View>
                     <View style={styles.addedBadge}>
-                      <CheckIcon width={SW(16)} height={SW(16)} />
+                      <CheckedIcon width={SW(16)} height={SW(16)} />
                       <Text style={styles.addedText}>{t('common.added')}</Text>
                     </View>
                   </View>

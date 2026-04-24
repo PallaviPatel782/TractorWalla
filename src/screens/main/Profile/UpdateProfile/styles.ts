@@ -31,7 +31,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(28),
       height: SW(28),
       borderRadius: SW(14),
-      backgroundColor: theme.colors.danger || '#D92D20',
+      backgroundColor: theme.colors.danger,
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 2,
@@ -56,7 +56,7 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.gray900,
     },
     asterisk: {
-      color: theme.colors.danger || '#D92D20',
+      color: theme.colors.danger,
       fontFamily: theme.fontfamily.robotoSemiBold,
       fontSize: SF(12),
     },

@@ -11,7 +11,7 @@ export const createStyles = (theme: AppTheme) =>
       // borderRadius: SW(12),
       padding: SW(12),
       borderWidth: 1,
-      borderColor: theme.colors.borderFaint || '#F1F1F1',
+      borderColor: theme.colors.borderFaint,
     },
     serviceLeft: {
       flex: 1,
@@ -20,7 +20,7 @@ export const createStyles = (theme: AppTheme) =>
     serviceTitle: {
       fontSize: SF(15),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },
     bulletRow: {
@@ -31,7 +31,7 @@ export const createStyles = (theme: AppTheme) =>
     bulletText: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textSecondary || '#666666',
+      color: theme.colors.textSecondary,
       flex: 1,
       marginLeft: SW(10),
     },
@@ -47,23 +47,23 @@ export const createStyles = (theme: AppTheme) =>
     },
     starIcon: {
       fontSize: SF(12),
-      color: theme.colors.GoldenYellow || '#F4C542',
+      color: theme.colors.GoldenYellow,
       marginRight: SW(4),
     },
     ratingText: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textSecondary || '#666666',
+      color: theme.colors.textSecondary,
     },
     price: {
       fontSize: SF(15),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary || '#111827',
+      color: theme.colors.textPrimary,
     },
     mrp: {
       fontSize: SF(12),
       fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textMuted || '#9CA3AF',
+      color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
       marginLeft: SW(6),
     },
@@ -85,11 +85,11 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(6),
       borderRadius: SW(15),
       borderWidth: 1,
-      borderColor: '#1E633F',
+      borderColor: theme.colors.successDeep,
     },
     bookText: {
       fontSize: SF(11),
       fontFamily: theme.fontfamily.robotoBold,
-      color: '#1E633F',
+      color: theme.colors.successDeep,
     },
   });

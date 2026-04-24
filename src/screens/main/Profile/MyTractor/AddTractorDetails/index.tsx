@@ -80,7 +80,15 @@ const AddTractorDetails = ({ navigation, route }: any) => {
     } else {
       dispatch(addTractor(formData));
     }
-    navigation.navigate('MyTractors');
+    
+    if (route.params?.isSelectionMode) {
+      navigation.navigate('ServiceCheckout', {
+        ...route.params,
+        selectedTractor: formData
+      });
+    } else {
+      navigation.navigate('MyTractors');
+    }
   };
 
 
@@ -91,7 +99,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
     <ScreenWrapper>
       <View style={styles.container}>
         <SecondaryHeader
-          title={isEdit ? t('main.register.myTractorTitle') : t('main.register.title')}
+          title={isEdit ? t('main.register.myTractorTitle') : t('main.register.addTractor', 'Add Tractor')}
           onBack={() => navigation.goBack()}
         />
 
@@ -198,7 +206,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
 
             <View style={styles.footer}>
               <Button
-                title={isEdit ? t('main.register.updateButton') : t('main.register.button')}
+                title={isEdit ? t('main.register.updateButton') : t('main.register.addTractor', 'Add Tractor')}
                 onPress={handleSave}
                 disabled={!formData.registrationNo || !formData.model || !formData.brand}
               />

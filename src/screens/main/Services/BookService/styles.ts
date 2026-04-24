@@ -6,10 +6,10 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background || '#F8F9FB',
+      backgroundColor: theme.colors.background,
     },
     header: {
-      backgroundColor: theme.colors.DeepGreen || '#105D38',
+      backgroundColor: theme.colors.DeepGreen,
       paddingBottom: SH(15),
     },
     searchContainer: {
@@ -29,17 +29,17 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(10),
       backgroundColor: theme.colors.white,
       borderWidth: 1,
-      borderColor: theme.colors.border || '#E5E7EB',
+      borderColor: theme.colors.border,
       marginRight: SW(10),
     },
     tabPillActive: {
-      backgroundColor: theme.colors.DeepGreen || '#105D38',
-      borderColor: theme.colors.DeepGreen || '#105D38',
+      backgroundColor: theme.colors.DeepGreen,
+      borderColor: theme.colors.DeepGreen,
     },
     tabText: {
       fontSize: SF(13),
       fontFamily: theme.fontfamily.robotoMedium,
-      color: theme.colors.textSecondary || '#666666',
+      color: theme.colors.textSecondary,
     },
     tabTextActive: {
       color: theme.colors.white,
@@ -52,7 +52,7 @@ export const createStyles = (theme: AppTheme) =>
     sectionTitle: {
       fontSize: SF(14),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.danger || '#D11C3D',
+      color: theme.colors.danger,
       marginBottom: SH(15),
       // marginTop: SH(5),
       paddingHorizontal: SW(16),
@@ -74,7 +74,7 @@ export const createStyles = (theme: AppTheme) =>
     modalHeaderTitle: {
       fontSize: SF(18),
       fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.DeepGreen || '#105D38',
+      color: theme.colors.DeepGreen,
       marginTop: SH(5),
       marginBottom: SH(10),
     },

@@ -48,7 +48,7 @@ const BRANDS = [
   { id: '15', name: 'Others', logo: OthersImage },
 ];
 
-const MainTractorBrand = ({ navigation }: any) => {
+const MainTractorBrand = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   const [search, setSearch] = useState('');
@@ -60,6 +60,7 @@ const MainTractorBrand = ({ navigation }: any) => {
 
   const handleBrandSelect = (brand: any) => {
     navigation.navigate('AddTractorDetails', {
+      ...route.params,
       brand: brand.name,
       brandLogo: brand.logo,
       model: ''
