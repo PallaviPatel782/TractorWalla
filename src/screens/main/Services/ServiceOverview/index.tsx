@@ -17,11 +17,13 @@ import {
   ScrollView,
   TouchableOpacity,
   Text,
+  ScreenWrapper,
 } from '@components';
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
 import ServiceCard from '../components/ServiceCard';
-import { SH, SW } from '@utils/Dimensions';
+// import { SH, SW } from '@utils/Dimensions';
+import { ServiceOverViewBannerImage } from '@assets/images';
 
 const ServiceOverviewScreen = () => {
   const { t } = useTranslation();
@@ -33,7 +35,7 @@ const ServiceOverviewScreen = () => {
 
   const currentCategory = SERVICES_DATA.find(c => c.category === category);
   const service = currentCategory?.services.find(s => s.id === serviceId) as IService | undefined;
-  const ServiceImage = service?.image;
+  // const ServiceImage = service?.image;
 
   const otherServices = currentCategory?.services.filter(s => s.id !== serviceId) || [];
 
@@ -46,19 +48,19 @@ const ServiceOverviewScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
+          <ServiceOverViewBannerImage width="100%" height="100%" />
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
-              <ChevronBackwardIcon size={24} color={theme.colors.white} />
+              <ChevronBackwardIcon size={24} color={theme.colors.black} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconCircle}>
-              <ShareIcon size={18} color={theme.colors.white} />
+              <ShareIcon size={18} color={theme.colors.black} />
             </TouchableOpacity>
           </View>
-          {ServiceImage && <ServiceImage width={SW(240)} height={SH(150)} />}
         </View>
 
         {/* Content */}
@@ -143,7 +145,7 @@ const ServiceOverviewScreen = () => {
           onPress={() => navigation.push('ServiceCheckout', { serviceId, category })}
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 

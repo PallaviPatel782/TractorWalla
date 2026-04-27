@@ -7,9 +7,11 @@ import { createStyles } from './styles';
 import { EditIcon, UserIcon } from '@assets/icons';
 import { SW } from '@utils/Dimensions';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { useAppSelector } from '@store';
+import { useAuthStore } from '@store/useAuthStore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
+
+import { useUpdateProfile } from '@screens/auth/hooks/useAuth';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'UpdateProfile'>;
 
@@ -17,11 +19,28 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useAuthStore((state) => state.user);
+  const { mutate: updateProfile, isPending } = useUpdateProfile();
 
   const [fullName, setFullName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
+  // Using a separate state for local profile image URI, or we could extend the User type later
   const [profileImage, setProfileImage] = useState(user?.profileImage || '');
+
+  const handleUpdate = () => {
+    updateProfile({
+      name: fullName,
+      email: email,
+      // address, state, pincode can be added if needed, or fetched from user object
+      address: user?.address || '',
+      state: user?.state || '',
+      pincode: user?.pincode || '',
+    }, {
+      onSuccess: () => {
+        navigation.goBack();
+      }
+    });
+  };
 
   const handlePickImage = async () => {
     const result = await launchImageLibrary({
@@ -56,11 +75,11 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
                 />
               ) : (
                 <View style={[styles.avatarImage, { alignItems: 'center', justifyContent: 'center' }]}>
-                  <UserIcon size={SW(45)} color={theme.colors.gray400} />
+                  <UserIcon size={SW(45)} color={theme.colors.black} />
                 </View>
               )}
-              <TouchableOpacity 
-                style={styles.editBadge} 
+              <TouchableOpacity
+                style={styles.editBadge}
                 activeOpacity={0.8}
                 onPress={handlePickImage}
               >
@@ -99,7 +118,8 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
           <View style={styles.footer}>
             <Button
               title={t('main.profile.updateProfile.button')}
-              onPress={() => navigation.goBack()}
+              onPress={handleUpdate}
+              loading={isPending}
               style={styles.updateButton}
               disabled={!fullName.trim()}
             />

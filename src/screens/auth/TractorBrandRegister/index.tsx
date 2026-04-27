@@ -13,47 +13,32 @@ import {
   Dropdown,
   ScrollView,
   GlobalBottomSheet,
+  Image,
 } from '@components';
-import { useAppDispatch } from '@store';
-import { addTractor, completeOnboarding } from '@store/slices/authSlice';
+import { useAddVehicle, useModels } from '@screens/auth/hooks/useAuth';
 import { createStyles } from './styles';
 import { SW, SH } from '@utils/Dimensions';
-import { TRACTOR_MODELS } from '@constants/TractorData';
-import * as Brands from '@images';
+import { BikeIcon } from '@assets/icons';
 
-const BRAND_LOGOS: Record<string, any> = {
-  Mahindra: Brands.MahindraImage,
-  Swaraj: Brands.SwarajImage,
-  'John Deere': Brands.JohnDeereImage,
-  Eicher: Brands.EicherImage,
-  Sonalika: Brands.SonalikaImage,
-  Solis: Brands.SolisImage,
-  Captain: Brands.CaptainImage,
-  VST: Brands.VstImage,
-  Force: Brands.ForceImage,
-  'New Holland': Brands.NewHollandImage,
-  Farmtrac: Brands.FarmtracImage,
-  Powertrac: Brands.PowertracImage,
-  Kubota: Brands.KubotaImage,
-  'Massey Ferguson': Brands.MasseyFergusonImage,
-  Others: Brands.OthersImage,
-};
 
 const TractorBrandRegister = ({ navigation, route }: any) => {
 
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-  const dispatch = useAppDispatch();
-  const { brand } = route.params;
+  const { brandId, brandName, logoUrl } = route.params;
 
-  const isOthers = brand === 'Others';
+  const isOthers = brandName === 'Others';
 
   const [showTypeSheet, setShowTypeSheet] = useState(false);
 
+  const { data: modelsData, isLoading: isLoadingModels } = useModels(brandId);
+  const { mutate: addVehicle, isPending: isAddingVehicle } = useAddVehicle();
+
   const [formData, setFormData] = useState({
-    customBrand: isOthers ? '' : brand,
+    customBrand: isOthers ? '' : brandName,
     model: '',
+    modelId: '',
     registrationNo: '',
     yearOfManufacture: '',
     yearOfPurchase: '',
@@ -61,33 +46,35 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
   });
 
   const modelOptions = useMemo(() => {
-    const brandKey = isOthers ? formData.customBrand : brand;
-    const models = TRACTOR_MODELS[brandKey] || [];
-    return models.map(m => ({ label: m, value: m }));
-  }, [brand, isOthers, formData.customBrand]);
+    const data = modelsData?.data || modelsData?.models || [];
+    return data.map((m: any) => ({ label: m.name, value: m.name, id: m._id || m.id }));
+  }, [modelsData]);
 
   const handleInputChange = (key: string, value: string) => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
   const handleContinue = () => {
-    dispatch(addTractor({
-      id: Math.random().toString(36).substr(2, 9),
-      brand: isOthers ? formData.customBrand : brand,
-      model: formData.model,
+    addVehicle({
+      brandId: brandId,
+      modelId: formData.modelId,
       registrationNo: formData.registrationNo,
-      yearOfManufacture: formData.yearOfManufacture,
-      yearOfPurchase: formData.yearOfPurchase,
+      yearOfManufacture: parseInt(formData.yearOfManufacture),
+      yearOfPurchase: parseInt(formData.yearOfPurchase),
       tractorType: formData.tractorType,
-    }));
-    dispatch(completeOnboarding());
-    navigation.replace('Main');
+      customBrandName: formData.customBrand || '',
+      customModelName: formData.model || '',
+    }, {
+      onSuccess: () => {
+        // RootNavigator will switch to Main stack automatically
+      }
+    });
   };
 
 
 
 
-  const BrandLogo = BRAND_LOGOS[brand] || Brands.OthersImage;
+
 
 
   return (
@@ -104,10 +91,16 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
               {!isOthers && (
                 <View style={styles.brandDisplayContainer}>
                   <View style={styles.brandLogoBox}>
-                    <BrandLogo width={SW(40)} height={SW(40)} />
+                    {logoUrl && (
+                      <Image 
+                        source={{ uri: logoUrl }} 
+                        style={{ width: SW(40), height: SW(40) }}
+                        resizeMode="contain"
+                      />
+                    )}
                   </View>
                   <Text variant="regular" size={16} style={styles.brandDisplayName}>
-                    {t(`common.brands.${brand}`)}
+                    {brandName}
                   </Text>
                 </View>
               )}
@@ -118,10 +111,14 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                   <Dropdown
                     options={modelOptions}
                     selectedValue={formData.model}
-                    onSelect={(opt) => handleInputChange('model', opt.value)}
+                    onSelect={(opt) => {
+                      handleInputChange('model', opt.value);
+                      handleInputChange('modelId', opt.id?.toString() || '');
+                    }}
                     placeholder={t('main.register.placeholderModel')}
-                    leftIcon={<Brands.OthersImage width={SW(24)} height={SW(24)} />}
+                    leftIcon={<BikeIcon width={SW(24)} height={SW(24)} color={theme.colors.brandRed} />}
                     buttonStyle={styles.dropdownButton}
+                    loading={isLoadingModels}
                   />
                 </View>
               )}
@@ -188,6 +185,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
             <Button
               title={isOthers ? t('main.register.button') : t('common.continue')}
               onPress={handleContinue}
+              loading={isAddingVehicle}
               style={styles.button}
               disabled={!formData.registrationNo || !formData.model || (isOthers && !formData.customBrand)}
             />

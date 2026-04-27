@@ -27,6 +27,7 @@ import MasseyFerguson from './MasseyFerguson.svg';
 import NewHolland from './NewHolland.svg';
 import Others from './Others.svg';
 import Powertrac from './Powertrac.svg';
+import ServiceOverViewBanner from './ServiceOverViewBanner.svg';
 import Solis from './Solis.svg';
 import Sonalika from './Sonalika.svg';
 import Swaraj from './Swaraj.svg';
@@ -89,6 +90,7 @@ export const MasseyFergusonImage = (props: ISVGProps) => <MasseyFerguson {...res
 export const NewHollandImage = (props: ISVGProps) => <NewHolland {...resolveSize(props)} />;
 export const OthersImage = (props: ISVGProps) => <Others {...resolveSize(props)} />;
 export const PowertracImage = (props: ISVGProps) => <Powertrac {...resolveSize(props)} />;
+export const ServiceOverViewBannerImage = (props: ISVGProps) => <ServiceOverViewBanner {...resolveSize(props)} />;
 export const SolisImage = (props: ISVGProps) => <Solis {...resolveSize(props)} />;
 export const SonalikaImage = (props: ISVGProps) => <Sonalika {...resolveSize(props)} />;
 export const SwarajImage = (props: ISVGProps) => <Swaraj {...resolveSize(props)} />;

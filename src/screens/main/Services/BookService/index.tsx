@@ -1,13 +1,14 @@
-import React, { useState, useRef } from 'react';
+// import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import {
-  TouchableOpacity,
+  // TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import {
   View,
-  Text,
+  // Text,
   ScreenWrapper,
   SearchInput,
   SecondaryHeader,
@@ -15,7 +16,7 @@ import {
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { SERVICES_DATA, SERVICES_CATEGORIES } from '../dummyData';
-import { SW, SH } from '@utils/Dimensions';
+// import { SW, SH } from '@utils/Dimensions';
 import ServiceCard from '../components/ServiceCard';
 
 const BookServiceScreen = () => {
@@ -23,17 +24,17 @@ const BookServiceScreen = () => {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   const navigation = useNavigation<any>();
-  const [activeTab, setActiveTab] = useState(SERVICES_CATEGORIES[0].id);
+  // const [activeTab, setActiveTab] = useState(SERVICES_CATEGORIES[0].id);
   const scrollRef = useRef<any>(null);
   const sectionLayouts = useRef<Record<string, number>>({});
 
-  const onTabPress = (id: string) => {
-    setActiveTab(id);
-    const yOffset = sectionLayouts.current[id];
-    if (yOffset !== undefined) {
-      scrollRef.current?.scrollTo({ y: yOffset - SH(10), animated: true });
-    }
-  };
+  // const onTabPress = (id: string) => {
+  //   setActiveTab(id);
+  //   const yOffset = sectionLayouts.current[id];
+  //   if (yOffset !== undefined) {
+  //     scrollRef.current?.scrollTo({ y: yOffset - SH(10), animated: true });
+  //   }
+  // };
 
   const onSectionLayout = (id: string, y: number) => {
     sectionLayouts.current[id] = y;
@@ -57,7 +58,7 @@ const BookServiceScreen = () => {
         </View>
       </View>
 
-      <View>
+      {/* <View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -84,7 +85,7 @@ const BookServiceScreen = () => {
             </TouchableOpacity>
           ))}
         </ScrollView>
-      </View>
+      </View> */}
 
       <ScrollView
         ref={scrollRef}
@@ -97,13 +98,13 @@ const BookServiceScreen = () => {
             key={section.category}
             onLayout={(e) => onSectionLayout(section.category, e.nativeEvent.layout.y)}
           >
-            <View>
+            {/* <View>
               <Text style={styles.sectionTitle}>
                 {t(`main.home.services.${section.category}`, {
                   defaultValue: SERVICES_CATEGORIES.find(c => c.id === section.category)?.title || ''
                 })}
               </Text>
-            </View>
+            </View> */}
             {section.services.map((item) => (
               <ServiceCard
                 key={item.id}

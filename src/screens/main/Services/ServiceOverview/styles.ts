@@ -20,7 +20,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     headerRow: {
       position: 'absolute',
-      top: SH(50),
+      top: SH(20),
       left: SW(16),
       right: SW(16),
       flexDirection: 'row',
@@ -31,7 +31,7 @@ export const createStyles = (theme: AppTheme) =>
       width: SW(36),
       height: SW(36),
       borderRadius: SW(18),
-      backgroundColor: theme.colors.DeepGreen,
+      backgroundColor: theme.colors.white,
       alignItems: 'center',
       justifyContent: 'center',
       shadowColor: theme.colors.black,

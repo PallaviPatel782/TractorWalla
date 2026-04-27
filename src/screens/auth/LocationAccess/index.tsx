@@ -11,7 +11,8 @@ import { requestLocationPermission, getCurrentLocation, reverseGeocodeLocation, 
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '@navigation/NavigationTypes';
+import { RootStackParamList } from '@navigation/NavigationTypes';
+import { useUpdateLocation } from '@screens/auth/hooks/useAuth';
 
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -28,7 +29,7 @@ const DEBOUNCE_MS = 350;
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 type LocationScreenProps = {
-  navigation: NativeStackNavigationProp<AuthStackParamList, 'LocationAccess'>;
+  navigation: NativeStackNavigationProp<RootStackParamList, 'LocationAccess'>;
 };
 
 const LocationScreen = ({ navigation }: LocationScreenProps) => {
@@ -50,6 +51,7 @@ const LocationScreen = ({ navigation }: LocationScreenProps) => {
     state: '',
   });
   const [fetchingAddress, setFetchingAddress] = useState(true);
+  const { mutate: updateLocation, isPending: isUpdating } = useUpdateLocation();
 
   // ─── Reverse Geocoding ──────────────────────────────────────────────────
   const reverseGeocode = useCallback(
@@ -143,8 +145,15 @@ const LocationScreen = ({ navigation }: LocationScreenProps) => {
 
   const handleConfirm = useCallback(() => {
     if (!currentLocation) return;
-    navigation.navigate('ProfileDetails', { location: currentLocation });
-  }, [currentLocation, navigation]);
+    updateLocation({
+      latitude: currentLocation.latitude,
+      longitude: currentLocation.longitude
+    }, {
+      onSuccess: () => {
+        navigation.navigate('ProfileDetails', { location: currentLocation });
+      }
+    });
+  }, [currentLocation, navigation, updateLocation]);
 
   return (
     <ScreenWrapper>
@@ -214,6 +223,7 @@ const LocationScreen = ({ navigation }: LocationScreenProps) => {
           <Button
             title={t('main.location.confirm')}
             onPress={handleConfirm}
+            loading={isUpdating}
           />
         </View>
       </View>

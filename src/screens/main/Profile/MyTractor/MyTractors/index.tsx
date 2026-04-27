@@ -12,8 +12,7 @@ import {
   Button,
   FlatList,
 } from '@components';
-import { useAppSelector, useAppDispatch } from '@store';
-import { deleteTractor } from '@store/slices/authSlice';
+import { useAuthStore } from '@store/useAuthStore';
 import { createStyles } from './styles';
 import { TractorImage } from '@assets/images';
 import { SW, SH } from '@utils/Dimensions';
@@ -22,8 +21,9 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-  const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
+  
+  const user = useAuthStore((state) => state.user);
+  const updateUser = useAuthStore((state) => state.updateUser);
   const tractors = user?.tractors || [];
   const isSelectionMode = route.params?.isSelectionMode;
 
@@ -37,7 +37,9 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
 
   const confirmDelete = () => {
     if (selectedTractor) {
-      dispatch(deleteTractor(selectedTractor.id));
+      updateUser({
+        tractors: tractors.filter((t: any) => t.id !== selectedTractor.id)
+      });
       setDeleteModalVisible(false);
       setSelectedTractor(null);
     }

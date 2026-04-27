@@ -11,15 +11,19 @@ import { useTheme } from '@theme';
 import {
   ChevronBackwardIcon,
   ShareIcon,
-  CheckIcon,
-  BagtimerIcon,
-  LocationIcon,
-  TractorIcon,
+  // CheckIcon,
   CheckedIcon,
+  EmergencybellIcon,
+  TimeLineIcon,
+  HumbsupIcon,
+  LoudspeakerIcon,
+  WarrantyBadgeIcon,
 } from '@assets/icons';
-import { Button } from '@components';
+import { Button, ScreenWrapper } from '@components';
 import { createStyles } from './styles';
-import { EMERGENCY_SERVICE } from '../dummyData';
+import { EMERGENCY_SERVICE, SERVICES_DATA } from '../dummyData';
+// import { SH, SW } from '@utils/Dimensions';
+import ServiceCard from '../components/ServiceCard';
 
 const EmergencyRoadsideScreen = () => {
   const { t } = useTranslation();
@@ -30,62 +34,59 @@ const EmergencyRoadsideScreen = () => {
   const ServiceImage = data.image;
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-        <ChevronBackwardIcon size={20} color={theme.colors.black} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.shareBtn}>
-        <ShareIcon size={20} color={theme.colors.black} />
-      </TouchableOpacity>
+    <ScreenWrapper style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          <ServiceImage width="100%" height="100%" style={styles.heroImage} />
-
-          <View style={styles.heroOverlay}>
-            <View style={styles.instantBadge}>
-              <Text style={styles.instantBadgeText}>{t('main.home.services.instantRoadside', 'INSTANT ROADSIDE HELP')}</Text>
-            </View>
-            <View style={styles.heroBullets}>
-              <Text style={styles.heroBulletItem}>• Quick response assistance</Text>
-              <Text style={styles.heroBulletItem}>• Basic on-site inspection</Text>
-              <Text style={styles.heroBulletItem}>• Emergency towing</Text>
-            </View>
+          {ServiceImage && <ServiceImage width="100%" height="100%" style={styles.heroImage} />}
+          <View style={styles.headerRow}>
+            <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
+              <ChevronBackwardIcon size={24} color={theme.colors.white} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.iconCircle}>
+              <ShareIcon size={18} color={theme.colors.white} />
+            </TouchableOpacity>
           </View>
         </View>
 
         {/* Content */}
         <View style={styles.contentCard}>
+          <View style={styles.budgeSection}>
+            <View style={styles.priorityBadge}>
+              <EmergencybellIcon size={14} color={theme.colors.white} />
+              <Text style={styles.priorityText}>{t('main.home.services.priorityService', 'Priority Service')}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ color: theme.colors.GoldenYellow }}>★ </Text>
+              <Text style={styles.ratingText}>{data.rating}</Text>
+            </View>
+          </View>
+
           <Text style={styles.title}>{data.title}</Text>
 
           <View style={styles.highlights}>
             <View style={styles.highlightItem}>
-              <View style={styles.highlightIconWrap}><BagtimerIcon size={16} color={theme.colors.textSecondary} /></View>
+              <TimeLineIcon size={18} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.arrival}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <View style={styles.highlightIconWrap}><CheckIcon size={16} color={theme.colors.AzureBlue} /></View>
+              <WarrantyBadgeIcon size={18} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.mechanics}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <View style={styles.highlightIconWrap}><LocationIcon size={16} color={theme.colors.AzureBlue} /></View>
+              <HumbsupIcon size={18} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.feature1}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <View style={styles.highlightIconWrap}><TractorIcon size={16} color={theme.colors.danger} /></View>
+              <LoudspeakerIcon size={18} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.feature2}</Text>
             </View>
           </View>
 
-          <View style={styles.serviceFooter}>
-            <View style={styles.ratingRow}>
-              <Text style={styles.starIcon}>★</Text>
-              <Text style={styles.ratingText}>{data.rating}</Text>
-            </View>
+          <View style={styles.priceRow}>
             <Text style={styles.price}>₹{data.price}</Text>
             <Text style={styles.mrp}>₹{data.mrp}</Text>
           </View>
-
 
           {/* Service Includes */}
           <Text style={styles.sectionHeading}>{t('main.home.services.includes', 'Service Includes')}</Text>
@@ -97,31 +98,33 @@ const EmergencyRoadsideScreen = () => {
               </View>
             ))}
           </View>
+        </View>
 
-          {/* Duration & Warranty */}
-          <View style={styles.warrantySection}>
-            <Text style={styles.sectionHeading}>{t('main.home.services.durationWarranty', 'Duration & Warranty')}</Text>
-            {Array.isArray(data.warranty) ? data.warranty.map((point: string, idx: number) => (
-              <View key={idx} style={styles.bulletRow}>
-                <CheckIcon size={16} color={theme.colors.success} />
-                <Text style={styles.bulletText}>{point}</Text>
-              </View>
-            )) : null}
-          </View>
+        {/* Other Services */}
+        <View style={styles.otherServicesSection}>
+          <Text style={styles.sectionHeading}>{t('main.home.services.otherServices', 'Other Services')}</Text>
+          {SERVICES_DATA[0].services.map((item) => (
+            <ServiceCard
+              key={item.id}
+              item={item}
+              onPress={() => navigation.push('ServiceOverview', { serviceId: item.id, category: SERVICES_DATA[0].category })}
+              onBookPress={() => navigation.push('ServiceCheckout', { serviceId: item.id, category: SERVICES_DATA[0].category })}
+            />
+          ))}
         </View>
       </ScrollView>
 
       {/* Footer Action */}
       <View style={styles.footer}>
         <Button
-          title={t('main.home.services.bookService', 'Book Service')}
+          title={t('main.home.services.bookNow', 'Book Now')}
           onPress={() => navigation.navigate('ServiceCheckout', {
             serviceId: data.id,
             category: 'emergency'
           })}
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 

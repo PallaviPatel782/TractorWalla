@@ -52,7 +52,7 @@ const BuyPartsScreen = () => {
     <TouchableOpacity
       key={kit.id}
       style={styles.kitCard}
-      onPress={() => navigation.navigate('PartsOverview', { kitId: kit.id })}
+    // onPress={() => navigation.navigate('PartsOverview', { kitId: kit.id })}
     >
       <View style={styles.kitLeft}>
         <Text style={styles.kitTitle}>{kit.title}</Text>

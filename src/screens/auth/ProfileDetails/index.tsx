@@ -11,18 +11,15 @@ import {
   View,
   ScrollView,
 } from '@components';
-import { useAppDispatch } from '@store';
-import { updateUser } from '@store/slices/authSlice';
+import { useUpdateProfile } from '@screens/auth/hooks/useAuth';
 import { createStyles } from './styles';
 import { UserIcon } from '@icons';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 
 const ProfileDetails = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-
-  const dispatch = useAppDispatch();
-
   const [formData, setFormData] = useState({
     fullName: '',
     emailId: '',
@@ -42,19 +39,35 @@ const ProfileDetails = ({ navigation, route }: any) => {
     }
   }, [route.params?.location]);
 
+  const { mutate: updateProfile, isPending } = useUpdateProfile();
+
   const handleInputChange = (key: string, value: string) => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
+  const isFormValid = formData.fullName.trim() !== '' &&
+    formData.address.trim() !== '' &&
+    formData.state.trim() !== '' &&
+    formData.pincode.length === 6;
+
   const handleSubmit = () => {
-    dispatch(updateUser({
+    if (!isFormValid) {
+      const showSnackbar = useSnackbarStore.getState().showSnackbar;
+      showSnackbar({ type: 'error', title: 'Missing Info', description: 'Please fill all mandatory fields correctly' });
+      return;
+    }
+
+    updateProfile({
       name: formData.fullName,
       email: formData.emailId,
       address: formData.address,
       state: formData.state,
       pincode: formData.pincode,
-    }));
-    navigation.navigate('TractorBrand');
+    }, {
+      onSuccess: () => {
+        navigation.navigate('TractorBrand');
+      }
+    });
   };
 
   return (
@@ -78,7 +91,7 @@ const ProfileDetails = ({ navigation, route }: any) => {
           >
             <View style={styles.formContainer}>
               <Input
-                label={t('main.profileDetails.fullName')}
+                label={t('main.profileDetails.fullName') + ' *'}
                 placeholder={t('main.profileDetails.placeholderName')}
                 value={formData.fullName}
                 onChangeText={(val) => handleInputChange('fullName', val)}
@@ -94,7 +107,7 @@ const ProfileDetails = ({ navigation, route }: any) => {
               />
 
               <Input
-                label={t('main.profileDetails.permanentAddress')}
+                label={t('main.profileDetails.permanentAddress') + ' *'}
                 placeholder={t('main.profileDetails.placeholderAddress')}
                 multiline
                 value={formData.address}
@@ -103,14 +116,14 @@ const ProfileDetails = ({ navigation, route }: any) => {
 
 
               <Input
-                label={t('main.profileDetails.stateLabel')}
+                label={t('main.profileDetails.stateLabel') + ' *'}
                 placeholder={t('main.profileDetails.placeholderState')}
                 value={formData.state}
                 onChangeText={(val) => handleInputChange('state', val)}
               />
 
               <Input
-                label={t('main.profileDetails.pincodeLabel')}
+                label={t('main.profileDetails.pincodeLabel') + ' *'}
                 placeholder={t('main.profileDetails.placeholderPincode')}
                 keyboardType="number-pad"
                 maxLength={6}
@@ -123,8 +136,9 @@ const ProfileDetails = ({ navigation, route }: any) => {
             <Button
               title={t('common.submit')}
               onPress={handleSubmit}
-              style={styles.button}
-            // disabled={!formData.fullName || !formData.address || !formData.state || !formData.pincode}
+              loading={isPending}
+              disabled={!isFormValid}
+              style={[styles.button, !isFormValid && { opacity: 0.6 }]}
             />
           </ScrollView>
         </KeyboardWrapper>

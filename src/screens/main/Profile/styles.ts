@@ -21,6 +21,8 @@ export const createStyles = (theme: AppTheme) =>
       borderWidth: 2,
       borderColor: theme.colors.borderExtraLight,
       padding: SW(2),
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     profileImage: {
       width: '100%',
@@ -84,6 +86,7 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      gap: SW(10),
     },
     socialItem: {
       alignItems: 'center',

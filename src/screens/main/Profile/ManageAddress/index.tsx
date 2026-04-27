@@ -12,28 +12,28 @@ import {
 import { createStyles } from './styles';
 import { AddlocationIcon } from '@icons';
 import { Alert } from 'react-native';
-import { useAppSelector, useAppDispatch } from '@store';
-import { addAddress, deleteAddress, Address } from '@store/slices/authSlice';
+import { useAuthStore, Address } from '@store/useAuthStore';
 
 const ManageAddress = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-  const dispatch = useAppDispatch();
   
-  const { user } = useAppSelector(state => state.auth);
+  const user = useAuthStore(state => state.user);
+  const updateUser = useAuthStore(state => state.updateUser);
+  
   const userAddresses = useMemo(() => user?.addresses || [], [user?.addresses]);
   
-  const addresses = userAddresses;
-
   const { isSelectionMode, selectedAddressId, serviceId, category, newAddress } = route.params || {};
-  const [selectedId, setSelectedId] = useState(selectedAddressId || (addresses.length > 0 ? addresses[0].id : ''));
+  const [selectedId, setSelectedId] = useState(selectedAddressId || (userAddresses.length > 0 ? userAddresses[0].id : ''));
 
   useEffect(() => {
     if (newAddress) {
       // Prevent duplicates
       if (!userAddresses.find(a => a.id === newAddress.id)) {
-        dispatch(addAddress(newAddress));
+        updateUser({
+          addresses: [...userAddresses, newAddress]
+        });
       }
       
       if (isSelectionMode) {
@@ -46,7 +46,7 @@ const ManageAddress = ({ navigation, route }: any) => {
       
       navigation.setParams({ newAddress: undefined });
     }
-  }, [newAddress, navigation, dispatch, userAddresses, isSelectionMode, serviceId, category]);
+  }, [newAddress, navigation, userAddresses, isSelectionMode, serviceId, category, updateUser]);
 
   const onSelectAddress = (item: any) => {
     setSelectedId(item.id);
@@ -69,7 +69,9 @@ const ManageAddress = ({ navigation, route }: any) => {
           text: t('common.remove', 'Remove'), 
           style: 'destructive',
           onPress: () => {
-            dispatch(deleteAddress(id));
+            updateUser({
+              addresses: userAddresses.filter(a => a.id !== id)
+            });
             if (selectedId === id) setSelectedId('');
           }
         },
@@ -136,7 +138,7 @@ const ManageAddress = ({ navigation, route }: any) => {
           </Text>
 
           <FlatList
-            data={addresses}
+            data={userAddresses}
             renderItem={renderAddressItem}
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listContent}

@@ -15,13 +15,12 @@ import {
   PaymentModal,
   Input,
 } from '@components';
-import { useAppSelector } from '@store';
+import { useAuthStore, Address } from '@store/useAuthStore';
 import * as Brands from '@assets/images';
 import { CheckIcon, LocationIcon, BillIcon, BikeIcon, ChevronArrowIcon } from '@assets/icons';
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
 import { SW, SH, SF } from '@utils/Dimensions';
-import { Address } from '@store/slices/authSlice';
 
 const ServiceCheckoutScreen = () => {
   const { t } = useTranslation();
@@ -44,7 +43,7 @@ const ServiceCheckoutScreen = () => {
     navigation.navigate('BookingStatus', { bookingId: 'ID1234', paymentType: paymentType });
   };
 
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useAuthStore((state) => state.user);
   const tractors = useMemo(() => user?.tractors || [], [user?.tractors]);
   const userAddresses = useMemo(() => user?.addresses || [], [user?.addresses]);
 
@@ -94,7 +93,6 @@ const ServiceCheckoutScreen = () => {
   };
 
   const SelectedBrandLogo = selectedTractor ? (BRAND_LOGOS[selectedTractor.brand] || Brands.OthersImage) : Brands.OthersImage;
-
 
   const currentCategory = SERVICES_DATA.find(c => c.category === category);
   const service = currentCategory?.services.find(s => s.id === serviceId) as IService | undefined;

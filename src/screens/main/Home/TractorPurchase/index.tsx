@@ -14,43 +14,13 @@ import {
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { SW } from '@utils/Dimensions';
-import {
-  MahindraImage,
-  SwarajImage,
-  JohnDeereImage,
-  EicherImage,
-  SonalikaImage,
-  SolisImage,
-  CaptainImage,
-  VstImage,
-  ForceImage,
-  FarmtracImage,
-  PowertracImage,
-  KubotaImage,
-  NewHollandImage,
-  MasseyFergusonImage,
-  OthersImage,
-} from '@assets/images';
+import { SW, SH } from '@utils/Dimensions';
 import { BikeIcon } from '@assets/icons';
 
-const BRANDS = [
-  { name: 'Mahindra', Image: MahindraImage },
-  { name: 'Swaraj', Image: SwarajImage },
-  { name: 'John Deere', Image: JohnDeereImage },
-  { name: 'Eicher', Image: EicherImage },
-  { name: 'Sonalika', Image: SonalikaImage },
-  { name: 'Solis', Image: SolisImage },
-  { name: 'Captain', Image: CaptainImage },
-  { name: 'VST', Image: VstImage },
-  { name: 'Force', Image: ForceImage },
-  { name: 'Farmtrac', Image: FarmtracImage },
-  { name: 'Powertrac', Image: PowertracImage },
-  { name: 'Kubota', Image: KubotaImage },
-  { name: 'New Holland', Image: NewHollandImage },
-  { name: 'Massey Ferguson', Image: MasseyFergusonImage },
-  { name: 'Others', Image: OthersImage },
-];
+
+import { useBrands } from '@screens/auth/hooks/useAuth';
+import { ActivityIndicator, Image as RNImage } from 'react-native';
+import { Brand } from '@appTypes/api.types';
 
 const TractorPurchaseScreen = () => {
   const navigation = useNavigation<any>();
@@ -60,25 +30,32 @@ const TractorPurchaseScreen = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('New Tractor');
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [selectedBrand, setSelectedBrand] = useState<Brand | null>(null);
 
-  const filteredBrands = BRANDS.filter(brand =>
+  const { data: brandsData, isLoading } = useBrands();
+  const brands: Brand[] = brandsData?.data || brandsData?.brands || [];
+
+  const filteredBrands = brands.filter((brand) =>
     brand.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleNext = () => {
     if (selectedBrand) {
-      const brandObj = BRANDS.find(b => b.name === selectedBrand);
       navigation.navigate('SelectTractor', {
-        brand: selectedBrand,
-        brandLogo: brandObj?.Image,
+        brand: selectedBrand.name,
+        brandId: selectedBrand._id,
+        brandLogo: selectedBrand.logoUrl,
         type: selectedType
       });
     }
   };
 
-  const selectedBrandObj = BRANDS.find(b => b.name === selectedBrand);
-  const SelectedBrandLogo = selectedBrandObj ? selectedBrandObj.Image : BikeIcon;
+  const SelectedBrandIcon = () => {
+    if (selectedBrand?.logoUrl) {
+      return <RNImage source={{ uri: selectedBrand.logoUrl }} style={{ width: SW(20), height: SW(20) }} resizeMode="contain" />;
+    }
+    return <BikeIcon width={SW(20)} height={SW(20)} />;
+  };
 
 
 
@@ -107,30 +84,38 @@ const TractorPurchaseScreen = () => {
             onSelect={(item) => setSelectedType(item.value)}
             placeholder={t('main.home.chooseWhatToBuy', 'Choose what you want to buy')}
             buttonStyle={styles.dropdown}
-            leftIcon={<SelectedBrandLogo width={SW(20)} height={SW(20)} />}
+            leftIcon={<SelectedBrandIcon />}
           />
 
-          <FlatList
-            data={filteredBrands}
-            numColumns={4}
-            keyExtractor={(item) => item.name}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.brandGrid}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={[
-                  styles.brandItem,
-                  selectedBrand === item.name && styles.selectedBrand,
-                ]}
-                onPress={() => setSelectedBrand(item.name)}
-              >
-                <View style={styles.brandImageWrap}>
-                  <item.Image width={SW(44)} height={SW(44)} />
-                </View>
-                <Text style={styles.brandName} numberOfLines={1}>{item.name}</Text>
-              </TouchableOpacity>
-            )}
-          />
+          {isLoading ? (
+            <ActivityIndicator color={theme.colors.brandRed} style={{ marginTop: SH(40) }} />
+          ) : (
+            <FlatList
+              data={filteredBrands}
+              numColumns={4}
+              keyExtractor={(item) => item.name}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.brandGrid}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={[
+                    styles.brandItem,
+                    selectedBrand?._id === item._id && styles.selectedBrand,
+                  ]}
+                  onPress={() => setSelectedBrand(item)}
+                >
+                  <View style={styles.brandImageWrap}>
+                    {item.logoUrl ? (
+                      <RNImage source={{ uri: item.logoUrl }} style={{ width: SW(44), height: SW(44) }} resizeMode="contain" />
+                    ) : (
+                      <BikeIcon width={SW(32)} height={SW(32)} color={theme.colors.gray300} />
+                    )}
+                  </View>
+                  <Text style={styles.brandName} numberOfLines={1}>{item.name}</Text>
+                </TouchableOpacity>
+              )}
+            />
+          )}
         </View>
 
         <View style={styles.footer}>

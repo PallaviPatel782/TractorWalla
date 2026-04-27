@@ -2,12 +2,21 @@ import React from 'react';
 import { LocationData } from '@utils/locationHelper';
 
 export type RootStackParamList = {
-  Auth: undefined;
+  // Auth & Onboarding
+  Loading: undefined;
+  Login: undefined;
+  OtpVerification: { mobileNumber: string };
+  LocationAccess: undefined;
+  ProfileDetails: { location: LocationData };
+  TractorBrand: undefined;
+  TractorBrandRegister: { brandId: string; brandName: string; model: string };
+  
+  // Main
   Main: undefined;
   MyTractors: undefined;
   MainTractorBrand: undefined;
   TractorDetails: { tractor: any };
-  AddTractorDetails: { brand: string; brandLogo: any; model: string; tractor?: any };
+  AddTractorDetails: { brandId: string; brandName: string; model: string; tractor?: any };
   ManageAddress: { 
     isSelectionMode?: boolean; 
     selectedAddressId?: string;
@@ -65,7 +74,7 @@ export type AuthStackParamList = {
   ProfileDetails: { location: LocationData };
   TractorBrand: undefined;
   TractorSelection: { brand: string; brandLogo: React.FC<any> };
-  TractorBrandRegister: { brand: string; brandLogo: React.FC<any>; model: string };
+  TractorBrandRegister: { brandId: string; brandName: string; model: string };
 };
 
 export type MainTabParamList = {

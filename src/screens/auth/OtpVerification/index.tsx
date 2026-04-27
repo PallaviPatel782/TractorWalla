@@ -17,19 +17,30 @@ import {
     ObBoardingSlider2Image,
     ObBoardingSlider3Image
 } from '@images';
+import { useSendOtp, useVerifyOtp } from '@screens/auth/hooks/useAuth';
+import { useAuthStore } from '@store/useAuthStore';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 import { createStyles } from './styles';
 import { SW, SH } from '@utils/Dimensions';
 
-
 const { width } = Dimensions.get('window');
 
-const OtpVerification = ({ navigation }: any) => {
+const OtpVerification = ({ navigation, route }: any) => {
+    const { mobileNumber } = route.params || {};
     const { theme } = useTheme();
     const { t } = useTranslation();
     const styles = createStyles(theme);
     const [timer, setTimer] = useState(30);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [otp, setOtp] = useState('');
     const flatListRef = useRef<any>(null);
+
+    const setTokens = useAuthStore(state => state.setTokens);
+    const setUser = useAuthStore(state => state.setUser);
+    const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+
+    const { mutate: verifyOtp, isPending: isVerifying } = useVerifyOtp();
+    const { mutate: sendOtp } = useSendOtp();
 
     const SLIDER_DATA = useMemo(() => [
         {
@@ -73,12 +84,27 @@ const OtpVerification = ({ navigation }: any) => {
     }, [timer]);
 
     const handleContinue = () => {
-        navigation.navigate('LocationAccess')
+        if (otp.length === 6) {
+            verifyOtp({
+                phone: mobileNumber,
+                countryCode: '91',
+                role: 'customer',
+                otp: otp
+            }, {
+                onSuccess: (data: any) => {
+                    setTokens(data.accessToken, data.refreshToken);
+                    const userData = data.user || data.data?.user;
+                    if (userData) setUser(userData);
+                    showSnackbar({ type: 'success', title: 'Welcome', description: 'Login successful' });
+                    navigation.navigate('LocationAccess');
+                }
+            });
+        }
     };
 
     const handleResendOTP = () => {
         setTimer(30);
-        // Add resend API call here if needed
+        sendOtp({ phone: mobileNumber, countryCode: '91', role: 'customer' });
     };
 
     const renderSlide = ({ item }: { item: any }) => (
@@ -146,7 +172,7 @@ const OtpVerification = ({ navigation }: any) => {
                             <View style={styles.otpWrapper}>
                                 <OTPInput
                                     length={6}
-                                    onComplete={(otp) => console.log('OTP:', otp)}
+                                    onComplete={(value) => setOtp(value)}
                                 />
                             </View>
 
@@ -161,7 +187,7 @@ const OtpVerification = ({ navigation }: any) => {
                                         </Text>
                                     </View>
                                 ) : (
-                                    <TouchableOpacity 
+                                    <TouchableOpacity
                                         onPress={handleResendOTP}
                                         style={styles.resendBtn}
                                     >
@@ -175,6 +201,8 @@ const OtpVerification = ({ navigation }: any) => {
                             <Button
                                 title={t('common.continue')}
                                 onPress={handleContinue}
+                                loading={isVerifying}
+                                disabled={otp.length !== 6}
                                 style={styles.button}
                             />
                         </View>

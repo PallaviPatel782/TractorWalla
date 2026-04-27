@@ -14,12 +14,14 @@ import { KeyboardArrowUpIcon } from '@assets/icons';
 import { useThemedStyles } from '@theme/useThemedStyles';
 import { useTheme, type AppTheme } from '@theme';
 import { SW, SH, SF } from '@utils/Dimensions';
+import { ActivityIndicator } from 'react-native';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface DropdownOption {
   label: string;
   value: string | number | any;
+  id?: string | number;
 }
 
 interface DropdownProps {
@@ -37,6 +39,7 @@ interface DropdownProps {
   activeItemTextStyle?: TextStyle;
   renderRightIcon?: () => React.ReactNode;
   leftIcon?: React.ReactNode;
+  loading?: boolean;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -56,6 +59,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   activeItemTextStyle,
   renderRightIcon,
   leftIcon,
+  loading = false,
 }) => {
   const { theme } = useTheme();
 
@@ -159,7 +163,9 @@ const Dropdown: React.FC<DropdownProps> = ({
         >
           {selectedOption ? selectedOption.label : placeholder}
         </Text>
-        {renderRightIcon ? (
+        {loading ? (
+          <ActivityIndicator size="small" color={theme.colors.brandRed} />
+        ) : renderRightIcon ? (
           renderRightIcon()
         ) : (
           <View style={visible && styles.arrowUp}>
@@ -225,6 +231,8 @@ const createStyles = (theme: AppTheme) =>
       borderWidth: 1,
       borderColor: theme.colors.neutral200,
       gap: SW(8),
+      minHeight: SH(44),
+      marginVertical: SH(5),
     },
 
     leftIcon: {
@@ -272,7 +280,7 @@ const createStyles = (theme: AppTheme) =>
       paddingHorizontal: SW(16),
       paddingVertical: SH(12),
       borderBottomWidth: 1,
-      borderBottomColor: theme.colors.surface,
+      borderBottomColor: theme.colors.neutral200,
     },
 
     dropdownItemActive: {

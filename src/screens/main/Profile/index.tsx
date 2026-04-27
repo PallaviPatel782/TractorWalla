@@ -1,7 +1,4 @@
 import React from 'react';
-import { Image } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { useTheme } from '@theme';
 import {
   Text,
   View,
@@ -11,8 +8,7 @@ import {
   SecondaryHeader,
   ScrollView,
 } from '@components';
-import { useAppSelector, useAppDispatch } from '@store';
-import { logout } from '@store/slices/authSlice';
+import { useAuthStore } from '@store/useAuthStore';
 import { createStyles } from './styles';
 import {
   AboutIcon,
@@ -26,172 +22,154 @@ import {
   FacebookIcon,
   YoutubeIcon,
   ThreadsIcon,
-  ChevronBackwardIcon,
   BikeIcon,
   LocationEditIcon,
-  UserIcon
+  UserIcon,
+  ChevronBackwardIcon,
+  EditIcon
 } from '@assets/icons';
-import { SW, SH } from '@utils/Dimensions';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { MainTabParamList, RootStackParamList } from '@navigation/NavigationTypes';
+import { SW } from '@utils/Dimensions';
+import { useTheme } from '@theme';
 
-type Props = CompositeScreenProps<
-  BottomTabScreenProps<MainTabParamList, 'Profile'>,
-  NativeStackScreenProps<RootStackParamList>
->;
-
-const ProfileScreen = ({ navigation }: Props) => {
+const ProfileScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
   const styles = createStyles(theme);
-  const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useAuthStore(state => state.user);
+  const logout = useAuthStore(state => state.logout);
 
   const handleLogout = () => {
-    dispatch(logout());
-    navigation.replace('Auth');
+    logout();
   };
-
-  const renderSocialIcon = (Icon: any, label: string) => (
-    <View style={styles.socialItem}>
-      <View style={styles.socialIconWrapper}>
-        <Icon size={24} />
-      </View>
-      <Text variant="regular" size={12} color={theme.colors.gray600}>
-        {label}
-      </Text>
-    </View>
-  );
 
   return (
     <ScreenWrapper>
-      <View style={styles.container}>
-        <SecondaryHeader
-          title={t('main.profile.title')}
-          onBack={() => navigation.goBack()}
-        />
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: SH(30) }}>
+      <SecondaryHeader title="Profile" />
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+
+        {/* Profile Section */}
+        <View style={styles.profileSection}>
           <TouchableOpacity
-            style={styles.profileSection}
-            onPress={() => navigation.navigate('UpdateProfile' as never)}
-            activeOpacity={0.7}
+            style={styles.imageContainer}
+            onPress={() => navigation.navigate('UpdateProfile')}
+            activeOpacity={0.8}
           >
-            <View style={styles.imageContainer}>
-              {user?.profileImage ? (
-                <Image
-                  source={{ uri: user.profileImage }}
-                  style={styles.profileImage}
-                />
-              ) : (
-                <View style={[styles.profileImage, { alignItems: 'center', justifyContent: 'center', backgroundColor: theme.colors.gray100 }]}>
-                  <UserIcon size={SW(50)} color={theme.colors.gray400} />
-                </View>
-              )}
-            </View>
-            <View style={styles.userInfo}>
-              <Text variant="semiBold" size={18} color={theme.colors.gray900}>
-                {user?.name || 'Raj Jadhav'}
-              </Text>
-              <Text variant="regular" size={14} color={theme.colors.gray500} style={styles.userEmail}>
-                {user?.email || 'rajjadhav@gmail.com'}
-              </Text>
-              <Text variant="regular" size={14} color={theme.colors.gray500}>
-                {user?.phone || '+91 1234567890'}
-              </Text>
+            <UserIcon size={SW(60)} color={theme.colors.black} />
+            <View style={styles.editButton}>
+              <EditIcon size={SW(16)} color={theme.colors.white} />
             </View>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.myTractorButton}
-            onPress={() => navigation.navigate('MyTractors' as never)}
-          >
-            <View style={styles.myTractorLeft}>
-              <View style={styles.tractorIconContainer}>
-                <BikeIcon width={SW(24)} height={SW(24)} color={theme.colors.danger} />
-              </View>
-              <Text variant="medium" size={16} color={theme.colors.gray800}>
-                {t('main.profile.myTractor')}
-              </Text>
-            </View>
-            <ChevronBackwardIcon size={20} color={theme.colors.gray400} style={{ transform: [{ rotate: '180deg' }] }} />
-          </TouchableOpacity>
-
-          <View style={styles.sectionContainer}>
-            <View style={styles.sectionTitle}>
-              <Text variant="semiBold" size={14} color={theme.colors.gray900}>
-                {t('main.profile.myBookings')}
-              </Text>
-            </View>
-            <ProfileOptionItem
-              icon={<LocationEditIcon size={20} color={theme.colors.primary} />}
-              title={t('main.profile.manageAddress')}
-              onPress={() => navigation.navigate('ManageAddress' as never)}
-            />
-            <ProfileOptionItem
-              icon={<BookingIcon size={20} color={theme.colors.primary} />}
-              title={t('main.profile.yourBookings')}
-              onPress={() => navigation.navigate('Bookings' as never)}
-            />
-            <ProfileOptionItem
-              icon={<FaqIcon size={20} color={theme.colors.primary} />}
-              title={t('main.profile.faq')}
-              onPress={() => navigation.navigate('FAQ' as never)}
-              showBorder={false}
-            />
-          </View>
-
-          <View style={styles.sectionContainer}>
-            <View style={styles.sectionTitle}>
-              <Text variant="semiBold" size={14} color={theme.colors.gray900}>
-                {t('main.profile.more')}
-              </Text>
-            </View>
-            <ProfileOptionItem
-              icon={<ChangelanguageIcon size={20} color={theme.colors.primary} />}
-              title={t('main.profile.language')}
-              onPress={() => navigation.navigate('ChooseLanguage' as never)}
-            />
-            <ProfileOptionItem
-              icon={<AboutIcon size={20} color={theme.colors.primary} />}
-              title={t('main.profile.about')}
-              onPress={() => navigation.navigate('About' as never)}
-            />
-            <ProfileOptionItem
-              icon={<FeedbackIcon size={20} color={theme.colors.primary} />}
-              title={t('main.profile.sendFeedback')}
-              onPress={() => navigation.navigate('SendFeedback' as never)}
-            />
-            <ProfileOptionItem
-              icon={<ReportIcon size={20} color={theme.colors.primary} />}
-              title={t('main.profile.reportIssue')}
-              onPress={() => navigation.navigate('ReportIssue' as never)}
-            />
-            <ProfileOptionItem
-              icon={<LogoutIcon size={20} color={theme.colors.primary} />}
-              title={t('main.profile.logout')}
-              onPress={handleLogout}
-              showBorder={false}
-            />
-          </View>
-
-          <View style={styles.socialSection}>
-            <Text variant="semiBold" size={14} color={theme.colors.gray900} style={styles.socialTitle}>
-              {t('main.profile.connectWithUs')}
+          <View style={styles.userInfo}>
+            <Text variant="semiBold" size={18} style={styles.userName}>
+              {user?.name || 'User'}
             </Text>
-            <View style={styles.socialIconsRow}>
-              {renderSocialIcon(InstagramIcon, t('main.profile.instagram'))}
-              {renderSocialIcon(FacebookIcon, t('main.profile.facebook'))}
-              {renderSocialIcon(YoutubeIcon, t('main.profile.youtube'))}
-              {renderSocialIcon(ThreadsIcon, t('main.profile.threads'))}
-            </View>
+            <Text variant="regular" size={14} color={theme.colors.gray500} style={styles.userEmail}>
+              {user?.phone || '+91 0000000000'}
+            </Text>
           </View>
-        </ScrollView>
-      </View>
+        </View>
+
+        {/* My Tractor Button (Original Design) */}
+        <TouchableOpacity
+          style={styles.myTractorButton}
+          onPress={() => navigation.navigate('MyTractors')}
+        >
+          <View style={styles.myTractorLeft}>
+            <View style={styles.tractorIconContainer}>
+              <BikeIcon size={SW(24)} color={theme.colors.primary} />
+            </View>
+            <Text variant="medium" size={16}>My Tractors</Text>
+          </View>
+          <ChevronBackwardIcon size={SW(20)} color={theme.colors.gray400} style={{ transform: [{ rotate: '180deg' }] }} />
+        </TouchableOpacity>
+
+        {/* Options Section */}
+        <View style={styles.sectionContainer}>
+          <Text variant="bold" size={14} style={styles.sectionTitle}>Account Settings</Text>
+          <ProfileOptionItem
+            title="Manage Address"
+            icon={<LocationEditIcon size={SW(20)} color={theme.colors.gray600} />}
+            onPress={() => navigation.navigate('ManageAddress')}
+          />
+          <ProfileOptionItem
+            title="Change Language"
+            icon={<ChangelanguageIcon size={SW(20)} color={theme.colors.gray600} />}
+            onPress={() => navigation.navigate('ChooseLanguage')}
+          />
+          <ProfileOptionItem
+            title="My Bookings"
+            icon={<BookingIcon size={SW(20)} color={theme.colors.gray600} />}
+            onPress={() => navigation.navigate('Bookings')}
+            showBorder={false}
+          />
+        </View>
+
+        <View style={styles.sectionContainer}>
+          <Text variant="bold" size={14} style={styles.sectionTitle}>Support</Text>
+          <ProfileOptionItem
+            title="About Us"
+            icon={<AboutIcon size={SW(20)} color={theme.colors.gray600} />}
+            onPress={() => navigation.navigate('About')}
+          />
+          <ProfileOptionItem
+            title="FAQs"
+            icon={<FaqIcon size={SW(20)} color={theme.colors.gray600} />}
+            onPress={() => navigation.navigate('FAQ')}
+          />
+          <ProfileOptionItem
+            title="Feedback"
+            icon={<FeedbackIcon size={SW(20)} color={theme.colors.gray600} />}
+            onPress={() => navigation.navigate('SendFeedback')}
+          />
+          <ProfileOptionItem
+            title="Report Issue"
+            icon={<ReportIcon size={SW(20)} color={theme.colors.gray600} />}
+            onPress={() => navigation.navigate('ReportIssue')}
+          />
+          <ProfileOptionItem
+            title="Logout"
+            icon={<LogoutIcon size={SW(20)} color={theme.colors.brandRed} />}
+            onPress={handleLogout}
+            showBorder={false}
+          />
+        </View>
+
+        {/* Social Section */}
+        <View style={styles.socialSection}>
+          <Text variant="medium" size={14} color={theme.colors.gray400} style={styles.socialTitle}>Follow us on</Text>
+          <View style={styles.socialIconsRow}>
+            <TouchableOpacity style={styles.socialItem}>
+              <View style={styles.socialIconWrapper}>
+                <InstagramIcon size={SW(24)} />
+              </View>
+              <Text variant="regular" size={11} color={theme.colors.gray600}>Instagram</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.socialItem}>
+              <View style={styles.socialIconWrapper}>
+                <FacebookIcon size={SW(24)} />
+              </View>
+              <Text variant="regular" size={11} color={theme.colors.gray600}>Facebook</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.socialItem}>
+              <View style={styles.socialIconWrapper}>
+                <YoutubeIcon size={SW(24)} />
+              </View>
+              <Text variant="regular" size={11} color={theme.colors.gray600}>Youtube</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.socialItem}>
+              <View style={styles.socialIconWrapper}>
+                <ThreadsIcon size={SW(24)} />
+              </View>
+              <Text variant="regular" size={11} color={theme.colors.gray600}>Threads</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+      </ScrollView>
     </ScreenWrapper>
   );
 };
-
 
 export default ProfileScreen;

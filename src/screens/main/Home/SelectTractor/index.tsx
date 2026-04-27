@@ -18,7 +18,9 @@ import { createStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { SW, SH } from '@utils/Dimensions';
 import CustomDatePickerModal from '@components/DatePicker';
-import { TRACTOR_MODELS } from '@constants/TractorData';
+import { useModels } from '@screens/auth/hooks/useAuth';
+import { ActivityIndicator, Image as RNImage } from 'react-native';
+import { Model } from '@appTypes/api.types';
 
 const SelectTractorScreen = () => {
   const route = useRoute<any>();
@@ -27,7 +29,7 @@ const SelectTractorScreen = () => {
   const { t } = useTranslation();
   const styles = createStyles(theme);
 
-  const { brand, brandLogo, type } = route.params || {};
+  const { brand, brandLogo, type, brandId } = route.params || {};
 
   const [selectedModel, setSelectedModel] = useState('');
   const [name, setName] = useState('');
@@ -37,12 +39,11 @@ const SelectTractorScreen = () => {
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [showTypeSheet, setShowTypeSheet] = useState(false);
 
-  const BrandLogo = brandLogo;
-
+  const { data: modelsData, isLoading: isModelsLoading } = useModels(brandId);
   const modelOptions = useMemo(() => {
-    const models = TRACTOR_MODELS[brand] || [];
-    return models.map((m) => ({ label: m, value: m }));
-  }, [brand]);
+    const list: Model[] = modelsData?.data || modelsData?.models || [];
+    return list.map((m) => ({ label: m.name, value: m.name }));
+  }, [modelsData]);
 
   const handleSubmit = () => {
     Alert.alert('Inquiry Submitted Successfully!');
@@ -61,7 +62,11 @@ const SelectTractorScreen = () => {
           <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
             <View style={styles.brandDisplayContainer}>
               <View style={styles.brandLogoBox}>
-                {BrandLogo && <BrandLogo width={SW(44)} height={SW(44)} />}
+                {brandLogo ? (
+                  <RNImage source={{ uri: brandLogo }} style={{ width: SW(44), height: SW(44) }} resizeMode="contain" />
+                ) : (
+                  <Text>🚜</Text>
+                )}
               </View>
               <Text variant="regular" size={16} style={styles.brandDisplayName}>
                 {brand}
@@ -69,13 +74,17 @@ const SelectTractorScreen = () => {
             </View>
 
             <View style={{ gap: SH(16), marginTop: SH(10) }}>
-              <Dropdown
-                options={modelOptions}
-                selectedValue={selectedModel}
-                onSelect={(item) => setSelectedModel(item.value)}
-                buttonStyle={styles.dropdownButton}
-                placeholder={t('main.home.selectModel', 'Select Model')}
-              />
+              {isModelsLoading ? (
+                <ActivityIndicator color={theme.colors.brandRed} />
+              ) : (
+                <Dropdown
+                  options={modelOptions}
+                  selectedValue={selectedModel}
+                  onSelect={(item) => setSelectedModel(item.value)}
+                  buttonStyle={styles.dropdownButton}
+                  placeholder={t('main.home.selectModel', 'Select Model')}
+                />
+              )}
 
               <View style={styles.formContainer}>
                 <Input

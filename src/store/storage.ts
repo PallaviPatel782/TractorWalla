@@ -1,25 +1,18 @@
-import {Storage} from 'redux-persist';
 import {createMMKV} from 'react-native-mmkv';
 
 const storageInstance = createMMKV();
 
 /**
- * MMKV Storage adapter for Redux Persist
- * MMKV is synchronous, so we wrap it in a Promise to meet Redux Persist's requirements.
+ * MMKV Storage adapter for Zustand Persist
  */
-const reduxStorage: Storage = {
-  setItem: (key, value) => {
+export const mmkvStorage = {
+  setItem: (key: string, value: string) => {
     storageInstance.set(key, value);
-    return Promise.resolve(true);
   },
-  getItem: (key) => {
-    const value = storageInstance.getString(key);
-    return Promise.resolve(value);
+  getItem: (key: string) => {
+    return storageInstance.getString(key) ?? null;
   },
-  removeItem: (key) => {
+  removeItem: (key: string) => {
     storageInstance.remove(key);
-    return Promise.resolve();
   },
 };
-
-export default reduxStorage;

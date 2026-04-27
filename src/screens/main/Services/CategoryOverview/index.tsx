@@ -11,14 +11,17 @@ import { useTheme } from '@theme';
 import {
   ChevronBackwardIcon,
   ShareIcon,
-  CheckIcon,
   CheckedIcon,
-  BagtimerIcon,
-  LocationIcon,
+  TimeLineIcon,
+  HumbsupIcon,
+  LoudspeakerIcon,
+  WarrantyBadgeIcon,
 } from '@assets/icons';
-import { Button } from '@components';
+import { Button, ScreenWrapper } from '@components';
 import { createStyles } from './styles';
-import { CATEGORY_OVERVIEW_DATA } from '../dummyData';
+import { CATEGORY_OVERVIEW_DATA, SERVICES_DATA } from '../dummyData';
+import ServiceCard from '../components/ServiceCard';
+// import { SH, SW } from '@utils/Dimensions';
 
 const CategoryOverviewScreen = () => {
   const { t } = useTranslation();
@@ -29,64 +32,61 @@ const CategoryOverviewScreen = () => {
   const ServiceImage = data.image;
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <ChevronBackwardIcon size={20} color={theme.colors.black} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.shareBtn}>
-            <ShareIcon size={20} color={theme.colors.black} />
-          </TouchableOpacity>
-          <ServiceImage width="100%" height="100%" style={styles.heroImage} />
-
-          <View style={styles.heroOverlay}>
-            <View style={styles.benefitsBadge}>
-              <Text style={styles.benefitsBadgeText}>{t('main.home.services.serviceBenefits', 'SERVICE BENEFITS')}</Text>
-            </View>
-            <View style={styles.heroBullets}>
-              <Text style={styles.heroBulletItem}>• Filter Cleaning</Text>
-              <Text style={styles.heroBulletItem}>• Inspection</Text>
-              <Text style={styles.heroBulletItem}>• Oil Change</Text>
-            </View>
+          {ServiceImage && <ServiceImage width="100%" height="100%" style={styles.heroImage} />}
+          <View style={styles.headerRow}>
+            <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
+              <ChevronBackwardIcon size={24} color={theme.colors.white} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.iconCircle}>
+              <ShareIcon size={18} color={theme.colors.white} />
+            </TouchableOpacity>
           </View>
         </View>
 
         {/* Content */}
         <View style={styles.contentCard}>
+          <View style={styles.budgeSection}>
+            <View style={styles.badgePill}>
+              <Text style={styles.badgeText}>{t('main.home.services.topRated', 'TOP RATED SERVICE')}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ color: theme.colors.GoldenYellow }}>★ </Text>
+              <Text style={styles.ratingText}>{data.rating}</Text>
+            </View>
+          </View>
+
           <Text style={styles.title}>{data.title}</Text>
 
           <View style={styles.highlights}>
             <View style={styles.highlightItem}>
-              <BagtimerIcon size={16} color={theme.colors.textSecondary} />
+              <TimeLineIcon size={18} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.arrival}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <CheckIcon size={16} color={theme.colors.AzureBlue} />
+              <WarrantyBadgeIcon size={18} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.mechanics}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <LocationIcon size={16} color={theme.colors.AzureBlue} />
+              <HumbsupIcon size={18} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.feature1}</Text>
             </View>
             <View style={styles.highlightItem}>
-              <LocationIcon size={16} color={theme.colors.danger} />
+              <LoudspeakerIcon size={18} color={theme.colors.danger} />
               <Text style={styles.highlightText}>{data.feature2}</Text>
             </View>
           </View>
 
-          <View style={styles.serviceFooter}>
-            <View style={styles.ratingRow}>
-              <Text style={styles.starIcon}>★</Text>
-              <Text style={styles.ratingText}>{data.rating}</Text>
-            </View>
+          <View style={styles.priceRow}>
             <Text style={styles.price}>₹{data.price}</Text>
             <Text style={styles.mrp}>₹{data.mrp}</Text>
           </View>
 
           {/* Service Includes */}
-          <Text style={styles.sectionHeading}>{t('main.home.services.includes', 'Service Includes')}</Text>
+          <Text style={[styles.sectionHeading, { marginHorizontal: 0 }]}>{t('main.home.services.includes', 'Service Includes')}</Text>
           <View style={styles.includesGrid}>
             {data.bullets?.map((point: string, idx: number) => (
               <View key={idx} style={styles.bulletRow}>
@@ -95,6 +95,19 @@ const CategoryOverviewScreen = () => {
               </View>
             ))}
           </View>
+        </View>
+
+        {/* Other Services */}
+        <View style={styles.otherServicesSection}>
+          <Text style={styles.sectionHeading}>{t('main.home.services.otherServices', 'Other Services')}</Text>
+          {SERVICES_DATA[0].services.map((item) => (
+            <ServiceCard
+              key={item.id}
+              item={item}
+              onPress={() => navigation.push('ServiceOverview', { serviceId: item.id, category: SERVICES_DATA[0].category })}
+                onBookPress={() => navigation.push('ServiceCheckout', { serviceId: item.id, category: SERVICES_DATA[0].category })}
+            />
+          ))}
         </View>
       </ScrollView>
 
@@ -108,7 +121,7 @@ const CategoryOverviewScreen = () => {
           })}
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 };
 

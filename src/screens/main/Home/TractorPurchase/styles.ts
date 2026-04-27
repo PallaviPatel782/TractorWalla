@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
 import { SW, SH, SF } from '@utils/Dimensions';
 
+const ITEM_WIDTH = (SW(375) - SW(60)) / 4;
+
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     root: {
@@ -28,13 +30,14 @@ export const createStyles = (theme: AppTheme) =>
       paddingTop: SH(10),
     },
     brandItem: {
-      flex: 1,
+      width: ITEM_WIDTH,
       alignItems: 'center',
       marginBottom: SH(20),
-      padding: SW(8),
+      marginHorizontal: SW(2.5),
     },
     selectedBrand: {
-      backgroundColor: '#E9F5ED',
+      borderColor: theme.colors.primary,
+      borderWidth: 1.5,
       borderRadius: SW(12),
     },
     brandImageWrap: {
@@ -43,7 +46,7 @@ export const createStyles = (theme: AppTheme) =>
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(32),
+      borderRadius: SW(12),
       marginBottom: SH(8),
       elevation: 2,
       shadowColor: theme.colors.black,

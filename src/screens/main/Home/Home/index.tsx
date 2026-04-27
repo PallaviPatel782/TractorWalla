@@ -49,21 +49,26 @@ import {
   BrakeServicesImage,
   DentingPaintingImage,
   EngineServicesImage,
-  MahindraImage,
-  SwarajImage,
-  JohnDeereImage,
-  EicherImage,
   VedioImage,
   DummyUserImage,
 } from '@assets/images';
 
 import { SW, SH } from '@utils/Dimensions';
+import { useBrands } from '@screens/auth/hooks/useAuth';
+import { ActivityIndicator, Image as RNImage } from 'react-native';
+import { BikeIcon } from '@assets/icons';
+import { Brand } from '@appTypes/api.types';
 
 const HomeScreen = () => {
   const navigation = useNavigation<any>();
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
+
+  const { data: brandsData, isLoading: isBrandsLoading } = useBrands();
+  const brands: Brand[] = useMemo(() => {
+    return brandsData?.data || brandsData?.brands || [];
+  }, [brandsData]);
 
   const [heroIndex, setHeroIndex] = useState(0);
   const [middleIndex, setMiddleIndex] = useState(0);
@@ -254,12 +259,7 @@ const HomeScreen = () => {
     },
   ], [t]);
 
-  const BRANDS = [
-    { id: '1', label: t('common.brands.Mahindra'), Image: MahindraImage },
-    { id: '2', label: t('common.brands.Swaraj'), Image: SwarajImage },
-    { id: '3', label: t('common.brands.John Deere'), Image: JohnDeereImage },
-    { id: '4', label: t('common.brands.Eicher'), Image: EicherImage },
-  ];
+
 
   // Auto-scroll hero slider every 4 seconds
   useEffect(() => {
@@ -336,7 +336,7 @@ const HomeScreen = () => {
             </View>
           </View>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.addressRow}
             onPress={() => navigation.navigate('ManageAddress')}
             activeOpacity={0.7}
@@ -507,7 +507,7 @@ const HomeScreen = () => {
               renderItem={({ item }: { item: any }) => (
                 <TouchableOpacity
                   style={styles.partCard}
-                  onPress={() => navigation.navigate('PartsOverview', { kitId: item.id })}
+                  onPress={() => navigation.navigate('Parts')}
                 >
                   <View style={styles.partImageWrap}>
                     <item.Image width={SW(120)} height={SW(120)} />
@@ -646,19 +646,33 @@ const HomeScreen = () => {
           {/* Brands */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('main.home.brandsTitle')}</Text>
-            <FlatList
-              data={BRANDS}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: SW(16) }}
-              keyExtractor={(i: any) => i.id}
-              renderItem={({ item }: { item: any }) => (
-                <View style={styles.brandItem}>
-                  <item.Image width={SW(60)} height={SW(36)} />
-                  <Text style={styles.brandLabel}>{item.label}</Text>
-                </View>
-              )}
-            />
+            {isBrandsLoading ? (
+              <ActivityIndicator color={theme.colors.brandRed} />
+            ) : (
+              <FlatList
+                data={brands}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: SW(16) }}
+                keyExtractor={(i: any) => i._id}
+                renderItem={({ item }: { item: any }) => (
+                  <View style={styles.brandItem}>
+                    <View style={{ width: SW(60), height: SW(36), alignItems: 'center', justifyContent: 'center' }}>
+                      {item.logoUrl ? (
+                        <RNImage
+                          source={{ uri: item.logoUrl }}
+                          style={{ width: '100%', height: '100%', borderRadius: 50 }}
+                          resizeMode="contain"
+                        />
+                      ) : (
+                        <BikeIcon width={SW(40)} height={SW(24)} color={theme.colors.gray300} />
+                      )}
+                    </View>
+                    <Text style={styles.brandLabel}>{item.name}</Text>
+                  </View>
+                )}
+              />
+            )}
           </View>
 
           {/* Mechanic Bar */}

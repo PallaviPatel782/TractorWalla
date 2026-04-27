@@ -12,6 +12,7 @@ import {
   Input,
 } from '@components';
 import { LoginImage } from '@images';
+import { useSendOtp } from '@screens/auth/hooks/useAuth';
 import { createStyles } from './styles';
 
 const LoginScreen = ({ navigation }: any) => {
@@ -19,11 +20,19 @@ const LoginScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const styles = createStyles(theme);
   const [mobileNumber, setMobileNumber] = useState('');
+  const { mutate: sendOtp, isPending } = useSendOtp();
 
 
   const handleGetOtp = () => {
     if (mobileNumber.length === 10) {
-      navigation.navigate('OtpVerification', { mobileNumber });
+      sendOtp(
+        { phone: mobileNumber, countryCode: '91', role: 'customer' },
+        {
+          onSuccess: () => {
+            navigation.navigate('OtpVerification', { mobileNumber });
+          },
+        }
+      );
     }
   };
 
@@ -68,6 +77,7 @@ const LoginScreen = ({ navigation }: any) => {
                 title={t('common.getOtp')}
                 onPress={handleGetOtp}
                 disabled={mobileNumber.length !== 10}
+                loading={isPending}
                 style={styles.button}
               />
             </View>

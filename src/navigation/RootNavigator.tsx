@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList, AuthStackParamList } from '@navigation/NavigationTypes';
-import { useAppSelector } from '@store';
+import { RootStackParamList } from '@navigation/NavigationTypes';
+import { useAuthStore } from '@store/useAuthStore';
 import {
   Loading,
   LoginScreen,
@@ -57,32 +57,54 @@ import {
 import TabNavigator from '@navigation/TabNavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const AuthStack = createNativeStackNavigator<AuthStackParamList>();
-
-const AuthNavigator = () => (
-  <AuthStack.Navigator
-    initialRouteName="Loading"
-    screenOptions={{ headerShown: false }}
-  >
-    <AuthStack.Screen name="Loading" component={Loading} />
-    <AuthStack.Screen name="Login" component={LoginScreen} />
-    <AuthStack.Screen name="OtpVerification" component={OtpVerification} />
-    <AuthStack.Screen name="LocationAccess" component={LocationAccess} />
-    <AuthStack.Screen name="ProfileDetails" component={ProfileDetails} />
-    <AuthStack.Screen name="TractorBrand" component={TractorBrand} />
-    <AuthStack.Screen name="TractorBrandRegister" component={TractorBrandRegister} />
-  </AuthStack.Navigator>
-);
 
 const RootNavigator = () => {
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const auth = useAuthStore();
+  const token = auth.token;
+  const user = auth.user;
+  
+  // The condition to enter the app: must have at least one tractor OR onboardingCompleted flag is true
+  const hasVehicle = !!(user?.tractors && user.tractors.length > 0) || !!user?.onboardingCompleted;
+  const isAuthenticated = !!token;
+  const isOnboarded = isAuthenticated && hasVehicle;
+
+  const logout = auth.logout;
+
+  React.useEffect(() => {
+    // If we have a token but the user is not onboarded, 
+    // we clear the token to force a fresh login/onboarding flow as requested.
+    if (isAuthenticated && !isOnboarded && user && !user.onboardingCompleted) {
+      console.log('--- RootNavigator: Forcing logout because not onboarded ---');
+      logout();
+    }
+  }, [isAuthenticated, isOnboarded, user, logout]);
+
+  console.log('--- RootNavigator Render ---', {
+    isAuthenticated,
+    isOnboarded,
+    hasVehicle,
+    user_id: user?._id || user?.id,
+    onboardingCompleted: user?.onboardingCompleted
+  });
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!isAuthenticated ? (
-          <Stack.Screen name="Auth" component={AuthNavigator} />
+        {!isOnboarded ? (
+          // AUTH & ONBOARDING STACK
+          // Shown if user is not fully authenticated OR doesn't have a vehicle
+          <>
+            <Stack.Screen name="Loading" component={Loading} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="OtpVerification" component={OtpVerification} />
+            <Stack.Screen name="LocationAccess" component={LocationAccess} />
+            <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+            <Stack.Screen name="TractorBrand" component={TractorBrand} />
+            <Stack.Screen name="TractorBrandRegister" component={TractorBrandRegister} />
+          </>
         ) : (
+          // MAIN APP STACK
+          // Only shown when token exists AND at least one tractor exists
           <>
             <Stack.Screen name="Main" component={TabNavigator} />
             <Stack.Screen name="MyTractors" component={MyTractorsScreen} />
