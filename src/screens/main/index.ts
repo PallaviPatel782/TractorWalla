@@ -21,7 +21,6 @@ export { default as UpdateProfileScreen } from './Profile/UpdateProfile';
 export { default as BookingDetailsScreen } from './Profile/Bookings/BookingDetails';
 export { default as NotificationScreen } from './Home/Notifications';
 export { default as BuyPartsScreen } from './Parts/BuyParts';
-export { default as PartsOverviewScreen } from './Parts/ServiceOverview';
 export { default as BookServiceScreen } from './Services/BookService';
 export { default as ApplyCouponsScreen } from './Services/ApplyCoupons';
 export { default as ServiceOverviewScreen } from './Services/ServiceOverview';

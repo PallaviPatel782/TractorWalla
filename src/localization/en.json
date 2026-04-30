@@ -158,7 +158,19 @@
       "buyParts": {
         "title": "Buy Parts",
         "searchPlaceholder": "Search for Kits",
-        "engineOil": "Engine Oil"
+        "engineOil": "Engine Oil",
+        "filters": {
+          "title": "Filters and Sorting",
+          "searchPrefix": "Search by",
+          "clearAll": "Clear All",
+          "apply": "Apply",
+          "tabs": {
+            "Category": "Category",
+            "Subcategory": "Subcategory",
+            "Brand": "Brand",
+            "Model": "Model"
+          }
+        }
       },
       "serviceOverview": {
         "title": "Book Service Overview",
@@ -364,7 +376,7 @@
         "price": "Price",
         "total": "Total",
         "estimate": "Total Estimate",
-        "taxNotice": "* Taxes applicable at checkout    Included",
+        "taxNotice": "* Taxes applicable at checkout",
         "date": "Invoice Date",
         "itemTotal": "Item Total",
         "inventoryItems": "Inventory Items",

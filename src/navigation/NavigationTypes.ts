@@ -10,15 +10,15 @@ export type RootStackParamList = {
   ProfileDetails: { location: LocationData };
   TractorBrand: undefined;
   TractorBrandRegister: { brandId: string; brandName: string; model: string };
-  
+
   // Main
   Main: undefined;
   MyTractors: undefined;
   MainTractorBrand: undefined;
   TractorDetails: { tractor: any };
   AddTractorDetails: { brandId: string; brandName: string; model: string; tractor?: any };
-  ManageAddress: { 
-    isSelectionMode?: boolean; 
+  ManageAddress: {
+    isSelectionMode?: boolean;
     selectedAddressId?: string;
     serviceId?: string;
     category?: string;
@@ -40,13 +40,12 @@ export type RootStackParamList = {
   BookingDetails: { bookingId?: string };
   NotificationScreen: undefined;
   BuyParts: undefined;
-  PartsOverview: { kitId: string };
   BookService: undefined;
   ApplyCoupons: undefined;
   ServiceOverview: { serviceId: string; category: string };
-  ServiceCheckout: { 
-    serviceId: string; 
-    category: string; 
+  ServiceCheckout: {
+    serviceId: string;
+    category: string;
     appliedCoupon?: any;
     selectedAddress?: any;
     selectedTractor?: any;

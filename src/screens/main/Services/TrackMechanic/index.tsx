@@ -9,12 +9,13 @@ import {
   ScreenWrapper,
   View,
   TouchableOpacity,
+  SecondaryHeader
 } from '@components';
 import { createStyles } from './styles';
 import { LocationIcon, PhoneIcon } from '@assets/icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-
+import { SH, SW } from '@utils/Dimensions';
 const TrackMechanic = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -50,8 +51,24 @@ const TrackMechanic = () => {
     };
   }, []);
 
+  useEffect(() => {
+    let autoNavTimer: ReturnType<typeof setTimeout>;
+    if (reached) {
+      autoNavTimer = setTimeout(() => {
+        navigation.navigate('ServiceProgress', { bookingId, paymentType });
+      }, 2000);
+    }
+    return () => {
+      if (autoNavTimer) clearTimeout(autoNavTimer);
+    };
+  }, [reached, navigation, bookingId, paymentType]);
+
   return (
     <ScreenWrapper>
+      <SecondaryHeader
+        title="Track"
+        onBack={() => navigation.navigate('Main')}
+      />
       <View style={styles.container}>
         <View style={styles.mapContainer}>
           <MapView
@@ -83,40 +100,36 @@ const TrackMechanic = () => {
             </Marker>
           </MapView>
 
-          <View style={styles.bottomCard}>
-            <View style={styles.infoRow}>
+          <TouchableOpacity
+            style={styles.bottomCard}
+            onPress={() => navigation.navigate('ServiceProgress', { bookingId, paymentType })}
+            activeOpacity={0.8}
+          >
+            <View style={styles.cardContent}>
               <View style={styles.textContainer}>
-                <Text variant="semiBold" size={14} style={styles.statusText}>
-                  {reached ? t('main.serviceFlow.reached') : t('main.serviceFlow.onTheWay')}
-                </Text>
-                <Text variant="regular" size={12} style={styles.nameText}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: SW(4) }}>
+                  <Text variant="semiBold" size={12} color={theme.colors.gray900}>
+                    {reached ? t('main.serviceFlow.reached', 'Reached...') : t('main.serviceFlow.onTheWay', 'Service Engineer On the way...')}
+                  </Text>
+                </View>
+                <Text variant="regular" size={11} color={theme.colors.gray500} style={{ marginTop: SH(2) }}>
                   Rajat Tiwari
                 </Text>
-              </View>
-              {!reached && (
-                <View style={styles.etaBadge}>
-                  <Text style={styles.etaText}>15</Text>
-                  <Text style={styles.etaUnit}>mins</Text>
-                </View>
-              )}
-            </View>
 
-            {reached ? (
-              <TouchableOpacity
-                style={styles.viewDetailsBtn}
-                onPress={() => navigation.navigate('ServiceProgress', { bookingId, paymentType })}
-              >
-                <Text style={styles.viewDetailsText}>{t('main.serviceFlow.viewProgress')}</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.callBtn}
-                onPress={() => Linking.openURL('tel:1234567890')}
-              >
-                <PhoneIcon size={20} color={theme.colors.DeepGreen} />
-              </TouchableOpacity>
-            )}
-          </View>
+                <TouchableOpacity
+                  style={styles.callBtn}
+                  onPress={() => Linking.openURL('tel:1234567890')}
+                >
+                  <PhoneIcon size={16} color={theme.colors.DeepGreen} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.etaBadge}>
+                <Text style={styles.etaText}>15</Text>
+                <Text style={styles.etaUnit}>mins</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </ScreenWrapper>

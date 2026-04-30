@@ -19,7 +19,7 @@ export { default as FlatList } from './Flatlist';
 export * from './DatePicker';
 export * from './Dropdown';
 export { default as Image } from './Image';
-export * from './Loader';
+export { default as Loader } from './Loader';
 export { default as StatusBar } from './StatusBar';
 export { default as ProfileOptionItem } from './ProfileOptionItem/index';
 export { default as TractorCard } from './TractorCard/index';
@@ -28,4 +28,5 @@ export { default as PaymentModal } from './PaymentModal';
 export { default as ImagePicker } from './ImagePicker';
 export { default as SearchInput } from './SearchInput';
 export { default as Snackbar } from './Snackbar';
-
+export { default as FilterBottomSheet } from './FilterBottomSheet';
+export { default as ServiceCard } from './ServiceCard';

@@ -115,4 +115,32 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.white,
       fontFamily: theme.fontfamily.robotoSemiBold,
     },
+    defaultBadge: {
+      marginLeft: SW(8),
+      backgroundColor: theme.colors.DeepGreen,
+      paddingHorizontal: SW(8),
+      paddingVertical: SH(2),
+      borderRadius: SW(10),
+    },
+    defaultBadgeText: {
+      color: theme.colors.white,
+    },
+    confirmFooter: {
+      position: 'absolute',
+      bottom: SH(90),
+      left: SW(20),
+      right: SW(20),
+      backgroundColor: theme.colors.DeepGreen,
+      borderRadius: SW(12),
+      paddingVertical: SH(14),
+      alignItems: 'center',
+      elevation: 6,
+      shadowColor: theme.colors.black,
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.15,
+      shadowRadius: 6,
+    },
+    confirmFooterText: {
+      color: theme.colors.white,
+    },
   });

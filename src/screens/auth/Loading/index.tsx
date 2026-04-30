@@ -13,7 +13,7 @@ import { SW, SH } from '@utils/Dimensions';
 import { View, StatusBar } from '@components';
 import { createStyles } from './styles';
 
-const LoadingScreen = ({ navigation }: any) => {
+const LoadingScreen = () => {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
@@ -22,12 +22,7 @@ const LoadingScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     scale.value = withDelay(200, withSpring(1, { damping: 12, stiffness: 90 }));
-
-    const timer = setTimeout(() => {
-      navigation.replace('Login');
-    }, 2500); // Slightly longer to appreciate animation
-    return () => clearTimeout(timer);
-  }, [navigation, scale]);
+  }, [scale]);
 
   const animatedLogoStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],

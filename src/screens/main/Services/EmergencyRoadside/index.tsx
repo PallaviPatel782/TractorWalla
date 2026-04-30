@@ -19,11 +19,10 @@ import {
   LoudspeakerIcon,
   WarrantyBadgeIcon,
 } from '@assets/icons';
-import { Button, ScreenWrapper } from '@components';
+import { Button, ScreenWrapper, ServiceCard } from '@components';
 import { createStyles } from './styles';
 import { EMERGENCY_SERVICE, SERVICES_DATA } from '../dummyData';
 // import { SH, SW } from '@utils/Dimensions';
-import ServiceCard from '../components/ServiceCard';
 
 const EmergencyRoadsideScreen = () => {
   const { t } = useTranslation();

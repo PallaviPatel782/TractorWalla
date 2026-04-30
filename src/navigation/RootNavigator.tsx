@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useTheme } from '@theme';
 import { RootStackParamList } from '@navigation/NavigationTypes';
 import { useAuthStore } from '@store/useAuthStore';
 import {
@@ -35,7 +36,6 @@ import {
   ContactUs,
   NotificationScreen,
   BuyPartsScreen,
-  PartsOverviewScreen,
   BookServiceScreen,
   ApplyCouponsScreen,
   ServiceOverviewScreen,
@@ -59,25 +59,22 @@ import TabNavigator from '@navigation/TabNavigator';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
+  const [isAppLoading, setIsAppLoading] = React.useState(true);
   const auth = useAuthStore();
   const token = auth.token;
   const user = auth.user;
-  
+
   // The condition to enter the app: must have at least one tractor OR onboardingCompleted flag is true
   const hasVehicle = !!(user?.tractors && user.tractors.length > 0) || !!user?.onboardingCompleted;
   const isAuthenticated = !!token;
   const isOnboarded = isAuthenticated && hasVehicle;
 
-  const logout = auth.logout;
-
   React.useEffect(() => {
-    // If we have a token but the user is not onboarded, 
-    // we clear the token to force a fresh login/onboarding flow as requested.
-    if (isAuthenticated && !isOnboarded && user && !user.onboardingCompleted) {
-      console.log('--- RootNavigator: Forcing logout because not onboarded ---');
-      logout();
-    }
-  }, [isAuthenticated, isOnboarded, user, logout]);
+    const timer = setTimeout(() => {
+      setIsAppLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   console.log('--- RootNavigator Render ---', {
     isAuthenticated,
@@ -87,14 +84,25 @@ const RootNavigator = () => {
     onboardingCompleted: user?.onboardingCompleted
   });
 
+  const { theme } = useTheme();
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={{
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          background: theme.colors.white,
+        },
+      }}
+    >
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!isOnboarded ? (
+        {isAppLoading ? (
+          <Stack.Screen name="Loading" component={Loading} />
+        ) : !isOnboarded ? (
           // AUTH & ONBOARDING STACK
           // Shown if user is not fully authenticated OR doesn't have a vehicle
           <>
-            <Stack.Screen name="Loading" component={Loading} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="OtpVerification" component={OtpVerification} />
             <Stack.Screen name="LocationAccess" component={LocationAccess} />
@@ -129,7 +137,6 @@ const RootNavigator = () => {
             <Stack.Screen name="ContactUs" component={ContactUs} />
             <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
             <Stack.Screen name="BuyParts" component={BuyPartsScreen} />
-            <Stack.Screen name="PartsOverview" component={PartsOverviewScreen} />
             <Stack.Screen name="BookService" component={BookServiceScreen} />
             <Stack.Screen name="ApplyCoupons" component={ApplyCouponsScreen} />
             <Stack.Screen name="ServiceOverview" component={ServiceOverviewScreen} />

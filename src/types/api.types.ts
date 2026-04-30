@@ -83,3 +83,35 @@ export interface OnboardingVehicleRequest {
   yearOfPurchase: number;
   tractorType: string;
 }
+
+export interface CustomerAddress {
+  _id?: string;
+  id?: string;
+  customerId?: string;
+  addressLine: string;
+  city: string;
+  state: string;
+  pincode: string;
+  landmark?: string;
+  addressType?: string;
+  label?: string;
+  address?: string;
+  latitude: number | null;
+  longitude: number | null;
+  isDefault: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  location?: {
+    type: string;
+    coordinates: number[];
+  };
+}
+
+export interface AddressResponse {
+  ok: boolean;
+  addresses: CustomerAddress[];
+  data?: {
+    addresses: CustomerAddress[];
+  };
+}
+

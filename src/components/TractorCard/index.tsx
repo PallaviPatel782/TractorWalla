@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import View from '../View';
 import Text from '../Text';
 import TouchableOpacity from '../TouchableOpacity';
+import Image from '../Image';
 import { useTheme } from '@theme';
 import { SW, SH } from '@utils/Dimensions';
 import { DeleteIcon } from '@assets/icons';
@@ -18,6 +19,7 @@ interface TractorCardProps {
     yearOfManufacture: string;
     yearOfPurchase: string;
     tractorType: string;
+    logoUrl?: string;
   };
   onPress: () => void;
   onDelete?: () => void;
@@ -37,7 +39,11 @@ const TractorCard = ({ tractor, onPress, onDelete, isSelectionMode, selected }: 
       activeOpacity={0.8}
     >
       <View style={styles.imageContainer}>
-        <TractorImage width={SW(80)} height={SH(60)} />
+        {tractor.logoUrl ? (
+          <Image source={{ uri: tractor.logoUrl }} style={{ width: SW(50), height: SW(50) }} resizeMode="contain" />
+        ) : (
+          <TractorImage width={SW(80)} height={SH(60)} />
+        )}
       </View>
       <View style={styles.detailsContainer}>
         <Text variant="semiBold" size={14} color={theme.colors.gray900}>

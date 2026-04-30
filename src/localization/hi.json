@@ -159,7 +159,19 @@
         "searchPlaceholder": "किट्स खोजें",
         "purchase": "खरीदें",
         "engine_oil": "इंजन ऑयल",
-        "brake_kits": "ब्रेक सर्विस किट्स"
+        "brake_kits": "ब्रेक सर्विस किट्स",
+        "filters": {
+          "title": "फ़िल्टर और सॉर्टिंग",
+          "searchPrefix": "के द्वारा खोजें",
+          "clearAll": "सभी साफ़ करें",
+          "apply": "लागू करें",
+          "tabs": {
+            "Category": "श्रेणी",
+            "Subcategory": "उपश्रेणी",
+            "Brand": "ब्रांड",
+            "Model": "मॉडल"
+          }
+        }
       },
       "serviceOverview": {
         "title": "सेवा अवलोकन बुक करें",
@@ -365,7 +377,7 @@
         "price": "कीमत",
         "total": "कुल",
         "estimate": "कुल अनुमान",
-        "taxNotice": "* चेकआउट के समय लागू कर शामिल हैं",
+        "taxNotice": "* चेकआउट के समय लागू कर",
         "date": "इनवॉइस की तारीख",
         "itemTotal": "कुल वस्तुएं",
         "inventoryItems": "इन्वेंटरी आइटम",

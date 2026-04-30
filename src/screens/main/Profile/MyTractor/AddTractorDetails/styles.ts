@@ -94,6 +94,7 @@ export const createStyles = (theme: AppTheme) =>
       justifyContent: 'center',
       borderRadius: SW(12),
       marginVertical: SH(10),
+      marginBottom: 0
     },
     brandLogoBox: {
       width: SW(60),

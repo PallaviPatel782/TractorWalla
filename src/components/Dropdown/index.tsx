@@ -158,10 +158,10 @@ const Dropdown: React.FC<DropdownProps> = ({
           style={[
             styles.buttonText,
             buttonTextStyle,
-            !selectedOption && styles.placeholderText,
+            !selectedOption && !selectedValue && styles.placeholderText,
           ]}
         >
-          {selectedOption ? selectedOption.label : placeholder}
+          {selectedOption ? selectedOption.label : (selectedValue || placeholder)}
         </Text>
         {loading ? (
           <ActivityIndicator size="small" color={theme.colors.brandRed} />

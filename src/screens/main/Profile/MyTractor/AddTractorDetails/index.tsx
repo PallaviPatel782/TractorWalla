@@ -17,11 +17,10 @@ import {
   Image,
 } from '@components';
 import { useAddVehicle, useModels } from '@screens/auth/hooks/useAuth';
+import { useUpdateVehicle } from '@screens/main/hooks/useVehicle';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { BikeIcon } from '@assets/icons';
-
-
 
 const AddTractorDetails = ({ navigation, route }: any) => {
   const { theme } = useTheme();
@@ -33,17 +32,22 @@ const AddTractorDetails = ({ navigation, route }: any) => {
   const initialBrand = isEdit ? tractor.brand : (brandName || 'Others');
   const isOthers = initialBrand === 'Others';
 
+  const actualBrandId = isEdit ? (tractor._original?.brandId?._id || tractor.brandId) : brandId;
+  const actualModelId = isEdit ? (tractor._original?.modelId?._id || tractor.modelId) : '';
+  const actualLogoUrl = isEdit ? (tractor._original?.brandId?.logoUrl || logoUrl) : logoUrl;
+
   const [showTypeSheet, setShowTypeSheet] = useState(false);
 
-  const { data: modelsData, isLoading: isLoadingModels } = useModels(brandId);
+  const { data: modelsData, isLoading: isLoadingModels } = useModels(actualBrandId);
   const { mutate: addVehicle, isPending: isAddingVehicle } = useAddVehicle();
+  const { mutate: updateVehicle, isPending: isUpdatingVehicle } = useUpdateVehicle();
 
   const [formData, setFormData] = useState({
     id: isEdit ? tractor.id : Math.random().toString(36).substr(2, 9),
     brand: initialBrand,
-    brandId: brandId,
+    brandId: actualBrandId,
     model: isEdit ? tractor.model : (model || ''),
-    modelId: '',
+    modelId: actualModelId,
     registrationNo: isEdit ? tractor.registrationNo : '',
     yearOfManufacture: isEdit ? tractor.yearOfManufacture?.toString() : '',
     yearOfPurchase: isEdit ? tractor.yearOfPurchase?.toString() : '',
@@ -60,31 +64,35 @@ const AddTractorDetails = ({ navigation, route }: any) => {
   };
 
   const handleSave = () => {
-    if (isEdit) {
-      // For now, only supporting add via API. Update logic can be added later.
-      navigation.goBack();
-      return;
-    }
-
-    addVehicle({
+    const payload = {
       brandId: formData.brandId,
       modelId: formData.modelId,
       registrationNo: formData.registrationNo,
       yearOfManufacture: parseInt(formData.yearOfManufacture),
       yearOfPurchase: parseInt(formData.yearOfPurchase),
       tractorType: formData.tractorType,
-    }, {
-      onSuccess: () => {
-        if (route.params?.isSelectionMode) {
-          navigation.navigate('ServiceCheckout', {
-            ...route.params,
-            selectedTractor: formData
-          });
-        } else {
-          navigation.navigate('MyTractors');
-        }
+    };
+
+    const onSuccessAction = () => {
+      if (route.params?.isSelectionMode) {
+        navigation.navigate('ServiceCheckout', {
+          ...route.params,
+          selectedTractor: formData
+        });
+      } else {
+        navigation.navigate('MyTractors');
       }
-    });
+    };
+
+    if (isEdit) {
+      updateVehicle({ vehicleId: tractor.id || tractor._id, data: payload }, {
+        onSuccess: onSuccessAction
+      });
+    } else {
+      addVehicle(payload, {
+        onSuccess: onSuccessAction
+      });
+    }
   };
 
   return (
@@ -104,9 +112,9 @@ const AddTractorDetails = ({ navigation, route }: any) => {
               {!isOthers && (
                 <View style={styles.brandDisplayContainer}>
                   <View style={styles.brandLogoBox}>
-                    {logoUrl && (
+                    {actualLogoUrl && (
                       <Image
-                        source={{ uri: logoUrl }}
+                        source={{ uri: actualLogoUrl }}
                         style={{ width: SW(40), height: SW(40) }}
                         resizeMode="contain"
                       />
@@ -120,9 +128,9 @@ const AddTractorDetails = ({ navigation, route }: any) => {
 
               {isEdit && (
                 <View style={styles.tractorImageContainer}>
-                  <Text variant="semiBold" size={18} color={theme.colors.gray900} style={{ marginTop: SH(10) }}>
+                  {/* <Text variant="semiBold" size={18} color={theme.colors.gray900} style={{ marginTop: SH(10) }}>
                     {formData.brand}
-                  </Text>
+                  </Text> */}
                   <Text variant="regular" size={14} color={theme.colors.gray500}>
                     {formData.model}
                   </Text>
@@ -209,7 +217,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
               <Button
                 title={isEdit ? t('main.register.updateButton') : t('main.register.addTractor', 'Add Tractor')}
                 onPress={handleSave}
-                loading={isAddingVehicle}
+                loading={isAddingVehicle || isUpdatingVehicle}
                 disabled={!formData.registrationNo || !formData.model || !formData.brand}
               />
             </View>

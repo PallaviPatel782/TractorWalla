@@ -34,6 +34,7 @@ import Emergencybell from './emergencybell.svg';
 import Facebook from './facebook.svg';
 import Faq from './faq.svg';
 import Feedback from './feedback.svg';
+import Filter from './filter.svg';
 import Home from './home.svg';
 import Humbsup from './humbsup.svg';
 import Instagram from './instagram.svg';
@@ -102,6 +103,7 @@ export const EmergencybellIcon = (props: ISVGProps) => <Emergencybell {...resolv
 export const FacebookIcon = (props: ISVGProps) => <Facebook {...resolveSize(props)} />;
 export const FaqIcon = (props: ISVGProps) => <Faq {...resolveSize(props)} />;
 export const FeedbackIcon = (props: ISVGProps) => <Feedback {...resolveSize(props)} />;
+export const FilterIcon = (props: ISVGProps) => <Filter {...resolveSize(props)} />;
 export const HomeIcon = (props: ISVGProps) => <Home {...resolveSize(props)} />;
 export const HumbsupIcon = (props: ISVGProps) => <Humbsup {...resolveSize(props)} />;
 export const InstagramIcon = (props: ISVGProps) => <Instagram {...resolveSize(props)} />;

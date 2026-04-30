@@ -12,30 +12,42 @@ import {
 import { createStyles } from './styles';
 import { AddlocationIcon } from '@icons';
 import { Alert } from 'react-native';
-import { useAuthStore, Address } from '@store/useAuthStore';
+import { useGetAllAddresses, useDeleteAddress, useSetDefaultAddress } from '../../hooks/useAddress';
+import { CustomerAddress } from '@appTypes';
 
 const ManageAddress = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-  
-  const user = useAuthStore(state => state.user);
-  const updateUser = useAuthStore(state => state.updateUser);
-  
-  const userAddresses = useMemo(() => user?.addresses || [], [user?.addresses]);
-  
+
+  const { data: addressResponse, isLoading, refetch } = useGetAllAddresses();
+  const { mutate: deleteAddress } = useDeleteAddress();
+  const { mutate: setDefaultAddress } = useSetDefaultAddress();
+
+  const userAddresses: CustomerAddress[] = useMemo(() => {
+    return addressResponse?.data?.addresses || addressResponse?.addresses || [];
+  }, [addressResponse]);
+
   const { isSelectionMode, selectedAddressId, serviceId, category, newAddress } = route.params || {};
-  const [selectedId, setSelectedId] = useState(selectedAddressId || (userAddresses.length > 0 ? userAddresses[0].id : ''));
+  const [selectedId, setSelectedId] = useState(selectedAddressId || '');
+
+  // Auto-select: use passed ID, else default, else first
+  useEffect(() => {
+    if (userAddresses.length > 0) {
+      if (selectedId) return; // already set from params
+      const defaultAddr = userAddresses.find((a: any) => a.isDefault);
+      setSelectedId(
+        defaultAddr
+          ? (defaultAddr._id || defaultAddr.id)
+          : (userAddresses[userAddresses.length - 1]._id || userAddresses[userAddresses.length - 1].id)
+      );
+    }
+  }, [userAddresses, selectedId]);
 
   useEffect(() => {
     if (newAddress) {
-      // Prevent duplicates
-      if (!userAddresses.find(a => a.id === newAddress.id)) {
-        updateUser({
-          addresses: [...userAddresses, newAddress]
-        });
-      }
-      
+      refetch();
+
       if (isSelectionMode) {
         navigation.navigate('ServiceCheckout', {
           serviceId,
@@ -43,18 +55,24 @@ const ManageAddress = ({ navigation, route }: any) => {
           selectedAddress: newAddress
         });
       }
-      
+
       navigation.setParams({ newAddress: undefined });
     }
-  }, [newAddress, navigation, userAddresses, isSelectionMode, serviceId, category, updateUser]);
+  }, [newAddress, navigation, isSelectionMode, serviceId, category, refetch]);
 
-  const onSelectAddress = (item: any) => {
-    setSelectedId(item.id);
-    if (isSelectionMode) {
+  const onSelectAddress = (item: CustomerAddress) => {
+    const itemId = item._id || item.id || '';
+    setSelectedId(itemId);
+    // In selection mode: just highlight, confirm via button below
+  };
+
+  const onConfirmSelection = () => {
+    const selected = userAddresses.find((a) => (a._id || a.id) === selectedId);
+    if (selected) {
       navigation.navigate('ServiceCheckout', {
         serviceId,
         category,
-        selectedAddress: item
+        selectedAddress: selected
       });
     }
   };
@@ -65,26 +83,28 @@ const ManageAddress = ({ navigation, route }: any) => {
       'Are you sure you want to remove this address?',
       [
         { text: t('common.cancel', 'Cancel'), style: 'cancel' },
-        { 
-          text: t('common.remove', 'Remove'), 
+        {
+          text: t('common.remove', 'Remove'),
           style: 'destructive',
           onPress: () => {
-            updateUser({
-              addresses: userAddresses.filter(a => a.id !== id)
+            deleteAddress(id, {
+              onSuccess: () => {
+                if (selectedId === id) setSelectedId('');
+              }
             });
-            if (selectedId === id) setSelectedId('');
           }
         },
       ]
     );
   };
 
-  const onEditAddress = (item: any) => {
+  const onEditAddress = (item: CustomerAddress) => {
     navigation.navigate('AddLocation', { addressToEdit: item });
   };
 
-  const renderAddressItem = ({ item }: { item: Address }) => {
-    const isSelected = selectedId === item.id;
+  const renderAddressItem = ({ item }: { item: CustomerAddress }) => {
+    const itemId = item._id || item.id || '';
+    const isSelected = selectedId === itemId;
     return (
       <TouchableOpacity
         style={[styles.addressCard, isSelected && styles.addressCardSelected]}
@@ -99,22 +119,42 @@ const ManageAddress = ({ navigation, route }: any) => {
         <View style={styles.addressInfo}>
           <View style={styles.labelRow}>
             <Text variant="semiBold" size={13} style={styles.addressLabel}>
-              {item.label === 'Default' ? t('common.default') : t('main.manageAddress.yourAddress')}
+              {(item.addressType || item.label || 'Address').charAt(0).toUpperCase() +
+                (item.addressType || item.label || 'address').slice(1)}
             </Text>
+            {item.isDefault && (
+              <View style={styles.defaultBadge}>
+                <Text variant="medium" size={10} style={styles.defaultBadgeText}>Default</Text>
+              </View>
+            )}
           </View>
           <Text variant="regular" size={12} style={styles.addressText}>
-            {item.address}
+            {[
+              item.addressLine,
+              item.landmark,
+              item.city,
+              item.state,
+              item.pincode,
+            ].filter(Boolean).join(', ')}
           </Text>
           <View style={styles.actionRow}>
-            <TouchableOpacity 
-              style={styles.actionButton} 
+            <TouchableOpacity
+              style={styles.actionButton}
               onPress={() => onEditAddress(item)}
             >
               <Text variant="medium" size={11} style={styles.actionText}>{t('common.edit')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
+            {!item.isDefault && (
+              <TouchableOpacity
+                style={styles.actionButton}
+                onPress={() => setDefaultAddress(itemId)}
+              >
+                <Text variant="medium" size={11} style={styles.actionText}>Set Default</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
               style={styles.actionButton}
-              onPress={() => onRemoveAddress(item.id)}
+              onPress={() => onRemoveAddress(itemId)}
             >
               <Text variant="medium" size={11} style={styles.actionText}>{t('common.remove')}</Text>
             </TouchableOpacity>
@@ -140,9 +180,11 @@ const ManageAddress = ({ navigation, route }: any) => {
           <FlatList
             data={userAddresses}
             renderItem={renderAddressItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => (item._id || item.id || '').toString()}
             contentContainerStyle={styles.listContent}
             showsVerticalScrollIndicator={false}
+            refreshing={isLoading}
+            onRefresh={refetch}
           />
         </View>
 
@@ -158,6 +200,18 @@ const ManageAddress = ({ navigation, route }: any) => {
           <View style={{ flex: 1 }} />
           <Text variant="semiBold" size={18} color={theme.colors.white}>›</Text>
         </TouchableOpacity>
+
+        {isSelectionMode && selectedId ? (
+          <TouchableOpacity
+            style={styles.confirmFooter}
+            activeOpacity={0.85}
+            onPress={onConfirmSelection}
+          >
+            <Text variant="semiBold" size={15} style={styles.confirmFooterText}>
+              Deliver to this address
+            </Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
     </ScreenWrapper>
   );

@@ -61,6 +61,7 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   },
   serviceFooter: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: SH(10),
   },

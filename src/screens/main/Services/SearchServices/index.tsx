@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  ServiceCard,
 } from '@components';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
@@ -15,7 +16,6 @@ import { useTranslation } from 'react-i18next';
 import { SERVICES_DATA, IService } from '../dummyData';
 import { SW } from '@utils/Dimensions';
 import { ChevronBackwardIcon } from '@assets/icons';
-import ServiceCard from '../components/ServiceCard';
 
 const RECENT_SEARCHES = ['Engine Oil', 'Brake Service', 'Hydraulic Oil'];
 

@@ -13,35 +13,27 @@ import {
   SecondaryHeader,
   GlobalBottomSheet,
   Button,
+  FilterBottomSheet,
 } from '@components';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
-import { CheckIcon, CartIcon, CloseIcon } from '@assets/icons';
+import { CheckIcon, CartIcon, CloseIcon, FilterIcon } from '@assets/icons';
 import { ServiceModalImageImage } from '@assets/images';
 import { PARTS_DATA, PARTS_CATEGORIES } from '../dummyData';
 import { SW, SH } from '@utils/Dimensions';
-
 const BuyPartsScreen = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = createStyles(theme);
   const navigation = useNavigation<any>();
-  const [activeTab, setActiveTab] = useState(PARTS_CATEGORIES[0].id);
   const [modalVisible, setModalVisible] = useState(false);
+  const [filterVisible, setFilterVisible] = useState(false);
   const scrollRef = useRef<any>(null);
   const sectionLayouts = useRef<Record<string, number>>({});
 
   const onGoToService = () => {
     setModalVisible(false);
     navigation.navigate('Main', { screen: 'Services' });
-  };
-
-  const onTabPress = (id: string) => {
-    setActiveTab(id);
-    const yOffset = sectionLayouts.current[id];
-    if (yOffset !== undefined) {
-      scrollRef.current?.scrollTo({ y: yOffset - SH(10), animated: true });
-    }
   };
 
   const onSectionLayout = (id: string, y: number) => {
@@ -94,37 +86,13 @@ const BuyPartsScreen = () => {
         <View style={styles.searchContainer}>
           <SearchInput
             placeholder={t('main.home.buyParts.searchPlaceholder', 'Search for Kits')}
+            rightIcon={
+              <TouchableOpacity onPress={() => setFilterVisible(true)}>
+                <FilterIcon size={SW(24)} color={theme.colors.gray500} />
+              </TouchableOpacity>
+            }
           />
         </View>
-      </View>
-
-      <View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.tabsContainer}
-          contentContainerStyle={{ paddingRight: SW(32) }}
-        >
-          {PARTS_CATEGORIES.map((tab) => (
-            <TouchableOpacity
-              key={tab.id}
-              style={[
-                styles.tabPill,
-                activeTab === tab.id && styles.tabPillActive,
-              ]}
-              onPress={() => onTabPress(tab.id)}
-            >
-              <Text
-                style={[
-                  styles.tabText,
-                  activeTab === tab.id && styles.tabTextActive,
-                ]}
-              >
-                {t(`main.home.buyParts.${tab.id}`, { defaultValue: tab.title })}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
       </View>
 
       <ScrollView
@@ -176,6 +144,15 @@ const BuyPartsScreen = () => {
           />
         </View>
       </GlobalBottomSheet>
+
+      <FilterBottomSheet
+        visible={filterVisible}
+        onClose={() => setFilterVisible(false)}
+        onApply={(filters) => {
+          console.log('Applied filters:', filters);
+          setFilterVisible(false);
+        }}
+      />
     </ScreenWrapper>
   );
 };

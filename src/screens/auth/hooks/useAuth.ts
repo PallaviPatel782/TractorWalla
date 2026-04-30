@@ -139,6 +139,7 @@ export const useAddVehicle = () => {
 
         const updatedUser = {
           ...state.user,
+          onboardingCompleted: true,
           tractors: newVehicle ? [...currentTractors, newVehicle] : currentTractors,
         };
         console.log('Final Onboarding Update:', updatedUser);

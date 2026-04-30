@@ -18,10 +18,10 @@ import {
   TouchableOpacity,
   Text,
   ScreenWrapper,
+  ServiceCard,
 } from '@components';
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
-import ServiceCard from '../components/ServiceCard';
 // import { SH, SW } from '@utils/Dimensions';
 import { ServiceOverViewBannerImage } from '@assets/images';
 

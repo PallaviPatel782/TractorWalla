@@ -15,12 +15,14 @@ import {
   PaymentModal,
   Input,
 } from '@components';
-import { useAuthStore, Address } from '@store/useAuthStore';
+import { useAuthStore } from '@store/useAuthStore';
 import * as Brands from '@assets/images';
 import { CheckIcon, LocationIcon, BillIcon, BikeIcon, ChevronArrowIcon } from '@assets/icons';
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
 import { SW, SH, SF } from '@utils/Dimensions';
+import { useGetAllAddresses } from '../../hooks/useAddress';
+import { useGetVehiclesByCustomerId } from '../../hooks/useVehicle';
 
 const ServiceCheckoutScreen = () => {
   const { t } = useTranslation();
@@ -44,17 +46,35 @@ const ServiceCheckoutScreen = () => {
   };
 
   const user = useAuthStore((state) => state.user);
-  const tractors = useMemo(() => user?.tractors || [], [user?.tractors]);
-  const userAddresses = useMemo(() => user?.addresses || [], [user?.addresses]);
+  const { data: vehiclesData } = useGetVehiclesByCustomerId(user?._id || '');
 
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
-  const addresses = userAddresses;
+  const tractors = useMemo(() => {
+    const rawTractors = vehiclesData?.vehicles || vehiclesData?.data || user?.tractors || [];
+    return rawTractors.map((tractor: any) => ({
+      id: tractor._id || tractor.id,
+      brand: tractor.brandId?.name || tractor.customBrandName || tractor.brand,
+      model: tractor.modelId?.name || tractor.customModelName || tractor.model,
+      registrationNo: tractor.registrationNo,
+      yearOfManufacture: tractor.yearOfManufacture?.toString(),
+      yearOfPurchase: tractor.yearOfPurchase?.toString(),
+      tractorType: tractor.tractorType,
+      logoUrl: tractor.brandId?.logoUrl || tractor.logoUrl,
+      _original: tractor
+    }));
+  }, [vehiclesData, user?.tractors]);
+  const { data: addressResponse } = useGetAllAddresses();
+  const addresses = useMemo(() => {
+    return addressResponse?.data?.addresses || addressResponse?.addresses || [];
+  }, [addressResponse]);
+
+  const [selectedAddress, setSelectedAddress] = useState<any>(null);
 
   React.useEffect(() => {
     if (route.params?.selectedAddress) {
       setSelectedAddress(route.params.selectedAddress);
     } else if (!selectedAddress && addresses.length > 0) {
-      setSelectedAddress(addresses[0]);
+      const defaultAddress = addresses.find((addr: any) => addr.isDefault);
+      setSelectedAddress(defaultAddress || addresses[addresses.length - 1]);
     }
   }, [route.params?.selectedAddress, addresses, selectedAddress]);
 
@@ -66,8 +86,9 @@ const ServiceCheckoutScreen = () => {
     if (route.params?.selectedTractor) {
       setSelectedTractor(route.params.selectedTractor);
     } else if (tractors.length > 0) {
-      // Select the last one if nothing is selected OR a new tractor was added
-      if (!selectedTractor || tractors.length > prevTractorsLength.current) {
+      const isSelectedStillAvailable = selectedTractor && tractors.some((tr: any) => (tr.id || tr._id) === (selectedTractor.id || selectedTractor._id));
+
+      if (!selectedTractor || tractors.length > prevTractorsLength.current || !isSelectedStillAvailable) {
         setSelectedTractor(tractors[tractors.length - 1]);
       }
     }
@@ -240,7 +261,11 @@ const ServiceCheckoutScreen = () => {
             <ChevronArrowIcon size={18} color={theme.colors.DeepGreen} />
           </View>
           <View style={styles.selectionInfo}>
-            <Text style={styles.selectionSub}>{selectedAddress ? selectedAddress.address : 'Select an address'}</Text>
+            <Text style={styles.selectionSub}>
+              {selectedAddress
+                ? selectedAddress.address || [selectedAddress.addressLine, selectedAddress.city, selectedAddress.state].filter(Boolean).join(', ')
+                : 'Select an address'}
+            </Text>
             <TouchableOpacity style={styles.addAddressBtn} onPress={() => navigation.navigate('AddLocation')}>
               <Text style={{ color: theme.colors.danger, fontSize: SF(16) }}>+</Text>
               <Text style={styles.addAddressText}>{t('main.manageAddress.addNewFooter')}</Text>
@@ -284,10 +309,6 @@ const ServiceCheckoutScreen = () => {
           <View style={styles.billRow}>
             <Text style={styles.billLabel}>{t('main.bookings.invoice.itemTotal')}</Text>
             <Text style={styles.billValue}>₹{billSummary.itemTotal.toFixed(2)}</Text>
-          </View>
-          <View style={styles.billRow}>
-            <Text style={styles.billLabel}>{t('main.home.services.addonsTotal', 'Add-ons total')}</Text>
-            <Text style={styles.billValue}>₹{billSummary.addons.toFixed(2)}</Text>
           </View>
           <View style={styles.billRow}>
             <Text style={styles.billLabel}>{t('main.bookings.invoice.serviceFee')}</Text>

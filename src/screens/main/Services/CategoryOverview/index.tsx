@@ -17,10 +17,9 @@ import {
   LoudspeakerIcon,
   WarrantyBadgeIcon,
 } from '@assets/icons';
-import { Button, ScreenWrapper } from '@components';
+import { Button, ScreenWrapper, ServiceCard } from '@components';
 import { createStyles } from './styles';
 import { CATEGORY_OVERVIEW_DATA, SERVICES_DATA } from '../dummyData';
-import ServiceCard from '../components/ServiceCard';
 // import { SH, SW } from '@utils/Dimensions';
 
 const CategoryOverviewScreen = () => {

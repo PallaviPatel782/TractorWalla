@@ -47,36 +47,25 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
       borderRadius: SW(16),
       padding: SW(16),
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
       elevation: 10,
       shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.1,
       shadowRadius: 10,
     },
-    infoRow: {
-      flex: 1,
+    cardContent: {
       flexDirection: 'row',
-      alignItems: 'center',
-      gap: SW(12),
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
     },
     textContainer: {
       flex: 1,
     },
-    statusText: {
-      color: theme.colors.black,
-      marginBottom: SH(2),
-    },
-    nameText: {
-      color: theme.colors.gray500,
-    },
     etaBadge: {
-      backgroundColor: theme.colors.DeepGreen,
+      backgroundColor: theme.colors.success,
       paddingHorizontal: SW(10),
       paddingVertical: SH(6),
-      borderRadius: SW(10),
+      borderRadius: SW(8),
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -90,29 +79,15 @@ export const createStyles = (theme: AppTheme) =>
       fontSize: SF(8),
     },
     callBtn: {
-      width: SW(44),
-      height: SW(44),
-      borderRadius: SW(22),
-      backgroundColor: theme.colors.gray50,
+      width: SW(36),
+      height: SW(36),
+      borderRadius: SW(18),
+      backgroundColor: theme.colors.white,
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
       borderColor: theme.colors.gray200,
-      margin: SW(5)
-    },
-    callIcon: {
-      fontSize: SF(20),
-    },
-    viewDetailsBtn: {
-      backgroundColor: theme.colors.DeepGreen,
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(8),
-      borderRadius: SW(8),
-    },
-    viewDetailsText: {
-      color: theme.colors.white,
-      fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoMedium,
+      marginTop: SH(8)
     },
   });
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal } from 'react-native';
+import { Modal, RefreshControl } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import {
@@ -13,9 +13,11 @@ import {
   FlatList,
 } from '@components';
 import { useAuthStore } from '@store/useAuthStore';
+import { useGetVehiclesByCustomerId, useDeleteVehicle } from '@screens/main/hooks/useVehicle';
 import { createStyles } from './styles';
 import { TractorImage } from '@assets/images';
 import { SW, SH } from '@utils/Dimensions';
+import { Loader } from '@components';
 
 const MyTractorsScreen = ({ navigation, route }: any) => {
   const { theme } = useTheme();
@@ -23,12 +25,34 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
   const styles = createStyles(theme);
   
   const user = useAuthStore((state) => state.user);
-  const updateUser = useAuthStore((state) => state.updateUser);
-  const tractors = user?.tractors || [];
   const isSelectionMode = route.params?.isSelectionMode;
 
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedTractor, setSelectedTractor] = useState<any>(null);
+
+  const { 
+    data: vehiclesData, 
+    isLoading: isLoadingVehicles, 
+    isFetching, 
+    refetch
+  } = useGetVehiclesByCustomerId(user?._id || '');
+  const { mutate: deleteVehicle, isPending: isDeleting } = useDeleteVehicle();
+
+  // If the API call returns an array of vehicles, use it; otherwise fallback to user state
+  const rawTractors = vehiclesData?.vehicles || vehiclesData?.data || user?.tractors || [];
+
+  const tractors = rawTractors.map((t: any) => ({
+    id: t._id || t.id,
+    brand: t.brandId?.name || t.customBrandName || t.brand,
+    model: t.modelId?.name || t.customModelName || t.model,
+    registrationNo: t.registrationNo,
+    yearOfManufacture: t.yearOfManufacture?.toString(),
+    yearOfPurchase: t.yearOfPurchase?.toString(),
+    tractorType: t.tractorType,
+    logoUrl: t.brandId?.logoUrl || t.logoUrl,
+    // Keep original object reference if needed
+    _original: t
+  }));
 
   const handleDeletePress = (tractor: any) => {
     setSelectedTractor(tractor);
@@ -37,11 +61,12 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
 
   const confirmDelete = () => {
     if (selectedTractor) {
-      updateUser({
-        tractors: tractors.filter((t: any) => t.id !== selectedTractor.id)
+      deleteVehicle(selectedTractor.id || selectedTractor._id, {
+        onSuccess: () => {
+          setDeleteModalVisible(false);
+          setSelectedTractor(null);
+        }
       });
-      setDeleteModalVisible(false);
-      setSelectedTractor(null);
     }
   };
 
@@ -62,11 +87,13 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
           onBack={() => navigation.goBack()}
         />
 
+        <Loader visible={isLoadingVehicles} />
+
         <View style={styles.content}>
           <FlatList
             data={tractors}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+            keyExtractor={(item: any) => item.id || item._id}
+            renderItem={({ item }: { item: any }) => (
               <TractorCard
                 tractor={item}
                 isSelectionMode={isSelectionMode}
@@ -87,6 +114,14 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
             contentContainerStyle={styles.listContent}
             ListEmptyComponent={renderEmptyState}
             showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={isFetching && !isLoadingVehicles}
+                onRefresh={refetch}
+                colors={[theme.colors.brandRed]}
+                tintColor={theme.colors.brandRed}
+              />
+            }
           />
         </View>
 
@@ -121,11 +156,12 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.deleteButton}
+                  style={[styles.deleteButton, isDeleting && { opacity: 0.7 }]}
                   onPress={confirmDelete}
+                  disabled={isDeleting}
                 >
                   <Text variant="regular" size={13} color={theme.colors.white}>
-                    {t('main.myTractor.deleteConfirm')}
+                    {isDeleting ? t('common.deleting', 'Deleting...') : t('main.myTractor.deleteConfirm')}
                   </Text>
                 </TouchableOpacity>
               </View>

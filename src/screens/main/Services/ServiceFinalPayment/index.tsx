@@ -71,10 +71,6 @@ const ServiceFinalPayment = () => {
             </View>
             <View style={styles.imageContainer}>
               <OilImage width={SW(100)} height={SH(80)} style={styles.serviceImage} />
-              <View style={[styles.addedBadge, { backgroundColor: theme.colors.success }]}>
-                <CheckIcon size={10} color={theme.colors.white} />
-                <Text style={styles.addedText}>{t('common.added')}</Text>
-              </View>
             </View>
           </View>
 
@@ -104,18 +100,14 @@ const ServiceFinalPayment = () => {
 
             <View style={styles.dividerDashed} />
 
-            <View style={styles.serviceFooter}>
-              <View style={styles.ratingRow}>
-                <Text style={styles.starIcon}>★</Text>
-                <Text style={styles.ratingText}>4.9</Text>
-              </View>
-              <Text style={styles.price}>₹{t('main.bookings.invoice.taxNotice')}</Text>
-              <Text style={styles.mrp}>{t('common.default')}</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: SH(10) }}>
+              <Text style={styles.taxNote}>* {t('main.bookings.invoice.taxNotice')}</Text>
+              <Text style={styles.taxNote}>{t('common.included', 'Included')}</Text>
             </View>
 
-            <View style={styles.billRow}>
-              <Text style={styles.taxNote}>* {t('main.bookings.invoice.estimate')}</Text>
-              <Text style={styles.taxValue}>₹4380.00</Text>
+            <View style={styles.totalRow}>
+              <Text style={styles.totalLabel}>{t('main.bookings.invoice.totalEstimate', 'Total Estimate')}</Text>
+              <Text style={styles.totalValue}>₹4380.00</Text>
             </View>
           </View>
 
