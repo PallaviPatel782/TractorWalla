@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TouchableOpacity, Alert } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import {
   View,
@@ -22,6 +22,7 @@ import { useModels } from '@screens/auth/hooks/useAuth';
 import { ActivityIndicator, Image as RNImage } from 'react-native';
 import { Model } from '@appTypes/api.types';
 import { BikeIcon } from '@assets/icons';
+import { useCreateTractorLead } from '../../hooks/useTractorLead';
 
 const SelectTractorScreen = () => {
   const route = useRoute<any>();
@@ -44,6 +45,8 @@ const SelectTractorScreen = () => {
   const [customModel, setCustomModel] = useState('');
   const [city, setCity] = useState('');
 
+  const { mutate: createLead, isPending: isSubmitting } = useCreateTractorLead();
+
   const { data: modelsData, isLoading: isModelsLoading } = useModels(brandId);
   const modelOptions = useMemo(() => {
     const list: Model[] = modelsData?.data || modelsData?.models || [];
@@ -51,8 +54,22 @@ const SelectTractorScreen = () => {
   }, [modelsData]);
 
   const handleSubmit = () => {
-    Alert.alert('Inquiry Submitted Successfully!');
-    navigation.popToTop();
+    const payload = {
+      purchaseKind: type === 'New Tractor' ? 'new' : 'old',
+      brandName: isOthers ? customBrand : brand,
+      modelName: isOthers ? customModel : selectedModel,
+      name: name,
+      contactNumber: contact,
+      wantToBuyDate: date ? date.toISOString().split('T')[0] : '',
+      tractorType: tractorType,
+      city: city,
+    };
+
+    createLead(payload, {
+      onSuccess: () => {
+        navigation.popToTop();
+      },
+    });
   };
 
   return (
@@ -191,6 +208,7 @@ const SelectTractorScreen = () => {
               title={t('common.submit', 'Submit')}
               onPress={handleSubmit}
               disabled={(isOthers ? (!customBrand || !customModel) : !selectedModel) || !name || !contact || !date || !city}
+              loading={isSubmitting}
               style={styles.submitButton}
             />
           </ScrollView>

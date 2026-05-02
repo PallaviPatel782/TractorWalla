@@ -55,7 +55,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     sectionTitle: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.poppinsBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.danger, // Red from SS
     },
     kitCard: {
@@ -75,7 +75,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     kitTitle: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.poppinsBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },
@@ -98,13 +98,13 @@ export const createStyles = (theme: AppTheme) =>
     },
     ratingText: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.poppinsBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.GoldenYellow,
       marginRight: SW(8),
     },
     price: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.poppinsBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     mrp: {
@@ -154,7 +154,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     modalHeaderTitle: {
       fontSize: SF(16),
-      fontFamily: theme.fontfamily.poppinsBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.successDeep,
       marginTop: SH(5),
       marginBottom: SH(20),

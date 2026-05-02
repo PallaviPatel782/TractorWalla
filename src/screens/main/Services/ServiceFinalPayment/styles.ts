@@ -39,7 +39,7 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   },
   serviceName: {
     fontSize: SF(15),
-    fontFamily: theme.fontfamily.poppinsMedium,
+    fontFamily: theme.fontfamily.poppinsSemiBold,
     color: theme.colors.black,
     marginBottom: SH(10),
   },
@@ -78,7 +78,7 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   ratingText: {
     fontSize: SF(14),
     fontFamily: theme.fontfamily.poppinsMedium,
-    color: theme.colors.textSecondary,
+    color: theme.colors.GoldenYellow,
   },
   price: {
     fontSize: SF(15),

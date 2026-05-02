@@ -20,7 +20,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     serviceTitle: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },
@@ -30,7 +30,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(4),
     },
     bulletText: {
-      fontSize: SF(13),
+      fontSize: SF(14),
       fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
       flex: 1,
@@ -43,13 +43,13 @@ export const createStyles = (theme: AppTheme) =>
     },
     ratingText: {
       fontSize: SF(13),
-      fontFamily: theme.fontfamily.poppinsBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.GoldenYellow,
       marginRight: SW(8),
     },
     price: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.poppinsBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     mrp: {

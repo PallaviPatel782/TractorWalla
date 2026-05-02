@@ -186,7 +186,7 @@ const ServiceCheckoutScreen = () => {
               {ServiceImage && <ServiceImage width={SW(130)} height={SH(105)} style={styles.serviceImage} />}
               <View style={styles.addedBadge}>
                 <View style={styles.circle}>
-                  <CheckIcon size={10} />
+                  <CheckIcon size={10} color={theme.colors.greenSuccess} />
                 </View>
                 <Text style={styles.addedText}>{t('common.added')}</Text>
               </View>
@@ -365,7 +365,7 @@ const ServiceCheckoutScreen = () => {
             <View style={styles.payableCard}>
               <View>
                 <Text style={styles.payableLabel}>
-                  {paymentType === 'full' 
+                  {paymentType === 'full'
                     ? t('main.home.services.payableNowFull', 'Payable Now (100%)')
                     : t('main.home.services.payableNowPartial', 'Payable Now (30%)')}
                 </Text>

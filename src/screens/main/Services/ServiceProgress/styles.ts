@@ -119,8 +119,8 @@ export const createStyles = (theme: AppTheme) =>
       paddingRight: SW(10),
     },
     partTitle: {
-      fontSize: SF(14),
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontSize: SF(15),
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },
@@ -255,8 +255,8 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.gray100,
     },
     basicServiceTitle: {
-      fontSize: SF(14),
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontSize: SF(15),
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },

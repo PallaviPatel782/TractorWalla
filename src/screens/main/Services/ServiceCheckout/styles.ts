@@ -33,7 +33,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     serviceType: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.danger,
       marginBottom: SH(12),
     },
