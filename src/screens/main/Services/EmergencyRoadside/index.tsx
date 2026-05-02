@@ -22,7 +22,7 @@ import {
 import { Button, ScreenWrapper, ServiceCard } from '@components';
 import { createStyles } from './styles';
 import { EMERGENCY_SERVICE, SERVICES_DATA } from '../dummyData';
-// import { SH, SW } from '@utils/Dimensions';
+import { SH, SW } from '@utils/Dimensions';
 
 const EmergencyRoadsideScreen = () => {
   const { t } = useTranslation();
@@ -37,13 +37,13 @@ const EmergencyRoadsideScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          {ServiceImage && <ServiceImage width="100%" height="100%" style={styles.heroImage} />}
+          {ServiceImage && <ServiceImage width={SW(375)} height={SH(281)} />}
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
-              <ChevronBackwardIcon size={24} color={theme.colors.white} />
+              <ChevronBackwardIcon size={24} color={theme.colors.black} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconCircle}>
-              <ShareIcon size={18} color={theme.colors.white} />
+              <ShareIcon size={18} color={theme.colors.black} />
             </TouchableOpacity>
           </View>
         </View>
@@ -88,12 +88,12 @@ const EmergencyRoadsideScreen = () => {
           </View>
 
           {/* Service Includes */}
-          <Text style={styles.sectionHeading}>{t('main.home.services.includes', 'Service Includes')}</Text>
+          <Text style={[styles.sectionHeading, { marginHorizontal: 0 }]}>{t('main.home.services.includes', 'Service Includes')}</Text>
           <View style={styles.includesGrid}>
             {data.bullets?.map((point: string, idx: number) => (
-              <View key={idx} style={styles.bulletRow}>
+              <View key={idx} style={styles.detailBulletRow}>
                 <CheckedIcon size={16} color={theme.colors.success} />
-                <Text style={styles.bulletText}>{point}</Text>
+                <Text style={styles.detailBulletText}>{point}</Text>
               </View>
             ))}
           </View>
@@ -121,6 +121,7 @@ const EmergencyRoadsideScreen = () => {
             serviceId: data.id,
             category: 'emergency'
           })}
+          style={{ marginBottom: SH(30) }}
         />
       </View>
     </ScreenWrapper>

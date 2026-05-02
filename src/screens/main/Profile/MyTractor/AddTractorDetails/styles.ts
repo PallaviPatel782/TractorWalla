@@ -10,7 +10,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flex: 1,
-      paddingHorizontal: SW(20)
+      paddingHorizontal: SW(20),
+      paddingBottom: SH(100),
     },
     formContainer: {
       backgroundColor: theme.colors.white,
@@ -46,7 +47,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     typeTriggerText: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
     bottomSheetItem: {
       flexDirection: 'row',
@@ -59,11 +60,11 @@ export const createStyles = (theme: AppTheme) =>
     },
     bottomSheetItemText: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
     bottomSheetItemTextActive: {
       color: theme.colors.brandGreen,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     radioCircle: {
       width: SW(16),
@@ -84,41 +85,46 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.brandGreen,
     },
     label: {
-      marginBottom: SH(8),
+      marginBottom: SH(4),
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
-    brandDisplayContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: SW(12),
-      marginVertical: SH(10),
-      marginBottom: 0
-    },
-    brandLogoBox: {
-      width: SW(60),
-      height: SW(60),
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    brandDisplayName: {
-      color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoSemiBold,
-    },
-    dropdownButton: {
-      backgroundColor: theme.colors.white,
-      borderColor: theme.colors.borderLight,
-      borderWidth: 1.5,
-      paddingVertical: SH(10),
-      borderRadius: SW(12),
-    },
-    tractorImageContainer: {
+    topSection: {
       alignItems: 'center',
       marginBottom: SH(20),
     },
+    largeImageContainer: {
+      width: SW(90),
+      height: SH(90),
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    largeLogo: {
+      width: SW(90),
+      height: SH(90)
+    },
+    brandInfo: {
+      alignItems: 'center',
+      marginTop: SH(10)
+    },
+    formCard: {
+      backgroundColor: theme.colors.white,
+      borderRadius: SW(20),
+      padding: SW(20),
+      borderWidth: 1,
+      borderColor: theme.colors.borderFaint,
+      // Shadow
+      shadowColor: theme.colors.black,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.05,
+      shadowRadius: 10,
+      elevation: 3,
+      gap: SH(8),
+    },
     footer: {
-      marginTop: SH(20),
-      marginBottom: SH(30),
+      position: 'absolute',
+      bottom: SH(30),
+      left: SW(20),
+      right: SW(20),
     }
   });

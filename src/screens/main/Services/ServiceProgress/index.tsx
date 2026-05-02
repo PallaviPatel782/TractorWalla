@@ -12,6 +12,7 @@ import {
   Button,
   TouchableOpacity,
   PaymentModal,
+  SuccessOTPModal,
 } from '@components';
 import { createStyles } from './styles';
 import { CheckIcon, BillIcon } from '@assets/icons';
@@ -31,6 +32,7 @@ const ServiceProgress = () => {
   // For demo: toggle between empty and populated state
   const [hasParts, setHasParts] = useState(true);
   const [paymentModalVisible, setPaymentModalVisible] = useState(false);
+  const [otpModalVisible, setOtpModalVisible] = useState(false);
 
   const [parts] = useState([
     {
@@ -80,12 +82,17 @@ const ServiceProgress = () => {
 
   const handleConfirmPayment = () => {
     setPaymentModalVisible(false);
+    // Show OTP modal after payment success
+    setTimeout(() => {
+      setOtpModalVisible(true);
+    }, 500);
+  };
 
+  const handleOTPContinue = () => {
+    setOtpModalVisible(false);
     if (paymentType === 'full') {
-      // If full payment was chosen at checkout, we are done after paying parts
       navigation.navigate('ServiceCompletion', { bookingId, paymentType });
     } else {
-      // If partial payment was chosen, we need one more "Booking Details" step for balance
       navigation.navigate('ServiceFinalPayment', { bookingId });
     }
   };
@@ -231,7 +238,7 @@ const ServiceProgress = () => {
                   <Text style={styles.billValue}>₹{totalPartsPrice.toFixed(2)}</Text>
                 </View>
                 <View style={styles.billRow}>
-                  <Text style={styles.taxNote}>* {t('main.bookings.invoice.taxNotice')}</Text>
+                  <Text style={styles.taxNote}>{t('main.bookings.invoice.taxNotice')}</Text>
                   <Text style={styles.taxNote}>Included</Text>
                 </View>
                 <View style={styles.dottedDivider} />
@@ -258,6 +265,12 @@ const ServiceProgress = () => {
         onClose={() => setPaymentModalVisible(false)}
         onConfirm={handleConfirmPayment}
         amount={totalPartsPrice}
+      />
+
+      <SuccessOTPModal
+        visible={otpModalVisible}
+        otp="457328"
+        onClose={handleOTPContinue}
       />
     </ScreenWrapper>
   );

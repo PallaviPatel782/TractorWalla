@@ -70,14 +70,17 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
     }
   };
 
-  const renderEmptyState = () => (
-    <View style={styles.emptyContainer}>
-      <TractorImage width={SW(127)} height={SH(127)} opacity={0.3} />
-      <Text variant="medium" size={16} color={theme.colors.gray400} style={styles.emptyText}>
-        {t('main.myTractor.emptyText')}
-      </Text>
-    </View>
-  );
+  const renderEmptyState = () => {
+    if (isLoadingVehicles) return null;
+    return (
+      <View style={styles.emptyContainer}>
+        <TractorImage width={SW(127)} height={SH(127)} opacity={0.3} />
+        <Text variant="medium" size={16} color={theme.colors.gray400} style={styles.emptyText}>
+          {t('main.myTractor.emptyText')}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <ScreenWrapper>
@@ -89,48 +92,52 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
 
         <Loader visible={isLoadingVehicles} />
 
-        <View style={styles.content}>
-          <FlatList
-            data={tractors}
-            keyExtractor={(item: any) => item.id || item._id}
-            renderItem={({ item }: { item: any }) => (
-              <TractorCard
-                tractor={item}
-                isSelectionMode={isSelectionMode}
-                selected={route.params?.selectedTractorId === item.id}
-                onPress={() => {
-                  if (isSelectionMode) {
-                    navigation.navigate('ServiceCheckout', { 
-                      ...route.params,
-                      selectedTractor: item 
-                    });
-                  } else {
-                    navigation.navigate('TractorDetails', { tractor: item });
-                  }
-                }}
-                onDelete={() => handleDeletePress(item)}
+        {!isLoadingVehicles && (
+          <>
+            <View style={styles.content}>
+              <FlatList
+                data={tractors}
+                keyExtractor={(item: any) => item.id || item._id}
+                renderItem={({ item }: { item: any }) => (
+                  <TractorCard
+                    tractor={item}
+                    isSelectionMode={isSelectionMode}
+                    selected={route.params?.selectedTractorId === item.id}
+                    onPress={() => {
+                      if (isSelectionMode) {
+                        navigation.navigate('ServiceCheckout', { 
+                          ...route.params,
+                          selectedTractor: item 
+                        });
+                      } else {
+                        navigation.navigate('TractorDetails', { tractor: item });
+                      }
+                    }}
+                    onDelete={() => handleDeletePress(item)}
+                  />
+                )}
+                contentContainerStyle={styles.listContent}
+                ListEmptyComponent={renderEmptyState}
+                showsVerticalScrollIndicator={false}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={isFetching && !isLoadingVehicles}
+                    onRefresh={refetch}
+                    colors={[theme.colors.brandRed]}
+                    tintColor={theme.colors.brandRed}
+                  />
+                }
               />
-            )}
-            contentContainerStyle={styles.listContent}
-            ListEmptyComponent={renderEmptyState}
-            showsVerticalScrollIndicator={false}
-            refreshControl={
-              <RefreshControl
-                refreshing={isFetching && !isLoadingVehicles}
-                onRefresh={refetch}
-                colors={[theme.colors.brandRed]}
-                tintColor={theme.colors.brandRed}
-              />
-            }
-          />
-        </View>
+            </View>
 
-        <View style={styles.footer}>
-          <Button
-            title={t('main.myTractor.addNew')}
-            onPress={() => navigation.navigate('MainTractorBrand', { ...route.params })}
-          />
-        </View>
+            <View style={styles.footer}>
+              <Button
+                title={t('main.myTractor.addNew', 'Add New Tractor') + ' +'}
+                onPress={() => navigation.navigate('MainTractorBrand', { ...route.params })}
+              />
+            </View>
+          </>
+        )}
 
         <Modal
           visible={deleteModalVisible}
@@ -151,7 +158,7 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
                   style={styles.cancelButton}
                   onPress={() => setDeleteModalVisible(false)}
                 >
-                  <Text variant="regular" size={13} color={theme.colors.gray700}>
+                  <Text variant="regular" size={14} color={theme.colors.gray700}>
                     {t('common.cancel')}
                   </Text>
                 </TouchableOpacity>
@@ -160,7 +167,7 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
                   onPress={confirmDelete}
                   disabled={isDeleting}
                 >
-                  <Text variant="regular" size={13} color={theme.colors.white}>
+                  <Text variant="regular" size={14} color={theme.colors.white}>
                     {isDeleting ? t('common.deleting', 'Deleting...') : t('main.myTractor.deleteConfirm')}
                   </Text>
                 </TouchableOpacity>

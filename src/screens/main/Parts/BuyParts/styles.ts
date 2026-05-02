@@ -39,8 +39,8 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.DeepGreen,
     },
     tabText: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textSecondary,
     },
     tabTextActive: {
@@ -54,8 +54,8 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(15),
     },
     sectionTitle: {
-      fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(15),
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.danger, // Red from SS
     },
     kitCard: {
@@ -75,7 +75,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     kitTitle: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },
@@ -85,8 +85,8 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(4),
     },
     bulletText: {
-      fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
       flex: 1,
       marginLeft: SW(10)
@@ -97,19 +97,19 @@ export const createStyles = (theme: AppTheme) =>
       marginTop: SH(10),
     },
     ratingText: {
-      fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.GoldenYellow,
       marginRight: SW(8),
     },
     price: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.textPrimary,
     },
     mrp: {
-      fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
       marginLeft: SW(6),
@@ -126,17 +126,18 @@ export const createStyles = (theme: AppTheme) =>
     purchaseBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: 'rgba(30, 99, 63, 0.1)', // Light green bg
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(6),
-      borderRadius: SW(15),
-      borderWidth: 1,
+      backgroundColor: 'rgba(30, 99, 63, 0.08)', // Slightly lighter green
+      paddingHorizontal: SW(10),
+      paddingVertical: SH(5),
+      borderRadius: SW(20),
+      borderWidth: 1.2,
       borderColor: theme.colors.successDeep,
     },
     purchaseText: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(13),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.successDeep,
+      marginLeft: SW(4),
     },
     modalContainer: {
       backgroundColor: theme.colors.white,
@@ -153,14 +154,14 @@ export const createStyles = (theme: AppTheme) =>
     },
     modalHeaderTitle: {
       fontSize: SF(16),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.successDeep,
       marginTop: SH(5),
       marginBottom: SH(20),
     },
     modalMsg: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
       marginBottom: SH(20),
     },

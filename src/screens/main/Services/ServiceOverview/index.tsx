@@ -24,6 +24,7 @@ import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
 // import { SH, SW } from '@utils/Dimensions';
 import { ServiceOverViewBannerImage } from '@assets/images';
+import { SH, SW } from '@utils/Dimensions';
 
 const ServiceOverviewScreen = () => {
   const { t } = useTranslation();
@@ -52,7 +53,7 @@ const ServiceOverviewScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          <ServiceOverViewBannerImage width="100%" height="100%" />
+          <ServiceOverViewBannerImage width={SW(375)} height={SH(281)} />
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
               <ChevronBackwardIcon size={24} color={theme.colors.black} />
@@ -143,6 +144,7 @@ const ServiceOverviewScreen = () => {
         <Button
           title={t('main.home.services.bookNow', 'Book Now')}
           onPress={() => navigation.push('ServiceCheckout', { serviceId, category })}
+          style={{ marginBottom: SH(30) }}
         />
       </View>
     </ScreenWrapper>

@@ -34,18 +34,18 @@ export const createStyles = (theme: AppTheme) =>
         },
         title: {
             fontSize: SF(14),
-            fontFamily: theme.fontfamily.robotoSemiBold,
+            fontFamily: theme.fontfamily.poppinsSemiBold,
             color: theme.colors.gray900,
         },
         desc: {
             fontSize: SF(12),
-            fontFamily: theme.fontfamily.robotoRegular,
+            fontFamily: theme.fontfamily.poppinsRegular,
             color: theme.colors.gray600,
             marginTop: SH(2),
         },
         time: {
             fontSize: SF(10),
-            fontFamily: theme.fontfamily.robotoRegular,
+            fontFamily: theme.fontfamily.poppinsRegular,
             color: theme.colors.gray400,
             marginLeft: SW(8),
         },

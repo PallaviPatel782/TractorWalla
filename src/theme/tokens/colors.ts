@@ -82,6 +82,8 @@ export const lightColors = {
   paleGreen: '#E9F5ED',
   dangerFaint: '#FFE5E5',
   teal: '#00897B',
+  authGradientStart: '#FFF8E1',
+  authGradientEnd: '#E8F5E9',
 };
 
 export const darkColors: typeof lightColors = {

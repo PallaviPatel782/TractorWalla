@@ -27,20 +27,17 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ item, onPress, onBookPress })
             <Text style={styles.bulletText}>{bullet}</Text>
           </View>
         ))}
-        <View style={styles.serviceFooter}>
-          <View style={styles.ratingRow}>
-            <Text style={styles.starIcon}>★</Text>
-            <Text style={styles.ratingText}>{item.rating}</Text>
-          </View>
+        <View style={styles.kitFooter}>
+          <Text style={styles.ratingText}>★ {item.rating}</Text>
           <Text style={styles.price}>₹{item.price}</Text>
-          <Text style={styles.mrp}>₹{item.mrp}</Text>
+          <Text style={styles.mrp}>₹{item.price}</Text>
         </View>
       </View>
       <View style={styles.serviceRight}>
-        {item.image && <item.image width={SW(100)} height={SW(85)} style={styles.serviceImage} />}
+        {item.image && <item.image width={SW(100)} height={SW(90)} style={styles.serviceImage} />}
         <TouchableOpacity style={styles.bookBtn} onPress={onBookPress}>
           <CartIcon size={14} color={theme.colors.successDeep} />
-          <Text style={styles.bookText}> {t('main.home.services.book', 'Book')}</Text>
+          <Text style={styles.bookText}>{t('main.home.services.book', 'Book')}</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

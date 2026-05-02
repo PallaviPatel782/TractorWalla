@@ -13,6 +13,7 @@
     "added": "Added",
     "default": "Default",
     "delete": "Delete",
+    "today": "Today",
     "supportEmail": "support@tractorwalla.com",
     "brands": {
       "Mahindra": "Mahindra",
@@ -98,6 +99,9 @@
           "sub": "Get instant roadside help from nearby mechanics."
         }
       },
+      "whenDoYouWantToBuy": "When do you want to buy",
+      "newTractor": "New Tractor",
+      "oldTractor": "Old Tractor",
       "categoryLabels": {
         "maintenance": "General\nMaintenance",
         "clutch": "Transmission &\nClutch",
@@ -236,6 +240,8 @@
       "sendFeedback": "Send feedback",
       "reportIssue": "Report an Issue",
       "logout": "Log out",
+      "accountSettings": "Account Settings",
+      "changeLanguage": "Change Language",
       "connectWithUs": "Connect With Us",
       "instagram": "Instagram",
       "facebook": "Facebook",
@@ -247,7 +253,12 @@
         "email": "Email ID",
         "placeholderName": "Enter your full name",
         "placeholderEmail": "Enter email",
-        "button": "Update Profile"
+        "button": "Update Profile",
+        "phone": "Phone Number",
+        "deleteAccount": "Delete Account",
+        "areYouSure": "Are you sure?",
+        "deleteDesc": "This action is permanent and will remove all your data, bookings, and vehicle information.",
+        "confirmDelete": "Confirm Delete"
       },
       "feedback": {
         "title": "Send Feedback",
@@ -257,9 +268,9 @@
       },
       "report": {
         "title": "Report an Issue",
-        "helpText": "How can we help you*",
+        "helpText": "How can we help you",
         "selectIssue": "Select Issue",
-        "message": "Message*",
+        "message": "Message",
         "placeholder": "Message",
         "addPhoto": "Add photo",
         "needHelp": "Need direct help?",
@@ -323,7 +334,7 @@
     },
     "myTractor": {
       "title": "My Tractor",
-      "addNew": "Add New Tractor +",
+      "addNew": "Add New Tractor",
       "emptyText": "No tractors added yet. Add your first tractor to get started!",
       "deleteTitle": "Delete",
       "deleteSubtitle": "If you delete your tractor, you will permanently lose your tractor data.",
@@ -481,7 +492,12 @@
       "phoneLabel": "Phone Number",
       "phonePlaceholder": "Enter your phone number",
       "emailLabel": "Email",
-      "emailPlaceholder": "Enter your email"
+      "emailPlaceholder": "Enter your email",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Write your message here...",
+      "addPhoto": "Add screenshots (Optional)",
+      "reasonLabel": "Select Reason",
+      "selectReason": "Choose a reason"
     },
     "join_team": {
       "title": "Join the TractorWalla Team",
@@ -503,9 +519,9 @@
       "placeholderEmail": "Enter email",
       "button": "Save & Continue",
       "setupTitle": "Setup Your Profile Details",
-      "permanentAddress": "Permanent Address*",
-      "stateLabel": "State*",
-      "pincodeLabel": "Pincode*",
+      "permanentAddress": "Permanent Address",
+      "stateLabel": "State",
+      "pincodeLabel": "Pincode",
       "placeholderAddress": "Enter address",
       "placeholderState": "Enter state",
       "placeholderPincode": "Enter pincode"

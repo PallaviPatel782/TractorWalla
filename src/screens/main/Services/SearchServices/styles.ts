@@ -81,7 +81,7 @@ export const createStyles = (theme: AppTheme) =>
       marginRight: SW(12),
     },
     serviceTitle: {
-      fontSize: SF(16),
+      fontSize: SF(15),
       fontWeight: '700',
       color: theme.colors.black,
       marginBottom: SH(8),
@@ -92,7 +92,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(4),
     },
     bulletText: {
-      fontSize: SF(12),
+      fontSize: SF(14),
       color: theme.colors.textSecondary,
       marginLeft: SW(6),
     },
@@ -121,13 +121,13 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
     },
     priceText: {
-      fontSize: SF(16),
+      fontSize: SF(15),
       fontWeight: '700',
       color: theme.colors.black,
       marginRight: SW(6),
     },
     mrpText: {
-      fontSize: SF(12),
+      fontSize: SF(14),
       color: theme.colors.textSecondary,
       textDecorationLine: 'line-through',
     },

@@ -46,7 +46,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     typeTriggerText: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
     bottomSheetItem: {
       flexDirection: 'row',
@@ -59,11 +59,11 @@ export const createStyles = (theme: AppTheme) =>
     },
     bottomSheetItemText: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
     bottomSheetItemTextActive: {
       color: theme.colors.brandGreen,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     radioCircle: {
       width: SW(16),
@@ -86,7 +86,7 @@ export const createStyles = (theme: AppTheme) =>
     label: {
       marginBottom: SH(8),
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     brandDisplayContainer: {
       flexDirection: 'row',
@@ -103,7 +103,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     brandDisplayName: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     dropdownButton: {
       backgroundColor: theme.colors.white,

@@ -303,7 +303,7 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
           {/* Form */}
           <View style={{ padding: SW(16), paddingBottom: SH(30) }}>
             {/* Address Type */}
-            <Text variant="medium" size={13} style={{ color: theme.colors.textSecondary, marginBottom: SH(6) }}>
+            <Text variant="medium" size={14} style={{ color: theme.colors.textSecondary, marginBottom: SH(6) }}>
               Address Type
             </Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SW(8), marginBottom: SH(14) }}>
@@ -379,18 +379,17 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
               value={landmark}
               onChangeText={setLandmark}
             />
-
-            {/* Save Button */}
-            <View style={{ marginTop: SH(8) }}>
-              <Button
-                title={addressToEdit ? 'Update Address' : t('main.location.confirm')}
-                onPress={handleConfirm}
-                disabled={isCreating || isUpdating}
-                loading={isCreating || isUpdating}
-              />
-            </View>
           </View>
         </ScrollView>
+
+        <View style={styles.confirmWrapper}>
+          <Button
+            title={addressToEdit ? 'Update Address' : t('main.location.confirm')}
+            onPress={handleConfirm}
+            disabled={isCreating || isUpdating}
+            loading={isCreating || isUpdating}
+          />
+        </View>
       </KeyboardAvoidingView>
     </ScreenWrapper>
   );

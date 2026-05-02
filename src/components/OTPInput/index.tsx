@@ -47,7 +47,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ length = 6, onComplete }) => {
               backgroundColor: theme.colors.white,
               borderColor: otp[index] ? theme.colors.greenBtn : theme.colors.borderLight,
               color: theme.colors.textPrimary,
-              fontFamily: theme.typography.fonts.robotoRegular,
+              fontFamily: theme.typography.fonts.poppinsRegular,
             },
           ]}
           maxLength={1}
@@ -69,13 +69,17 @@ const styles = StyleSheet.create({
     marginVertical: SH(20),
   },
   input: {
-    width: SW(45),
-    height: SW(48),
+    width: SW(44),
+    height: SW(44),
     borderWidth: 1.5,
     borderRadius: SW(10),
     textAlign: 'center',
+    textAlignVertical: 'center',
     fontSize: SF(20),
     padding: 0,
+    marginHorizontal: SW(2),
+    marginVertical: SH(2),
+    includeFontPadding: false,
   },
 });
 

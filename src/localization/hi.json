@@ -13,6 +13,7 @@
     "added": "जोड़ा गया",
     "default": "डिफ़ॉल्ट",
     "delete": "हटाएं",
+    "today": "आज",
     "supportEmail": "support@tractorwalla.com",
     "brands": {
       "Mahindra": "महिंद्रा",
@@ -93,10 +94,13 @@
           "sub": "आसानी से नए और पुराने ट्रैक्टर ब्राउज़ करें"
         },
         "emergencyVisit": {
-          "title": "आपातकालीन यात्रा",
-          "sub": "आस-पास के मैकेनिकों से तुरंत सड़क किनारे सहायता प्राप्त करें।"
+          "title": "आपातकालीन मुलाकात",
+          "sub": "नजदीकी मैकेनिकों से तुरंत सड़क किनारे सहायता प्राप्त करें।"
         }
       },
+      "whenDoYouWantToBuy": "आप कब खरीदना चाहते हैं?",
+      "newTractor": "नया ट्रैक्टर",
+      "oldTractor": "पुराना ट्रैक्टर",
       "categoryLabels": {
         "maintenance": "सामान्य\nरखरखाव",
         "clutch": "ट्रांसमिशन और\nक्लच",
@@ -237,6 +241,8 @@
       "sendFeedback": "फीडबैक भेजें",
       "reportIssue": "समस्या की रिपोर्ट करें",
       "logout": "लॉग आउट",
+      "accountSettings": "खाता सेटिंग्स",
+      "changeLanguage": "भाषा बदलें",
       "connectWithUs": "हमसे जुड़ें",
       "instagram": "इंस्टाग्राम",
       "facebook": "फेसबुक",
@@ -248,7 +254,12 @@
         "email": "ईमेल आईडी",
         "placeholderName": "अपना पूरा नाम दर्ज करें",
         "placeholderEmail": "ईमेल दर्ज करें",
-        "button": "प्रोफ़ाइल अपडेट करें"
+        "button": "प्रोफ़ाइल अपडेट करें",
+        "phone": "फ़ोन नंबर",
+        "deleteAccount": "खाता हटाएं",
+        "areYouSure": "क्या आप निश्चित हैं?",
+        "deleteDesc": "यह क्रिया स्थायी है और आपका सारा डेटा, बुकिंग और वाहन की जानकारी हटा देगी।",
+        "confirmDelete": "हटाने की पुष्टि करें"
       },
       "feedback": {
         "title": "फीडबैक भेजें",
@@ -258,9 +269,9 @@
       },
       "report": {
         "title": "समस्या की रिपोर्ट करें",
-        "helpText": "हम आपकी कैसे मदद कर सकते हैं*",
+        "helpText": "हम आपकी कैसे मदद कर सकते हैं",
         "selectIssue": "समस्या चुनें",
-        "message": "संदेश*",
+        "message": "संदेश",
         "placeholder": "संदेश",
         "addPhoto": "फोटो जोड़ें",
         "needHelp": "क्या आपको सीधे मदद चाहिए?",
@@ -426,16 +437,16 @@
       "button": "ट्रैक्टर जोड़ें",
       "updateButton": "विवरण अपडेट करें",
       "myTractorTitle": "मेरा ट्रैक्टर",
-      "registrationLabel": "पंजीकरण संख्या*",
+      "registrationLabel": "पंजीकरण संख्या",
       "placeholderRegistration": "पंजीकरण संख्या दर्ज करें",
-      "manufactureYearLabel": "निर्माण वर्ष*",
+      "manufactureYearLabel": "निर्माण वर्ष",
       "placeholderYearEntry": "वर्ष दर्ज करें",
-      "purchaseYearLabel": "खरीद का वर्ष*",
-      "typeLabel": "ट्रैक्टर का प्रकार*",
+      "purchaseYearLabel": "खरीद का वर्ष",
+      "typeLabel": "ट्रैक्टर का प्रकार",
       "commercial": "व्यवसायिक",
       "agricultural": "कृषि",
-      "brandNameLabel": "ब्रांड का नाम*",
-      "modelNameLabel": "मॉडल का नाम*",
+      "brandNameLabel": "ब्रांड का नाम",
+      "modelNameLabel": "मॉडल का नाम",
       "placeholderBrandName": "ब्रांड का नाम दर्ज करें",
       "placeholderModelName": "मॉडल का नाम दर्ज करें"
     },
@@ -486,7 +497,12 @@
       "phoneLabel": "फोन नंबर",
       "phonePlaceholder": "अपना फोन नंबर दर्ज करें",
       "emailLabel": "ईमेल",
-      "emailPlaceholder": "अपना ईमेल दर्ज करें"
+      "emailPlaceholder": "अपना ईमेल दर्ज करें",
+      "messageLabel": "संदेश",
+      "messagePlaceholder": "अपना संदेश यहाँ लिखें...",
+      "addPhoto": "स्क्रीनशॉट जोड़ें (वैकल्पिक)",
+      "reasonLabel": "कारण चुनें",
+      "selectReason": "एक कारण चुनें"
     },
     "join_team": {
       "title": "ट्रैक्टरवाला टीम में शामिल हों",
@@ -508,9 +524,9 @@
       "placeholderEmail": "ईमेल दर्ज करें",
       "button": "सहेजें और जारी रखें",
       "setupTitle": "अपने प्रोफ़ाइल विवरण सेटअप करें",
-      "permanentAddress": "स्थायी पता*",
-      "stateLabel": "राज्य*",
-      "pincodeLabel": "पिनकोड*",
+      "permanentAddress": "स्थायी पता",
+      "stateLabel": "राज्य",
+      "pincodeLabel": "पिनकोड",
       "placeholderAddress": "पता दर्ज करें",
       "placeholderState": "राज्य दर्ज करें",
       "placeholderPincode": "पिनकोड दर्ज करें"

@@ -67,14 +67,14 @@ const BuyPartsScreen = () => {
           onPress={() => setModalVisible(true)}
         >
           <CartIcon size={SW(14)} color="#1E633F" />
-          <Text style={styles.purchaseText}> {t('main.home.buyParts.purchase', 'Purchase')}</Text>
+          <Text style={styles.purchaseText}>{t('main.home.buyParts.purchase', 'Purchase')}</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <ScreenWrapper style={styles.container}>
+    <ScreenWrapper withBottomInset={false} style={styles.container}>
       <View style={styles.header}>
         <SecondaryHeader
           title={t('main.home.buyParts.title', 'Buy Parts')}
@@ -98,7 +98,7 @@ const BuyPartsScreen = () => {
       <ScrollView
         ref={scrollRef}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[styles.listContent, { paddingBottom: SH(20) }]}
         scrollEventThrottle={16}
       >
         {PARTS_DATA.map((section) => (

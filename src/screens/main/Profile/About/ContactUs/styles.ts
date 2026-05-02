@@ -13,12 +13,23 @@ export const createStyles = (theme: AppTheme) =>
     },
     textContent: {
       paddingHorizontal: SW(20),
-      paddingVertical: SH(20),
+      paddingTop: SH(10),
+      paddingBottom: SH(20),
     },
     footer: {
       padding: SW(20),
       backgroundColor: theme.colors.white,
       borderTopWidth: 1,
       borderTopColor: theme.colors.borderFaint || '#E5E7EB',
+    },
+    photoSection: {
+      marginTop: SH(20),
+    },
+    dropdownButton: {
+      backgroundColor: theme.colors.white,
+      borderColor: theme.colors.borderLight || '#E5E7EB',
+      borderWidth: 1.5,
+      paddingVertical: SH(10),
+      borderRadius: SW(12),
     },
   });

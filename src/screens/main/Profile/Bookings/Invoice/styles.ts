@@ -32,7 +32,7 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'flex-end',
     },
     invoiceMainTitle: {
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(20),
       color: theme.colors.gray900,
       letterSpacing: 0.5,
@@ -87,12 +87,12 @@ export const createStyles = (theme: AppTheme) =>
     colTotal: { flex: 2, alignItems: 'flex-end' },
     tableTextWhite: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       fontSize: SF(12),
     },
     tableText: {
       color: theme.colors.gray800,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       fontSize: SF(12),
     },
     summaryRow: {
@@ -102,7 +102,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     taxNotice: {
       color: theme.colors.gray400,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       fontSize: SF(10),
       marginTop: SH(8),
       marginBottom: SH(16),

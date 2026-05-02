@@ -20,6 +20,7 @@ import {
 import { Button, ScreenWrapper, ServiceCard } from '@components';
 import { createStyles } from './styles';
 import { CATEGORY_OVERVIEW_DATA, SERVICES_DATA } from '../dummyData';
+import { SH, SW } from '@utils/Dimensions';
 // import { SH, SW } from '@utils/Dimensions';
 
 const CategoryOverviewScreen = () => {
@@ -28,20 +29,20 @@ const CategoryOverviewScreen = () => {
   const styles = createStyles(theme);
   const navigation = useNavigation<any>();
   const data = CATEGORY_OVERVIEW_DATA;
-  const ServiceImage = data.image;
+  const CategoryOverviewBannerImage = data.image;
 
   return (
     <ScreenWrapper style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          {ServiceImage && <ServiceImage width="100%" height="100%" style={styles.heroImage} />}
+          {CategoryOverviewBannerImage && <CategoryOverviewBannerImage width={SW(375)} height={SH(281)} />}
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
-              <ChevronBackwardIcon size={24} color={theme.colors.white} />
+              <ChevronBackwardIcon size={24} color={theme.colors.black} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconCircle}>
-              <ShareIcon size={18} color={theme.colors.white} />
+              <ShareIcon size={18} color={theme.colors.black} />
             </TouchableOpacity>
           </View>
         </View>
@@ -88,9 +89,9 @@ const CategoryOverviewScreen = () => {
           <Text style={[styles.sectionHeading, { marginHorizontal: 0 }]}>{t('main.home.services.includes', 'Service Includes')}</Text>
           <View style={styles.includesGrid}>
             {data.bullets?.map((point: string, idx: number) => (
-              <View key={idx} style={styles.bulletRow}>
+              <View key={idx} style={styles.detailBulletRow}>
                 <CheckedIcon size={16} color={theme.colors.success} />
-                <Text style={styles.bulletText}>{point}</Text>
+                <Text style={styles.detailBulletText}>{point}</Text>
               </View>
             ))}
           </View>
@@ -104,7 +105,7 @@ const CategoryOverviewScreen = () => {
               key={item.id}
               item={item}
               onPress={() => navigation.push('ServiceOverview', { serviceId: item.id, category: SERVICES_DATA[0].category })}
-                onBookPress={() => navigation.push('ServiceCheckout', { serviceId: item.id, category: SERVICES_DATA[0].category })}
+              onBookPress={() => navigation.push('ServiceCheckout', { serviceId: item.id, category: SERVICES_DATA[0].category })}
             />
           ))}
         </View>
@@ -118,6 +119,7 @@ const CategoryOverviewScreen = () => {
             serviceId: data.id,
             category: 'general'
           })}
+          style={{ marginBottom: SH(30) }}
         />
       </View>
     </ScreenWrapper>

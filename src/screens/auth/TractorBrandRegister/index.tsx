@@ -92,8 +92,8 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                 <View style={styles.brandDisplayContainer}>
                   <View style={styles.brandLogoBox}>
                     {logoUrl && (
-                      <Image 
-                        source={{ uri: logoUrl }} 
+                      <Image
+                        source={{ uri: logoUrl }}
                         style={{ width: SW(40), height: SW(40) }}
                         resizeMode="contain"
                       />
@@ -146,6 +146,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                   placeholder={t('main.register.placeholderRegistration')}
                   value={formData.registrationNo}
                   onChangeText={(val) => handleInputChange('registrationNo', val)}
+                  required
                 />
 
                 <Input
@@ -155,6 +156,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                   maxLength={4}
                   value={formData.yearOfManufacture}
                   onChangeText={(val) => handleInputChange('yearOfManufacture', val)}
+                  required
                 />
 
                 <Input
@@ -167,13 +169,16 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                 />
 
                 <View>
-                  <Text variant="medium" size={14} style={styles.label}>{t('main.register.typeLabel')}</Text>
+                  <Text variant="medium" size={12} style={styles.label}>
+                    {t('main.register.typeLabel')}
+                    <Text style={{ color: theme.colors.error }}> *</Text>
+                  </Text>
                   <TouchableOpacity
                     style={styles.typeTriggerButton}
                     onPress={() => setShowTypeSheet(true)}
                     activeOpacity={0.7}
                   >
-                    <Text variant="regular" size={13} style={styles.typeTriggerText}>
+                    <Text variant="regular" size={14} style={styles.typeTriggerText}>
                       {t(`main.register.${formData.tractorType}`)}
                     </Text>
                   </TouchableOpacity>

@@ -7,7 +7,6 @@ import {
     CheckIcon,
     ServiceIcon,
     BuyIcon,
-    BookingIcon,
     BillIcon,
 } from '@assets/icons';
 import { SW } from '@utils/Dimensions';
@@ -60,14 +59,6 @@ const NotificationScreen = ({ navigation }: any) => {
         },
         {
             id: '4',
-            title: 'Job Completed',
-            desc: 'Your vehicle service is completed. Ready for pickup.',
-            time: '10 MIN AGO',
-            color: theme.colors.successGreen,
-            Icon: BookingIcon,
-        },
-        {
-            id: '5',
             title: 'Payment Successful',
             desc: 'Payment received. Thank you!',
             time: '10 MIN AGO',

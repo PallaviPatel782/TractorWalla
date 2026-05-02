@@ -101,7 +101,7 @@ const ServiceFinalPayment = () => {
             <View style={styles.dividerDashed} />
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: SH(10) }}>
-              <Text style={styles.taxNote}>* {t('main.bookings.invoice.taxNotice')}</Text>
+              <Text style={styles.taxNote}>{t('main.bookings.invoice.taxNotice')}</Text>
               <Text style={styles.taxNote}>{t('common.included', 'Included')}</Text>
             </View>
 

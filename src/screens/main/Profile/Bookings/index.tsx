@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import {
@@ -109,7 +109,7 @@ const Bookings = ({ navigation }: any) => {
               <Text variant="regular" size={12} style={styles.assignedLabel}>
                 {t('main.bookings.list.assignedEngineer')}
               </Text>
-              <Text variant="semiBold" size={13} style={styles.engineerName}>
+              <Text variant="semiBold" size={14} style={styles.engineerName} numberOfLines={1} ellipsizeMode="tail">
                 {item.engineer}
               </Text>
             </View>
@@ -136,7 +136,7 @@ const Bookings = ({ navigation }: any) => {
               {t('main.bookings.list.totalAmount')}
             </Text>
             <Text variant="bold" size={15} style={styles.amountValue}>
-              ${item.amount}
+              ₹{item.amount}
             </Text>
           </View>
 
@@ -248,12 +248,33 @@ const Bookings = ({ navigation }: any) => {
         <SecondaryHeader title={t('main.bookings.list.title')} onBack={() => navigation.goBack()} />
 
         <View style={styles.content}>
+          {activeInvoiceMenuId && (
+            <TouchableOpacity
+              style={[StyleSheet.absoluteFill, { zIndex: 1 }]}
+              activeOpacity={1}
+              onPress={() => setActiveInvoiceMenuId(null)}
+            />
+          )}
           <FlatList
+            style={{ flex: 1, zIndex: activeInvoiceMenuId ? 10 : 0 }}
             data={MOCK_BOOKINGS}
             renderItem={({ item, index }) => renderBookingItem({ item, index })}
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listContent}
             showsVerticalScrollIndicator={false}
+            CellRendererComponent={({ children, index, style, ...props }) => {
+              const item = MOCK_BOOKINGS[index];
+              const isItemSelected = activeInvoiceMenuId === item?.id;
+              const cellStyle = [
+                style,
+                isItemSelected ? { zIndex: 1000, elevation: 10 } : { zIndex: 1, elevation: 1 },
+              ];
+              return (
+                <View style={cellStyle} {...props}>
+                  {children}
+                </View>
+              );
+            }}
           />
         </View>
       </View>

@@ -25,7 +25,7 @@ const BookServiceScreen = () => {
     sectionLayouts.current[id] = y;
   };
   return (
-    <ScreenWrapper style={styles.container}>
+    <ScreenWrapper withBottomInset={false} style={styles.container}>
       <View style={styles.header}>
         <SecondaryHeader
           title={t('main.home.services.title', 'Book Service')}

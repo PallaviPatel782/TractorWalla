@@ -28,7 +28,7 @@ export const createStyles = (theme: AppTheme) =>
     title: {
       fontSize: SF(18),
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     closeButton: {
       padding: SW(5),

@@ -3,7 +3,7 @@ import { TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { View, Text, GlobalBottomSheet, SearchInput, Button } from '@components';
 import { useTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
+import { SW, SH, SF } from '@utils/Dimensions';
 
 const filterTabs = ['Category', 'Subcategory', 'Brand', 'Model'] as const;
 type FilterTab = typeof filterTabs[number];
@@ -24,10 +24,10 @@ interface FilterBottomSheetProps {
 const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({ visible, onClose, onApply }) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
-  
+
   const [activeTab, setActiveTab] = useState<FilterTab>('Category');
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   // Using an object to store selected items for each category
   const [selectedItems, setSelectedItems] = useState<Record<FilterTab, string[]>>({
     Category: [],
@@ -56,7 +56,7 @@ const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({ visible, onClose,
     });
   };
 
-  const filteredItems = mockFilterData[activeTab].filter(item => 
+  const filteredItems = mockFilterData[activeTab].filter(item =>
     item.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -91,8 +91,8 @@ const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({ visible, onClose,
                   <Text
                     style={{
                       color: isActive ? theme.colors.black : theme.colors.gray600,
-                      fontWeight: isActive ? '600' : '400',
-                      fontSize: 14
+                      fontFamily: isActive ? theme.fontfamily.poppinsBold : theme.fontfamily.poppinsRegular,
+                      fontSize: SF(13)
                     }}
                   >
                     {t(`main.home.buyParts.filters.tabs.${tab}`, tab)}
@@ -104,7 +104,7 @@ const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({ visible, onClose,
 
           {/* Right Content (Options) */}
           <View style={styles.optionsContainer}>
-            <Text style={{ fontWeight: '600', fontSize: 14, marginBottom: SH(12) }}>
+            <Text style={{ fontFamily: theme.fontfamily.poppinsBold, fontSize: SF(14), marginBottom: SH(12), color: theme.colors.textPrimary }}>
               {t(`main.home.buyParts.filters.tabs.${activeTab}`, activeTab)}
             </Text>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -119,9 +119,10 @@ const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({ visible, onClose,
                     ]}
                     onPress={() => handleToggleItem(item)}
                   >
-                    <Text style={{ 
+                    <Text style={{
                       color: isSelected ? theme.colors.DeepGreen : theme.colors.gray700,
-                      fontSize: 13
+                      fontFamily: isSelected ? theme.fontfamily.poppinsBold : theme.fontfamily.poppinsRegular,
+                      fontSize: SF(13)
                     }}>
                       {item}
                     </Text>
@@ -137,13 +138,14 @@ const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({ visible, onClose,
           <Button
             title={t('main.home.buyParts.filters.clearAll', 'Clear All')}
             onPress={handleClearAll}
-            style={[styles.footerButton, { backgroundColor: '#E8F5E9' }]}
-            textStyle={{ color: theme.colors.DeepGreen }}
+            style={[styles.footerButton, { backgroundColor: '#F1F8F1' }]}
+            textStyle={{ color: theme.colors.DeepGreen, fontFamily: theme.fontfamily.poppinsBold, fontSize: SF(14) }}
           />
           <Button
             title={t('main.home.buyParts.filters.apply', 'Apply')}
             onPress={() => onApply(selectedItems)}
-            style={[styles.footerButton, { backgroundColor: theme.colors.DeepGreen }]}
+            style={styles.footerButton}
+            textStyle={{ fontFamily: theme.fontfamily.poppinsBold, fontSize: SF(14) }}
           />
         </View>
       </View>
@@ -156,34 +158,37 @@ const styles = StyleSheet.create({
     height: SH(450),
     display: 'flex',
     flexDirection: 'column',
+    marginHorizontal: -SW(20), // Compensate for GlobalBottomSheet horizontal padding
   },
   searchWrapper: {
-    paddingHorizontal: SW(16),
+    paddingHorizontal: SW(20),
     paddingBottom: SH(12),
   },
   contentRow: {
     flex: 1,
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
+    borderTopColor: '#F0F0F0',
   },
   sidebar: {
-    width: SW(110),
+    width: SW(135),
     height: '100%',
   },
   tabItem: {
     paddingVertical: SH(16),
     paddingHorizontal: SW(16),
-    borderLeftWidth: 3,
+    borderLeftWidth: 4,
     borderLeftColor: 'transparent',
   },
   optionsContainer: {
     flex: 1,
-    padding: SW(16),
+    paddingHorizontal: SW(20),
+    paddingVertical: SH(16),
+    backgroundColor: '#FFFFFF',
   },
   optionButton: {
-    paddingVertical: SH(10),
-    paddingHorizontal: SW(14),
+    paddingVertical: SH(8),
+    paddingHorizontal: SW(12),
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: SH(10),
@@ -191,13 +196,15 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    padding: SW(16),
+    padding: SW(20),
     gap: SW(12),
     borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
+    borderTopColor: '#F0F0F0',
+    backgroundColor: '#FFFFFF',
   },
   footerButton: {
     flex: 1,
+    height: SH(48),
   }
 });
 

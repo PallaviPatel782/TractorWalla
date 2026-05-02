@@ -50,7 +50,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     otpDigit: {
       fontSize: SF(18),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.black,
     },
     modalContent: {

@@ -342,20 +342,33 @@ const ServiceCheckoutScreen = () => {
                 style={[styles.paymentOption, paymentType === 'partial' && styles.paymentOptionSelected]}
                 onPress={() => setPaymentType('partial')}
               >
-                <Text style={styles.paymentOptionTitle}>{t('main.home.services.partialPayment')}</Text>
-                <Text style={styles.paymentOptionSub}>(30% Advance)</Text>
+                <Text style={[styles.paymentOptionTitle, paymentType === 'partial' && styles.paymentOptionTitleSelected]}>
+                  {t('main.home.services.partialPayment')}
+                </Text>
+                <Text style={[styles.paymentOptionSub, paymentType === 'partial' && styles.paymentOptionSubSelected]}>
+                  (30% Advance)
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.paymentOption, paymentType === 'full' && styles.paymentOptionSelected]}
                 onPress={() => setPaymentType('full')}
               >
-                <Text style={styles.paymentOptionTitle}>{t('main.home.services.fullPayment')}</Text>
+                <Text style={[styles.paymentOptionTitle, paymentType === 'full' && styles.paymentOptionTitleSelected]}>
+                  {t('main.home.services.fullPayment')}
+                </Text>
+                <Text style={[styles.paymentOptionSub, paymentType === 'full' && styles.paymentOptionSubSelected]}>
+                  (100%)
+                </Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.payableCard}>
               <View>
-                <Text style={styles.payableLabel}>{t('main.home.services.payableNow', 'Payable Now (30%)')}</Text>
+                <Text style={styles.payableLabel}>
+                  {paymentType === 'full' 
+                    ? t('main.home.services.payableNowFull', 'Payable Now (100%)')
+                    : t('main.home.services.payableNowPartial', 'Payable Now (30%)')}
+                </Text>
                 <Text style={styles.payableSub}>{t('main.home.services.balanceAtService', 'Balance at service')}</Text>
               </View>
               <Text style={styles.payableValue}>₹{payableNow.toFixed(2)}</Text>

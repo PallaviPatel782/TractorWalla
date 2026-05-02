@@ -30,3 +30,4 @@ export { default as SearchInput } from './SearchInput';
 export { default as Snackbar } from './Snackbar';
 export { default as FilterBottomSheet } from './FilterBottomSheet';
 export { default as ServiceCard } from './ServiceCard';
+export { default as SuccessOTPModal } from './SuccessOTPModal';

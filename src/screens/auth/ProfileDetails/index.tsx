@@ -91,10 +91,11 @@ const ProfileDetails = ({ navigation, route }: any) => {
           >
             <View style={styles.formContainer}>
               <Input
-                label={t('main.profileDetails.fullName') + ' *'}
+                label={t('main.profileDetails.fullName')}
                 placeholder={t('main.profileDetails.placeholderName')}
                 value={formData.fullName}
                 onChangeText={(val) => handleInputChange('fullName', val)}
+                required
               />
 
               <Input
@@ -107,28 +108,31 @@ const ProfileDetails = ({ navigation, route }: any) => {
               />
 
               <Input
-                label={t('main.profileDetails.permanentAddress') + ' *'}
+                label={t('main.profileDetails.permanentAddress')}
                 placeholder={t('main.profileDetails.placeholderAddress')}
                 multiline
                 value={formData.address}
                 onChangeText={(val) => handleInputChange('address', val)}
+                required
               />
 
 
               <Input
-                label={t('main.profileDetails.stateLabel') + ' *'}
+                label={t('main.profileDetails.stateLabel')}
                 placeholder={t('main.profileDetails.placeholderState')}
                 value={formData.state}
                 onChangeText={(val) => handleInputChange('state', val)}
+                required
               />
 
               <Input
-                label={t('main.profileDetails.pincodeLabel') + ' *'}
+                label={t('main.profileDetails.pincodeLabel')}
                 placeholder={t('main.profileDetails.placeholderPincode')}
                 keyboardType="number-pad"
                 maxLength={6}
                 value={formData.pincode}
                 onChangeText={(val) => handleInputChange('pincode', val)}
+                required
               />
 
             </View>

@@ -15,7 +15,7 @@ import { SW, SH, SF } from '@utils/Dimensions';
 import { CheckedIcon, ChevronBackwardIcon, DownloadIcon } from '@assets/icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 const ServiceInvoiceSummary = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -44,7 +44,19 @@ const ServiceInvoiceSummary = () => {
           </TouchableOpacity>
         </View>
 
-        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        {invoiceMenuVisible && (
+          <TouchableOpacity
+            style={[StyleSheet.absoluteFill, { zIndex: 1 }]}
+            activeOpacity={1}
+            onPress={() => setInvoiceMenuVisible(false)}
+          />
+        )}
+
+        <ScrollView 
+          contentContainerStyle={styles.content} 
+          showsVerticalScrollIndicator={false}
+          style={{ zIndex: invoiceMenuVisible ? 10 : 0 }}
+        >
           <View style={styles.bannerContainer}>
             <ServiceModalImageImage width={SW(300)} height={SH(180)} />
           </View>
@@ -61,7 +73,7 @@ const ServiceInvoiceSummary = () => {
               <View style={styles.statusContainer}>
                 <View style={styles.statusText}>
                   <CheckedIcon size={15} />
-                  <Text style={{ fontSize: SF(12), color: theme.colors.DeepGreen, fontFamily: theme.fontfamily.robotoBold }}>
+                  <Text style={{ fontSize: SF(12), color: theme.colors.DeepGreen, fontFamily: theme.fontfamily.poppinsBold }}>
                     {t('main.bookings.list.statuses.Completed')}
                   </Text>
                 </View>

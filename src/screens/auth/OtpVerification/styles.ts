@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
+import { SW, SH, SF } from '@utils/Dimensions';
 
 const { width } = Dimensions.get('window');
 
@@ -10,79 +10,104 @@ export const createStyles = (theme: AppTheme) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
+    gradientHeader: {
+      ...StyleSheet.absoluteFill,
+    },
     content: {
       flex: 1,
-      paddingHorizontal: SW(20),
-      paddingBottom: SH(10),
+      paddingHorizontal: SW(24),
+      paddingBottom: SH(20),
     },
     sliderSection: {
-      height: SH(190),
+      height: SH(160),
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: SH(25),
-      marginBottom: SH(25),
+      marginTop: SH(50),
     },
     slide: {
-      width: width - SW(40),
+      width: width - SW(48),
       alignItems: 'center',
       justifyContent: 'center',
     },
     serviceText: {
-      marginTop: SH(10),
+      marginVertical: SH(15),
       color: theme.colors.textPrimary,
       textAlign: 'center',
-      fontFamily: theme.fontfamily.robotoRegular,
+      paddingHorizontal: SW(40),
+      lineHeight: SH(22),
     },
     paginationDots: {
       flexDirection: 'row',
-      marginTop: SH(5),
+      marginTop: SH(10),
       alignItems: 'center',
       justifyContent: 'center',
     },
     dot: {
-      width: SW(6),
       height: SW(6),
       borderRadius: SW(3),
-      marginHorizontal: SW(3),
+      marginHorizontal: SW(4),
     },
     inputCard: {
       width: '100%',
-      padding: SW(20),
-      borderWidth: 1,
-      borderRadius: SW(20),
+      padding: SW(24),
+      borderRadius: SW(24),
       backgroundColor: theme.colors.white,
-      borderColor: theme.colors.borderLight,
-      // Shadow for iOS
-      shadowColor: theme.colors.black,
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.1,
-      shadowRadius: 10,
-      // Elevation for Android
-      elevation: 5,
-      marginTop: SH(30)
+      marginTop: SH(20),
+      ...Platform.select({
+        ios: {
+          shadowColor: theme.colors.black,
+          shadowOffset: { width: 0, height: 10 },
+          shadowOpacity: 0.08,
+          shadowRadius: 20,
+        },
+        android: {
+          elevation: 8,
+        },
+      }),
+      borderWidth: 1,
+      borderColor: theme.colors.borderFaint,
+    },
+    textSection: {
+      marginTop: SH(10),
+      alignItems: 'center',
+    },
+    title: {
+      color: theme.colors.textPrimary,
+      marginBottom: SH(8),
+      fontSize: SF(16)
     },
     subText: {
-      marginTop: SH(8),
+      marginTop: SH(4),
+      color: theme.colors.gray500,
       lineHeight: SH(18),
-      fontFamily: theme.fontfamily.robotoRegular,
+      paddingHorizontal: SW(20),
+      fontSize: SF(12)
     },
     otpWrapper: {
-      height: SH(70),
+      height: SH(80),
       justifyContent: 'center',
-      marginVertical: SH(5),
+      alignItems: 'center',
+      marginVertical: SH(10),
     },
     timerSection: {
       alignItems: 'center',
-      marginBottom: SH(15),
+      marginBottom: SH(20),
     },
     timerRow: {
       flexDirection: 'row',
       alignItems: 'center',
+      backgroundColor: theme.colors.backgroundTertiary,
+      paddingHorizontal: SW(12),
+      paddingVertical: SH(6),
+      borderRadius: SW(20),
     },
     resendBtn: {
       marginTop: SH(5),
     },
-    button: {
-      width: '100%',
+    footer: {
+      position: 'absolute',
+      bottom: SH(30),
+      left: SW(24),
+      right: SW(24),
     },
   });

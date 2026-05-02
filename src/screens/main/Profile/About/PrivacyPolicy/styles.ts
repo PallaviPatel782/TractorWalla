@@ -13,6 +13,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     textContent: {
       paddingHorizontal: SW(20),
-      paddingVertical: SH(20),
+      paddingTop: SH(10),
+      paddingBottom: SH(20),
     },
   });

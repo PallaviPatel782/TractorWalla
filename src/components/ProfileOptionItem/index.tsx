@@ -25,59 +25,67 @@ const ProfileOptionItem = ({
   showBorder = true,
 }: ProfileOptionItemProps) => {
   const { theme } = useTheme();
-  const styles = useMemo(() => createStyles(theme, showBorder), [theme, showBorder]);
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={onPress}
-      activeOpacity={0.7}
-    >
-      <View style={styles.leftContainer}>
-        <View style={styles.iconContainer}>
-          {icon}
+    <View style={styles.wrapper}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={onPress}
+        activeOpacity={0.7}
+      >
+        <View style={styles.leftContainer}>
+          <View style={styles.iconContainer}>
+            {icon}
+          </View>
+          <Text variant="regular" size={14} color={theme.colors.gray800}>
+            {title}
+          </Text>
         </View>
-        <Text variant="medium" size={14} color={theme.colors.gray800}>
-          {title}
-        </Text>
-      </View>
-      {showChevron && (
-        <View style={styles.chevronIcon}>
-          <ChevronBackwardIcon size={18} color={theme.colors.gray500} style={{ transform: [{ rotate: '180deg' }] }} />
-        </View>
-      )}
-    </TouchableOpacity>
+        {showChevron && (
+          <View style={styles.chevronIcon}>
+            <ChevronBackwardIcon size={25} color={theme.colors.gray500} style={{ transform: [{ rotate: '180deg' }] }} />
+          </View>
+        )}
+      </TouchableOpacity>
+      {showBorder && <View style={styles.bottomLine} />}
+    </View>
   );
 };
 
 export default ProfileOptionItem;
 
-const createStyles = (theme: any, showBorder: boolean) =>
+const createStyles = (theme: any) =>
   StyleSheet.create({
+    wrapper: {
+      width: '100%',
+    },
     container: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: SH(14),
-      paddingBottom: SH(5),
+      paddingVertical: SH(8),
       paddingHorizontal: SW(16),
-      borderBottomWidth: showBorder ? 1 : 0,
-      borderBottomColor: theme.colors.gray300,
     },
     leftContainer: {
       flexDirection: 'row',
       alignItems: 'center',
     },
     iconContainer: {
-      width: SW(36),
-      height: SW(36),
-      borderRadius: SW(18),
-      backgroundColor: theme.colors.backgroundExtraLight,
+      width: SW(32),
+      height: SW(32),
+      borderRadius: SW(10),
+      backgroundColor: theme.colors.backgroundTertiary,
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: SW(12),
+      marginRight: SW(14),
     },
     chevronIcon: {
       // Styling for chevron if needed
+    },
+    bottomLine: {
+      height: 1,
+      backgroundColor: theme.colors.gray200,
+      marginHorizontal: SW(16),
     }
   });

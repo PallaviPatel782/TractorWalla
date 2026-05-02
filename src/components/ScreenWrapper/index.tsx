@@ -17,6 +17,7 @@ interface ScreenWrapperProps {
   barStyle?: StatusBarStyle;
   backgroundColor?: string;
   withStep?: boolean;
+  withBottomInset?: boolean;
 }
 
 const ScreenWrapper = ({
@@ -25,6 +26,7 @@ const ScreenWrapper = ({
   statusBarColor,
   barStyle = 'dark-content',
   backgroundColor,
+  withBottomInset = true,
 }: ScreenWrapperProps) => {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
@@ -46,7 +48,7 @@ const ScreenWrapper = ({
         styles.innerContainer,
         {
           paddingTop: insets.top,
-          paddingBottom: insets.bottom,
+          paddingBottom: withBottomInset ? insets.bottom : 0,
           backgroundColor: finalBackgroundColor
         },
         style

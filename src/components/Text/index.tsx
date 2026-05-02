@@ -8,7 +8,7 @@ export interface TextProps extends RNTextProps {
   size?: number;
   color?: string;
   align?: 'left' | 'center' | 'right';
-  fontFamily?: 'roboto' | 'roboto';
+  fontFamily?: 'poppins' | 'roboto';
 }
 
 const Text: React.FC<TextProps> = ({
@@ -17,7 +17,7 @@ const Text: React.FC<TextProps> = ({
   size = 14,
   color,
   align = 'left',
-  fontFamily = 'roboto',
+  fontFamily = 'poppins',
   style,
   ...props
 }) => {
@@ -26,7 +26,7 @@ const Text: React.FC<TextProps> = ({
   const getFontFamily = () => {
     const capitalizedVariant = variant.charAt(0).toUpperCase() + variant.slice(1);
     const fontKey = `${fontFamily}${capitalizedVariant}` as keyof typeof theme.typography.fonts;
-    return theme.typography.fonts[fontKey] || theme.typography.fonts.robotoRegular;
+    return theme.typography.fonts[fontKey] || theme.typography.fonts.poppinsRegular;
   };
 
   const textStyle = {

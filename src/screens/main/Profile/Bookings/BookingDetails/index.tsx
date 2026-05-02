@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
-import { Text, SecondaryHeader, ScreenWrapper, View, ScrollView } from '@components';
+import { Text, SecondaryHeader, ScreenWrapper, View, ScrollView, Button } from '@components';
 import { createStyles } from './styles';
 import { OilImage, OilcheckImage, MahindraImage } from '@assets/images';
 import { SW, SH } from '@utils/Dimensions';
@@ -226,6 +226,14 @@ const BookingDetailsScreen = ({ navigation }: any) => {
           </View>
 
         </ScrollView>
+
+        <View style={styles.footer}>
+          <Button
+            title={t('main.bookings.list.invoice')}
+            onPress={() => navigation.navigate('Invoice', { bookingId: bookingData.id, type: 'General' })}
+            style={styles.invoiceButton}
+          />
+        </View>
       </View>
     </ScreenWrapper>
   );

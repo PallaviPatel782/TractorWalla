@@ -21,7 +21,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     label: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.black,
       marginBottom: SH(12),
     },
@@ -35,13 +35,13 @@ export const createStyles = (theme: AppTheme) =>
     },
     experienceLabel: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.black,
       marginTop: SH(24),
       marginBottom: SH(8),
     },
     ratingValueText: {
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.DeepGreen,
     },
     starsRow: {

@@ -136,7 +136,7 @@ const createStyles = (theme: AppTheme) =>
     },
     label: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       fontSize: SF(14),
     },
     photosRow: {

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, TextInput as RNTextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
-import { Text, SecondaryHeader, ScreenWrapper, Input, Button, View, ScrollView, TouchableOpacity } from '@components';
+import { Text, ScreenWrapper, View, ScrollView, TouchableOpacity, GlobalBottomSheet } from '@components';
 import { createStyles } from './styles';
-import { EditIcon, UserIcon } from '@assets/icons';
-import { SW } from '@utils/Dimensions';
+import { CameraIcon, UserIcon, DeleteIcon } from '@assets/icons';
+import { SW, SH } from '@utils/Dimensions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useAuthStore } from '@store/useAuthStore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-
 import { useUpdateProfile } from '@screens/auth/hooks/useAuth';
-
+import LinearGradient from 'react-native-linear-gradient';
+import { SecondaryHeader } from '@components';
 type Props = NativeStackScreenProps<RootStackParamList, 'UpdateProfile'>;
 
 const UpdateProfileScreen = ({ navigation }: Props) => {
@@ -24,14 +24,13 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
 
   const [fullName, setFullName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
-  // Using a separate state for local profile image URI, or we could extend the User type later
   const [profileImage, setProfileImage] = useState(user?.profileImage || '');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleUpdate = () => {
     updateProfile({
       name: fullName,
       email: email,
-      // address, state, pincode can be added if needed, or fetched from user object
       address: user?.address || '',
       state: user?.state || '',
       pincode: user?.pincode || '',
@@ -55,59 +54,90 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <ScreenWrapper>
-      <View style={styles.container}>
+    <ScreenWrapper withBottomInset={false} style={styles.container}>
+      <LinearGradient
+        colors={['#FFF5F5', '#F0FFF4', '#EBF5FF']}
+        style={{ flex: 1 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        {/* Header */}
         <SecondaryHeader
           title={t('main.profile.updateProfile.title')}
           onBack={() => navigation.goBack()}
+          backgroundColor={theme.colors.DeepGreen}
+          titleColor={theme.colors.white}
         />
 
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : SH(100)}
         >
-          <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-            <View style={styles.avatarContainer}>
-              {profileImage ? (
-                <Image
-                  source={{ uri: profileImage }}
-                  style={styles.avatarImage}
-                />
-              ) : (
-                <View style={[styles.avatarImage, { alignItems: 'center', justifyContent: 'center' }]}>
-                  <UserIcon size={SW(45)} color={theme.colors.black} />
-                </View>
-              )}
-              <TouchableOpacity
-                style={styles.editBadge}
-                activeOpacity={0.8}
-                onPress={handlePickImage}
-              >
-                <EditIcon size={SW(14)} color={theme.colors.white} />
-              </TouchableOpacity>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.content}
+            keyboardShouldPersistTaps="handled"
+          >
+            {/* Profile Banner Background */}
+            <View style={styles.profileBanner} />
+
+            {/* Avatar Section */}
+            <View style={styles.avatarSection}>
+              <View style={styles.avatarWrapper}>
+                {profileImage ? (
+                  <Image
+                    source={{ uri: profileImage }}
+                    style={styles.avatarImage}
+                  />
+                ) : (
+                  <View style={[styles.avatarImage, { alignItems: 'center', justifyContent: 'center' }]}>
+                    <UserIcon size={SW(45)} color={theme.colors.gray300} />
+                  </View>
+                )}
+                <TouchableOpacity
+                  style={styles.editBadge}
+                  activeOpacity={0.8}
+                  onPress={handlePickImage}
+                >
+                  <CameraIcon size={SW(14)} color={theme.colors.white} />
+                </TouchableOpacity>
+              </View>
             </View>
 
-            <View style={styles.formContainer}>
-              <View>
-                <View style={styles.inputLabelRow}>
-                  <Text style={styles.inputLabel}>{t('main.profile.updateProfile.fullName')}</Text>
-                  <Text style={styles.asterisk}>*</Text>
-                </View>
-                <Input
-                  placeholder={t('main.profile.updateProfile.placeholderName')}
+            {/* Form Card */}
+            <View style={styles.formCard}>
+              {/* Full Name */}
+              <View style={styles.inputField}>
+                <Text style={styles.inputLabel}>{t('main.profile.updateProfile.fullName')}</Text>
+                <RNTextInput
+                  style={styles.input}
                   value={fullName}
                   onChangeText={setFullName}
+                  placeholder={t('main.profile.updateProfile.placeholderName')}
+                  placeholderTextColor={theme.colors.gray300}
                 />
               </View>
 
-              <View>
-                <View style={styles.inputLabelRow}>
-                  <Text style={styles.inputLabel}>{t('main.profile.updateProfile.email')}</Text>
-                </View>
-                <Input
-                  placeholder={t('main.profile.updateProfile.placeholderEmail')}
+              {/* Phone */}
+              <View style={styles.inputField}>
+                <Text style={styles.inputLabel}>{t('main.profile.updateProfile.phone') || 'Phone'}</Text>
+                <RNTextInput
+                  style={[styles.input, { color: theme.colors.textMuted }]}
+                  value={user?.phone || '0000-0000-00'}
+                  editable={false}
+                />
+              </View>
+
+              {/* Email */}
+              <View style={[styles.inputField, { borderBottomWidth: 0 }]}>
+                <Text style={styles.inputLabel}>{t('main.profile.updateProfile.email')}</Text>
+                <RNTextInput
+                  style={styles.input}
                   value={email}
                   onChangeText={setEmail}
+                  placeholder={t('main.profile.updateProfile.placeholderEmail')}
+                  placeholderTextColor={theme.colors.gray300}
                   keyboardType="email-address"
                   autoCapitalize="none"
                 />
@@ -115,17 +145,71 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
             </View>
           </ScrollView>
 
+          {/* Footer Buttons */}
           <View style={styles.footer}>
-            <Button
-              title={t('main.profile.updateProfile.button')}
+            <TouchableOpacity
+              style={[styles.saveButton, { opacity: isPending || !fullName.trim() ? 0.7 : 1 }]}
               onPress={handleUpdate}
-              loading={isPending}
-              style={styles.updateButton}
-              disabled={!fullName.trim()}
-            />
+              disabled={isPending || !fullName.trim()}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.saveButtonText}>{t('main.profile.updateProfile.button')}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.deleteButton}
+              activeOpacity={0.8}
+              onPress={() => setShowDeleteModal(true)}
+            >
+              <Text style={styles.deleteButtonText}>{t('main.profile.updateProfile.deleteAccount') || 'Delete Account'}</Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
-      </View>
+
+        {/* Delete Confirmation Bottom Sheet */}
+        <GlobalBottomSheet
+          visible={showDeleteModal}
+          onClose={() => setShowDeleteModal(false)}
+          title={t('main.profile.updateProfile.deleteAccount') || 'Delete Account'}
+        >
+          <View style={styles.modalContent}>
+            <View style={styles.modalIcon}>
+              <DeleteIcon size={SW(30)} color={theme.colors.error} />
+            </View>
+            <Text variant="semiBold" size={18} color={theme.colors.textPrimary} style={styles.modalTitle}>
+              {t('main.profile.updateProfile.areYouSure') || 'Are you sure?'}
+            </Text>
+            <Text variant="regular" size={14} color={theme.colors.textMuted} style={styles.modalDesc}>
+              {t('main.profile.updateProfile.deleteDesc') || 'This action is permanent and will remove all your data, bookings, and vehicle information.'}
+            </Text>
+
+            <View style={styles.modalActions}>
+              <TouchableOpacity
+                style={styles.confirmDeleteBtn}
+                activeOpacity={0.8}
+                onPress={() => {
+                  setShowDeleteModal(false);
+                  // Handle deletion logic
+                }}
+              >
+                <Text variant="semiBold" size={16} color={theme.colors.white}>
+                  {t('main.profile.updateProfile.confirmDelete') || 'Confirm Delete'}
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.cancelBtn}
+                activeOpacity={0.8}
+                onPress={() => setShowDeleteModal(false)}
+              >
+                <Text variant="medium" size={16} color={theme.colors.textPrimary}>
+                  {t('common.cancel') || 'Cancel'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </GlobalBottomSheet>
+      </LinearGradient>
     </ScreenWrapper>
   );
 };

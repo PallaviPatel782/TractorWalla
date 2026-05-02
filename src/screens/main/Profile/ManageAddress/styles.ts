@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
+import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -19,7 +19,7 @@ export const createStyles = (theme: AppTheme) =>
     sectionTitle: {
       marginBottom: SH(16),
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     listContent: {
       paddingBottom: SH(100),
@@ -28,7 +28,7 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
       borderRadius: SW(12),
       padding: SW(16),
-      marginBottom: SH(16),
+      marginBottom: SH(10),
       flexDirection: 'row',
       borderWidth: 1,
       borderColor: theme.colors.borderLight,
@@ -37,6 +37,7 @@ export const createStyles = (theme: AppTheme) =>
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 4,
+      marginHorizontal: SW(1)
     },
     addressCardSelected: {
       borderColor: theme.colors.gray900,
@@ -73,8 +74,9 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(4),
     },
     addressLabel: {
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.gray500,
+      fontSize: SF(13)
     },
     addressText: {
       lineHeight: SH(18),
@@ -94,7 +96,7 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
     },
     actionText: {
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.gray900,
     },
     footer: {
@@ -113,7 +115,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     footerText: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     defaultBadge: {
       marginLeft: SW(8),

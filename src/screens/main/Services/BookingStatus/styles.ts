@@ -12,30 +12,26 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: SW(20),
+      paddingHorizontal: SW(16),
       paddingTop: SH(10),
-      height: SH(60),
+      paddingBottom: SH(10),
     },
     backBtn: {
       padding: SW(5),
     },
-    backIcon: {
-      fontSize: SF(24),
-      color: theme.colors.black,
-    },
     cancelBadge: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: theme.colors.dangerFaint,
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(6),
+      backgroundColor: theme.colors.brandRedLight || '#FFF1F1',
+      paddingHorizontal: SW(14),
+      paddingVertical: SH(8),
       borderRadius: SW(20),
       gap: SW(6),
     },
     cancelText: {
       color: theme.colors.red,
-      fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     content: {
       flexGrow: 1,
@@ -67,7 +63,13 @@ export const createStyles = (theme: AppTheme) =>
     },
     stepItem: {
       alignItems: 'center',
-      width: SW(80),
+      width: SW(110),
+    },
+    circleContainer: {
+      width: SW(32),
+      height: SW(32),
+      marginBottom: SH(8),
+      position: 'relative',
     },
     stepCircle: {
       width: SW(32),
@@ -78,7 +80,6 @@ export const createStyles = (theme: AppTheme) =>
       justifyContent: 'center',
       borderWidth: 1,
       borderColor: theme.colors.gray300,
-      marginBottom: SH(8),
     },
     stepCircleActive: {
       backgroundColor: theme.colors.white,
@@ -92,36 +93,28 @@ export const createStyles = (theme: AppTheme) =>
     stepNumber: {
       fontSize: SF(14),
       color: theme.colors.gray500,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     stepNumberActive: {
       color: theme.colors.DeepGreen,
     },
     stepLabel: {
-      fontSize: SF(10),
+      fontSize: SF(12),
       color: theme.colors.gray500,
       textAlign: 'center',
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
+      paddingHorizontal: SW(4),
     },
     stepLabelActive: {
       color: theme.colors.black,
-      fontFamily: theme.fontfamily.robotoMedium,
-    },
-    completedBadge: {
-      position: 'absolute',
-      bottom: SH(25),
-      right: SW(20),
-      backgroundColor: theme.colors.DeepGreen,
-      borderRadius: SW(10),
-      padding: SW(2),
-      borderWidth: 1,
-      borderColor: theme.colors.white,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     connector: {
       flex: 1,
       height: 2,
       backgroundColor: theme.colors.gray200,
       marginTop: SH(16),
+      marginHorizontal: -SW(10),
     },
     connectorActive: {
       backgroundColor: theme.colors.DeepGreen,
@@ -132,7 +125,7 @@ export const createStyles = (theme: AppTheme) =>
     modalSubTitle: {
       fontSize: SF(14),
       color: theme.colors.black,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       marginBottom: SH(12),
     },
     reasonsGrid: {
@@ -158,12 +151,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     reasonTextActive: {
       color: theme.colors.DeepGreen,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     othersLabel: {
       fontSize: SF(14),
       color: theme.colors.black,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       marginBottom: SH(8),
     },
     othersInput: {

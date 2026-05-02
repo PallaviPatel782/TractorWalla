@@ -9,19 +9,12 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background,
     },
     scrollContent: {
-      paddingBottom: SH(100),
+      paddingBottom: SH(60),
     },
     heroSection: {
-      height: SH(240),
-      width: '100%',
+      height: SH(280),
       position: 'relative',
-      backgroundColor: theme.colors.background,
-      overflow: 'hidden',
-    },
-    heroImage: {
-      width: '100%',
-      height: '100%',
-      resizeMode: 'cover',
+      alignItems: 'center',
     },
     headerRow: {
       position: 'absolute',
@@ -33,18 +26,31 @@ export const createStyles = (theme: AppTheme) =>
       zIndex: 10,
     },
     iconCircle: {
-      width: SW(32),
-      height: SW(32),
-      borderRadius: SW(16),
-      backgroundColor: 'rgba(0,0,0,0.3)',
+      width: SW(36),
+      height: SW(36),
+      borderRadius: SW(18),
+      backgroundColor: theme.colors.white,
       alignItems: 'center',
       justifyContent: 'center',
+      shadowColor: theme.colors.black,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      elevation: 3,
+    },
+    heroImage: {
+      resizeMode: 'contain',
+    },
+    cardHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: SH(15),
     },
     contentCard: {
       backgroundColor: theme.colors.white,
-      marginTop: SH(-40),
-      marginHorizontal: SW(16),
-      borderRadius: SW(24),
+      marginTop: SH(-30),
+      marginHorizontal: SW(10),
+      borderRadius: SW(20),
       paddingHorizontal: SW(20),
       paddingVertical: SH(15),
       shadowColor: theme.colors.black,
@@ -64,37 +70,28 @@ export const createStyles = (theme: AppTheme) =>
       paddingVertical: SH(4),
       borderRadius: SW(6),
     },
-    ratingText: {
-      fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary,
-      marginLeft: SW(4),
-    },
     badgeText: {
       fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.white,
       textTransform: 'uppercase',
     },
     title: {
-      fontSize: SF(18),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(15),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
-      marginBottom: SH(15),
-    },
-    highlights: {
-      marginBottom: SH(0),
-    },
-    highlightItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
       marginBottom: SH(10),
     },
-    highlightText: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoRegular,
-      color: theme.colors.textSecondary,
-      marginLeft: SW(10),
+    ratingRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: SH(15),
+    },
+    ratingText: {
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
+      color: theme.colors.GoldenYellow,
+      marginLeft: SW(4),
     },
     priceRow: {
       flexDirection: 'row',
@@ -102,25 +99,37 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(20),
     },
     price: {
-      fontSize: SF(22),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(15),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     mrp: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
       marginLeft: SW(10),
     },
-    otherServicesSection: {
-      marginTop: SH(10),
-      marginBottom: SH(20),
-      paddingHorizontal: SW(16),
+    highlights: {
+
+      borderRadius: SW(12),
+      paddingBottom: SH(15),
+
+    },
+    highlightItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: SH(2),
+    },
+    highlightText: {
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
+      color: theme.colors.textPrimary,
+      marginLeft: SW(10),
     },
     sectionHeading: {
       fontSize: SF(16),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
       marginBottom: SH(15),
       marginHorizontal: SW(12)
@@ -130,19 +139,23 @@ export const createStyles = (theme: AppTheme) =>
       flexWrap: 'wrap',
       justifyContent: 'space-between',
     },
-    bulletRow: {
+    detailBulletRow: {
       flexDirection: 'row',
-      alignItems: 'flex-start',
+      alignItems: 'center',
       width: '48%',
-      marginBottom: SH(20),
-      paddingRight: SW(4),
+      marginBottom: SH(20)
+
     },
-    bulletText: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoMedium,
+    detailBulletText: {
+      fontSize: SF(12),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.gray600,
       flex: 1,
-      marginLeft: SW(10),
+      marginLeft: SW(5),
+    },
+    otherServicesSection: {
+      marginTop: SH(10),
+      marginBottom: SH(20)
     },
     footer: {
       position: 'absolute',

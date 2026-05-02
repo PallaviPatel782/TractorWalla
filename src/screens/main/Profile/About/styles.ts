@@ -30,7 +30,7 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.primary,
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: SH(40),
+      paddingVertical: SH(20),
     },
     logoTextContainer: {
       alignItems: 'center',
@@ -38,25 +38,26 @@ export const createStyles = (theme: AppTheme) =>
     },
     logoTitle: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       fontSize: SF(28),
       letterSpacing: 1,
       lineHeight: SF(34),
     },
     textContent: {
       paddingHorizontal: SW(20),
-      paddingVertical: SH(20),
+      paddingTop: SH(10),
+      paddingBottom: SH(20),
     },
     description: {
       color: theme.colors.gray700,
-      fontFamily: theme.fontfamily.robotoRegular,
-      fontSize: SF(13),
+      fontFamily: theme.fontfamily.poppinsRegular,
+      fontSize: SF(14),
       lineHeight: SH(20),
       marginBottom: SH(20),
     },
     whyChooseTitle: {
       color: theme.colors.primary,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(14),
       marginBottom: SH(12),
       flexDirection: 'row',
@@ -72,8 +73,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     listText: {
       color: theme.colors.gray800,
-      fontFamily: theme.fontfamily.robotoRegular,
-      fontSize: SF(13),
+      fontFamily: theme.fontfamily.poppinsRegular,
+      fontSize: SF(14),
     },
     footer: {
       padding: SW(20),

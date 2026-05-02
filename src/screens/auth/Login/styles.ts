@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
+import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -8,46 +8,75 @@ export const createStyles = (theme: AppTheme) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
+    gradientHeader: {
+      ...StyleSheet.absoluteFill,
+    },
     content: {
       flex: 1,
-      paddingHorizontal: SW(20),
+      paddingHorizontal: SW(24),
       paddingBottom: SH(20),
     },
     illustrationContainer: {
-      marginTop: SH(70),
+      marginTop: SH(60),
       alignItems: 'center',
-      marginVertical: SH(20),
+      justifyContent: 'center',
     },
+
     textSection: {
-      marginBottom: SH(30),
+      marginTop: SH(30),
+      alignItems: 'center',
+    },
+    title: {
+      color: theme.colors.textPrimary,
+
+      fontSize: SF(16)
     },
     subText: {
-      marginTop: SH(4),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
+      color: theme.colors.gray500,
+      paddingHorizontal: SW(20),
+      fontSize: SF(12)
     },
     inputCard: {
       width: '100%',
-      padding: SW(20),
-      borderRadius: SW(20),
+      paddingHorizontal: SW(24),
+      paddingTop: SH(24),
+      paddingBottom: SH(30),
+      borderRadius: SW(24),
       backgroundColor: theme.colors.white,
-      fontFamily: theme.fontfamily.robotoRegular,
-      marginTop: SH(40),
+      marginTop: SH(30),
       marginBottom: SH(10),
-      shadowColor: theme.colors.black,
-      shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 10,
-      elevation: 5,
+      ...Platform.select({
+        ios: {
+          shadowColor: theme.colors.black,
+          shadowOffset: { width: 0, height: 10 },
+          shadowOpacity: 0.08,
+          shadowRadius: 20,
+        },
+        android: {
+          elevation: 1,
+        },
+      }),
+      borderWidth: 1,
+      borderColor: theme.colors.borderFaint,
     },
-
+    inputWrapper: {
+      marginBottom: SH(20),
+    },
     button: {
-      marginTop: SH(10),
+      // marginTop: SH(5),
+      borderRadius: SW(12),
     },
     footerContainer: {
-      marginTop: SH(40),
+      marginTop: 'auto',
+      paddingBottom: SH(20),
       alignItems: 'center',
+    },
+    agreementText: {
+      lineHeight: SH(18),
+    },
+    linkText: {
+      color: theme.colors.AzureBlue,
+      textDecorationLine: 'underline',
     },
   });

@@ -11,11 +11,11 @@ export const createStyles = (theme: AppTheme) =>
     content: {
       paddingHorizontal: SW(16),
       paddingTop: SH(15),
-      paddingBottom: SH(100),
+      paddingBottom: SH(40),
     },
     bookingId: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textSecondary,
       marginBottom: SH(10),
       textDecorationLine: 'underline',
@@ -42,12 +42,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     mechanicName: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     mechanicStats: {
       fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
       marginTop: SH(2),
     },
@@ -63,13 +63,13 @@ export const createStyles = (theme: AppTheme) =>
     },
     emptyTitle: {
       fontSize: SF(16),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
       marginTop: SH(15),
     },
     emptySub: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
       textAlign: 'center',
       marginTop: SH(8),
@@ -77,7 +77,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     partsSectionTitle: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.red,
       marginBottom: SH(12),
     },
@@ -96,18 +96,18 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(10),
     },
     partVendor: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     partLocation: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
     },
     partRating: {
       fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.GoldenYellow,
     },
     partBody: {
@@ -120,7 +120,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     partTitle: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },
@@ -130,8 +130,8 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(4),
     },
     partBulletText: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
       marginLeft: SW(6),
     },
@@ -142,12 +142,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     partPrice: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     partMrp: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
       marginLeft: SW(8),
@@ -176,7 +176,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     quantityText: {
       fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.white,
       marginHorizontal: SW(8),
     },
@@ -190,7 +190,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     billTitle: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
       marginLeft: SW(10),
     },
@@ -205,18 +205,18 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(10),
     },
     billLabel: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
     },
     billValue: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     taxNote: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textMuted,
     },
     divider: {
@@ -231,12 +231,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     totalLabel: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     totalValue: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     footer: {
@@ -256,7 +256,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     basicServiceTitle: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
       marginBottom: SH(8),
     },
@@ -266,13 +266,13 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(6),
     },
     basicServiceCostLabel: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
     },
     basicServiceCostValue: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     basicServiceCostDiscount: {
@@ -280,7 +280,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     staticQuantityText: {
       fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
       marginTop: SH(6),
       textAlign: 'center',
@@ -291,8 +291,8 @@ export const createStyles = (theme: AppTheme) =>
       marginTop: SH(4),
     },
     partTractorText: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
       marginLeft: SW(4),
     },
@@ -303,8 +303,8 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(20),
     },
     redNoteText: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.red,
       lineHeight: SH(16),
     },

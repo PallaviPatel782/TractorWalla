@@ -11,7 +11,8 @@ export const createStyles = (theme: AppTheme) =>
     content: {
       flexGrow: 1,
       paddingHorizontal: SW(20),
-      // paddingTop: SH(20),
+      paddingTop: SH(10),
+      paddingBottom: SH(20),
     },
     formContainer: {
       gap: SH(16),
@@ -28,7 +29,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     addPhotoLabel: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       fontSize: SF(14),
     },
     photoBox: {
@@ -70,7 +71,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     supportText: {
       color: theme.colors.gray600,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       fontSize: SF(12),
       marginBottom: SH(4),
     },
@@ -81,7 +82,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     supportEmailText: {
       color: theme.colors.brandGreen,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       fontSize: SF(12),
     },
     bottomContainer: {

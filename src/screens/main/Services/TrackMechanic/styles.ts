@@ -37,7 +37,7 @@ export const createStyles = (theme: AppTheme) =>
     storeText: {
       fontSize: SF(10),
       color: theme.colors.black,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     bottomCard: {
       position: 'absolute',
@@ -72,7 +72,7 @@ export const createStyles = (theme: AppTheme) =>
     etaText: {
       color: theme.colors.white,
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
     },
     etaUnit: {
       color: theme.colors.white,

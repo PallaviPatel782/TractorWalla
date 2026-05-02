@@ -53,44 +53,44 @@ export const fontMap: Record<
   { normal: string; italic: string }
 > = {
   '100': {
-    normal: typography.fonts.robotoThin,
+    normal: typography.fonts.poppinsThin,
     italic: typography.fonts.poppinsItalic,
   },
   '200': {
-    normal: typography.fonts.robotoLight,
+    normal: typography.fonts.poppinsLight,
     italic: typography.fonts.poppinsItalic,
   },
   '300': {
-    normal: typography.fonts.robotoLight,
+    normal: typography.fonts.poppinsLight,
     italic: typography.fonts.poppinsItalic,
   },
   '400': {
-    normal: typography.fonts.robotoRegular,
+    normal: typography.fonts.poppinsRegular,
     italic: typography.fonts.poppinsItalic,
   },
   '500': {
-    normal: typography.fonts.robotoMedium,
+    normal: typography.fonts.poppinsMedium,
     italic: typography.fonts.poppinsItalic,
   },
   '600': {
-    normal: typography.fonts.robotoSemiBold,
+    normal: typography.fonts.poppinsSemiBold,
     italic: typography.fonts.poppinsItalic,
   },
   '700': {
-    normal: typography.fonts.robotoBold,
+    normal: typography.fonts.poppinsBold,
     italic: typography.fonts.poppinsItalic,
   },
   '800': {
-    normal: typography.fonts.robotoBold,
+    normal: typography.fonts.poppinsBold,
     italic: typography.fonts.poppinsItalic,
   },
   '900': {
-    normal: typography.fonts.robotoBold,
+    normal: typography.fonts.poppinsBold,
     italic: typography.fonts.poppinsItalic,
   },
 };
 
 export const defaultTextStyle = {
-  fontFamily: typography.fonts.robotoRegular,
+  fontFamily: typography.fonts.poppinsRegular,
   fontSize: typography.sizes.md,
 };

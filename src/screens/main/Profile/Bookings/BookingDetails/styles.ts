@@ -19,7 +19,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     bookingId: {
       color: theme.colors.gray600,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(14),
       textDecorationLine: 'underline',
       marginBottom: SH(12),
@@ -32,12 +32,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     tractorName: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(14),
     },
     serviceTypeTitle: {
       color: theme.colors.danger,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(15),
       marginBottom: SH(16),
     },
@@ -48,7 +48,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     sectionTitle: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(16),
       marginBottom: SH(16),
     },
@@ -63,8 +63,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     itemTitle: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoSemiBold,
-      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontSize: SF(15),
       marginBottom: SH(8),
     },
     featureRow: {
@@ -75,8 +75,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     featureText: {
       color: theme.colors.gray800,
-      fontFamily: theme.fontfamily.robotoRegular,
-      fontSize: SF(12),
+      fontFamily: theme.fontfamily.poppinsRegular,
+      fontSize: SF(14),
     },
     priceRow: {
       flexDirection: 'row',
@@ -89,18 +89,18 @@ export const createStyles = (theme: AppTheme) =>
     },
     ratingText: {
       color: theme.colors.gray600,
-      fontFamily: theme.fontfamily.robotoRegular,
-      fontSize: SF(12),
+      fontFamily: theme.fontfamily.poppinsBold,
+      fontSize: SF(14),
     },
     priceText: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoSemiBold,
-      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontSize: SF(15),
     },
     strikePrice: {
       color: theme.colors.gray500,
-      fontFamily: theme.fontfamily.robotoRegular,
-      fontSize: SF(12),
+      fontFamily: theme.fontfamily.poppinsRegular,
+      fontSize: SF(14),
       textDecorationLine: 'line-through',
     },
     imageContainer: {
@@ -113,27 +113,20 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(12),
     },
     addedBadge: {
-      position: 'absolute',
-      bottom: SH(40),
-      backgroundColor: theme.colors.lightgreen,
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center',
-      paddingHorizontal: SW(6),
-      paddingVertical: SH(2),
-      borderRadius: SW(5),
-      gap: SW(4),
-      zIndex: 10,
-      elevation: 4,
-      shadowColor: theme.colors.black,
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.15,
-      shadowRadius: 3,
+      backgroundColor: 'rgba(30, 99, 63, 0.08)',
+      paddingHorizontal: SW(10),
+      paddingVertical: SH(5),
+      borderRadius: SW(20),
+      borderWidth: 1.2,
+      borderColor: theme.colors.successDeep,
     },
     addedText: {
-      color: theme.colors.DeepGreen,
-      fontFamily: theme.fontfamily.robotoSemiBold,
-      fontSize: SF(10),
+      fontSize: SF(13),
+      fontFamily: theme.fontfamily.poppinsRegular,
+      color: theme.colors.successDeep,
+      marginLeft: SW(4),
     },
     billSummaryCard: {
       marginBottom: SH(32),
@@ -166,27 +159,27 @@ export const createStyles = (theme: AppTheme) =>
     },
     billLabel: {
       color: theme.colors.gray700,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       fontSize: SF(14),
     },
     billValue: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       fontSize: SF(14),
     },
     billDiscountLabel: {
       color: theme.colors.success,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       fontSize: SF(14),
     },
     billDiscountValue: {
       color: theme.colors.success,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(14),
     },
     billTaxLabel: {
       color: theme.colors.gray500,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       fontSize: SF(12),
     },
     billTotalRow: {
@@ -196,12 +189,21 @@ export const createStyles = (theme: AppTheme) =>
     },
     billTotalLabel: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(16),
     },
     billTotalValue: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       fontSize: SF(16),
+    },
+    footer: {
+      padding: SW(16),
+      backgroundColor: theme.colors.white,
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.borderFaint,
+    },
+    invoiceButton: {
+      backgroundColor: theme.colors.brandGreen,
     },
   });

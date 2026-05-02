@@ -15,8 +15,8 @@ interface SecondaryHeaderProps {
   backIconColor?: string;
 }
 
-const SecondaryHeader: React.FC<SecondaryHeaderProps> = ({ 
-  title, 
+const SecondaryHeader: React.FC<SecondaryHeaderProps> = ({
+  title,
   onBack,
   backgroundColor,
   titleColor,
@@ -36,10 +36,10 @@ const SecondaryHeader: React.FC<SecondaryHeaderProps> = ({
         </TouchableOpacity>
       )}
       <View style={styles.titleContainer}>
-        <Text 
-           variant="medium" 
-           size={15} 
-           style={[styles.titleText, titleColor ? { color: titleColor } : undefined]}
+        <Text
+          variant="medium"
+          size={15}
+          style={[styles.titleText, titleColor ? { color: titleColor } : undefined]}
         >
           {title}
         </Text>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: SW(16),
     paddingVertical: SH(10),
+    paddingBottom: 0
   },
   backButton: {
     padding: SW(5),

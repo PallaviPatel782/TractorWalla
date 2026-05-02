@@ -101,7 +101,7 @@ const createStyles = (theme: AppTheme) => StyleSheet.create({
     fontSize: SF(16),
     color: theme.colors.gray500,
     marginBottom: SH(10),
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
   },
   paymentMethodItem: {
     flexDirection: 'row',
@@ -129,12 +129,12 @@ const createStyles = (theme: AppTheme) => StyleSheet.create({
   razorpayText: {
     color: theme.colors.white,
     fontSize: SF(15),
-    fontFamily: theme.fontfamily.robotoMedium,
+    fontFamily: theme.fontfamily.poppinsMedium,
   },
   paymentMethodName: {
     fontSize: SF(18),
     color: theme.colors.black,
-    fontFamily: theme.fontfamily.robotoMedium,
+    fontFamily: theme.fontfamily.poppinsMedium,
   },
   radioOuterActive: {
     width: SW(22),
@@ -165,7 +165,7 @@ const createStyles = (theme: AppTheme) => StyleSheet.create({
   modalCancelText: {
     fontSize: SF(18),
     color: theme.colors.textSecondary,
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
   },
   modalProceedBtn: {
     flex: 1,
@@ -177,7 +177,7 @@ const createStyles = (theme: AppTheme) => StyleSheet.create({
   modalProceedText: {
     fontSize: SF(18),
     color: theme.colors.white,
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
   },
   successOverlay: {
     flex: 1,
@@ -202,13 +202,13 @@ const createStyles = (theme: AppTheme) => StyleSheet.create({
   },
   successTitle: {
     fontSize: SF(22),
-    fontFamily: theme.fontfamily.robotoBold,
+    fontFamily: theme.fontfamily.poppinsMedium,
     color: theme.colors.black,
-    marginBottom: SH(10),
+
   },
   successSubTitle: {
     fontSize: SF(16),
-    fontFamily: theme.fontfamily.robotoMedium,
+    fontFamily: theme.fontfamily.poppinsMedium,
     textAlign: 'center',
   },
 });

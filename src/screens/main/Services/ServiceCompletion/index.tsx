@@ -45,7 +45,7 @@ const ServiceCompletion = () => {
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.successContainer}>
             <SucessIcon size={100} color={theme.colors.DeepGreen} />
-            <Text variant="bold" size={20} style={styles.thankYouText}>
+            <Text variant="medium" size={20} style={styles.thankYouText}>
               {t('main.serviceFlow.thankYou')}
             </Text>
             <Text variant="medium" size={14} style={styles.successSubText}>
@@ -74,9 +74,9 @@ const ServiceCompletion = () => {
       >
         <View style={styles.modalContent}>
           <View style={styles.modalIconContainer}>
-             <CheckedIcon size={60} color={theme.colors.DeepGreen} />
+            <CheckedIcon size={60} color={theme.colors.DeepGreen} />
           </View>
-          <Text variant="bold" size={18} style={styles.modalTitle}>
+          <Text variant="medium" size={18} style={styles.modalTitle}>
             {t('main.serviceFlow.serviceCompleted')}
           </Text>
           <Text variant="regular" size={12} style={styles.modalSubText}>

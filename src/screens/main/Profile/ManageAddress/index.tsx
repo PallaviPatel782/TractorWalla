@@ -118,13 +118,13 @@ const ManageAddress = ({ navigation, route }: any) => {
         </View>
         <View style={styles.addressInfo}>
           <View style={styles.labelRow}>
-            <Text variant="semiBold" size={13} style={styles.addressLabel}>
+            <Text variant="regular" size={14} style={styles.addressLabel}>
               {(item.addressType || item.label || 'Address').charAt(0).toUpperCase() +
                 (item.addressType || item.label || 'address').slice(1)}
             </Text>
             {item.isDefault && (
               <View style={styles.defaultBadge}>
-                <Text variant="medium" size={10} style={styles.defaultBadgeText}>Default</Text>
+                <Text variant="regular" size={10} style={styles.defaultBadgeText}>Default</Text>
               </View>
             )}
           </View>

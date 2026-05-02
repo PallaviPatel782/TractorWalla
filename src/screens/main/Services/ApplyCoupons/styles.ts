@@ -34,7 +34,7 @@ export const createStyles = (theme: AppTheme) =>
     searchInput: {
       flex: 1,
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textPrimary,
       paddingVertical: SH(8),
     },
@@ -43,12 +43,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     applyBtnText: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.DeepGreen,
     },
     sectionTitle: {
       fontSize: SF(16),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(16),
     },
@@ -72,7 +72,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     tagText: {
       fontSize: SF(16),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.white,
       transform: [{ rotate: '-90deg' }],
       width: SH(80),
@@ -85,19 +85,19 @@ export const createStyles = (theme: AppTheme) =>
     },
     couponCode: {
       fontSize: SF(15),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(4),
     },
     couponTitle: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textSecondary,
       marginBottom: SH(2),
     },
     couponDesc: {
       fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textMuted,
     },
     cardApplyBtn: {
@@ -108,7 +108,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     cardApplyText: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.DeepGreen,
     },
   });

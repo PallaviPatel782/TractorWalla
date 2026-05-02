@@ -9,14 +9,12 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background,
     },
     scrollContent: {
-      paddingBottom: SH(100),
+      paddingBottom: SH(60),
     },
     heroSection: {
       height: SH(280),
       position: 'relative',
       alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.white,
     },
     headerRow: {
       position: 'absolute',
@@ -74,13 +72,13 @@ export const createStyles = (theme: AppTheme) =>
     },
     badgeText: {
       fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.white,
       textTransform: 'uppercase',
     },
     title: {
-      fontSize: SF(20),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(15),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
       marginBottom: SH(10),
     },
@@ -91,8 +89,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     ratingText: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
-      color: theme.colors.textPrimary,
+      fontFamily: theme.fontfamily.poppinsMedium,
+      color: theme.colors.GoldenYellow,
       marginLeft: SW(4),
     },
     priceRow: {
@@ -101,13 +99,13 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(20),
     },
     price: {
-      fontSize: SF(22),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontSize: SF(15),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
     },
     mrp: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
       marginLeft: SW(10),
@@ -121,17 +119,17 @@ export const createStyles = (theme: AppTheme) =>
     highlightItem: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: SH(8),
+      marginBottom: SH(2),
     },
     highlightText: {
-      fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textPrimary,
       marginLeft: SW(10),
     },
     sectionHeading: {
       fontSize: SF(16),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       color: theme.colors.textPrimary,
       marginBottom: SH(15),
       marginHorizontal: SW(12)
@@ -143,17 +141,17 @@ export const createStyles = (theme: AppTheme) =>
     },
     detailBulletRow: {
       flexDirection: 'row',
-      alignItems: 'flex-start',
+      alignItems: 'center',
       width: '48%',
-      marginBottom: SH(20),
-      paddingRight: SW(4),
+      marginBottom: SH(20)
+
     },
     detailBulletText: {
-      fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(12),
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.gray600,
       flex: 1,
-      marginLeft: SW(10),
+      marginLeft: SW(5),
     },
     otherServicesSection: {
       marginTop: SH(10),
@@ -166,6 +164,7 @@ export const createStyles = (theme: AppTheme) =>
       right: 0,
       backgroundColor: theme.colors.white,
       paddingHorizontal: SW(20),
+      paddingBottom: 0,
       paddingVertical: SH(15),
       borderTopWidth: 1,
       borderTopColor: theme.colors.borderFaint,

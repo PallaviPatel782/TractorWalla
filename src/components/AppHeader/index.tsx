@@ -23,9 +23,9 @@ const Header: React.FC<HeaderProps> = ({ onPressLogo }) => {
       >
         <AppLogoImage width={SW(50)} height={SH(26)} />
         <Text
-          variant="bold"
-          size={theme.typography.sizes.xl}
-          style={[styles.brandText, { fontFamily: theme.typography.fonts.robotoBold }]}
+          variant="medium"
+          size={theme.typography.sizes.lg}
+          style={[styles.brandText, { fontFamily: theme.typography.fonts.poppinsMedium }]}
         >
           TractorWalla
         </Text>
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: SW(16),
     paddingVertical: SH(10),
+    paddingTop: SH(20)
   },
   logoContainer: {
     flexDirection: 'row',

@@ -108,11 +108,11 @@ const TrackMechanic = () => {
             <View style={styles.cardContent}>
               <View style={styles.textContainer}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: SW(4) }}>
-                  <Text variant="semiBold" size={12} color={theme.colors.gray900}>
+                  <Text variant="semiBold" size={14} color={theme.colors.gray900}>
                     {reached ? t('main.serviceFlow.reached', 'Reached...') : t('main.serviceFlow.onTheWay', 'Service Engineer On the way...')}
                   </Text>
                 </View>
-                <Text variant="regular" size={11} color={theme.colors.gray500} style={{ marginTop: SH(2) }}>
+                <Text variant="regular" size={14} color={theme.colors.gray500} style={{ marginTop: SH(2) }}>
                   Rajat Tiwari
                 </Text>
 

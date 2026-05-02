@@ -264,15 +264,17 @@ const HomeScreen = () => {
   // Auto-scroll hero slider every 4 seconds
   useEffect(() => {
     const autoScroll = setInterval(() => {
-      const nextIndex = (heroIndex + 1) % HERO_SLIDERS.length;
-      setHeroIndex(nextIndex);
-      heroFlatListRef.current?.scrollToIndex({
-        index: nextIndex,
-        animated: true,
+      setHeroIndex(prev => {
+        const nextIndex = (prev + 1) % HERO_SLIDERS.length;
+        heroFlatListRef.current?.scrollToIndex({
+          index: nextIndex,
+          animated: true,
+        });
+        return nextIndex;
       });
     }, 4000);
     return () => clearInterval(autoScroll);
-  }, [heroIndex, HERO_SLIDERS.length]);
+  }, [HERO_SLIDERS.length]);
 
   const onHeroScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
@@ -296,7 +298,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <ScreenWrapper>
+    <ScreenWrapper withBottomInset={false}>
       <View style={styles.root}>
         {/* Header */}
         <View style={styles.header}>
@@ -309,13 +311,14 @@ const HomeScreen = () => {
               <View pointerEvents="none" style={{ flex: 1 }}>
                 <SearchInput
                   placeholder={t('main.home.searchPlaceholder')}
-                  containerStyle={{ marginBottom: 0 }}
+                  containerStyle={{ marginBottom: 0, height: SH(34) }}
                   inputStyle={styles.searchInput}
                   value={searchQuery}
                   onChangeText={setSearchQuery}
                   hasBorder={false}
                   wrapperStyle={{ marginBottom: 0, flex: 1 }}
                   editable={false}
+                  size="sm"
                 />
               </View>
             </TouchableOpacity>
@@ -344,7 +347,7 @@ const HomeScreen = () => {
             <LocationIcon size={SW(14)} color={theme.colors.white} />
             <Text style={styles.addressText}>
               {t('main.home.deliverTo')}{' '}
-              <Text style={styles.addressBold}>3517 W. Gray St. Utica, Pennsyl..</Text>
+              <Text style={styles.addressBold}>3517 W. Gray St...</Text>
             </Text>
             <KeyboardArrowUpIcon size={SW(14)} color={theme.colors.white} />
           </TouchableOpacity>
@@ -359,8 +362,8 @@ const HomeScreen = () => {
               data={HERO_SLIDERS}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: SW(15), gap: SW(15) }}
-              snapToInterval={SW(343) + SW(15)}
+              contentContainerStyle={{ gap: SW(15) }}
+              snapToInterval={SW(355) + SW(15)}
               snapToAlignment="start"
               decelerationRate="fast"
               onScroll={onHeroScroll}
@@ -370,8 +373,8 @@ const HomeScreen = () => {
                 <View style={styles.heroCardContainer}>
                   <View style={styles.heroCard}>
                     <item.Image
-                      width={SW(343)}
-                      height={SH(190)}
+                      width={SW(360)}
+                      height={SH(220)}
                       style={{ borderRadius: SW(20) }}
                     />
                     <LinearGradient
@@ -439,8 +442,8 @@ const HomeScreen = () => {
               data={MIDDLE_BANNERS}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: SW(15), gap: SW(15) }}
-              snapToInterval={SW(343) + SW(15)}
+              contentContainerStyle={{ gap: SW(15) }}
+              snapToInterval={SW(355) + SW(15)}
               snapToAlignment="start"
               decelerationRate="fast"
               onScroll={onMiddleScroll}
@@ -491,8 +494,8 @@ const HomeScreen = () => {
           </View>
 
           {/* Parts & Accessories */}
-          <View style={[styles.section, { backgroundColor: theme.colors.YellowLight, paddingVertical: SH(10) }]}>
-            <View style={styles.sectionHeader}>
+          <View style={{ backgroundColor: theme.colors.YellowLight, paddingVertical: SH(15), marginBottom: SH(24) }}>
+            <View style={[styles.sectionHeader, { paddingHorizontal: SW(16), marginBottom: SH(10) }]}>
               <Text style={styles.sectionTitle}>{t('main.home.partsAccessories')}</Text>
               <TouchableOpacity onPress={() => navigation.navigate('Parts')}>
                 <Text style={styles.seeMore}>{t('main.home.seeMore')}</Text>
@@ -502,7 +505,7 @@ const HomeScreen = () => {
               data={PARTS_LIST}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: SW(12) }}
+              contentContainerStyle={{ paddingHorizontal: SW(10), gap: SW(8) }}
               keyExtractor={(i: any) => i.id}
               renderItem={({ item }: { item: any }) => (
                 <TouchableOpacity
@@ -510,7 +513,7 @@ const HomeScreen = () => {
                   onPress={() => navigation.navigate('Parts')}
                 >
                   <View style={styles.partImageWrap}>
-                    <item.Image width={SW(120)} height={SW(120)} />
+                    <item.Image width={SW(90)} height={SW(100)} />
                   </View>
                   <Text style={styles.partName} numberOfLines={2}>{item.name}</Text>
                   <View style={styles.partPriceRow}>
@@ -553,8 +556,8 @@ const HomeScreen = () => {
               data={NETWORK_BANNERS}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: SW(15), gap: SW(15) }}
-              snapToInterval={SW(343) + SW(15)}
+              contentContainerStyle={{ gap: SW(15) }}
+              snapToInterval={SW(355) + SW(15)}
               snapToAlignment="start"
               decelerationRate="fast"
               onScroll={onNetworkScroll}
@@ -676,7 +679,7 @@ const HomeScreen = () => {
           </View>
 
           {/* Mechanic Bar */}
-          <TouchableOpacity style={styles.mechanicBar}>
+          {/* <TouchableOpacity style={styles.mechanicBar}>
             <View style={styles.mechanicLeft}>
               <DummyUserImage width={40} height={40} />
               <View>
@@ -697,9 +700,8 @@ const HomeScreen = () => {
             <View style={styles.mechanicArrow}>
               <NextIcon width={20} height={20} color={theme.colors.white} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <View style={{ height: SH(32) }} />
         </ScrollView>
       </View>
     </ScreenWrapper>

@@ -24,7 +24,7 @@ const TermsConditions = ({ navigation }: any) => {
             {points.map((point, index) => (
               <View key={index} style={{ flexDirection: 'row', marginBottom: 16 }}>
                 <Text style={{ marginRight: 8, marginTop: 2 }}>•</Text>
-                <Text variant="regular" size={13} color={theme.colors.gray700} style={{ flex: 1, lineHeight: 20 }}>
+                <Text variant="regular" size={14} color={theme.colors.gray700} style={{ flex: 1, lineHeight: 20 }}>
                   {point}
                 </Text>
               </View>

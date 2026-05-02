@@ -21,11 +21,11 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: SW(12),
     },
     brandDisplayContainer: {
-      flexDirection: 'row',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: SW(12),
-      marginBottom: SH(10),
+      paddingHorizontal: SW(10),
+      marginBottom: SH(20),
     },
     brandLogoBox: {
       width: SW(60),
@@ -33,10 +33,14 @@ export const createStyles = (theme: AppTheme) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
+    brandInfo: {
+      marginTop: SH(10),
+      alignItems: 'center',
+    },
     brandDisplayName: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoSemiBold,
-      fontSize: 16,
+      fontFamily: theme.fontfamily.poppinsBold,
+      fontSize: 18,
     },
     formContainer: {
       backgroundColor: theme.colors.white,
@@ -53,7 +57,7 @@ export const createStyles = (theme: AppTheme) =>
     label: {
       marginBottom: SH(8),
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     typeTriggerButton: {
       flexDirection: 'row',
@@ -69,7 +73,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     typeTriggerText: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
     bottomSheetItem: {
       flexDirection: 'row',
@@ -82,11 +86,11 @@ export const createStyles = (theme: AppTheme) =>
     },
     bottomSheetItemText: {
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
     bottomSheetItemTextActive: {
-      color: theme.colors.brandGreen,
-      fontFamily: theme.fontfamily.robotoSemiBold,
+      color: theme.colors.DeepGreen,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     radioCircle: {
       width: SW(16),
@@ -98,17 +102,17 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
     },
     radioCircleActive: {
-      borderColor: theme.colors.brandGreen,
+      borderColor: theme.colors.DeepGreen,
     },
     radioInner: {
       width: SW(8),
       height: SW(8),
       borderRadius: SW(4),
-      backgroundColor: theme.colors.brandGreen,
+      backgroundColor: theme.colors.DeepGreen,
     },
     submitButton: {
       marginTop: SH(30),
-      backgroundColor: theme.colors.brandGreen,
+      backgroundColor: theme.colors.DeepGreen,
       borderRadius: SW(10),
     },
   });

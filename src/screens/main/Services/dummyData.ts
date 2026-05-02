@@ -47,9 +47,9 @@ export const EMERGENCY_SERVICE: IService = {
     'Emergency towing (if required)',
   ],
   warranty: [
-     'Service time depends on issue',
-     'No fixed warranty on emergency jobs',
-     'Immediate assistance priority'
+    'Service time depends on issue',
+    'No fixed warranty on emergency jobs',
+    'Immediate assistance priority'
   ]
 };
 

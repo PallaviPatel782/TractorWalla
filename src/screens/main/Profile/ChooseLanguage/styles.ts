@@ -41,7 +41,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     languageText: {
       color: theme.colors.gray900,
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       fontSize: SF(16),
     },
     bottomContainer: {

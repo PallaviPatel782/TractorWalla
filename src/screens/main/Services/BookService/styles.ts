@@ -37,8 +37,8 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.DeepGreen,
     },
     tabText: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textSecondary,
     },
     tabTextActive: {
@@ -51,7 +51,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     sectionTitle: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.danger,
       marginBottom: SH(15),
       // marginTop: SH(5),
@@ -73,14 +73,14 @@ export const createStyles = (theme: AppTheme) =>
     },
     modalHeaderTitle: {
       fontSize: SF(18),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsBold,
       color: theme.colors.DeepGreen,
       marginTop: SH(5),
       marginBottom: SH(10),
     },
     modalMsg: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textSecondary,
       lineHeight: SH(20),
       marginBottom: SH(25),

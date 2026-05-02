@@ -11,10 +11,12 @@ export const createStyles = (theme: AppTheme) =>
     content: {
       flex: 1,
       paddingHorizontal: SW(16),
+      overflow: 'visible',
     },
     listContent: {
-      paddingTop: SH(16),
+      paddingTop: SH(10),
       paddingBottom: SH(30),
+      overflow: 'visible',
     },
     bookingCard: {
       backgroundColor: theme.colors.white,
@@ -26,6 +28,7 @@ export const createStyles = (theme: AppTheme) =>
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 4,
+      overflow: 'visible',
     },
     cardHeader: {
       flexDirection: 'row',
@@ -34,7 +37,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(12),
     },
     bookingId: {
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.gray500,
       fontSize: SF(11),
     },
@@ -54,6 +57,8 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: SW(10),
+      flex: 1,
+      marginRight: SW(10),
     },
     avatar: {
       width: SW(36),
@@ -71,6 +76,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     statusContainer: {
       alignItems: 'flex-end',
+      flexShrink: 0,
+      minWidth: SW(80),
     },
     statusLabel: {
       color: theme.colors.gray500,
@@ -82,7 +89,7 @@ export const createStyles = (theme: AppTheme) =>
       gap: SW(4),
     },
     statusValue: {
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     divider: {
       height: 1,
@@ -127,9 +134,9 @@ export const createStyles = (theme: AppTheme) =>
     },
     invoiceMenuBody: {
       position: 'absolute',
-      bottom: '100%',
+      top: '100%',
       right: 0,
-      marginBottom: SH(4),
+      marginTop: SH(4),
       backgroundColor: theme.colors.white,
       borderRadius: SW(8),
       borderWidth: 1,
@@ -164,5 +171,9 @@ export const createStyles = (theme: AppTheme) =>
     reasonChipSelected: {
       borderColor: theme.colors.brandGreen,
       backgroundColor: theme.colors.white, // In Figma it's a green outline
+    },
+    modalBackdrop: {
+      flex: 1,
+      backgroundColor: 'transparent',
     },
   });

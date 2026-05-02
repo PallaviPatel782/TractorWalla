@@ -1,7 +1,7 @@
 import { apiService } from '@api';
 import { useAuthStore } from '@store/useAuthStore';
 import { useSnackbarStore } from '@store/useSnackbarStore';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import {
   SendOtpRequest,
@@ -128,21 +128,28 @@ export const useModels = (brandId: string) => useQuery({
 
 export const useAddVehicle = () => {
   const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: addVehicle,
     onSuccess: (response: any) => {
       console.log('Vehicle add success, response:', response);
       const state = useAuthStore.getState();
-      if (state.user) {
+      const user = state.user;
+      
+      if (user?._id) {
+        // Invalidate the vehicles list for this customer
+        queryClient.invalidateQueries({ queryKey: ['vehicles', user._id] });
+        
+        // Optionally update the local store as well
         const newVehicle = response.vehicle || response.data?.vehicle;
-        const currentTractors = state.user.tractors || [];
+        const currentTractors = user.tractors || [];
 
         const updatedUser = {
-          ...state.user,
+          ...user,
           onboardingCompleted: true,
           tractors: newVehicle ? [...currentTractors, newVehicle] : currentTractors,
         };
-        console.log('Final Onboarding Update:', updatedUser);
         state.setUser(updatedUser);
       }
       showSnackbar({ type: 'success', title: 'Success', description: response.message || response.data?.message || 'Vehicle added' });

@@ -13,13 +13,13 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   bookingId: {
     fontSize: SF(16),
     color: theme.colors.textPrimary,
-    fontFamily: theme.fontfamily.robotoMedium,
+    fontFamily: theme.fontfamily.poppinsMedium,
     marginBottom: SH(15),
   },
   sectionTitle: {
     fontSize: SF(18),
     color: theme.colors.primary,
-    fontFamily: theme.fontfamily.robotoBold,
+    fontFamily: theme.fontfamily.poppinsMedium,
     marginBottom: SH(15),
   },
   serviceCard: {
@@ -38,8 +38,8 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
     flex: 1,
   },
   serviceName: {
-    fontSize: SF(16),
-    fontFamily: theme.fontfamily.robotoBold,
+    fontSize: SF(15),
+    fontFamily: theme.fontfamily.poppinsMedium,
     color: theme.colors.black,
     marginBottom: SH(10),
   },
@@ -49,9 +49,9 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
     marginBottom: SH(5),
   },
   bulletText: {
-    fontSize: SF(13),
+    fontSize: SF(14),
     color: theme.colors.textSecondary,
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
     marginLeft: SW(8),
   },
   priceRow: {
@@ -71,23 +71,23 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
     marginRight: SW(12),
   },
   starIcon: {
-    fontSize: SF(12),
+    fontSize: SF(14),
     color: theme.colors.GoldenYellow,
     marginRight: SW(4),
   },
   ratingText: {
-    fontSize: SF(12),
-    fontFamily: theme.fontfamily.robotoBold,
+    fontSize: SF(14),
+    fontFamily: theme.fontfamily.poppinsMedium,
     color: theme.colors.textSecondary,
   },
   price: {
     fontSize: SF(15),
-    fontFamily: theme.fontfamily.robotoBold,
+    fontFamily: theme.fontfamily.poppinsMedium,
     color: theme.colors.textPrimary,
   },
   mrp: {
-    fontSize: SF(12),
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontSize: SF(14),
+    fontFamily: theme.fontfamily.poppinsRegular,
     color: theme.colors.textMuted,
     textDecorationLine: 'line-through',
     marginLeft: SW(6),
@@ -110,7 +110,7 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   addedText: {
     color: theme.colors.white,
     fontSize: SF(12),
-    fontFamily: theme.fontfamily.robotoBold,
+    fontFamily: theme.fontfamily.poppinsMedium,
     marginLeft: SW(4),
   },
   billCard: {
@@ -127,7 +127,7 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   },
   billTitle: {
     fontSize: SF(16),
-    fontFamily: theme.fontfamily.robotoBold,
+    fontFamily: theme.fontfamily.poppinsMedium,
     color: theme.colors.black,
     marginLeft: SW(10),
   },
@@ -144,12 +144,12 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   billLabel: {
     fontSize: SF(14),
     color: theme.colors.textSecondary,
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
   },
   billValue: {
     fontSize: SF(14),
     color: theme.colors.black,
-    fontFamily: theme.fontfamily.robotoMedium,
+    fontFamily: theme.fontfamily.poppinsMedium,
   },
   dividerDashed: {
     height: 1,
@@ -161,12 +161,12 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   taxNote: {
     fontSize: SF(12),
     color: theme.colors.textMuted,
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
   },
   taxValue: {
     fontSize: SF(12),
     color: theme.colors.textMuted,
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
   },
   totalRow: {
     flexDirection: 'row',
@@ -175,12 +175,12 @@ export const createStyles = (theme: AppTheme) => StyleSheet.create({
   },
   totalLabel: {
     fontSize: SF(18),
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
     color: theme.colors.black,
   },
   totalValue: {
     fontSize: SF(18),
-    fontFamily: theme.fontfamily.robotoRegular,
+    fontFamily: theme.fontfamily.poppinsRegular,
     color: theme.colors.black,
   },
   footer: {

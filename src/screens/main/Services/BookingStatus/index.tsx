@@ -14,7 +14,7 @@ import {
 } from '@components';
 import { createStyles } from './styles';
 import { BookingDetailBannerImage } from '@assets/images';
-import { CheckIcon, CloseIcon } from '@assets/icons';
+import { ChevronBackwardIcon, CheckIcon, CloseIcon } from '@assets/icons';
 import { SW, SH } from '@utils/Dimensions';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -66,23 +66,20 @@ const BookingStatus = () => {
 
   const renderStep = (stepNumber: number, label: string, isCompleted: boolean, isActive: boolean) => (
     <View style={styles.stepItem}>
-      <View style={[
-        styles.stepCircle,
-        isCompleted && styles.stepCircleCompleted,
-        isActive && styles.stepCircleActive
-      ]}>
-        {isCompleted ? (
-          <CheckIcon size={12} color={theme.colors.white} />
-        ) : (
-          <Text style={[styles.stepNumber, isActive && styles.stepNumberActive]}>{stepNumber}</Text>
-        )}
+      <View style={styles.circleContainer}>
+        <View style={[
+          styles.stepCircle,
+          isCompleted && styles.stepCircleCompleted,
+          isActive && styles.stepCircleActive
+        ]}>
+          {isCompleted ? (
+            <CheckIcon size={16} color={theme.colors.white} />
+          ) : (
+            <Text style={[styles.stepNumber, isActive && styles.stepNumberActive]}>{stepNumber}</Text>
+          )}
+        </View>
       </View>
       <Text style={[styles.stepLabel, isActive && styles.stepLabelActive]}>{label}</Text>
-      {isCompleted && (
-        <View style={styles.completedBadge}>
-          <CheckIcon size={10} color={theme.colors.white} />
-        </View>
-      )}
     </View>
   );
 
@@ -91,7 +88,7 @@ const BookingStatus = () => {
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-            <Text style={styles.backIcon}>←</Text>
+            <ChevronBackwardIcon size={24} color={theme.colors.black} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cancelBadge}

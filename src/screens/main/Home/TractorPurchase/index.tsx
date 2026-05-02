@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   SecondaryHeader,
   Dropdown,
-  Button,
 } from '@components';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
@@ -39,16 +38,6 @@ const TractorPurchaseScreen = () => {
     brand.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleNext = () => {
-    if (selectedBrand) {
-      navigation.navigate('SelectTractor', {
-        brand: selectedBrand.name,
-        brandId: selectedBrand._id,
-        brandLogo: selectedBrand.logoUrl,
-        type: selectedType
-      });
-    }
-  };
 
   const SelectedBrandIcon = () => {
     if (selectedBrand?.logoUrl) {
@@ -98,11 +87,16 @@ const TractorPurchaseScreen = () => {
               contentContainerStyle={styles.brandGrid}
               renderItem={({ item }) => (
                 <TouchableOpacity
-                  style={[
-                    styles.brandItem,
-                    selectedBrand?._id === item._id && styles.selectedBrand,
-                  ]}
-                  onPress={() => setSelectedBrand(item)}
+                  style={styles.brandItem}
+                  onPress={() => {
+                    setSelectedBrand(item);
+                    navigation.navigate('SelectTractor', {
+                      brand: item.name,
+                      brandId: item._id,
+                      brandLogo: item.logoUrl,
+                      type: selectedType
+                    });
+                  }}
                 >
                   <View style={styles.brandImageWrap}>
                     {item.logoUrl ? (
@@ -118,13 +112,6 @@ const TractorPurchaseScreen = () => {
           )}
         </View>
 
-        <View style={styles.footer}>
-          <Button
-            title={t('common.next', 'Next')}
-            onPress={handleNext}
-            disabled={!selectedBrand}
-          />
-        </View>
       </View>
     </ScreenWrapper>
   );

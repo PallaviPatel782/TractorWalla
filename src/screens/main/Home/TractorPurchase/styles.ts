@@ -35,11 +35,6 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(20),
       marginHorizontal: SW(2.5),
     },
-    selectedBrand: {
-      borderColor: theme.colors.primary,
-      borderWidth: 1.5,
-      borderRadius: SW(12),
-    },
     brandImageWrap: {
       width: SW(64),
       height: SW(64),
@@ -60,11 +55,5 @@ export const createStyles = (theme: AppTheme) =>
       fontSize: SF(12),
       color: theme.colors.text,
       textAlign: 'center',
-    },
-    footer: {
-      padding: SW(16),
-      backgroundColor: theme.colors.white,
-      borderTopWidth: 1,
-      borderTopColor: theme.colors.border,
     },
   });

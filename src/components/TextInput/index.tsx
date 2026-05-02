@@ -27,6 +27,7 @@ export interface TextInputProps extends RNTextInputProps {
   rightIcon?: React.ReactNode;
   hasBorder?: boolean;
   required?: boolean;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 
@@ -49,6 +50,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
       multiline,
       onFocus,
       onBlur,
+      labelStyle,
       ...rest
     },
     ref,
@@ -73,17 +75,17 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
       [onBlur],
     );
 
-    const PADDING_MAP = {
-      xs: SH(2),
-      sm: SH(4),
-      md: SH(7),
-      lg: SH(12),
+    const HEIGHT_MAP = {
+      xs: SH(30),
+      sm: SH(34),
+      md: SH(40),
+      lg: SH(48),
     };
 
     return (
       <View style={[themedStyles.wrapper, wrapperStyle]}>
         {label && (
-          <Text variant="medium" size={14} style={themedStyles.label}>
+          <Text variant="semiBold" size={12} style={[themedStyles.label, labelStyle]}>
             {label}
             {required && <Text style={{ color: theme.colors.error }}> *</Text>}
           </Text>
@@ -93,7 +95,8 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
           style={[
             themedStyles.inputContainer,
             {
-              paddingVertical: PADDING_MAP[size],
+              height: multiline ? undefined : HEIGHT_MAP[size],
+              minHeight: multiline ? SH(60) : undefined,
               backgroundColor: theme.colors.white,
               borderWidth: hasBorder ? (containerStyle as any)?.borderWidth ?? 1.5 : 0,
               borderColor: error ? theme.colors.error : focused ? theme.colors.primary : theme.colors.borderLight,
@@ -127,7 +130,10 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
               themedStyles.input,
               {
                 color: theme.colors.textPrimary,
-                fontFamily: theme.typography.fonts.robotoRegular,
+                fontFamily: theme.typography.fonts.poppinsRegular,
+                paddingTop: multiline ? SH(8) : 0,
+                paddingBottom: multiline ? SH(8) : 0,
+                textAlignVertical: multiline ? 'top' : 'center',
               },
               inputStyle,
               style,
@@ -157,7 +163,7 @@ const createStyles = (theme: AppTheme) =>
       marginBottom: SH(10),
     },
     label: {
-      marginBottom: SH(2),
+      marginBottom: SH(4),
     },
     inputContainer: {
       flexDirection: 'row',
@@ -167,7 +173,7 @@ const createStyles = (theme: AppTheme) =>
     },
     input: {
       flex: 1,
-      paddingVertical: SH(5),
+      paddingVertical: 0,
       textAlignVertical: 'center',
       fontSize: SF(13),
     },
@@ -197,7 +203,7 @@ const createStyles = (theme: AppTheme) =>
     divider: {
       width: 1,
       height: '60%',
-      marginHorizontal: SW(10),
+      marginHorizontal: SW(5),
     },
     errorText: {
       marginTop: SH(4),

@@ -73,6 +73,7 @@ const ReportIssue = ({ navigation }: any) => {
                   value={message}
                   onChangeText={setMessage}
                   multiline
+                  required
                   style={{ minHeight: 150, textAlignVertical: 'top' }}
                 />
               </View>

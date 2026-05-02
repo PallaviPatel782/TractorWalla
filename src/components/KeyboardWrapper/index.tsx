@@ -1,5 +1,6 @@
 import React from 'react';
 import { 
+  View,
   KeyboardAvoidingView, 
   ScrollView, 
   Platform, 
@@ -12,21 +13,30 @@ import {
 interface KeyboardWrapperProps {
   children: React.ReactNode;
   style?: ViewStyle;
+  keyboardVerticalOffset?: number;
 }
 
-const KeyboardWrapper: React.FC<KeyboardWrapperProps> = ({ children, style }) => {
+const KeyboardWrapper: React.FC<KeyboardWrapperProps> = ({ 
+  children, 
+  style, 
+  keyboardVerticalOffset = 0 
+}) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
       style={[styles.container, style]}
+      keyboardVerticalOffset={keyboardVerticalOffset}
     >
       <ScrollView 
         contentContainerStyle={styles.scrollContainer} 
         bounces={false} 
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          {children}
+          <View style={styles.container}>
+            {children}
+          </View>
         </TouchableWithoutFeedback>
       </ScrollView>
     </KeyboardAvoidingView>

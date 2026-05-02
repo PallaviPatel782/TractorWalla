@@ -21,6 +21,7 @@ export const createStyles = (theme: AppTheme) =>
     content: {
       paddingHorizontal: SW(20),
       paddingBottom: SH(100),
+      overflow: 'visible',
     },
     bannerContainer: {
       alignItems: 'center',
@@ -32,10 +33,11 @@ export const createStyles = (theme: AppTheme) =>
       padding: SW(16),
       borderWidth: 1,
       borderColor: theme.colors.gray100,
+      overflow: 'visible',
     },
     bookingId: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.gray600,
       marginBottom: SH(16),
     },
@@ -52,12 +54,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     engineerLabel: {
       fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.gray500,
     },
     engineerName: {
       fontSize: SF(14),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.black,
     },
     statusContainer: {
@@ -67,13 +69,13 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.DeepGreen,
       gap: SW(4),
     },
     timeText: {
       fontSize: SF(11),
-      fontFamily: theme.fontfamily.robotoRegular,
+      fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.gray500,
       marginTop: SH(2),
     },
@@ -87,12 +89,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     amountLabel: {
       fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.gray500,
     },
     amountValue: {
       fontSize: SF(18),
-      fontFamily: theme.fontfamily.robotoBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.black,
     },
     invoiceButton: {
@@ -107,13 +109,13 @@ export const createStyles = (theme: AppTheme) =>
     invoiceText: {
       color: theme.colors.white,
       fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     invoiceMenuBody: {
       position: 'absolute',
-      bottom: '100%',
+      top: '100%',
       right: 0,
-      marginBottom: SH(4),
+      marginTop: SH(4),
       backgroundColor: theme.colors.white,
       borderRadius: SW(8),
       borderWidth: 1,
@@ -134,7 +136,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     invoiceMenuItemText: {
       fontSize: SF(12),
-      fontFamily: theme.fontfamily.robotoMedium,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.gray800,
     },
     footer: {
@@ -146,5 +148,9 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
       borderTopWidth: 1,
       borderTopColor: theme.colors.gray100,
+    },
+    modalBackdrop: {
+      flex: 1,
+      backgroundColor: 'transparent',
     },
   });

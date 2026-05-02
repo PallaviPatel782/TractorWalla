@@ -16,7 +16,7 @@ import {
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { SW, SH } from '@utils/Dimensions';
+import { SW, SH, SF } from '@utils/Dimensions';
 import CustomDatePickerModal from '@components/DatePicker';
 import { useModels } from '@screens/auth/hooks/useAuth';
 import { ActivityIndicator, Image as RNImage } from 'react-native';
@@ -63,14 +63,19 @@ const SelectTractorScreen = () => {
             <View style={styles.brandDisplayContainer}>
               <View style={styles.brandLogoBox}>
                 {brandLogo ? (
-                  <RNImage source={{ uri: brandLogo }} style={{ width: SW(44), height: SW(44) }} resizeMode="contain" />
+                  <RNImage source={{ uri: brandLogo }} style={{ width: SW(60), height: SW(60) }} resizeMode="contain" />
                 ) : (
-                  <Text>🚜</Text>
+                  <Text style={{ fontSize: SF(40) }}>🚜</Text>
                 )}
               </View>
-              <Text variant="regular" size={16} style={styles.brandDisplayName}>
-                {brand}
-              </Text>
+              <View style={styles.brandInfo}>
+                <Text variant="bold" size={18} style={styles.brandDisplayName}>
+                  {brand}
+                </Text>
+                <Text variant="regular" size={14} color={theme.colors.gray500} style={{ marginTop: SH(4) }}>
+                  {t(`main.home.${type === 'New Tractor' ? 'newTractor' : 'oldTractor'}`, { defaultValue: type }) as string}
+                </Text>
+              </View>
             </View>
 
             <View style={{ gap: SH(16), marginTop: SH(10) }}>
@@ -87,6 +92,7 @@ const SelectTractorScreen = () => {
               )}
 
               <View style={styles.formContainer}>
+
                 <Input
                   label={t('common.name', 'Name')}
                   placeholder={t('common.enterName', 'Enter name')}
@@ -110,7 +116,7 @@ const SelectTractorScreen = () => {
                 >
                   <View pointerEvents="none">
                     <Input
-                      label={t('main.home.whenYouWannaBuy', 'When you wanna buy')}
+                      label={t('main.home.whenDoYouWantToBuy', 'When do you want to buy')}
                       placeholder={t('common.addDate', 'Add Date')}
                       value={date ? date.toDateString() : ''}
                       required
@@ -128,7 +134,7 @@ const SelectTractorScreen = () => {
                     onPress={() => setShowTypeSheet(true)}
                     activeOpacity={0.7}
                   >
-                    <Text variant="regular" size={13} style={styles.typeTriggerText}>
+                    <Text variant="regular" size={14} style={styles.typeTriggerText}>
                       {t(`main.register.${tractorType}`, tractorType)}
                     </Text>
                   </TouchableOpacity>
@@ -137,7 +143,7 @@ const SelectTractorScreen = () => {
             </View>
 
             <Button
-              title={t('main.home.addTractor', 'Add Tractor')}
+              title={t('common.submit', 'Submit')}
               onPress={handleSubmit}
               disabled={!selectedModel || !name || !contact || !date}
               style={styles.submitButton}
