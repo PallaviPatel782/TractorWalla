@@ -15,6 +15,7 @@ import { createStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { SW, SH } from '@utils/Dimensions';
 import { BikeIcon } from '@assets/icons';
+import { OthersImage } from '@assets/images';
 
 
 import { useBrands } from '@screens/auth/hooks/useAuth';
@@ -32,7 +33,7 @@ const TractorPurchaseScreen = () => {
   const [selectedBrand, setSelectedBrand] = useState<Brand | null>(null);
 
   const { data: brandsData, isLoading } = useBrands();
-  const brands: Brand[] = brandsData?.data || brandsData?.brands || [];
+  const brands: Brand[] = [...(brandsData?.data || brandsData?.brands || []), { _id: 'others', id: 'others', name: 'Others' }];
 
   const filteredBrands = brands.filter((brand) =>
     brand.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -40,6 +41,9 @@ const TractorPurchaseScreen = () => {
 
 
   const SelectedBrandIcon = () => {
+    if (selectedBrand?._id === 'others') {
+      return <OthersImage width={SW(20)} height={SW(20)} />;
+    }
     if (selectedBrand?.logoUrl) {
       return <RNImage source={{ uri: selectedBrand.logoUrl }} style={{ width: SW(20), height: SW(20) }} resizeMode="contain" />;
     }
@@ -72,7 +76,6 @@ const TractorPurchaseScreen = () => {
             selectedValue={selectedType}
             onSelect={(item) => setSelectedType(item.value)}
             placeholder={t('main.home.chooseWhatToBuy', 'Choose what you want to buy')}
-            buttonStyle={styles.dropdown}
             leftIcon={<SelectedBrandIcon />}
           />
 
@@ -99,7 +102,9 @@ const TractorPurchaseScreen = () => {
                   }}
                 >
                   <View style={styles.brandImageWrap}>
-                    {item.logoUrl ? (
+                    {item._id === 'others' ? (
+                      <OthersImage width={SW(44)} height={SW(44)} />
+                    ) : item.logoUrl ? (
                       <RNImage source={{ uri: item.logoUrl }} style={{ width: SW(44), height: SW(44) }} resizeMode="contain" />
                     ) : (
                       <BikeIcon width={SW(32)} height={SW(32)} color={theme.colors.gray300} />

@@ -19,7 +19,6 @@ import { useAddVehicle, } from '@screens/auth/hooks/useAuth';
 import { useUpdateVehicle } from '@screens/main/hooks/useVehicle';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
-import { ChevronArrowIcon } from '@assets/icons';
 import { TractorImage } from '@assets/images';
 
 const AddTractorDetails = ({ navigation, route }: any) => {
@@ -29,6 +28,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
   const { brandId, brandName, model, tractor, logoUrl } = route.params || {};
 
   const isEdit = !!tractor;
+  const isOthers = brandName === 'Others';
   const initialBrand = isEdit ? tractor.brand : (brandName || 'Others');
 
   const actualBrandId = isEdit ? (tractor._original?.brandId?._id || tractor.brandId) : brandId;
@@ -51,6 +51,8 @@ const AddTractorDetails = ({ navigation, route }: any) => {
     yearOfManufacture: isEdit ? tractor.yearOfManufacture?.toString() : '',
     yearOfPurchase: isEdit ? tractor.yearOfPurchase?.toString() : '',
     tractorType: isEdit ? tractor.tractorType : 'agricultural',
+    customBrand: isOthers ? '' : (brandName || ''),
+    customModel: '',
   });
 
   const handleInputChange = (key: string, value: string) => {
@@ -65,6 +67,8 @@ const AddTractorDetails = ({ navigation, route }: any) => {
       yearOfManufacture: parseInt(formData.yearOfManufacture),
       yearOfPurchase: parseInt(formData.yearOfPurchase),
       tractorType: formData.tractorType,
+      customBrandName: formData.customBrand || '',
+      customModelName: formData.model || '',
     };
 
     const onSuccessAction = () => {
@@ -102,35 +106,54 @@ const AddTractorDetails = ({ navigation, route }: any) => {
             contentContainerStyle={styles.content}
             showsVerticalScrollIndicator={false}
           >
-            <View style={styles.topSection}>
-              <View style={styles.largeImageContainer}>
-                {actualLogoUrl ? (
-                  <Image
-                    source={{ uri: actualLogoUrl }}
-                    style={styles.largeLogo}
-                    resizeMode="contain"
-                  />
-                ) : (
-                  <TractorImage width={SW(90)} height={SH(90)} />
-                )}
+            {!isOthers && (
+              <View style={styles.topSection}>
+                <View style={styles.largeImageContainer}>
+                  {actualLogoUrl ? (
+                    <Image
+                      source={{ uri: actualLogoUrl }}
+                      style={styles.largeLogo}
+                      resizeMode="contain"
+                    />
+                  ) : (
+                    <TractorImage width={SW(90)} height={SH(90)} />
+                  )}
+                </View>
+                <View style={styles.brandInfo}>
+                  <Text variant="bold" size={20} color={theme.colors.textPrimary}>
+                    {initialBrand}
+                  </Text>
+                  <Text variant="medium" size={14} color={theme.colors.textSecondary} style={{ marginTop: SH(4) }}>
+                    {formData.model}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.brandInfo}>
-                <Text variant="bold" size={20} color={theme.colors.textPrimary}>
-                  {initialBrand}
-                </Text>
-                <Text variant="medium" size={14} color={theme.colors.textSecondary} style={{ marginTop: SH(4) }}>
-                  {formData.model}
-                </Text>
-              </View>
-            </View>
+            )}
 
             <View style={styles.formCard}>
+              {isOthers && (
+                <>
+                  <Input
+                    label={t('main.register.brandNameLabel', 'Brand Name')}
+                    placeholder={t('main.register.placeholderBrandName', 'Enter brand name')}
+                    value={formData.customBrand}
+                    onChangeText={(val) => handleInputChange('customBrand', val)}
+                    required
+                  />
+                  <Input
+                    label={t('main.register.modelNameLabel', 'Model Name')}
+                    placeholder={t('main.register.placeholderModelName', 'Enter model name')}
+                    value={formData.model}
+                    onChangeText={(val) => handleInputChange('model', val)}
+                    required
+                  />
+                </>
+              )}
               <Input
                 label={t('main.register.registrationLabel', 'Registration No')}
                 placeholder={t('main.register.placeholderRegistration')}
                 value={formData.registrationNo}
                 onChangeText={(val) => handleInputChange('registrationNo', val)}
-                labelStyle={styles.label}
                 required
               />
 
@@ -141,7 +164,6 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                 maxLength={4}
                 value={formData.yearOfManufacture}
                 onChangeText={(val) => handleInputChange('yearOfManufacture', val)}
-                labelStyle={styles.label}
                 required
               />
 
@@ -152,11 +174,10 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                 maxLength={4}
                 value={formData.yearOfPurchase}
                 onChangeText={(val) => handleInputChange('yearOfPurchase', val)}
-                labelStyle={styles.label}
               />
 
               <View>
-                <Text variant="bold" size={14} color={theme.colors.textPrimary} style={styles.label}>
+                <Text variant="semiBold" size={12} color={theme.colors.textPrimary} style={styles.label}>
                   {t('main.register.typeLabel', 'Type of Tractor')}
                   <Text style={{ color: theme.colors.error }}> *</Text>
                 </Text>
@@ -168,7 +189,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                   <Text variant="regular" size={14} style={styles.typeTriggerText}>
                     {formData.tractorType ? t(`main.register.${formData.tractorType}`) : 'Select type of tractor'}
                   </Text>
-                  <ChevronArrowIcon width={SW(18)} height={SW(18)} color={theme.colors.gray400} />
+                  {/* <ChevronArrowIcon width={SW(15)} height={SW(15)} color={theme.colors.gray400} /> */}
                 </TouchableOpacity>
               </View>
             </View>

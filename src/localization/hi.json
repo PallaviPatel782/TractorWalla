@@ -13,6 +13,9 @@
     "added": "जोड़ा गया",
     "default": "डिफ़ॉल्ट",
     "delete": "हटाएं",
+    "city": "शहर",
+    "enterCity": "शहर दर्ज करें",
+    "generalInquiry": "सामान्य पूछताछ",
     "today": "आज",
     "supportEmail": "support@tractorwalla.com",
     "brands": {
@@ -529,7 +532,13 @@
       "pincodeLabel": "पिनकोड",
       "placeholderAddress": "पता दर्ज करें",
       "placeholderState": "राज्य दर्ज करें",
-      "placeholderPincode": "पिनकोड दर्ज करें"
+      "placeholderPincode": "पिनकोड दर्ज करें",
+      "errorName": "पूरा नाम आवश्यक है",
+      "errorEmail": "अमान्य ईमेल प्रारूप",
+      "errorAddress": "पता आवश्यक है",
+      "errorState": "राज्य आवश्यक है",
+      "errorPincode": "पिनकोड आवश्यक है",
+      "errorPincodeLength": "पिनकोड 6 अंकों का होना चाहिए"
     },
     "serviceFlow": {
       "trackTitle": "ट्रैक",

@@ -56,4 +56,5 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.text,
       textAlign: 'center',
     },
+
   });

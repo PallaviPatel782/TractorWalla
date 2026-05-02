@@ -9,9 +9,9 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background,
     },
     content: {
-      flex: 1,
       paddingHorizontal: SW(20),
-      paddingBottom: SH(100),
+      paddingTop: SH(20),
+      paddingBottom: SH(40),
     },
     formContainer: {
       backgroundColor: theme.colors.white,
@@ -43,7 +43,7 @@ export const createStyles = (theme: AppTheme) =>
       paddingHorizontal: SW(12),
       paddingVertical: SH(10),
       borderRadius: SW(10),
-      marginTop: SH(8),
+      marginTop: SH(5),
     },
     typeTriggerText: {
       color: theme.colors.textPrimary,
@@ -85,9 +85,9 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.brandGreen,
     },
     label: {
-      marginBottom: SH(4),
+      // marginBottom: SH(4),
       color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.poppinsMedium,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     topSection: {
       alignItems: 'center',
@@ -110,7 +110,8 @@ export const createStyles = (theme: AppTheme) =>
     formCard: {
       backgroundColor: theme.colors.white,
       borderRadius: SW(20),
-      padding: SW(20),
+      paddingHorizontal: SW(20),
+      paddingVertical: SH(20),
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
       // Shadow

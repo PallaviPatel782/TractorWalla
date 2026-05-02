@@ -11,8 +11,8 @@ export const createStyles = (theme: AppTheme) =>
     content: {
       flexGrow: 1,
       paddingHorizontal: SW(20),
-      paddingTop: SH(10),
-      paddingBottom: SH(20),
+      paddingTop: SH(20),
+      paddingBottom: SH(40),
     },
     formContainer: {
       gap: SH(16),

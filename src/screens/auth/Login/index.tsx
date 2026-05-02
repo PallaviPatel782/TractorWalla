@@ -98,7 +98,7 @@ const LoginScreen = ({ navigation }: any) => {
             </View>
 
             <View style={[styles.inputCard, isKeyboardVisible && { marginTop: SH(10) }]}>
-              <View style={styles.inputWrapper}>
+              <View>
                 <Input
                   label={t('auth.login.mobileLabel')}
                   placeholder={t('auth.login.mobilePlaceholder')}

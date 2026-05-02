@@ -29,6 +29,9 @@ interface DropdownProps {
   selectedValue?: string | number;
   onSelect: (option: DropdownOption) => void;
   placeholder?: string;
+  label?: string;
+  required?: boolean;
+  error?: string;
   containerStyle?: ViewStyle;
   buttonStyle?: ViewStyle;
   buttonTextStyle?: TextStyle;
@@ -40,6 +43,7 @@ interface DropdownProps {
   renderRightIcon?: () => React.ReactNode;
   leftIcon?: React.ReactNode;
   loading?: boolean;
+  labelStyle?: TextStyle;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -49,6 +53,9 @@ const Dropdown: React.FC<DropdownProps> = ({
   selectedValue,
   onSelect,
   placeholder = 'Select',
+  label,
+  required,
+  error,
   containerStyle,
   buttonStyle,
   buttonTextStyle,
@@ -60,6 +67,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   renderRightIcon,
   leftIcon,
   loading = false,
+  labelStyle,
 }) => {
   const { theme } = useTheme();
 
@@ -146,10 +154,21 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <View style={[styles.container, containerStyle]}>
+      {label && (
+        <Text variant="semiBold" size={12} style={[styles.label, labelStyle]}>
+          {label}
+          {required && <Text style={{ color: theme.colors.error }}> *</Text>}
+        </Text>
+      )}
       {/* Trigger Button */}
       <TouchableOpacity
         ref={buttonRef}
-        style={[styles.button, buttonStyle]}
+        style={[
+          styles.button,
+          buttonStyle,
+          error ? { borderColor: theme.colors.error } : undefined,
+          visible ? { borderColor: theme.colors.primary } : undefined
+        ]}
         onPress={openDropdown}
         activeOpacity={0.8}
       >
@@ -174,6 +193,12 @@ const Dropdown: React.FC<DropdownProps> = ({
 
         )}
       </TouchableOpacity>
+
+      {error && (
+        <Text size={12} color={theme.colors.error} style={styles.errorText}>
+          {error}
+        </Text>
+      )}
 
       {/* Dropdown Modal */}
       <Modal
@@ -204,7 +229,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         >
           <FlatList
             data={options}
-            keyExtractor={item => item.value}
+            keyExtractor={item => (item.value || item.id)?.toString()}
             renderItem={renderItem}
             scrollEnabled={options.length > 6}
             showsVerticalScrollIndicator={false}
@@ -221,32 +246,36 @@ const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       position: 'relative',
+      width: '100%',
+      marginBottom: SH(10),
+    },
+    label: {
+      marginBottom: SH(4),
     },
     button: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: theme.colors.neutral50,
+      backgroundColor: theme.colors.white,
       borderRadius: SW(10),
       paddingHorizontal: SW(12),
-      borderWidth: 1,
-      borderColor: theme.colors.neutral200,
+      borderWidth: 1.5,
+      borderColor: theme.colors.borderLight,
       gap: SW(8),
-      minHeight: SH(44),
-      marginVertical: SH(5),
+      height: SH(44),
     },
 
     leftIcon: {
-      marginRight: SW(5),
+      marginRight: SW(4),
     },
     buttonText: {
-      fontSize: SF(14),
-      color: theme.colors.neutral900,
-      fontWeight: '400',
+      fontSize: SF(13),
+      color: theme.colors.textPrimary,
+      fontFamily: theme.fontfamily.poppinsRegular,
       flex: 1,
     },
 
     placeholderText: {
-      color: theme.colors.neutral400,
+      color: theme.colors.gray400,
     },
     arrowUp: {
       transform: [{ rotate: '180deg' }],
@@ -262,15 +291,16 @@ const createStyles = (theme: AppTheme) =>
       position: 'absolute',
       backgroundColor: theme.colors.white,
       borderRadius: SW(10),
-      borderWidth: 1,
-      borderColor: theme.colors.neutral200,
-      elevation: 2,
+      borderWidth: 1.5,
+      borderColor: theme.colors.borderLight,
+      elevation: 5,
       shadowColor: theme.colors.black,
-      shadowOpacity: 0.12,
-      shadowRadius: SW(8),
+      shadowOpacity: 0.1,
+      shadowRadius: SW(10),
       shadowOffset: { width: 0, height: SH(4) },
       overflow: 'hidden',
       maxHeight: SH(300),
+      zIndex: 1000,
     },
 
     dropdownItem: {
@@ -280,7 +310,7 @@ const createStyles = (theme: AppTheme) =>
       paddingHorizontal: SW(16),
       paddingVertical: SH(12),
       borderBottomWidth: 1,
-      borderBottomColor: theme.colors.neutral200,
+      borderBottomColor: theme.colors.gray100,
     },
 
     dropdownItemActive: {
@@ -289,19 +319,21 @@ const createStyles = (theme: AppTheme) =>
     dropdownItemText: {
       fontSize: SF(14),
       color: theme.colors.gray800,
-      fontWeight: '400',
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
     dropdownItemTextActive: {
       color: theme.colors.brandRedDark,
-      fontWeight: '600',
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     activeDot: {
       width: SW(6),
-      height: SH(6),
+      height: SW(6),
       borderRadius: SW(3),
       backgroundColor: theme.colors.brandRedDark,
     },
-
+    errorText: {
+      marginTop: SH(4),
+    },
   });
 
 export default Dropdown;

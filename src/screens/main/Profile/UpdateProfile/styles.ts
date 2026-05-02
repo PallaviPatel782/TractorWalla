@@ -72,6 +72,7 @@ export const createStyles = (theme: AppTheme) =>
       marginBottom: SH(20),
       marginHorizontal: SW(16),
       zIndex: 2,
+      paddingVertical: SH(20)
     },
     inputField: {
       paddingVertical: SH(18),

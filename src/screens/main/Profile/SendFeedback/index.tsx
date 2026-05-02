@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import {
@@ -9,10 +9,10 @@ import {
   ScreenWrapper,
   View,
   ScrollView,
+  Input,
 } from '@components';
 import { createStyles } from './styles';
-import { EditIcon } from '@assets/icons';
-import { SF } from '@utils/Dimensions';
+import { SH, SW } from '@utils/Dimensions';
 
 const SendFeedback = ({ navigation }: any) => {
   const { theme } = useTheme();
@@ -46,20 +46,18 @@ const SendFeedback = ({ navigation }: any) => {
               {t('main.profile.feedback.description')}
             </Text>
 
-            <View style={styles.inputContainer}>
-              <View style={styles.iconWrapper}>
-                <EditIcon size={SF(18)} color={theme.colors.gray400} />
-              </View>
-              <TextInput
-                style={styles.input}
-                placeholder={t('main.profile.feedback.placeholder')}
-                placeholderTextColor={theme.colors.gray400}
-                multiline
-                textAlignVertical="top"
-                value={feedback}
-                onChangeText={setFeedback}
-              />
-            </View>
+            <Input
+              placeholder={t('main.profile.feedback.placeholder')}
+              multiline
+              value={feedback}
+              onChangeText={setFeedback}
+              containerStyle={{
+                minHeight: SH(150),
+                alignItems: 'flex-start',
+                paddingTop: SH(10),
+                paddingHorizontal: SW(10),
+              }}
+            />
           </ScrollView>
 
           <View style={styles.bottomContainer}>

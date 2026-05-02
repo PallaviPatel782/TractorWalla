@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, TextInput as RNTextInput } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform } from 'react-native';
+import { Input } from '@components';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import { Text, ScreenWrapper, View, ScrollView, TouchableOpacity, GlobalBottomSheet } from '@components';
@@ -72,7 +73,7 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : SH(100)}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : SH(20)}
         >
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -107,41 +108,29 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
 
             {/* Form Card */}
             <View style={styles.formCard}>
-              {/* Full Name */}
-              <View style={styles.inputField}>
-                <Text style={styles.inputLabel}>{t('main.profile.updateProfile.fullName')}</Text>
-                <RNTextInput
-                  style={styles.input}
-                  value={fullName}
-                  onChangeText={setFullName}
-                  placeholder={t('main.profile.updateProfile.placeholderName')}
-                  placeholderTextColor={theme.colors.gray300}
-                />
-              </View>
+              <Input
+                label={t('main.profile.updateProfile.fullName')}
+                placeholder={t('main.profile.updateProfile.placeholderName')}
+                value={fullName}
+                onChangeText={setFullName}
 
-              {/* Phone */}
-              <View style={styles.inputField}>
-                <Text style={styles.inputLabel}>{t('main.profile.updateProfile.phone') || 'Phone'}</Text>
-                <RNTextInput
-                  style={[styles.input, { color: theme.colors.textMuted }]}
-                  value={user?.phone || '0000-0000-00'}
-                  editable={false}
-                />
-              </View>
+              />
 
-              {/* Email */}
-              <View style={[styles.inputField, { borderBottomWidth: 0 }]}>
-                <Text style={styles.inputLabel}>{t('main.profile.updateProfile.email')}</Text>
-                <RNTextInput
-                  style={styles.input}
-                  value={email}
-                  onChangeText={setEmail}
-                  placeholder={t('main.profile.updateProfile.placeholderEmail')}
-                  placeholderTextColor={theme.colors.gray300}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-              </View>
+              <Input
+                label={t('main.profile.updateProfile.phone') || 'Phone'}
+                value={user?.phone || '0000-0000-00'}
+                editable={false}
+                inputStyle={{ color: theme.colors.textMuted }}
+              />
+
+              <Input
+                label={t('main.profile.updateProfile.email')}
+                placeholder={t('main.profile.updateProfile.placeholderEmail')}
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
             </View>
           </ScrollView>
 

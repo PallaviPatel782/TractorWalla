@@ -13,6 +13,9 @@
     "added": "Added",
     "default": "Default",
     "delete": "Delete",
+    "city": "City",
+    "enterCity": "Enter city",
+    "generalInquiry": "General Inquiry",
     "today": "Today",
     "supportEmail": "support@tractorwalla.com",
     "brands": {
@@ -524,7 +527,13 @@
       "pincodeLabel": "Pincode",
       "placeholderAddress": "Enter address",
       "placeholderState": "Enter state",
-      "placeholderPincode": "Enter pincode"
+      "placeholderPincode": "Enter pincode",
+      "errorName": "Full name is required",
+      "errorEmail": "Invalid email format",
+      "errorAddress": "Address is required",
+      "errorState": "State is required",
+      "errorPincode": "Pincode is required",
+      "errorPincodeLength": "Pincode must be 6 digits"
     },
     "serviceFlow": {
       "trackTitle": "Track",

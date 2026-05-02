@@ -87,7 +87,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
             contentContainerStyle={styles.content}
             showsVerticalScrollIndicator={false}
           >
-            <View style={{ gap: SH(16) }}>
+            <View style={{ gap: SH(12) }}>
               {!isOthers && (
                 <View style={styles.brandDisplayContainer}>
                   <View style={styles.brandLogoBox}>
@@ -105,22 +105,20 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                 </View>
               )}
 
-
               {!isOthers && (
-                <View>
-                  <Dropdown
-                    options={modelOptions}
-                    selectedValue={formData.model}
-                    onSelect={(opt) => {
-                      handleInputChange('model', opt.value);
-                      handleInputChange('modelId', opt.id?.toString() || '');
-                    }}
-                    placeholder={t('main.register.placeholderModel')}
-                    leftIcon={<BikeIcon width={SW(24)} height={SW(24)} color={theme.colors.brandRed} />}
-                    buttonStyle={styles.dropdownButton}
-                    loading={isLoadingModels}
-                  />
-                </View>
+                <Dropdown
+                  label={t('main.register.modelNameLabel')}
+                  required
+                  options={modelOptions}
+                  selectedValue={formData.model}
+                  onSelect={(opt) => {
+                    handleInputChange('model', opt.value);
+                    handleInputChange('modelId', opt.id?.toString() || '');
+                  }}
+                  placeholder={t('main.register.placeholderModel')}
+                  leftIcon={<BikeIcon width={SW(20)} height={SW(20)} color={theme.colors.brandRed} />}
+                  loading={isLoadingModels}
+                />
               )}
 
 
@@ -131,6 +129,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                     placeholder={t('main.register.placeholderBrandName')}
                     value={formData.customBrand}
                     onChangeText={(val) => handleInputChange('customBrand', val)}
+                    required
                   />
                 )}
                 {isOthers && (
@@ -139,6 +138,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                     placeholder={t('main.register.placeholderModelName')}
                     value={formData.model}
                     onChangeText={(val) => handleInputChange('model', val)}
+                    required
                   />
                 )}
                 <Input
@@ -168,22 +168,17 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                   onChangeText={(val) => handleInputChange('yearOfPurchase', val)}
                 />
 
-                <View>
-                  <Text variant="medium" size={12} style={styles.label}>
-                    {t('main.register.typeLabel')}
-                    <Text style={{ color: theme.colors.error }}> *</Text>
-                  </Text>
-                  <TouchableOpacity
-                    style={styles.typeTriggerButton}
-                    onPress={() => setShowTypeSheet(true)}
-                    activeOpacity={0.7}
-                  >
-                    <Text variant="regular" size={14} style={styles.typeTriggerText}>
-                      {t(`main.register.${formData.tractorType}`)}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-
+                <Dropdown
+                  label={t('main.register.typeLabel')}
+                  required
+                  options={[
+                    { label: t('main.register.agricultural'), value: 'agricultural' },
+                    { label: t('main.register.commercial'), value: 'commercial' },
+                  ]}
+                  selectedValue={formData.tractorType}
+                  onSelect={(opt) => handleInputChange('tractorType', opt.value)}
+                  placeholder="Select type"
+                />
               </View>
             </View>
 

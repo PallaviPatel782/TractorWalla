@@ -17,11 +17,13 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.borderLight,
       borderWidth: 1.5,
-      padding: SH(10),
+      paddingHorizontal: SH(10),
+      paddingVertical: SH(5),
       borderRadius: SW(12),
     },
     brandDisplayContainer: {
-      flexDirection: 'column',
+      flexDirection: 'row',
+      gap: SW(12),
       alignItems: 'center',
       justifyContent: 'center',
       paddingHorizontal: SW(10),
@@ -34,8 +36,7 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
     },
     brandInfo: {
-      marginTop: SH(10),
-      alignItems: 'center',
+      alignItems: 'flex-start',
     },
     brandDisplayName: {
       color: theme.colors.textPrimary,
@@ -53,11 +54,6 @@ export const createStyles = (theme: AppTheme) =>
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 5,
-    },
-    label: {
-      marginBottom: SH(8),
-      color: theme.colors.textPrimary,
-      fontFamily: theme.fontfamily.poppinsMedium,
     },
     typeTriggerButton: {
       flexDirection: 'row',
@@ -114,5 +110,10 @@ export const createStyles = (theme: AppTheme) =>
       marginTop: SH(30),
       backgroundColor: theme.colors.DeepGreen,
       borderRadius: SW(10),
+    },
+    label: {
+      // marginBottom: SH(4),
+      color: theme.colors.textPrimary,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
   });

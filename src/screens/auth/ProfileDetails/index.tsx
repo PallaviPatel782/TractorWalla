@@ -14,7 +14,6 @@ import {
 import { useUpdateProfile } from '@screens/auth/hooks/useAuth';
 import { createStyles } from './styles';
 import { UserIcon } from '@icons';
-import { useSnackbarStore } from '@store/useSnackbarStore';
 
 const ProfileDetails = ({ navigation, route }: any) => {
   const { theme } = useTheme();
@@ -27,6 +26,8 @@ const ProfileDetails = ({ navigation, route }: any) => {
     state: '',
     pincode: '',
   });
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   React.useEffect(() => {
     if (route.params?.location) {
@@ -43,17 +44,51 @@ const ProfileDetails = ({ navigation, route }: any) => {
 
   const handleInputChange = (key: string, value: string) => {
     setFormData(prev => ({ ...prev, [key]: value }));
+    
+    // Clear error for this field as soon as user starts typing
+    if (errors[key]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[key];
+        return newErrors;
+      });
+    }
   };
 
-  const isFormValid = formData.fullName.trim() !== '' &&
-    formData.address.trim() !== '' &&
-    formData.state.trim() !== '' &&
-    formData.pincode.length === 6;
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = t('main.profileDetails.errorName');
+    }
+
+    if (formData.emailId.trim()) {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(formData.emailId)) {
+        newErrors.emailId = t('main.profileDetails.errorEmail');
+      }
+    }
+
+    if (!formData.address.trim()) {
+      newErrors.address = t('main.profileDetails.errorAddress');
+    }
+
+    if (!formData.state.trim()) {
+      newErrors.state = t('main.profileDetails.errorState');
+    }
+
+    if (!formData.pincode.trim()) {
+      newErrors.pincode = t('main.profileDetails.errorPincode');
+    } else if (formData.pincode.length !== 6) {
+      newErrors.pincode = t('main.profileDetails.errorPincodeLength');
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = () => {
-    if (!isFormValid) {
-      const showSnackbar = useSnackbarStore.getState().showSnackbar;
-      showSnackbar({ type: 'error', title: 'Missing Info', description: 'Please fill all mandatory fields correctly' });
+    if (!validate()) {
       return;
     }
 
@@ -95,6 +130,7 @@ const ProfileDetails = ({ navigation, route }: any) => {
                 placeholder={t('main.profileDetails.placeholderName')}
                 value={formData.fullName}
                 onChangeText={(val) => handleInputChange('fullName', val)}
+                error={errors.fullName}
                 required
               />
 
@@ -105,6 +141,7 @@ const ProfileDetails = ({ navigation, route }: any) => {
                 autoCapitalize="none"
                 value={formData.emailId}
                 onChangeText={(val) => handleInputChange('emailId', val)}
+                error={errors.emailId}
               />
 
               <Input
@@ -113,15 +150,16 @@ const ProfileDetails = ({ navigation, route }: any) => {
                 multiline
                 value={formData.address}
                 onChangeText={(val) => handleInputChange('address', val)}
+                error={errors.address}
                 required
               />
-
 
               <Input
                 label={t('main.profileDetails.stateLabel')}
                 placeholder={t('main.profileDetails.placeholderState')}
                 value={formData.state}
                 onChangeText={(val) => handleInputChange('state', val)}
+                error={errors.state}
                 required
               />
 
@@ -132,17 +170,16 @@ const ProfileDetails = ({ navigation, route }: any) => {
                 maxLength={6}
                 value={formData.pincode}
                 onChangeText={(val) => handleInputChange('pincode', val)}
+                error={errors.pincode}
                 required
               />
-
             </View>
 
             <Button
               title={t('common.submit')}
               onPress={handleSubmit}
               loading={isPending}
-              disabled={!isFormValid}
-              style={[styles.button, !isFormValid && { opacity: 0.6 }]}
+              style={styles.button}
             />
           </ScrollView>
         </KeyboardWrapper>

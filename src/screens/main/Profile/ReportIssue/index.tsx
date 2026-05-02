@@ -53,18 +53,13 @@ const ReportIssue = ({ navigation }: any) => {
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.formContainer}>
-              <View style={{ zIndex: 10 }}>
-                <Text variant="medium" size={14} color={theme.colors.gray900} style={{ marginBottom: 4 }}>
-                  {t('main.profile.report.helpText')}
-                </Text>
-                <Dropdown
-                  options={ISSUE_OPTIONS}
-                  selectedValue={issueType}
-                  onSelect={(opt) => setIssueType(opt.value)}
-                  placeholder={t('main.profile.report.selectIssue')}
-                  buttonStyle={styles.dropdownButton}
-                />
-              </View>
+              <Dropdown
+                label={t('main.profile.report.helpText')}
+                options={ISSUE_OPTIONS}
+                selectedValue={issueType}
+                onSelect={(opt) => setIssueType(opt.value)}
+                placeholder={t('main.profile.report.selectIssue')}
+              />
 
               <View style={{ zIndex: 1 }}>
                 <Input

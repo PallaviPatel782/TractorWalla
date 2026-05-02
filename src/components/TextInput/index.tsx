@@ -76,10 +76,10 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
     );
 
     const HEIGHT_MAP = {
-      xs: SH(30),
-      sm: SH(34),
-      md: SH(40),
-      lg: SH(48),
+      xs: SH(32),
+      sm: SH(38),
+      md: SH(44),
+      lg: SH(50),
     };
 
     return (
@@ -96,7 +96,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
             themedStyles.inputContainer,
             {
               height: multiline ? undefined : HEIGHT_MAP[size],
-              minHeight: multiline ? SH(60) : undefined,
+              minHeight: multiline ? SH(80) : undefined,
               backgroundColor: theme.colors.white,
               borderWidth: hasBorder ? (containerStyle as any)?.borderWidth ?? 1.5 : 0,
               borderColor: error ? theme.colors.error : focused ? theme.colors.primary : theme.colors.borderLight,
@@ -160,7 +160,7 @@ const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     wrapper: {
       width: '100%',
-      marginBottom: SH(10),
+      marginBottom: SH(5),
     },
     label: {
       marginBottom: SH(4),

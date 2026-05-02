@@ -21,6 +21,7 @@ import CustomDatePickerModal from '@components/DatePicker';
 import { useModels } from '@screens/auth/hooks/useAuth';
 import { ActivityIndicator, Image as RNImage } from 'react-native';
 import { Model } from '@appTypes/api.types';
+import { BikeIcon } from '@assets/icons';
 
 const SelectTractorScreen = () => {
   const route = useRoute<any>();
@@ -38,6 +39,10 @@ const SelectTractorScreen = () => {
   const [tractorType, setTractorType] = useState(type === 'New Tractor' ? 'agricultural' : 'commercial');
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [showTypeSheet, setShowTypeSheet] = useState(false);
+  const isOthers = brand === 'Others';
+  const [customBrand, setCustomBrand] = useState('');
+  const [customModel, setCustomModel] = useState('');
+  const [city, setCity] = useState('');
 
   const { data: modelsData, isLoading: isModelsLoading } = useModels(brandId);
   const modelOptions = useMemo(() => {
@@ -60,38 +65,66 @@ const SelectTractorScreen = () => {
 
         <KeyboardWrapper>
           <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-            <View style={styles.brandDisplayContainer}>
-              <View style={styles.brandLogoBox}>
-                {brandLogo ? (
-                  <RNImage source={{ uri: brandLogo }} style={{ width: SW(60), height: SW(60) }} resizeMode="contain" />
-                ) : (
-                  <Text style={{ fontSize: SF(40) }}>🚜</Text>
-                )}
+            {!isOthers && (
+              <View style={styles.brandDisplayContainer}>
+                <View style={styles.brandLogoBox}>
+                  {brandLogo ? (
+                    <RNImage source={{ uri: brandLogo }} style={{ width: SW(60), height: SW(60) }} resizeMode="contain" />
+                  ) : (
+                    <Text style={{ fontSize: SF(40) }}>🚜</Text>
+                  )}
+                </View>
+                <View style={styles.brandInfo}>
+                  <Text variant="bold" size={18} style={styles.brandDisplayName}>
+                    {brand}
+                  </Text>
+                  <Text variant="regular" size={14} color={theme.colors.gray500}>
+                    {t(`main.home.${type === 'New Tractor' ? 'newTractor' : 'oldTractor'}`, { defaultValue: type }) as string}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.brandInfo}>
-                <Text variant="bold" size={18} style={styles.brandDisplayName}>
-                  {brand}
-                </Text>
-                <Text variant="regular" size={14} color={theme.colors.gray500} style={{ marginTop: SH(4) }}>
-                  {t(`main.home.${type === 'New Tractor' ? 'newTractor' : 'oldTractor'}`, { defaultValue: type }) as string}
-                </Text>
-              </View>
-            </View>
+            )}
 
             <View style={{ gap: SH(16), marginTop: SH(10) }}>
-              {isModelsLoading ? (
-                <ActivityIndicator color={theme.colors.brandRed} />
-              ) : (
-                <Dropdown
-                  options={modelOptions}
-                  selectedValue={selectedModel}
-                  onSelect={(item) => setSelectedModel(item.value)}
-                  buttonStyle={styles.dropdownButton}
-                  placeholder={t('main.home.selectModel', 'Select Model')}
-                />
+              {!isOthers && (
+                isModelsLoading ? (
+                  <ActivityIndicator color={theme.colors.brandRed} />
+                ) : (
+                  <Dropdown
+                    options={modelOptions}
+                    selectedValue={selectedModel}
+                    onSelect={(item) => setSelectedModel(item.value)}
+                    buttonStyle={styles.dropdownButton}
+                    placeholder={t('main.home.selectModel', 'Select Model')}
+                    leftIcon={<BikeIcon width={SW(20)} height={SW(20)} color={theme.colors.brandRed} />}
+                  />
+                )
               )}
 
               <View style={styles.formContainer}>
+                {!isOthers && (
+                  <Text variant="medium" size={14} color={theme.colors.textPrimary} style={{ marginBottom: SH(16) }}>
+                    {t('common.generalInquiry')}
+                  </Text>
+                )}
+                {isOthers && (
+                  <View>
+                    <Input
+                      label={t('main.register.brandNameLabel', 'Brand Name')}
+                      placeholder={t('main.register.placeholderBrandName', 'Enter brand name')}
+                      value={customBrand}
+                      onChangeText={setCustomBrand}
+                      required
+                    />
+                    <Input
+                      label={t('main.register.modelNameLabel', 'Model Name')}
+                      placeholder={t('main.register.placeholderModelName', 'Enter model name')}
+                      value={customModel}
+                      onChangeText={setCustomModel}
+                      required
+                    />
+                  </View>
+                )}
 
                 <Input
                   label={t('common.name', 'Name')}
@@ -107,6 +140,14 @@ const SelectTractorScreen = () => {
                   value={contact}
                   onChangeText={setContact}
                   keyboardType="phone-pad"
+                  required
+                />
+
+                <Input
+                  label={t('common.city', 'City')}
+                  placeholder={t('common.enterCity', 'Enter city')}
+                  value={city}
+                  onChangeText={setCity}
                   required
                 />
 
@@ -126,9 +167,13 @@ const SelectTractorScreen = () => {
                 </TouchableOpacity>
 
                 <View>
-                  <Text variant="medium" size={14} style={styles.label}>
+
+
+                  <Text variant="semiBold" size={12} color={theme.colors.textPrimary} style={styles.label}>
                     {t('main.register.typeLabel', 'Type of Tractor')}
+                    <Text style={{ color: theme.colors.error }}> *</Text>
                   </Text>
+
                   <TouchableOpacity
                     style={styles.typeTriggerButton}
                     onPress={() => setShowTypeSheet(true)}
@@ -145,7 +190,7 @@ const SelectTractorScreen = () => {
             <Button
               title={t('common.submit', 'Submit')}
               onPress={handleSubmit}
-              disabled={!selectedModel || !name || !contact || !date}
+              disabled={(isOthers ? (!customBrand || !customModel) : !selectedModel) || !name || !contact || !date || !city}
               style={styles.submitButton}
             />
           </ScrollView>

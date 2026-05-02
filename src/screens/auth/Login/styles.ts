@@ -40,8 +40,7 @@ export const createStyles = (theme: AppTheme) =>
     inputCard: {
       width: '100%',
       paddingHorizontal: SW(24),
-      paddingTop: SH(24),
-      paddingBottom: SH(30),
+      paddingVertical: SH(25),
       borderRadius: SW(24),
       backgroundColor: theme.colors.white,
       marginTop: SH(30),
@@ -60,9 +59,9 @@ export const createStyles = (theme: AppTheme) =>
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
     },
-    inputWrapper: {
-      marginBottom: SH(20),
-    },
+    // inputWrapper: {
+    //   marginBottom: SH(20),
+    // },
     button: {
       // marginTop: SH(5),
       borderRadius: SW(12),
