@@ -20,7 +20,7 @@ import {
 import { Button, ScreenWrapper, ServiceCard } from '@components';
 import { createStyles } from './styles';
 import { CATEGORY_OVERVIEW_DATA, SERVICES_DATA } from '../dummyData';
-import { SH, SW } from '@utils/Dimensions';
+import { SH } from '@utils/Dimensions';
 // import { SH, SW } from '@utils/Dimensions';
 
 const CategoryOverviewScreen = () => {
@@ -36,7 +36,7 @@ const CategoryOverviewScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          {CategoryOverviewBannerImage && <CategoryOverviewBannerImage width={SW(375)} height={SH(281)} />}
+          {CategoryOverviewBannerImage && <CategoryOverviewBannerImage width="100%" height="100%" />}
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
               <ChevronBackwardIcon size={24} color={theme.colors.black} />

@@ -23,14 +23,15 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       tabBar={({ state, descriptors, navigation }) => {
-        const tabHeight = SH(60) + (insets.bottom > 0 ? insets.bottom : SH(5));
+        const bottomInset = Math.max(insets.bottom, SH(8));
+        const tabHeight = SH(60) + bottomInset;
 
         return (
           <View style={{
             flexDirection: 'row',
             backgroundColor: theme.colors.white,
             height: tabHeight,
-            paddingBottom: insets.bottom > 0 ? insets.bottom : SH(5),
+            paddingBottom: bottomInset,
             elevation: 10,
             shadowColor: theme.colors.black,
             shadowOffset: { width: 0, height: -2 },

@@ -95,17 +95,18 @@ export const createStyles = (theme: AppTheme) =>
     },
     heroCardContainer: {
       width: SW(355),
-      height: SH(190),
+      height: SH(180),
       borderRadius: SW(20),
       overflow: 'hidden',
-      alignItems: 'center',
+      backgroundColor: 'transparent',
     },
     heroCard: {
-      height: SH(190),
-      width: SW(355),
+      height: '100%',
+      width: '100%',
       borderRadius: SW(20),
       overflow: 'hidden',
       position: 'relative',
+      backgroundColor: 'transparent',
     },
     heroGradient: {
       position: 'absolute',
@@ -145,18 +146,16 @@ export const createStyles = (theme: AppTheme) =>
     // Middle Slider Container
     middleCardContainer: {
       width: SW(355),
-      height: SH(165),
+      height: SH(180),
       borderRadius: SW(20),
       overflow: 'hidden',
-      alignItems: 'center',
     },
     // Network Slider Container
     networkCardContainer: {
       width: SW(355),
-      height: SH(154),
+      height: SH(180),
       borderRadius: SW(20),
       overflow: 'hidden',
-      alignItems: 'center',
     },
     dots: {
       flexDirection: 'row',
@@ -427,10 +426,11 @@ export const createStyles = (theme: AppTheme) =>
 
     // ── Middle Banner Styles ──────────────────────────────────────────
     middleBannerCard: {
-      width: SW(355), // Fixed width to prevent collapse
+      width: '100%',
+      height: '100%',
       borderRadius: SW(16),
       overflow: 'hidden',
-      minHeight: SH(154),
+      backgroundColor: 'transparent',
     },
     middleBannerContent: {
       flexDirection: 'row',
@@ -492,17 +492,19 @@ export const createStyles = (theme: AppTheme) =>
       fontSize: SF(12),
     },
     middleBannerImageWrap: {
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      paddingRight: SW(4),
+      width: SW(120),
+      height: '100%',
+      overflow: 'hidden',
+      backgroundColor: 'transparent',
     },
 
     // ── Network Banner Styles ─────────────────────────────────────────
     networkBannerCard: {
-      width: SW(355), // Fixed width to prevent collapse
+      width: '100%',
+      height: '100%',
       borderRadius: SW(16),
       overflow: 'hidden',
-      minHeight: SH(154),
+      backgroundColor: 'transparent',
     },
     networkBannerContent: {
       flexDirection: 'row',
@@ -565,19 +567,21 @@ export const createStyles = (theme: AppTheme) =>
       fontSize: SF(12),
     },
     networkBannerImageWrap: {
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      paddingRight: SW(4),
+      width: SW(120),
+      height: '100%',
+      overflow: 'hidden',
+      backgroundColor: 'transparent',
     },
 
     // ── How It Works ──────────────────────────────────────────────────
     videoThumb: {
       width: SW(200),
       height: SH(120),
-      backgroundColor: theme.colors.grayLight,
       borderRadius: SW(16),
+      overflow: 'hidden',
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: 'transparent',
     },
     playButton: {
       width: SW(48),

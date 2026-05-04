@@ -373,9 +373,10 @@ const HomeScreen = () => {
                 <View style={styles.heroCardContainer}>
                   <View style={styles.heroCard}>
                     <item.Image
-                      width={SW(360)}
-                      height={SH(220)}
-                      style={{ borderRadius: SW(20) }}
+                      width="110%"
+                      height="110%"
+                      preserveAspectRatio="xMidYMid slice"
+                      style={{ position: 'absolute', left: '-5%', top: '-5%' }}
                     />
                     <LinearGradient
                       colors={['transparent', 'rgba(0,0,0,0.87)']}
@@ -479,7 +480,12 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                       </View>
                       <View style={styles.middleBannerImageWrap}>
-                        <item.Image width={SW(120)} height={SH(140)} />
+                        <item.Image
+                          width="110%"
+                          height="110%"
+                          preserveAspectRatio="xMidYMid slice"
+                          style={{ position: 'absolute', left: '-5%', top: '-5%' }}
+                        />
                       </View>
                     </View>
                   </View>
@@ -593,7 +599,12 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                       </View>
                       <View style={styles.networkBannerImageWrap}>
-                        <item.Image width={SW(120)} height={SH(140)} />
+                        <item.Image
+                          width="110%"
+                          height="110%"
+                          preserveAspectRatio="xMidYMid slice"
+                          style={{ position: 'absolute', left: '-5%', top: '-5%' }}
+                        />
                       </View>
                     </View>
                   </View>
@@ -621,7 +632,12 @@ const HomeScreen = () => {
                   style={styles.videoThumb}
                   onPress={() => Linking.openURL(item.url)} // 🔥 opens YouTube Shorts
                 >
-                  <item.thumbnail width="100%" height="100%" />
+                  <item.thumbnail
+                    width="110%"
+                    height="110%"
+                    preserveAspectRatio="xMidYMid slice"
+                    style={{ position: 'absolute', left: '-5%', top: '-5%' }}
+                  />
                 </TouchableOpacity>
               )}
             />

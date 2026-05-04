@@ -53,7 +53,7 @@ const ServiceOverviewScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          <ServiceOverViewBannerImage width={SW(375)} height={SH(281)} />
+          <ServiceOverViewBannerImage width="100%" height="100%" />
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
               <ChevronBackwardIcon size={24} color={theme.colors.black} />

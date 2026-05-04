@@ -92,7 +92,7 @@ const RootNavigator = () => {
         ...DefaultTheme,
         colors: {
           ...DefaultTheme.colors,
-          background: theme.colors.white,
+          background: theme.colors.background,
         },
       }}
     >

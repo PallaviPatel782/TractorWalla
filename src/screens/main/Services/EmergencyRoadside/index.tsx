@@ -37,7 +37,7 @@ const EmergencyRoadsideScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          {ServiceImage && <ServiceImage width={SW(375)} height={SH(281)} />}
+          {ServiceImage && <ServiceImage width="100%" height="100%" />}
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
               <ChevronBackwardIcon size={24} color={theme.colors.black} />
