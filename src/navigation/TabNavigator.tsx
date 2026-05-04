@@ -23,8 +23,8 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       tabBar={({ state, descriptors, navigation }) => {
-        const bottomInset = Math.max(insets.bottom, SH(8));
-        const tabHeight = SH(60) + bottomInset;
+        const bottomInset = insets.bottom > 0 ? insets.bottom : SH(5);
+        const tabHeight = SH(56) + (insets.bottom > 0 ? insets.bottom : 0);
 
         return (
           <View style={{

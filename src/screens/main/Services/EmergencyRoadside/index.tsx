@@ -4,6 +4,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Text,
+  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +23,8 @@ import {
 import { Button, ScreenWrapper, ServiceCard } from '@components';
 import { createStyles } from './styles';
 import { EMERGENCY_SERVICE, SERVICES_DATA } from '../dummyData';
-import { SH, SW } from '@utils/Dimensions';
+import { ServiceEmergencyBanner } from '@assets/images';
+import { SH } from '@utils/Dimensions';
 
 const EmergencyRoadsideScreen = () => {
   const { t } = useTranslation();
@@ -30,14 +32,17 @@ const EmergencyRoadsideScreen = () => {
   const styles = createStyles(theme);
   const navigation = useNavigation<any>();
   const data = EMERGENCY_SERVICE;
-  const ServiceImage = data.image;
 
   return (
     <ScreenWrapper style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          {ServiceImage && <ServiceImage width="100%" height="100%" />}
+          <Image
+            source={ServiceEmergencyBanner}
+            style={styles.heroImage}
+            resizeMode="cover"
+          />
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
               <ChevronBackwardIcon size={24} color={theme.colors.black} />
@@ -121,7 +126,7 @@ const EmergencyRoadsideScreen = () => {
             serviceId: data.id,
             category: 'emergency'
           })}
-          style={{ marginBottom: SH(30) }}
+          style={{ marginBottom: SH(20) }}
         />
       </View>
     </ScreenWrapper>

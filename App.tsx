@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {SafeAreaProvider, initialWindowMetrics} from 'react-native-safe-area-context';
 import RootNavigator from '@navigation/RootNavigator';
 import '@localization'; // Initialize i18n
 import {ThemeProvider} from '@theme';
@@ -22,8 +22,8 @@ function App(): React.JSX.Element {
     <GestureHandlerRootView style={{flex: 1}}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          <SafeAreaProvider>
-            <StatusBar barStyle="dark-content" />
+          <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+            <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true} />
             <RootNavigator />
             <Snackbar />
           </SafeAreaProvider>

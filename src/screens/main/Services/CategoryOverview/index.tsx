@@ -4,6 +4,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Text,
+  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +21,7 @@ import {
 import { Button, ScreenWrapper, ServiceCard } from '@components';
 import { createStyles } from './styles';
 import { CATEGORY_OVERVIEW_DATA, SERVICES_DATA } from '../dummyData';
+import { categoryOverViewBanner } from '@assets/images';
 import { SH } from '@utils/Dimensions';
 // import { SH, SW } from '@utils/Dimensions';
 
@@ -29,14 +31,17 @@ const CategoryOverviewScreen = () => {
   const styles = createStyles(theme);
   const navigation = useNavigation<any>();
   const data = CATEGORY_OVERVIEW_DATA;
-  const CategoryOverviewBannerImage = data.image;
 
   return (
     <ScreenWrapper style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Header/Hero */}
         <View style={styles.heroSection}>
-          {CategoryOverviewBannerImage && <CategoryOverviewBannerImage width="100%" height="100%" />}
+          <Image
+            source={categoryOverViewBanner}
+            style={styles.heroImage}
+            resizeMode="cover"
+          />
           <View style={styles.headerRow}>
             <TouchableOpacity style={styles.iconCircle} onPress={() => navigation.goBack()}>
               <ChevronBackwardIcon size={24} color={theme.colors.black} />

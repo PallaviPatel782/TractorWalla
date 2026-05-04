@@ -15,6 +15,7 @@ export const createStyles = (theme: AppTheme) =>
       height: SH(280),
       position: 'relative',
       alignItems: 'center',
+      overflow: 'hidden',
     },
     headerRow: {
       position: 'absolute',
@@ -38,7 +39,8 @@ export const createStyles = (theme: AppTheme) =>
       elevation: 3,
     },
     heroImage: {
-      resizeMode: 'contain',
+      width: '100%',
+      height: '100%',
     },
     cardHeader: {
       flexDirection: 'row',

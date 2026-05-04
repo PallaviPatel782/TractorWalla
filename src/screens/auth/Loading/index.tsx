@@ -13,7 +13,7 @@ const LoadingScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar />
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true} />
       <View style={styles.container}>
         <Animated.View
           entering={FadeIn.duration(500)}

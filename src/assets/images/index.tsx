@@ -12,7 +12,6 @@ import Captain from './Captain.svg';
 import DentingPainting from './DentingPainting.svg';
 import Eicher from './Eicher.svg';
 import ElectricalServices from './ElectricalServices.svg';
-import EmergencyAssistBanner from './EmergencyAssistBanner.svg';
 import EngineServices from './EngineServices.svg';
 import Farmtrac from './Farmtrac.svg';
 import Force from './Force.svg';
@@ -27,7 +26,6 @@ import MasseyFerguson from './MasseyFerguson.svg';
 import NewHolland from './NewHolland.svg';
 import Others from './Others.svg';
 import Powertrac from './Powertrac.svg';
-import ServiceOverViewBanner from './ServiceOverViewBanner.svg';
 import Solis from './Solis.svg';
 import Sonalika from './Sonalika.svg';
 import Swaraj from './Swaraj.svg';
@@ -35,7 +33,6 @@ import Tractor from './Tractor.svg';
 import TransmissionClutch from './TransmissionClutch.svg';
 import TyreWheelServices from './TyreWheelServices.svg';
 import Vst from './VST.svg';
-import CategoryOverviewBanner from './categoryOverviewBanner.svg';
 import DummyUser from './dummyUser.svg';
 import HomeTopbanner1 from './homeTopbanner1.svg';
 import HomeTopbanner2 from './homeTopbanner2.svg';
@@ -53,6 +50,9 @@ import Product1 from './product1.svg';
 import Product2 from './product2.svg';
 import ServiceModalImage from './serviceModalImage.svg';
 import Vedio from './vedio.svg';
+import categoryOverViewBanner from './categoryOverViewBanner.png';
+import ServiceEmergencyBanner from './ServiceEmergencyBanner.png';
+import ServiceOverviewBanner from './ServiceOverviewBanner.png';
 
 export interface ISVGProps extends SvgProps {
   size?: number;
@@ -75,7 +75,6 @@ export const CaptainImage = (props: ISVGProps) => <Captain {...resolveSize(props
 export const DentingPaintingImage = (props: ISVGProps) => <DentingPainting {...resolveSize(props)} />;
 export const EicherImage = (props: ISVGProps) => <Eicher {...resolveSize(props)} />;
 export const ElectricalServicesImage = (props: ISVGProps) => <ElectricalServices {...resolveSize(props)} />;
-export const EmergencyAssistBannerImage = (props: ISVGProps) => <EmergencyAssistBanner {...resolveSize(props)} />;
 export const EngineServicesImage = (props: ISVGProps) => <EngineServices {...resolveSize(props)} />;
 export const FarmtracImage = (props: ISVGProps) => <Farmtrac {...resolveSize(props)} />;
 export const ForceImage = (props: ISVGProps) => <Force {...resolveSize(props)} />;
@@ -90,7 +89,6 @@ export const MasseyFergusonImage = (props: ISVGProps) => <MasseyFerguson {...res
 export const NewHollandImage = (props: ISVGProps) => <NewHolland {...resolveSize(props)} />;
 export const OthersImage = (props: ISVGProps) => <Others {...resolveSize(props)} />;
 export const PowertracImage = (props: ISVGProps) => <Powertrac {...resolveSize(props)} />;
-export const ServiceOverViewBannerImage = (props: ISVGProps) => <ServiceOverViewBanner {...resolveSize(props)} />;
 export const SolisImage = (props: ISVGProps) => <Solis {...resolveSize(props)} />;
 export const SonalikaImage = (props: ISVGProps) => <Sonalika {...resolveSize(props)} />;
 export const SwarajImage = (props: ISVGProps) => <Swaraj {...resolveSize(props)} />;
@@ -98,7 +96,6 @@ export const TractorImage = (props: ISVGProps) => <Tractor {...resolveSize(props
 export const TransmissionClutchImage = (props: ISVGProps) => <TransmissionClutch {...resolveSize(props)} />;
 export const TyreWheelServicesImage = (props: ISVGProps) => <TyreWheelServices {...resolveSize(props)} />;
 export const VstImage = (props: ISVGProps) => <Vst {...resolveSize(props)} />;
-export const CategoryOverviewBannerImage = (props: ISVGProps) => <CategoryOverviewBanner {...resolveSize(props)} />;
 export const DummyUserImage = (props: ISVGProps) => <DummyUser {...resolveSize(props)} />;
 export const HomeTopbanner1Image = (props: ISVGProps) => <HomeTopbanner1 {...resolveSize(props)} />;
 export const HomeTopbanner2Image = (props: ISVGProps) => <HomeTopbanner2 {...resolveSize(props)} />;
@@ -116,3 +113,8 @@ export const Product1Image = (props: ISVGProps) => <Product1 {...resolveSize(pro
 export const Product2Image = (props: ISVGProps) => <Product2 {...resolveSize(props)} />;
 export const ServiceModalImageImage = (props: ISVGProps) => <ServiceModalImage {...resolveSize(props)} />;
 export const VedioImage = (props: ISVGProps) => <Vedio {...resolveSize(props)} />;
+export {
+  categoryOverViewBanner,
+  ServiceEmergencyBanner,
+  ServiceOverviewBanner,
+};
