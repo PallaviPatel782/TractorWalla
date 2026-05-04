@@ -124,7 +124,7 @@ const CategoryOverviewScreen = () => {
             serviceId: data.id,
             category: 'general'
           })}
-          style={{ marginBottom: SH(30) }}
+          style={{ marginBottom: SH(20) }}
         />
       </View>
     </ScreenWrapper>
