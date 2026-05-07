@@ -1,35 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import {
   Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
   StyleSheet,
+  TouchableWithoutFeedback,
 } from 'react-native';
+import { View, Text, TouchableOpacity } from '@components';
 import { useThemedStyles, AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 interface CustomDatePickerModalProps {
   visible: boolean;
   onClose: () => void;
   onApply: (start: Date | null, end: Date | null) => void;
   mode?: 'single' | 'range';
+  minDate?: Date;
+  maxDate?: Date;
 }
 
 const MONTH_NAMES = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
 const DAYS_OF_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -39,66 +28,75 @@ const CustomDatePickerModal: React.FC<CustomDatePickerModalProps> = ({
   onClose,
   onApply,
   mode = 'range',
+  minDate,
+  maxDate,
 }) => {
   const styles = useThemedStyles(createStyles);
-  const today = new Date();
-  
-  const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth())); 
-  const [startDate, setStartDate] = useState<Date | null>(null); 
+  const today = useMemo(() => new Date(), []);
+
+  const isSameDay = (d1: Date, d2: Date) =>
+    d1.getDate() === d2.getDate() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getFullYear() === d2.getFullYear();
+
+  const isBeforeDay = (d1: Date, d2: Date) =>
+    new Date(d1.getFullYear(), d1.getMonth(), d1.getDate()) <
+    new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
+
+  const isAfterDay = (d1: Date, d2: Date) =>
+    new Date(d1.getFullYear(), d1.getMonth(), d1.getDate()) >
+    new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
+
+  const initialDate = useMemo(() => {
+    if (minDate && isAfterDay(minDate, today)) {
+      return new Date(minDate.getFullYear(), minDate.getMonth());
+    }
+    return new Date(today.getFullYear(), today.getMonth());
+  }, [minDate, today]);
+
+  const [currentDate, setCurrentDate] = useState(initialDate);
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+
+  React.useEffect(() => {
+    if (visible) setCurrentDate(initialDate);
+  }, [visible, initialDate]);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  const daysInMonth = useMemo(() => new Date(year, month + 1, 0).getDate(), [year, month]);
-  const firstDayOfMonth = useMemo(() => new Date(year, month, 1).getDay(), [year, month]);
-
-  const isCurrentOrFutureMonth = year > today.getFullYear() || (year === today.getFullYear() && month >= today.getMonth());
-
-  const handlePrevMonth = () => {
-    setCurrentDate(new Date(year, month - 1));
-  };
-
-  const handleNextMonth = () => {
-    if (isCurrentOrFutureMonth) return;
-    setCurrentDate(new Date(year, month + 1));
-  };
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
 
   const handleDayPress = (day: number) => {
-    const selectedDate = new Date(year, month, day);
-    if (selectedDate > today) return; // Prevent future dates
+    const selected = new Date(year, month, day);
+
+    if (minDate && isBeforeDay(selected, minDate)) return;
+    if (maxDate && isAfterDay(selected, maxDate)) return;
 
     if (mode === 'single') {
-      setStartDate(selectedDate);
+      setStartDate(selected);
       setEndDate(null);
       return;
     }
 
     if (!startDate || (startDate && endDate)) {
-      setStartDate(selectedDate);
+      setStartDate(selected);
       setEndDate(null);
-    } else if (startDate && !endDate) {
-      if (selectedDate < startDate) {
+    } else {
+      if (selected < startDate) {
         setEndDate(startDate);
-        setStartDate(selectedDate);
+        setStartDate(selected);
       } else {
-        setEndDate(selectedDate);
+        setEndDate(selected);
       }
     }
   };
 
-  const isSameDay = (d1: Date, d2: Date) => {
-    return (
-      d1.getDate() === d2.getDate() &&
-      d1.getMonth() === d2.getMonth() &&
-      d1.getFullYear() === d2.getFullYear()
-    );
-  };
-
   const isDayInRange = (day: number) => {
     if (!startDate || !endDate) return false;
-    const current = new Date(year, month, day);
-    return current > startDate && current < endDate;
+    const d = new Date(year, month, day);
+    return d > startDate && d < endDate;
   };
 
   const handleApply = () => {
@@ -112,48 +110,45 @@ const CustomDatePickerModal: React.FC<CustomDatePickerModalProps> = ({
 
     for (let i = 0; i < totalSlots; i++) {
       const day = i - firstDayOfMonth + 1;
-      const isCurrentMonth = day > 0 && day <= daysInMonth;
+      const valid = day > 0 && day <= daysInMonth;
 
-      if (!isCurrentMonth) {
-        days.push(<View key={`empty-${i}`} style={styles.dayCell} />);
+      if (!valid) {
+        days.push(<View key={`e-${i}`} style={styles.dayCell} />);
         continue;
       }
 
-      const currentDateObj = new Date(year, month, day);
-      const isStart = startDate ? isSameDay(currentDateObj, startDate) : false;
-      const isEnd = endDate ? isSameDay(currentDateObj, endDate) : false;
+      const dateObj = new Date(year, month, day);
+      const isStart = startDate && isSameDay(dateObj, startDate);
+      const isEnd = endDate && isSameDay(dateObj, endDate);
       const inRange = isDayInRange(day);
-      const isToday = isSameDay(currentDateObj, today);
-      const isFuture = currentDateObj > today;
-      
+      const isToday = isSameDay(dateObj, today);
+
+      const disabled =
+        (minDate && isBeforeDay(dateObj, minDate)) ||
+        (maxDate && isAfterDay(dateObj, maxDate));
+
       days.push(
-        <View key={day} style={[styles.dayCell, styles.dayCellWrapper]}>
-          {/* Highlight Range Background */}
+        <View key={day} style={styles.dayCell}>
           {startDate && endDate && (isStart || isEnd || inRange) && (
-            <View
-              style={[
-                styles.rangeBackground,
-                isStart && !isEnd ? styles.rangeBackgroundStart : {},
-                isEnd && !isStart ? styles.rangeBackgroundEnd : {},
-              ]}
-            />
+            <View style={styles.rangeBackground} />
           )}
 
           <TouchableOpacity
             style={[
               styles.dayTouchable,
-              (isStart || isEnd) && styles.dayTouchableSelected,
-              !isStart && !isEnd && isToday && styles.dayTouchableToday,
+              (isStart || isEnd) && styles.selectedDay,
+              isToday && !isStart && styles.todayDay,
             ]}
+            disabled={disabled}
             onPress={() => handleDayPress(day)}
-            disabled={isFuture}
-            activeOpacity={0.7}
           >
             <Text
+              variant={(isStart || isEnd) ? 'semiBold' : 'regular'}
+              size={15}
               style={[
                 styles.dayText,
-                (isStart || isEnd) && styles.dayTextSelected,
-                isFuture && styles.dayTextDisabled,
+                (isStart || isEnd) && styles.selectedText,
+                disabled && styles.disabledText,
               ]}
             >
               {day}
@@ -166,44 +161,31 @@ const CustomDatePickerModal: React.FC<CustomDatePickerModalProps> = ({
   };
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+    <Modal visible={visible} transparent animationType="fade">
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.backdrop} />
       </TouchableWithoutFeedback>
 
-      <View style={styles.bottomContainer}>
+      <View style={styles.container}>
         <View style={styles.card}>
-          <View style={styles.dragHandle} />
-          {/* Header */}
+          <View style={styles.drag} />
+
           <View style={styles.header}>
-            <Text style={styles.monthText}>
+            <Text variant="semiBold" size={16} style={styles.month}>
               {MONTH_NAMES[month]} {year}
             </Text>
-            <View style={styles.arrowsContainer}>
-              <TouchableOpacity onPress={handlePrevMonth} style={styles.arrowButton}>
-                <Text style={styles.arrowText}>{'<'}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleNextMonth} style={[styles.arrowButton, isCurrentOrFutureMonth && styles.arrowButtonDisabled]} disabled={isCurrentOrFutureMonth}>
-                <Text style={[styles.arrowText, isCurrentOrFutureMonth && styles.arrowTextDisabled]}>{'>'}</Text>
-              </TouchableOpacity>
-            </View>
           </View>
 
-          {/* Days of Week */}
-          <View style={styles.daysOfWeekContainer}>
-            {DAYS_OF_WEEK.map((day, idx) => (
-              <Text key={`dow-${idx}`} style={styles.dayOfWeekText}>
-                {day}
-              </Text>
+          <View style={styles.weekRow}>
+            {DAYS_OF_WEEK.map((d, i) => (
+              <Text key={i} color="#888" style={styles.weekText}>{d}</Text>
             ))}
           </View>
 
-          {/* Calendar Grid */}
           <View style={styles.grid}>{renderDays()}</View>
 
-          {/* Footer */}
-          <TouchableOpacity style={styles.applyButton} onPress={handleApply}>
-            <Text style={styles.applyButtonText}>Apply</Text>
+          <TouchableOpacity style={styles.button} onPress={handleApply}>
+            <Text variant="semiBold" size={16} style={styles.buttonText}>Apply</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -211,152 +193,111 @@ const CustomDatePickerModal: React.FC<CustomDatePickerModalProps> = ({
   );
 };
 
-// --- Styles ---
 const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     backdrop: {
-      position: 'absolute',
-      top: 0, left: 0, right: 0, bottom: 0,
+      ...StyleSheet.absoluteFill,
       backgroundColor: 'rgba(0,0,0,0.4)',
     },
-    bottomContainer: {
+
+    container: {
       flex: 1,
       justifyContent: 'flex-end',
-      alignItems: 'center',
     },
-    dragHandle: {
-      width: SW(40),
-      height: SH(4),
-      borderRadius: SW(2),
-      backgroundColor: '#DDDDDD',
-      alignSelf: 'center',
-      marginBottom: SH(16),
-    },
+
     card: {
-      backgroundColor: '#FFFFFF',
-      borderTopLeftRadius: SW(20),
-      borderTopRightRadius: SW(20),
-      padding: SW(20),
-      paddingBottom: SH(30), // extra padding for bottom safe area
-      width: '100%',
-      elevation: 16,
-      shadowColor: theme.colors.black,
-      shadowOpacity: 0.2,
-      shadowRadius: SW(16),
-      shadowOffset: { width: 0, height: SH(-4) },
+      backgroundColor: theme.colors.white,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      padding: 20,
     },
+
+    drag: {
+      width: 40,
+      height: 4,
+      borderRadius: 2,
+      backgroundColor: theme.colors.gray100,
+      alignSelf: 'center',
+      marginBottom: 16,
+    },
+
     header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: SH(20),
+      marginBottom: 16,
     },
-    monthText: {
-      fontSize: SF(16),
-      fontWeight: '600',
-      color: '#1A1A1A',
+
+    month: {
+      // styles handled by Text props
     },
-    arrowsContainer: {
-      flexDirection: 'row',
-      gap: SW(16),
-    },
-    arrowButton: {
-      paddingHorizontal: SW(8),
-    },
-    arrowButtonDisabled: {
-      opacity: 0.4,
-    },
-    arrowText: {
-      fontSize: SF(16),
-      color: '#1A1A1A',
-      fontWeight: '600',
-    },
-    arrowTextDisabled: {
-      color: '#A0A0A0',
-    },
-    daysOfWeekContainer: {
+
+    weekRow: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      marginBottom: SH(10),
+      marginBottom: 8,
     },
-    dayOfWeekText: {
-      fontSize: SF(14),
-      color: '#8C8C8C',
-      width: SW(40),
-      textAlign: 'center',
+
+    weekText: {
+      // styles handled by Text props
     },
+
     grid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'flex-start',
     },
-    dayCellWrapper: {
-      position: 'relative',
-    },
+
     dayCell: {
-      width: `${100 / 7}%`,
+      width: '14.28%',
       aspectRatio: 1,
-      justifyContent: 'center',
       alignItems: 'center',
-      marginVertical: SH(4),
+      justifyContent: 'center',
     },
+
+    dayTouchable: {
+      width: 36,
+      height: 36,
+      borderRadius: 18,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    selectedDay: {
+      backgroundColor: theme.colors.DeepGreen + '80', // Using a variant or transparency
+    },
+
+    todayDay: {
+      borderWidth: 1,
+      borderColor: theme.colors.gray300,
+    },
+
+    dayText: {
+      // styles handled by Text props
+    },
+
+    selectedText: {
+      color: theme.colors.white,
+    },
+
+    disabledText: {
+      color: theme.colors.gray300,
+    },
+
     rangeBackground: {
       position: 'absolute',
-      top: '10%',
-      bottom: '10%',
-      left: 0,
-      right: 0,
-      backgroundColor: '#AEE4D4', // light teal
+      width: '100%',
+      height: '80%',
+      backgroundColor: theme.colors.DeepGreen + '30',
     },
-    rangeBackgroundStart: {
-      borderTopLeftRadius: SW(20),
-      borderBottomLeftRadius: SW(20),
-      left: '10%', // start from circle edge
-    },
-    rangeBackgroundEnd: {
-      borderTopRightRadius: SW(20),
-      borderBottomRightRadius: SW(20),
-      right: '10%',
-    },
-    dayTouchable: {
-      width: SW(36),
-      height: SW(36),
-      borderRadius: SW(18),
-      justifyContent: 'center',
+
+    button: {
+      marginTop: 20,
+      backgroundColor: theme.colors.DeepGreen,
+      paddingVertical: 14,
+      borderRadius: 24,
       alignItems: 'center',
-      zIndex: 1,
     },
-    dayTouchableSelected: {
-      backgroundColor: '#8BCDB6', // Darker teal circle
-      borderWidth: 2,
-      borderColor: '#8BCDB6', // In mock it's teal-ish, or primaryGreen
-    },
-    dayTouchableToday: {
-      borderWidth: 1,
-      borderColor: '#CCCCCC',
-    },
-    dayText: {
-      fontSize: SF(15),
-      color: '#1A1A1A',
-    },
-    dayTextDisabled: {
-      color: '#CCCCCC',
-    },
-    dayTextSelected: {
-      color: '#FFFFFF',
-      fontWeight: '600',
-    },
-    applyButton: {
-      backgroundColor: theme.colors.DeepGreen || '#1E5128', // Fallback to dark green
-      borderRadius: SW(24),
-      paddingVertical: SH(14),
-      alignItems: 'center',
-      marginTop: SH(20),
-    },
-    applyButtonText: {
-      color: '#FFFFFF',
-      fontSize: SF(16),
-      fontWeight: '600',
+
+    buttonText: {
+      color: theme.colors.white,
     },
   });
 

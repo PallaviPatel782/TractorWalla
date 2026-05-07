@@ -5,21 +5,19 @@ import {
   Text,
   ScreenWrapper,
   SearchInput,
-  FlatList,
   TouchableOpacity,
   SecondaryHeader,
   Dropdown,
+  FlatList,
+  Image,
+  Loader,
 } from '@components';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { SW, SH } from '@utils/Dimensions';
-import { BikeIcon } from '@assets/icons';
+import { BikeIcon, TractorIcon } from '@assets/icons';
 import { OthersImage } from '@assets/images';
-
-
 import { useBrands } from '@screens/auth/hooks/useAuth';
-import { ActivityIndicator, Image as RNImage } from 'react-native';
 import { Brand } from '@appTypes/api.types';
 
 const TractorPurchaseScreen = () => {
@@ -42,12 +40,12 @@ const TractorPurchaseScreen = () => {
 
   const SelectedBrandIcon = () => {
     if (selectedBrand?._id === 'others') {
-      return <OthersImage width={SW(20)} height={SW(20)} />;
+      return <OthersImage width={20} height={20} />;
     }
     if (selectedBrand?.logoUrl) {
-      return <RNImage source={{ uri: selectedBrand.logoUrl }} style={{ width: SW(20), height: SW(20) }} resizeMode="contain" />;
+      return <Image source={{ uri: selectedBrand.logoUrl }} style={{ width: 20, height: 20 }} resizeMode="contain" />;
     }
-    return <BikeIcon width={SW(20)} height={SW(20)} />;
+    return <BikeIcon width={20} height={20} />;
   };
 
 
@@ -79,42 +77,41 @@ const TractorPurchaseScreen = () => {
             leftIcon={<SelectedBrandIcon />}
           />
 
-          {isLoading ? (
-            <ActivityIndicator color={theme.colors.brandRed} style={{ marginTop: SH(40) }} />
-          ) : (
-            <FlatList
-              data={filteredBrands}
-              numColumns={4}
-              keyExtractor={(item) => item.name}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.brandGrid}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.brandItem}
-                  onPress={() => {
-                    setSelectedBrand(item);
-                    navigation.navigate('SelectTractor', {
-                      brand: item.name,
-                      brandId: item._id,
-                      brandLogo: item.logoUrl,
-                      type: selectedType
-                    });
-                  }}
-                >
-                  <View style={styles.brandImageWrap}>
-                    {item._id === 'others' ? (
-                      <OthersImage width={SW(44)} height={SW(44)} />
-                    ) : item.logoUrl ? (
-                      <RNImage source={{ uri: item.logoUrl }} style={{ width: SW(44), height: SW(44) }} resizeMode="contain" />
-                    ) : (
-                      <BikeIcon width={SW(32)} height={SW(32)} color={theme.colors.gray300} />
-                    )}
-                  </View>
-                  <Text style={styles.brandName} numberOfLines={1}>{item.name}</Text>
-                </TouchableOpacity>
-              )}
-            />
-          )}
+          <Loader visible={isLoading} inline />
+
+          <FlatList
+            data={filteredBrands}
+            numColumns={4}
+            keyExtractor={(item: any) => item._id}
+            contentContainerStyle={{ paddingBottom: 20, marginTop: 20 }}
+            columnWrapperStyle={{ marginBottom: 20 }}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }: { item: any }) => (
+              <TouchableOpacity
+                style={styles.brandItem}
+                onPress={() => {
+                  setSelectedBrand(item);
+                  navigation.navigate('SelectTractor', {
+                    brand: item.name,
+                    brandId: item._id,
+                    brandLogo: item.logoUrl,
+                    type: selectedType
+                  });
+                }}
+              >
+                <View style={styles.brandImageWrap}>
+                  {item._id === 'others' ? (
+                    <OthersImage width={44} height={44} />
+                  ) : item.logoUrl ? (
+                    <Image source={{ uri: item.logoUrl }} style={{ width: 44, height: 44 }} resizeMode="contain" />
+                  ) : (
+                    <TractorIcon width={32} height={32} color={theme.colors.gray300} />
+                  )}
+                </View>
+                <Text style={styles.brandName} numberOfLines={1}>{item.name}</Text>
+              </TouchableOpacity>
+            )}
+          />
         </View>
 
       </View>

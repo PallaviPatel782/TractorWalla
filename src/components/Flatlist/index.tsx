@@ -2,7 +2,6 @@ import { SearchIcon } from '@assets/icons';
 import Text from '../Text';
 import View from '../View';
 import TextInput from '../TextInput';
-import { SW, SH, SF } from '@utils/Dimensions';
 import React, { forwardRef, memo, useCallback, useMemo, useState } from 'react';
 import {
   FlatList as RNFlatList,
@@ -250,18 +249,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   footer: {
-    paddingVertical: SH(16),
+    paddingVertical: 16,
   },
   emptyText: {
-    fontSize: SF(14),
+    fontSize: 14,
     color: '#999',
   },
   errorText: {
-    fontSize: SF(14),
+    fontSize: 14,
     color: 'red',
   },
   searchContainer: {
-    marginHorizontal: SW(10),
-    paddingVertical: SH(10),
+    marginHorizontal: 10,
+    paddingVertical: 10,
   },
 });

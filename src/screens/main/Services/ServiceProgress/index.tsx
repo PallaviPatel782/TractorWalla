@@ -13,13 +13,15 @@ import {
   TouchableOpacity,
   PaymentModal,
   SuccessOTPModal,
+  BillSummary,
+  ScreenFooter,
 } from '@components';
 import { createStyles } from './styles';
-import { CheckIcon, BillIcon } from '@assets/icons';
+import { ServiceCard } from '@components';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-import { DummyUserImage, Product1Image, Product2Image, TractorImage } from '@assets/images';
-import { SH, SW, SF } from '@utils/Dimensions';
+import { DummyUserImage, Product1Image, Product2Image } from '@assets/images';
+import { CheckIcon } from '@assets/icons';
 
 const ServiceProgress = () => {
   const { t } = useTranslation();
@@ -123,38 +125,28 @@ const ServiceProgress = () => {
 
           {/* Basic Service Box */}
           <View style={styles.basicServiceCard}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.basicServiceTitle}>Basic Service</Text>
-                <View style={styles.partBullet}>
-                  <CheckIcon size={12} color={theme.colors.success} />
-                  <Text style={styles.partBulletText}>Engine oil change</Text>
-                </View>
-                <View style={styles.partBullet}>
-                  <CheckIcon size={12} color={theme.colors.success} />
-                  <Text style={styles.partBulletText}>Oil filter replacement</Text>
-                </View>
-                <View style={styles.partBullet}>
-                  <CheckIcon size={12} color={theme.colors.success} />
-                  <Text style={styles.partBulletText}>Air filter cleaning</Text>
-                </View>
-                <View style={styles.partBullet}>
-                  <CheckIcon size={12} color={theme.colors.success} />
-                  <Text style={styles.partBulletText}>Brake check & inspection</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: SH(6) }}>
-                  <Text style={{ color: theme.colors.GoldenYellow, fontSize: SF(12) }}>★ 4.9</Text>
-                  <Text style={[styles.partPrice, { marginLeft: SW(10) }]}>₹1500</Text>
-                  <Text style={styles.partMrp}>₹1880</Text>
-                </View>
-              </View>
-              <View style={[styles.partImage, { width: SW(70), height: SH(60) }]}>
-                {/* Simulated service image */}
-                <Product2Image size={60} />
-              </View>
-            </View>
+            <Text style={styles.basicServiceTitle}>Basic Service</Text>
+            <ServiceCard
+              item={{
+                title: t('main.bookings.services.basic'),
+                features: [
+                  t('main.bookings.features.engine_oil'),
+                  t('main.bookings.features.oil_filter'),
+                  t('main.bookings.features.air_filter'),
+                  t('main.bookings.features.brake_check')
+                ],
+                rating: "4.9",
+                price: 1500,
+                mrp: 1880,
+                image: Product2Image
+              }}
+              onPress={() => { }}
+              onBookPress={() => { }}
+              containerStyle={{ borderWidth: 0, padding: 0 }}
+              showButton={false}
+            />
 
-            <View style={[styles.divider, { marginVertical: SH(16) }]} />
+            <View style={[styles.divider]} />
 
             <View style={styles.basicServiceCostRow}>
               <Text style={styles.basicServiceCostLabel}>Service Fee (Labor)</Text>
@@ -169,7 +161,7 @@ const ServiceProgress = () => {
               <Text style={[styles.basicServiceCostValue, styles.basicServiceCostDiscount]}>-₹1314.00</Text>
             </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: SH(8) }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 8 }}>
               <Text style={styles.taxNote}>* Taxes applicable at checkout</Text>
               <Text style={styles.taxNote}>Included</Text>
             </View>
@@ -177,7 +169,7 @@ const ServiceProgress = () => {
 
           {!hasParts ? (
             <View style={styles.emptyContainer}>
-              <BillIcon size={40} color={theme.colors.gray400} />
+              <CheckIcon size={40} color={theme.colors.gray400} />
               <Text style={styles.emptyTitle}>{t('main.serviceFlow.noPartsAdded', 'No Parts added by mechanic yet')}</Text>
               <Text style={styles.emptySub}>
                 Rajat is diagnosing your vehicle.{'\n'}
@@ -189,38 +181,16 @@ const ServiceProgress = () => {
           ) : (
             <>
               <Text style={styles.partsSectionTitle}>{t('main.serviceFlow.partsAddedByMechanic', 'Parts Added by Mechanic')}</Text>
-              {parts.map((item) => {
-                const PartImage = item.image as any;
-                return (
-                  <View key={item.id} style={styles.partCard}>
-                    <View style={styles.partBody}>
-                      <View style={styles.partDetails}>
-                        <Text style={styles.partTitle}>{item.title}</Text>
-                        {item.bullets.map((bullet, idx) => (
-                          <View key={idx} style={styles.partBullet}>
-                            <CheckIcon size={12} color={theme.colors.success} />
-                            <Text style={styles.partBulletText}>{bullet}</Text>
-                          </View>
-                        ))}
-                        <View style={styles.partTractorRow}>
-                          <TractorImage width={SW(20)} height={SH(15)} />
-                          <Text style={styles.partTractorText}>Mahindra 575 DI</Text>
-                        </View>
-                        <View style={styles.partPriceRow}>
-                          <Text style={styles.partPrice}>₹{item.price * item.quantity}</Text>
-                          <Text style={styles.partMrp}>₹{item.mrp * item.quantity}</Text>
-                        </View>
-                      </View>
-                      <View style={{ alignItems: 'center' }}>
-                        <View style={styles.partImage}>
-                          <PartImage size={70} />
-                        </View>
-                        <Text style={styles.staticQuantityText}>Qty : {item.quantity}</Text>
-                      </View>
-                    </View>
-                  </View>
-                );
-              })}
+              {parts.map((item) => (
+                <ServiceCard
+                  key={item.id}
+                  item={item}
+                  onPress={() => { }}
+                  onBookPress={() => { }}
+                  showButton={false}
+                  containerStyle={{ marginBottom: 12 }}
+                />
+              ))}
 
               <View style={styles.redNoteBox}>
                 <Text style={styles.redNoteText}>
@@ -228,36 +198,22 @@ const ServiceProgress = () => {
                 </Text>
               </View>
 
-              <View style={styles.billSummaryCard}>
-                <View style={styles.billHeaderRow}>
-                  <BillIcon size={20} />
-                  <Text style={styles.billTitle}>{t('main.home.services.billSummary')}</Text>
-                </View>
-                <View style={styles.billRow}>
-                  <Text style={styles.billLabel}>{t('main.serviceFlow.inventoryParts', 'inventory parts')}</Text>
-                  <Text style={styles.billValue}>₹{totalPartsPrice.toFixed(2)}</Text>
-                </View>
-                <View style={styles.billRow}>
-                  <Text style={styles.taxNote}>{t('main.bookings.invoice.taxNotice')}</Text>
-                  <Text style={styles.taxNote}>Included</Text>
-                </View>
-                <View style={styles.dottedDivider} />
-                <View style={styles.totalRow}>
-                  <Text style={styles.totalLabel}>{t('main.bookings.invoice.totalEstimate', 'Total Estimate')}</Text>
-                  <Text style={styles.totalValue}>₹{totalPartsPrice.toFixed(2)}</Text>
-                </View>
-              </View>
+              <BillSummary
+                itemTotal={totalPartsPrice}
+                itemLabel={t('main.serviceFlow.inventoryParts', 'inventory parts')}
+                totalEstimate={totalPartsPrice}
+              />
             </>
           )}
         </ScrollView>
 
-        <View style={styles.footer}>
+        <ScreenFooter>
           <Button
             title={hasParts ? t('main.home.services.proceedToPay') : t('main.serviceFlow.viewCart', 'View Cart')}
             onPress={onProceedToPay}
             backgroundColor={theme.colors.DeepGreen}
           />
-        </View>
+        </ScreenFooter>
       </View>
 
       <PaymentModal

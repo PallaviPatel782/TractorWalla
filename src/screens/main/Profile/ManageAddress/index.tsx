@@ -8,17 +8,20 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  ScreenFooter,
 } from '@components';
 import { createStyles } from './styles';
 import { AddlocationIcon } from '@icons';
 import { Alert } from 'react-native';
 import { useGetAllAddresses, useDeleteAddress, useSetDefaultAddress } from '../../hooks/useAddress';
 import { CustomerAddress } from '@appTypes';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 
 const ManageAddress = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
+  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
 
   const { data: addressResponse, isLoading, refetch } = useGetAllAddresses();
   const { mutate: deleteAddress } = useDeleteAddress();
@@ -28,7 +31,7 @@ const ManageAddress = ({ navigation, route }: any) => {
     return addressResponse?.data?.addresses || addressResponse?.addresses || [];
   }, [addressResponse]);
 
-  const { isSelectionMode, selectedAddressId, serviceId, category, newAddress } = route.params || {};
+  const { isSelectionMode, selectedAddressId, newAddress } = route.params || {};
   const [selectedId, setSelectedId] = useState(selectedAddressId || '');
 
   // Auto-select: use passed ID, else default, else first
@@ -47,18 +50,16 @@ const ManageAddress = ({ navigation, route }: any) => {
   useEffect(() => {
     if (newAddress) {
       refetch();
-
-      if (isSelectionMode) {
-        navigation.navigate('ServiceCheckout', {
-          serviceId,
-          category,
-          selectedAddress: newAddress
-        });
-      }
-
       navigation.setParams({ newAddress: undefined });
     }
-  }, [newAddress, navigation, isSelectionMode, serviceId, category, refetch]);
+  }, [newAddress, navigation, refetch]);
+
+  const { useFocusEffect } = require('@react-navigation/native');
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
 
   const onSelectAddress = (item: CustomerAddress) => {
     const itemId = item._id || item.id || '';
@@ -69,11 +70,9 @@ const ManageAddress = ({ navigation, route }: any) => {
   const onConfirmSelection = () => {
     const selected = userAddresses.find((a) => (a._id || a.id) === selectedId);
     if (selected) {
-      navigation.navigate('ServiceCheckout', {
-        serviceId,
-        category,
-        selectedAddress: selected
-      });
+      const { DeviceEventEmitter } = require('react-native');
+      DeviceEventEmitter.emit('ADDRESS_SELECTED', selected);
+      navigation.goBack();
     }
   };
 
@@ -88,14 +87,45 @@ const ManageAddress = ({ navigation, route }: any) => {
           style: 'destructive',
           onPress: () => {
             deleteAddress(id, {
-              onSuccess: () => {
+              onSuccess: (response: any) => {
+                showSnackbar({
+                  type: 'success',
+                  title: 'Success',
+                  description: response.message || response.data?.message || 'Address deleted successfully'
+                });
                 if (selectedId === id) setSelectedId('');
+              },
+              onError: (error: any) => {
+                showSnackbar({
+                  type: 'error',
+                  title: 'Error',
+                  description: error.message || 'Failed to delete address'
+                });
               }
             });
           }
         },
       ]
     );
+  };
+
+  const onHandleSetDefault = (id: string) => {
+    setDefaultAddress(id, {
+      onSuccess: (response: any) => {
+        showSnackbar({
+          type: 'success',
+          title: 'Success',
+          description: response.message || response.data?.message || 'Default address set successfully'
+        });
+      },
+      onError: (error: any) => {
+        showSnackbar({
+          type: 'error',
+          title: 'Error',
+          description: error.message || 'Failed to set default address'
+        });
+      }
+    });
   };
 
   const onEditAddress = (item: CustomerAddress) => {
@@ -147,7 +177,7 @@ const ManageAddress = ({ navigation, route }: any) => {
             {!item.isDefault && (
               <TouchableOpacity
                 style={styles.actionButton}
-                onPress={() => setDefaultAddress(itemId)}
+                onPress={() => onHandleSetDefault(itemId)}
               >
                 <Text variant="medium" size={11} style={styles.actionText}>Set Default</Text>
               </TouchableOpacity>
@@ -165,31 +195,47 @@ const ManageAddress = ({ navigation, route }: any) => {
   };
 
   return (
-    <ScreenWrapper>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <SecondaryHeader title={t('main.manageAddress.title')} onBack={() => navigation.goBack()} backgroundColor={theme.colors.YellowLight}
-            titleColor={theme.colors.black} />
-        </View>
+    <ScreenWrapper withBottomInset={false}>
+      <View style={styles.headerContainer}>
+        <SecondaryHeader
+          title={t('main.manageAddress.title')}
+          onBack={() => navigation.goBack()}
+          backgroundColor={theme.colors.YellowLight}
+          titleColor={theme.colors.black}
+        />
+      </View>
 
-        <View style={styles.content}>
-          <Text variant="semiBold" size={14} style={styles.sectionTitle}>
-            {t('main.manageAddress.yourAddress')}
-          </Text>
+      <View style={styles.content}>
+        <Text variant="semiBold" size={14} style={styles.sectionTitle}>
+          {t('main.manageAddress.yourAddress')}
+        </Text>
 
-          <FlatList
-            data={userAddresses}
-            renderItem={renderAddressItem}
-            keyExtractor={(item) => (item._id || item.id || '').toString()}
-            contentContainerStyle={styles.listContent}
-            showsVerticalScrollIndicator={false}
-            refreshing={isLoading}
-            onRefresh={refetch}
-          />
-        </View>
+        <FlatList
+          data={userAddresses}
+          renderItem={renderAddressItem}
+          keyExtractor={(item) => (item._id || item.id || '').toString()}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+          refreshing={isLoading}
+          onRefresh={refetch}
+        />
+      </View>
+
+      <ScreenFooter containerStyle={styles.footerContainer}>
+        {isSelectionMode && selectedId ? (
+          <TouchableOpacity
+            style={styles.confirmButton}
+            activeOpacity={0.85}
+            onPress={onConfirmSelection}
+          >
+            <Text variant="semiBold" size={15} style={styles.confirmFooterText}>
+              Deliver to this address
+            </Text>
+          </TouchableOpacity>
+        ) : null}
 
         <TouchableOpacity
-          style={styles.footer}
+          style={styles.addNewFooter}
           activeOpacity={0.8}
           onPress={() => navigation.navigate('AddLocation', { ...route.params })}
         >
@@ -200,19 +246,7 @@ const ManageAddress = ({ navigation, route }: any) => {
           <View style={{ flex: 1 }} />
           <Text variant="semiBold" size={18} color={theme.colors.white}>›</Text>
         </TouchableOpacity>
-
-        {isSelectionMode && selectedId ? (
-          <TouchableOpacity
-            style={styles.confirmFooter}
-            activeOpacity={0.85}
-            onPress={onConfirmSelection}
-          >
-            <Text variant="semiBold" size={15} style={styles.confirmFooterText}>
-              Deliver to this address
-            </Text>
-          </TouchableOpacity>
-        ) : null}
-      </View>
+      </ScreenFooter>
     </ScreenWrapper>
   );
 };

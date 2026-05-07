@@ -7,8 +7,8 @@ import {
   ViewStyle,
   StyleProp,
 } from 'react-native';
-import { SH, SF } from '@utils/Dimensions';
 import Text from '../Text';
+import { useTheme } from '@theme';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -23,28 +23,32 @@ export interface LoaderProps {
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
+// These will be overridden by theme values if not provided as props
 
-const DEFAULT_COLOR = '#C92A34';
-const DEFAULT_OVERLAY = 'rgba(0, 0, 0, 0.45)';
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 const Loader: React.FC<LoaderProps> = ({
   visible,
   message,
-  overlayColor = DEFAULT_OVERLAY,
-  color = DEFAULT_COLOR,
+  overlayColor,
+  color,
   size = 'large',
   containerStyle,
   inline = false,
 }) => {
+  const { theme } = useTheme();
+  
+  const finalColor = color || theme.colors.danger;
+  const finalOverlay = overlayColor || theme.colors.overlay;
+
   if (!visible) return null;
 
   const content = (
     <View style={styles.content}>
-      <ActivityIndicator size={size} color={color} />
+      <ActivityIndicator size={size} color={finalColor} />
       {message ? (
-        <Text variant="medium" style={[styles.message, { color }]}>
+        <Text variant="medium" style={[styles.message, { color: finalColor }]}>
           {message}
         </Text>
       ) : null}
@@ -65,7 +69,7 @@ const Loader: React.FC<LoaderProps> = ({
       statusBarTranslucent
       onRequestClose={() => {}}
     >
-      <View style={[styles.overlay, { backgroundColor: overlayColor }]}>
+      <View style={[styles.overlay, { backgroundColor: finalOverlay }]}>
         {content}
       </View>
     </Modal>
@@ -83,16 +87,16 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
-    gap: SH(12),
+    gap: 12,
   },
   message: {
-    fontSize: SF(14),
+    fontSize: 14,
     letterSpacing: 0.2,
   },
   inlineContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: SH(40),
+    paddingVertical: 40,
   },
 });
 

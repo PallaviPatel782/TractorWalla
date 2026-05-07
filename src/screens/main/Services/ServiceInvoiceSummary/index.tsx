@@ -8,10 +8,10 @@ import {
   View,
   ScrollView,
   Button,
+  ScreenFooter,
 } from '@components';
 import { createStyles } from './styles';
 import { ServiceModalImageImage, DummyUserImage } from '@assets/images';
-import { SW, SH, SF } from '@utils/Dimensions';
 import { CheckedIcon, ChevronBackwardIcon, DownloadIcon } from '@assets/icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
@@ -52,13 +52,13 @@ const ServiceInvoiceSummary = () => {
           />
         )}
 
-        <ScrollView 
-          contentContainerStyle={styles.content} 
+        <ScrollView
+          contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
           style={{ zIndex: invoiceMenuVisible ? 10 : 0 }}
         >
           <View style={styles.bannerContainer}>
-            <ServiceModalImageImage width={SW(300)} height={SH(180)} />
+            <ServiceModalImageImage width={300} height={180} />
           </View>
 
           <View style={styles.detailsCard}>
@@ -73,7 +73,7 @@ const ServiceInvoiceSummary = () => {
               <View style={styles.statusContainer}>
                 <View style={styles.statusText}>
                   <CheckedIcon size={15} />
-                  <Text style={{ fontSize: SF(12), color: theme.colors.DeepGreen, fontFamily: theme.fontfamily.poppinsBold }}>
+                  <Text style={{ fontSize: 12, color: theme.colors.DeepGreen, fontFamily: theme.fontfamily.poppinsBold }}>
                     {t('main.bookings.list.statuses.Completed')}
                   </Text>
                 </View>
@@ -83,8 +83,12 @@ const ServiceInvoiceSummary = () => {
 
             <View style={styles.amountRow}>
               <View>
-                <Text style={styles.amountLabel}>{t('main.bookings.list.totalAmount')}</Text>
-                <Text style={styles.amountValue}>₹4185.00</Text>
+                <Text style={{ fontSize: 11, color: theme.colors.gray500, fontFamily: theme.fontfamily.poppinsMedium }}>
+                  {t('main.bookings.list.totalAmount').toUpperCase()}
+                </Text>
+                <Text style={{ fontSize: 18, color: theme.colors.black, fontFamily: theme.fontfamily.poppinsBold }}>
+                  ₹4185.00
+                </Text>
               </View>
 
               <View style={{ position: 'relative' }}>
@@ -122,13 +126,14 @@ const ServiceInvoiceSummary = () => {
         </ScrollView>
 
 
-        <View style={styles.footer}>
+        <ScreenFooter>
           <Button
             title={t('main.serviceFlow.addReview')}
             onPress={onAddReview}
             backgroundColor={theme.colors.DeepGreen}
           />
-        </View>
+        </ScreenFooter>
+
       </View>
     </ScreenWrapper>
   );

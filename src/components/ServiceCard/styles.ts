@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { SW, SH, SF } from '@utils/Dimensions';
 import { AppTheme } from '@theme';
 
 export const createStyles = (theme: AppTheme) =>
@@ -7,82 +6,96 @@ export const createStyles = (theme: AppTheme) =>
     serviceCard: {
       flexDirection: 'row',
       backgroundColor: theme.colors.white,
-      marginBottom: SH(10),
-      borderRadius: SW(12),
-      padding: SW(12),
+      marginBottom: 10,
+      padding: 12,
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
     },
     serviceLeft: {
       flex: 1,
-      paddingRight: SW(10),
-      marginLeft: SW(10),
+      paddingRight: 10,
+      marginLeft: 10,
     },
     serviceTitle: {
-      fontSize: SF(15),
-      fontFamily: theme.fontfamily.poppinsSemiBold,
-      color: theme.colors.textPrimary,
-      marginBottom: SH(8),
+      marginBottom: 8,
     },
     bulletRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: SH(4),
+      marginBottom: 4,
     },
     bulletText: {
-      fontSize: SF(14),
-      fontFamily: theme.fontfamily.poppinsRegular,
-      color: theme.colors.textSecondary,
       flex: 1,
-      marginLeft: SW(10),
+      marginLeft: 10,
     },
     kitFooter: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: SH(10),
+      marginTop: 10,
     },
     ratingText: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.poppinsMedium,
-      color: theme.colors.GoldenYellow,
-      marginRight: SW(8),
+      marginRight: 8,
     },
     price: {
-      fontSize: SF(15),
-      fontFamily: theme.fontfamily.poppinsMedium,
-      color: theme.colors.textPrimary,
+      // Handled by Text
     },
     mrp: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.poppinsRegular,
-      color: theme.colors.textMuted,
       textDecorationLine: 'line-through',
-      marginLeft: SW(6),
+      marginLeft: 6,
     },
     serviceRight: {
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
+    },
+    imageContainer: {
+      width: 100,
+      height: 90,
+      borderRadius: 8,
+      overflow: 'hidden',
+      marginBottom: 8,
+      // backgroundColor: theme.colors.backgroundTertiary,
     },
     serviceImage: {
-      width: SW(100),
-      height: SW(90),
-      borderRadius: SW(8),
-      marginBottom: SH(8),
+      width: '100%',
+      height: '100%',
     },
     bookBtn: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: 'rgba(30, 99, 63, 0.08)', // Slightly lighter green
-      paddingHorizontal: SW(10),
-      paddingVertical: SH(5),
-      borderRadius: SW(20),
+      backgroundColor: 'rgba(30, 99, 63, 0.08)',
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 20,
       borderWidth: 1.2,
       borderColor: theme.colors.successDeep,
     },
     bookText: {
-      fontSize: SF(13),
-      fontFamily: theme.fontfamily.poppinsRegular,
-      color: theme.colors.successDeep,
-      marginLeft: SW(4),
+      marginLeft: 4,
+    },
+    imageContainerAdded: {
+      // borderWidth: 2,
+      // borderColor: '#2563EB',
+    },
+    addedBadge: {
+      backgroundColor: 'rgba(30, 99, 63, 0.08)',
+      borderColor: theme.colors.successDeep,
+      borderWidth: 1,
+    },
+    addedRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
+    addedCircle: {
+      width: 16,
+      height: 16,
+      borderRadius: 8,
+      backgroundColor: theme.colors.successDeep,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    addedText: {
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
   });
+

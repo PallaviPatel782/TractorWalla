@@ -1,4 +1,3 @@
-import { SH, SW } from '@utils/Dimensions';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -10,12 +9,15 @@ import {
   SecondaryHeader,
   Text,
   TouchableOpacity,
+  Dropdown,
   View,
   ScrollView,
   GlobalBottomSheet,
   Image,
+  ScreenFooter,
 } from '@components';
-import { useAddVehicle, } from '@screens/auth/hooks/useAuth';
+import { useAddVehicle, useModels } from '@screens/auth/hooks/useAuth';
+import { BikeIcon } from '@assets/icons';
 import { useUpdateVehicle } from '@screens/main/hooks/useVehicle';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
@@ -37,7 +39,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
 
   const [showTypeSheet, setShowTypeSheet] = useState(false);
 
-  // const { data: modelsData } = useModels(actualBrandId);
+  const { data: modelsData, isLoading: isLoadingModels } = useModels(actualBrandId);
   const { mutate: addVehicle, isPending: isAddingVehicle } = useAddVehicle();
   const { mutate: updateVehicle, isPending: isUpdatingVehicle } = useUpdateVehicle();
 
@@ -54,6 +56,11 @@ const AddTractorDetails = ({ navigation, route }: any) => {
     customBrand: isOthers ? '' : (brandName || ''),
     customModel: '',
   });
+
+  const modelOptions = React.useMemo(() => {
+    const data = modelsData?.data || modelsData?.models || [];
+    return data.map((m: any) => ({ label: m.name, value: m.name, id: m._id || m.id }));
+  }, [modelsData]);
 
   const handleInputChange = (key: string, value: string) => {
     setFormData(prev => ({ ...prev, [key]: value }));
@@ -72,14 +79,10 @@ const AddTractorDetails = ({ navigation, route }: any) => {
     };
 
     const onSuccessAction = () => {
-      if (route.params?.isSelectionMode) {
-        navigation.navigate('ServiceCheckout', {
-          ...route.params,
-          selectedTractor: formData
-        });
-      } else {
-        navigation.navigate('MyTractors');
-      }
+      // Use pop to go back to MyTractors without pushing a new screen
+      // If it's an edit, we came from MyTractors (pop 1)
+      // If it's a new tractor, we came from MyTractors -> BrandSelection (pop 2)
+      navigation.pop(isEdit ? 1 : 2);
     };
 
     if (isEdit) {
@@ -116,14 +119,14 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                       resizeMode="contain"
                     />
                   ) : (
-                    <TractorImage width={SW(90)} height={SH(90)} />
+                    <TractorImage width={90} height={90} />
                   )}
                 </View>
                 <View style={styles.brandInfo}>
                   <Text variant="bold" size={20} color={theme.colors.textPrimary}>
                     {initialBrand}
                   </Text>
-                  <Text variant="medium" size={14} color={theme.colors.textSecondary} style={{ marginTop: SH(4) }}>
+                  <Text variant="medium" size={14} color={theme.colors.textSecondary} style={{ marginTop: 4 }}>
                     {formData.model}
                   </Text>
                 </View>
@@ -131,6 +134,22 @@ const AddTractorDetails = ({ navigation, route }: any) => {
             )}
 
             <View style={styles.formCard}>
+              {!isOthers && !isEdit && (
+                <Dropdown
+                  label={t('main.register.modelNameLabel', 'Model Name')}
+                  required
+                  options={modelOptions}
+                  selectedValue={formData.model}
+                  onSelect={(opt) => {
+                    handleInputChange('model', opt.value);
+                    handleInputChange('modelId', opt.id?.toString() || '');
+                  }}
+                  placeholder={t('main.register.placeholderModel', 'Select Model')}
+                  leftIcon={<BikeIcon width={20} height={20} color={theme.colors.brandRed} />}
+                  loading={isLoadingModels}
+                />
+              )}
+
               {isOthers && (
                 <>
                   <Input
@@ -194,15 +213,16 @@ const AddTractorDetails = ({ navigation, route }: any) => {
               </View>
             </View>
           </ScrollView>
-          <View style={styles.footer}>
-            <Button
-              title={isEdit ? t('main.register.updateButton', 'Update Details') : t('main.register.addTractor', 'Add Tractor')}
-              onPress={handleSave}
-              loading={isAddingVehicle || isUpdatingVehicle}
-              disabled={!formData.registrationNo || !formData.model || !formData.brand}
-            />
-          </View>
         </KeyboardWrapper>
+
+        <ScreenFooter>
+          <Button
+            title={isEdit ? t('main.register.updateButton', 'Update Details') : t('main.register.addTractor', 'Add Tractor')}
+            onPress={handleSave}
+            loading={isAddingVehicle || isUpdatingVehicle}
+            disabled={!formData.registrationNo || !formData.model || !formData.brand || (isOthers && !formData.customBrand)}
+          />
+        </ScreenFooter>
 
         <GlobalBottomSheet
           visible={showTypeSheet}

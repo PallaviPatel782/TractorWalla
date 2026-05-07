@@ -10,9 +10,9 @@ import {
   View,
   ScrollView,
   Input,
+  ScreenFooter,
 } from '@components';
 import { createStyles } from './styles';
-import { SH, SW } from '@utils/Dimensions';
 
 const SendFeedback = ({ navigation }: any) => {
   const { theme } = useTheme();
@@ -52,21 +52,21 @@ const SendFeedback = ({ navigation }: any) => {
               value={feedback}
               onChangeText={setFeedback}
               containerStyle={{
-                minHeight: SH(150),
+                minHeight: 150,
                 alignItems: 'flex-start',
-                paddingTop: SH(10),
-                paddingHorizontal: SW(10),
+                paddingTop: 10,
+                paddingHorizontal: 10,
               }}
             />
           </ScrollView>
 
-          <View style={styles.bottomContainer}>
+          <ScreenFooter>
             <Button
               title={t('main.profile.feedback.button')}
               onPress={handleSubmit}
               disabled={!feedback.trim()}
             />
-          </View>
+          </ScreenFooter>
         </KeyboardAvoidingView>
       </View>
     </ScreenWrapper>

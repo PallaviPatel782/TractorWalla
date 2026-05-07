@@ -1,47 +1,92 @@
 import React from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
+import { View, Text, TouchableOpacity, RatingPriceRow } from '@components';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
-import { SW } from '@utils/Dimensions';
 import { CheckIcon, CartIcon } from '@assets/icons';
 import { createStyles } from './styles';
 
 interface ServiceCardProps {
   item: any;
   onPress: () => void;
-  onBookPress: () => void;
+  onBookPress?: () => void;
+  containerStyle?: StyleProp<ViewStyle>;
+  buttonTitle?: string;
+  showButton?: boolean;
+  isAdded?: boolean;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ item, onPress, onBookPress }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({
+  item,
+  onPress,
+  onBookPress,
+  containerStyle,
+  buttonTitle,
+  showButton = true,
+  isAdded = false,
+}) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
   return (
-    <TouchableOpacity style={styles.serviceCard} onPress={onPress}>
+    <TouchableOpacity style={[styles.serviceCard, containerStyle]} onPress={onPress}>
       <View style={styles.serviceLeft}>
-        <Text style={styles.serviceTitle}>{item.title}</Text>
-        {item.bullets?.slice(0, 3).map((bullet: string, idx: number) => (
+        <Text variant="semiBold" size={15} color={theme.colors.textPrimary} style={styles.serviceTitle}>
+          {item.title}
+        </Text>
+        {(item.bullets || item.features)?.slice(0, 3).map((bullet: string, idx: number) => (
           <View key={idx} style={styles.bulletRow}>
             <CheckIcon size={15} color={theme.colors.DeepGreen} />
-            <Text style={styles.bulletText}>{bullet}</Text>
+            <Text size={14} color={theme.colors.textSecondary} style={styles.bulletText}>
+              {bullet}
+            </Text>
           </View>
         ))}
         <View style={styles.kitFooter}>
-          <Text style={styles.ratingText}>★ {item.rating}</Text>
-          <Text style={styles.price}>₹{item.price}</Text>
-          <Text style={styles.mrp}>₹{item.price}</Text>
+          <RatingPriceRow
+            rating={item.rating}
+            price={item.price}
+            mrp={item.strikePrice || item.mrp}
+          />
         </View>
       </View>
       <View style={styles.serviceRight}>
-        {item.image && <item.image width={SW(100)} height={SW(90)} style={styles.serviceImage} />}
-        <TouchableOpacity style={styles.bookBtn} onPress={onBookPress}>
-          <CartIcon size={14} color={theme.colors.successDeep} />
-          <Text style={styles.bookText}>{t('main.home.services.book', 'Book')}</Text>
-        </TouchableOpacity>
+        {item.image && (
+          <View style={[styles.imageContainer, isAdded && styles.imageContainerAdded]}>
+             <item.image width={100} height={90} style={styles.serviceImage} />
+          </View>
+        )}
+        {showButton && (
+          <TouchableOpacity
+            style={[styles.bookBtn, isAdded && styles.addedBadge]}
+            onPress={onBookPress}
+            disabled={isAdded}
+          >
+            {isAdded ? (
+              <View style={styles.addedRow}>
+                <View style={styles.addedCircle}>
+                  <CheckIcon size={8} color={theme.colors.white} />
+                </View>
+                <Text size={13} color={theme.colors.successDeep} style={styles.addedText}>
+                  {t('common.added', 'Added')}
+                </Text>
+              </View>
+            ) : (
+              <>
+                <CartIcon size={14} color={theme.colors.successDeep} />
+                <Text size={13} color={theme.colors.successDeep} style={styles.bookText}>
+                  {buttonTitle || t('main.home.services.book', 'Book')}
+                </Text>
+              </>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
     </TouchableOpacity>
   );
 };
 
+
 export default ServiceCard;
+

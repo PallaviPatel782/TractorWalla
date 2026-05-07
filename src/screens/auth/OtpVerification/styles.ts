@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 const { width } = Dimensions.get('window');
 
@@ -15,44 +14,44 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flex: 1,
-      paddingHorizontal: SW(24),
-      paddingBottom: SH(20),
+      paddingHorizontal: 24,
+      paddingBottom: 20,
     },
     sliderSection: {
-      height: SH(160),
+      height: 160,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: SH(50),
+      marginTop: 50,
     },
     slide: {
-      width: width - SW(48),
+      width: width - 48,
       alignItems: 'center',
       justifyContent: 'center',
     },
     serviceText: {
-      marginVertical: SH(15),
+      marginVertical: 15,
       color: theme.colors.textPrimary,
       textAlign: 'center',
-      paddingHorizontal: SW(40),
-      lineHeight: SH(22),
+      paddingHorizontal: 40,
+      lineHeight: 22,
     },
     paginationDots: {
       flexDirection: 'row',
-      marginTop: SH(10),
+      marginTop: 10,
       alignItems: 'center',
       justifyContent: 'center',
     },
     dot: {
-      height: SW(6),
-      borderRadius: SW(3),
-      marginHorizontal: SW(4),
+      height: 6,
+      borderRadius: 3,
+      marginHorizontal: 4,
     },
     inputCard: {
       width: '100%',
-      padding: SW(24),
-      borderRadius: SW(24),
+      padding: 24,
+      borderRadius: 24,
       backgroundColor: theme.colors.white,
-      marginTop: SH(20),
+      marginVertical: 20,
       ...Platform.select({
         ios: {
           shadowColor: theme.colors.black,
@@ -68,46 +67,46 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.borderFaint,
     },
     textSection: {
-      marginTop: SH(10),
+      marginTop: 10,
       alignItems: 'center',
     },
     title: {
-      color: theme.colors.textPrimary,
-      marginBottom: SH(8),
-      fontSize: SF(16)
+      color: theme.colors.black,
+      marginBottom: 8,
+      fontSize: 16
     },
     subText: {
-      marginTop: SH(4),
+      marginTop: 4,
       color: theme.colors.gray500,
-      lineHeight: SH(18),
-      paddingHorizontal: SW(20),
-      fontSize: SF(12)
+      lineHeight: 18,
+      paddingHorizontal: 20,
+      fontSize: 12
     },
     otpWrapper: {
-      height: SH(80),
+      height: 80,
       justifyContent: 'center',
       alignItems: 'center',
-      marginVertical: SH(10),
+      marginVertical: 10,
     },
     timerSection: {
       alignItems: 'center',
-      marginBottom: SH(20),
+      marginBottom: 20,
     },
     timerRow: {
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: theme.colors.backgroundTertiary,
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(6),
-      borderRadius: SW(20),
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 20,
     },
     resendBtn: {
-      marginTop: SH(5),
+      marginTop: 5,
     },
     footer: {
       position: 'absolute',
-      bottom: SH(30),
-      left: SW(24),
-      right: SW(24),
+      bottom: 30,
+      left: 24,
+      right: 24,
     },
   });

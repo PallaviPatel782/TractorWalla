@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -13,22 +12,22 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flex: 1,
-      paddingHorizontal: SW(20),
-      paddingTop: SH(20),
+      paddingHorizontal: 20,
+      paddingTop: 20,
     },
     sectionTitle: {
-      marginBottom: SH(16),
+      marginBottom: 16,
       color: theme.colors.textPrimary,
       fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     listContent: {
-      paddingBottom: SH(100),
+      paddingBottom: 20,
     },
     addressCard: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(12),
-      padding: SW(16),
-      marginBottom: SH(10),
+      borderRadius: 12,
+      padding: 16,
+      marginBottom: 10,
       flexDirection: 'row',
       borderWidth: 1,
       borderColor: theme.colors.borderLight,
@@ -37,20 +36,20 @@ export const createStyles = (theme: AppTheme) =>
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.05,
       shadowRadius: 4,
-      marginHorizontal: SW(1)
+      marginHorizontal: 1
     },
     addressCardSelected: {
       borderColor: theme.colors.gray900,
       borderWidth: 1.5,
     },
     radioContainer: {
-      marginRight: SW(12),
-      marginTop: SH(4),
+      marginRight: 12,
+      marginTop: 4,
     },
     radioOuter: {
-      width: SW(20),
-      height: SW(20),
-      borderRadius: SW(10),
+      width: 20,
+      height: 20,
+      borderRadius: 10,
       borderWidth: 2,
       borderColor: theme.colors.gray300,
       alignItems: 'center',
@@ -60,9 +59,9 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.gray900,
     },
     radioInner: {
-      width: SW(10),
-      height: SW(10),
-      borderRadius: SW(5),
+      width: 10,
+      height: 10,
+      borderRadius: 5,
       backgroundColor: theme.colors.gray900,
     },
     addressInfo: {
@@ -71,26 +70,26 @@ export const createStyles = (theme: AppTheme) =>
     labelRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: SH(4),
+      marginBottom: 4,
     },
     addressLabel: {
       fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.gray500,
-      fontSize: SF(13)
+      fontSize: 13
     },
     addressText: {
-      lineHeight: SH(18),
+      lineHeight: 18,
       color: theme.colors.gray900,
-      marginBottom: SH(12),
+      marginBottom: 12,
     },
     actionRow: {
       flexDirection: 'row',
-      gap: SW(12),
+      gap: 12,
     },
     actionButton: {
-      paddingHorizontal: SW(16),
-      paddingVertical: SH(6),
-      borderRadius: SW(8),
+      paddingHorizontal: 16,
+      paddingVertical: 6,
+      borderRadius: 8,
       borderWidth: 1,
       borderColor: theme.colors.borderLight,
       backgroundColor: theme.colors.white,
@@ -99,50 +98,51 @@ export const createStyles = (theme: AppTheme) =>
       fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.gray900,
     },
-    footer: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
+    footerContainer: {
+      paddingHorizontal: 20,
+      paddingTop: 10,
+      backgroundColor: theme.colors.background,
+      borderTopWidth: 0,
+    },
+    addNewFooter: {
       backgroundColor: theme.colors.brandGreen,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: SH(16),
-      gap: SW(10),
-      marginBottom: SH(20),
-      paddingHorizontal: SW(20)
+      paddingVertical: 12,
+      gap: 10,
+      borderRadius: 12,
+      paddingHorizontal: 20,
+      // marginBottom: 10,
     },
     footerText: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     defaultBadge: {
-      marginLeft: SW(8),
+      marginLeft: 8,
       backgroundColor: theme.colors.DeepGreen,
-      paddingHorizontal: SW(8),
-      paddingVertical: SH(2),
-      borderRadius: SW(10),
+      paddingHorizontal: 8,
+      paddingVertical: 2,
+      borderRadius: 10,
     },
     defaultBadgeText: {
       color: theme.colors.white,
     },
-    confirmFooter: {
-      position: 'absolute',
-      bottom: SH(90),
-      left: SW(20),
-      right: SW(20),
+    confirmButton: {
       backgroundColor: theme.colors.DeepGreen,
-      borderRadius: SW(12),
-      paddingVertical: SH(14),
+      borderRadius: 12,
+      paddingVertical: 14,
       alignItems: 'center',
-      elevation: 6,
+      elevation: 4,
       shadowColor: theme.colors.black,
-      shadowOffset: { width: 0, height: 3 },
-      shadowOpacity: 0.15,
-      shadowRadius: 6,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      marginBottom: 12,
     },
     confirmFooterText: {
       color: theme.colors.white,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
     },
   });

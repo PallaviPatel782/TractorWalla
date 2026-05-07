@@ -1,22 +1,21 @@
 import { apiService } from '@api';
-import { useSnackbarStore } from '@store/useSnackbarStore';
 import { useAuthStore } from '@store/useAuthStore';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
 
 // ==============================
 // 🚀 API FUNCTIONS
 // ==============================
 
-const getSingleVehicle = (vehicleId: string) => 
+const getSingleVehicle = (vehicleId: string) =>
   apiService.get(`/customer-vehicle/get-single/${vehicleId}`);
 
-const updateVehicle = ({ vehicleId, data }: { vehicleId: string; data: any }) => 
+const updateVehicle = ({ vehicleId, data }: { vehicleId: string; data: any }) =>
   apiService.put(`/customer-vehicle/update/${vehicleId}`, data);
 
-const deleteVehicle = (vehicleId: string) => 
+const deleteVehicle = (vehicleId: string) =>
   apiService.delete(`/customer-vehicle/delete/${vehicleId}`);
 
-const getVehiclesByCustomerId = (customerId: string) => 
+const getVehiclesByCustomerId = (customerId: string) =>
   apiService.get(`/customer-vehicle/by-customer-id/${customerId}`);
 
 // ==============================
@@ -39,66 +38,47 @@ export const useGetVehiclesByCustomerId = (customerId: string) => {
   });
 };
 
-export const useUpdateVehicle = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useUpdateVehicle = (
+  options?: UseMutationOptions<any, Error, { vehicleId: string; data: any }>
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: updateVehicle,
-    onSuccess: (response: any, variables) => {
-      // Refresh the specific vehicle and the customer's vehicle list
+    onSuccess: (...args) => {
+      const [, variables] = args;
       queryClient.invalidateQueries({ queryKey: ['vehicle', variables.vehicleId] });
       const user = useAuthStore.getState().user;
       if (user?._id) {
         queryClient.invalidateQueries({ queryKey: ['vehicles', user._id] });
       }
-      showSnackbar({ 
-        type: 'success', 
-        title: 'Success', 
-        description: response.message || response.data?.message || 'Vehicle updated successfully' 
-      });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => {
-      showSnackbar({ 
-        type: 'error', 
-        title: 'Error', 
-        description: error.message || 'Failed to update vehicle' 
-      });
-    }
+    ...options,
   });
 };
 
-export const useDeleteVehicle = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useDeleteVehicle = (
+  options?: UseMutationOptions<any, Error, string>
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: deleteVehicle,
-    onSuccess: (response: any, vehicleId) => {
+    onSuccess: (...args) => {
+      const [, variables] = args;
       const state = useAuthStore.getState();
       const user = state.user;
-      
+
       if (user?._id) {
-        // Sync with global user store if needed
         if (user.tractors) {
-          const updatedTractors = user.tractors.filter((t: any) => t.id !== vehicleId && t._id !== vehicleId);
+          const updatedTractors = user.tractors.filter((t: any) => t.id !== variables && t._id !== variables);
           state.setUser({ ...user, tractors: updatedTractors });
         }
         queryClient.invalidateQueries({ queryKey: ['vehicles', user._id] });
       }
-      
-      showSnackbar({ 
-        type: 'success', 
-        title: 'Success', 
-        description: response.message || response.data?.message || 'Vehicle deleted successfully' 
-      });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => {
-      showSnackbar({ 
-        type: 'error', 
-        title: 'Error', 
-        description: error.message || 'Failed to delete vehicle' 
-      });
-    }
+    ...options,
   });
 };

@@ -1,6 +1,5 @@
 import { apiService } from '@api';
-import { useSnackbarStore } from '@store/useSnackbarStore';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
 import { AddressResponse, CustomerAddress } from '@appTypes';
 
 // ==============================
@@ -33,98 +32,62 @@ export const useGetAllAddresses = () => {
   });
 };
 
-export const useCreateAddress = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useCreateAddress = (
+  options?: UseMutationOptions<AddressResponse, Error, Partial<CustomerAddress>>
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: createAddress,
-    onSuccess: (response: any) => {
+    onSuccess: (...args) => {
       queryClient.invalidateQueries({ queryKey: ['addresses'] });
-      showSnackbar({
-        type: 'success',
-        title: 'Success',
-        description: response.message || response.data?.message || 'Address created successfully'
-      });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => {
-      showSnackbar({
-        type: 'error',
-        title: 'Error',
-        description: error.message || 'Failed to create address'
-      });
-    }
+    ...options,
   });
 };
 
-export const useUpdateAddress = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useUpdateAddress = (
+  options?: UseMutationOptions<AddressResponse, Error, { addressId: string; data: Partial<CustomerAddress> }>
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: updateAddress,
-    onSuccess: (response: any) => {
+    onSuccess: (...args) => {
       queryClient.invalidateQueries({ queryKey: ['addresses'] });
-      showSnackbar({
-        type: 'success',
-        title: 'Success',
-        description: response.message || response.data?.message || 'Address updated successfully'
-      });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => {
-      showSnackbar({
-        type: 'error',
-        title: 'Error',
-        description: error.message || 'Failed to update address'
-      });
-    }
+    ...options,
   });
 };
 
-export const useSetDefaultAddress = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useSetDefaultAddress = (
+  options?: UseMutationOptions<AddressResponse, Error, string>
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: setDefaultAddress,
-    onSuccess: (response: any) => {
+    onSuccess: (...args) => {
       queryClient.invalidateQueries({ queryKey: ['addresses'] });
-      showSnackbar({
-        type: 'success',
-        title: 'Success',
-        description: response.message || response.data?.message || 'Default address set successfully'
-      });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => {
-      showSnackbar({
-        type: 'error',
-        title: 'Error',
-        description: error.message || 'Failed to set default address'
-      });
-    }
+    ...options,
   });
 };
 
-export const useDeleteAddress = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useDeleteAddress = (
+  options?: UseMutationOptions<AddressResponse, Error, string>
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: deleteAddress,
-    onSuccess: (response: any) => {
+    onSuccess: (...args) => {
       queryClient.invalidateQueries({ queryKey: ['addresses'] });
-      showSnackbar({
-        type: 'success',
-        title: 'Success',
-        description: response.message || response.data?.message || 'Address deleted successfully'
-      });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => {
-      showSnackbar({
-        type: 'error',
-        title: 'Error',
-        description: error.message || 'Failed to delete address'
-      });
-    }
+    ...options,
   });
 };

@@ -1,5 +1,4 @@
 import { StyleSheet, Platform } from 'react-native';
-import { SH } from '@utils/Dimensions';
 import { AppTheme } from '@theme';
 
 export const createStyles = (theme: AppTheme) =>
@@ -7,7 +6,7 @@ export const createStyles = (theme: AppTheme) =>
     container: {
       flex: 1,
       backgroundColor: theme.colors.white,
-      paddingBottom: SH(30),
+      paddingBottom: 30,
     },
     currentLocRow: {
       flexDirection: 'row',

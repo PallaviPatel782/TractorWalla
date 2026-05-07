@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -9,14 +8,14 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background,
     },
     content: {
-      paddingHorizontal: SW(20),
-      paddingTop: SH(20),
-      paddingBottom: SH(40),
+      paddingHorizontal: 20,
+      paddingTop: 20,
+      paddingBottom: 80,
     },
     formContainer: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(16),
-      padding: SW(16),
+      borderRadius: 16,
+      padding: 16,
       borderWidth: 1,
       borderColor: theme.colors.borderLight,
       // Shadow for iOS/Android
@@ -27,10 +26,10 @@ export const createStyles = (theme: AppTheme) =>
       shadowRadius: 5,
     },
     button: {
-      marginTop: SH(40),
+      marginTop: 40,
       backgroundColor: theme.colors.brandGreen,
-      borderRadius: SW(10),
-      marginBottom: SH(20),
+      borderRadius: 10,
+      marginBottom: 20,
     },
     // Selection Group Styles
     typeTriggerButton: {
@@ -40,10 +39,10 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.borderLight,
       borderWidth: 1.5,
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(10),
-      borderRadius: SW(10),
-      marginTop: SH(5),
+      paddingHorizontal: 12,
+      paddingVertical: 10,
+      borderRadius: 10,
+      marginTop: 5,
     },
     typeTriggerText: {
       color: theme.colors.textPrimary,
@@ -53,10 +52,10 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: SH(16),
+      paddingVertical: 16,
       borderBottomWidth: 1.5,
       borderBottomColor: theme.colors.gray300,
-      paddingHorizontal: SW(8),
+      paddingHorizontal: 8,
     },
     bottomSheetItemText: {
       color: theme.colors.textPrimary,
@@ -67,9 +66,9 @@ export const createStyles = (theme: AppTheme) =>
       fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     radioCircle: {
-      width: SW(16),
-      height: SW(16),
-      borderRadius: SW(8),
+      width: 16,
+      height: 16,
+      borderRadius: 8,
       borderWidth: 1.5,
       borderColor: theme.colors.gray300,
       justifyContent: 'center',
@@ -79,39 +78,37 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.brandGreen,
     },
     radioInner: {
-      width: SW(8),
-      height: SW(8),
-      borderRadius: SW(4),
+      width: 8,
+      height: 8,
+      borderRadius: 4,
       backgroundColor: theme.colors.brandGreen,
     },
     label: {
-      // marginBottom: SH(4),
       color: theme.colors.textPrimary,
       fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     topSection: {
       alignItems: 'center',
-      marginBottom: SH(20),
     },
     largeImageContainer: {
-      width: SW(90),
-      height: SH(90),
+      width: 90,
+      height: 90,
       justifyContent: 'center',
       alignItems: 'center',
     },
     largeLogo: {
-      width: SW(90),
-      height: SH(90)
+      width: 90,
+      height: 90
     },
     brandInfo: {
       alignItems: 'center',
-      marginTop: SH(10)
+      marginTop: 10
     },
     formCard: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(20),
-      paddingHorizontal: SW(20),
-      paddingVertical: SH(20),
+      borderRadius: 20,
+      paddingHorizontal: 20,
+      paddingVertical: 20,
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
       // Shadow
@@ -120,12 +117,12 @@ export const createStyles = (theme: AppTheme) =>
       shadowOpacity: 0.05,
       shadowRadius: 10,
       elevation: 3,
-      gap: SH(8),
+      gap: 8,
     },
     footer: {
-      position: 'absolute',
-      bottom: SH(30),
-      left: SW(20),
-      right: SW(20),
+      paddingHorizontal: 20,
+      paddingVertical: 16,
+      backgroundColor: theme.colors.background, // Match screen background
+      paddingBottom: 30, // Extra space for home indicator
     }
   });

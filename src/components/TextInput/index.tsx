@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { useTheme } from '@theme';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 import Text from '../Text';
 import View from '../View';
 
@@ -76,16 +75,16 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
     );
 
     const HEIGHT_MAP = {
-      xs: SH(32),
-      sm: SH(38),
-      md: SH(44),
-      lg: SH(50),
+      xs: 32,
+      sm: 38,
+      md: 44,
+      lg: 50,
     };
 
     return (
       <View style={[themedStyles.wrapper, wrapperStyle]}>
         {label && (
-          <Text variant="semiBold" size={12} style={[themedStyles.label, labelStyle]}>
+          <Text variant="semiBold" size={13} style={[themedStyles.label, labelStyle]}>
             {label}
             {required && <Text style={{ color: theme.colors.error }}> *</Text>}
           </Text>
@@ -96,7 +95,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
             themedStyles.inputContainer,
             {
               height: multiline ? undefined : HEIGHT_MAP[size],
-              minHeight: multiline ? SH(80) : undefined,
+              minHeight: multiline ? 80 : undefined,
               backgroundColor: theme.colors.white,
               borderWidth: hasBorder ? (containerStyle as any)?.borderWidth ?? 1.5 : 0,
               borderColor: error ? theme.colors.error : focused ? theme.colors.primary : theme.colors.borderLight,
@@ -131,9 +130,11 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
               {
                 color: theme.colors.textPrimary,
                 fontFamily: theme.typography.fonts.poppinsRegular,
-                paddingTop: multiline ? SH(8) : 0,
-                paddingBottom: multiline ? SH(8) : 0,
+                paddingTop: multiline ? 8 : 0,
+                paddingBottom: multiline ? 8 : 0,
                 textAlignVertical: multiline ? 'top' : 'center',
+                height: '100%',
+                includeFontPadding: false, // Fix Android vertical alignment
               },
               inputStyle,
               style,
@@ -160,42 +161,42 @@ const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     wrapper: {
       width: '100%',
-      marginBottom: SH(5),
+      marginBottom: 5,
     },
     label: {
-      marginBottom: SH(4),
+      marginBottom: 4,
     },
     inputContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: SW(10),
-      paddingHorizontal: SW(12),
+      borderRadius: 10,
+      paddingHorizontal: 12,
     },
     input: {
       flex: 1,
       paddingVertical: 0,
       textAlignVertical: 'center',
-      fontSize: SF(13),
+      fontSize: 13,
     },
     leftIcon: {
-      marginRight: SW(8),
+      marginRight: 8,
     },
     rightIcon: {
-      marginLeft: SW(8),
+      marginLeft: 8,
     },
     countryCodeContainer: {
       flexDirection: 'row',
       alignItems: 'center',
     },
     flag: {
-      width: SW(25),
-      height: SH(15),
-      borderRadius: SW(2),
+      width: 25,
+      height: 15,
+      borderRadius: 2,
     },
     countryCodeText: {
-      marginLeft: SW(8),
-      paddingRight: SW(10),
-      fontSize: SF(13),
+      marginLeft: 8,
+      paddingRight: 10,
+      fontSize: 13,
       color: theme.colors.textPrimary,
       borderRightWidth: 1,
       borderRightColor: theme.colors.gray300
@@ -203,12 +204,11 @@ const createStyles = (theme: AppTheme) =>
     divider: {
       width: 1,
       height: '60%',
-      marginHorizontal: SW(5),
+      marginHorizontal: 5,
     },
     errorText: {
-      marginTop: SH(4),
+      marginTop: 4,
     },
   });
 
 export default TextInput;
-

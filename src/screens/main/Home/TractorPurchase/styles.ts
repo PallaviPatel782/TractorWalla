@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
-const ITEM_WIDTH = (SW(375) - SW(60)) / 4;
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -12,37 +10,38 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flex: 1,
-      paddingHorizontal: SW(16),
-      paddingTop: SH(20),
+      paddingHorizontal: 16,
+      paddingTop: 20,
     },
     searchContainer: {
-      marginBottom: SH(10),
+      marginBottom: 10,
     },
     dropdown: {
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.borderLight,
       borderWidth: 1.5,
-      padding: SH(10),
-      borderRadius: SW(12),
+      padding: 10,
+      borderRadius: 12,
     },
     brandGrid: {
-      paddingHorizontal: SW(10),
-      paddingTop: SH(10),
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-start',
+      marginTop: 10,
     },
     brandItem: {
-      width: ITEM_WIDTH,
+      width: '25%',
       alignItems: 'center',
-      marginBottom: SH(20),
-      marginHorizontal: SW(2.5),
+      marginBottom: 20,
     },
     brandImageWrap: {
-      width: SW(64),
-      height: SW(64),
+      width: 64,
+      height: 64,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(12),
-      marginBottom: SH(8),
+      borderRadius: 12,
+      marginBottom: 8,
       elevation: 2,
       shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 1 },
@@ -52,9 +51,8 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.borderLight,
     },
     brandName: {
-      fontSize: SF(12),
+      fontSize: 12,
       color: theme.colors.text,
       textAlign: 'center',
     },
-
   });

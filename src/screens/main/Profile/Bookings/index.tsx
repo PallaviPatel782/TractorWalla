@@ -13,7 +13,6 @@ import {
   Button,
 } from '@components';
 import { createStyles } from './styles';
-import { SW, SH } from '@utils/Dimensions';
 import { DownloadIcon, ThreedotsIcon, UserIcon } from '@icons';
 
 const MOCK_BOOKINGS = [
@@ -141,7 +140,7 @@ const Bookings = ({ navigation }: any) => {
           </View>
 
           {item.type === 'view' ? (
-            <View style={{ flexDirection: 'row', gap: SW(8) }}>
+            <View style={{ flexDirection: 'row', gap: 8 }}>
               <TouchableOpacity
                 style={styles.viewDetailsButton}
                 activeOpacity={0.7}
@@ -197,7 +196,7 @@ const Bookings = ({ navigation }: any) => {
       onClose={() => setCancelModalVisible(false)}
       title={t('main.bookings.list.cancelBooking')}
     >
-      <View style={{ gap: SH(16) }}>
+      <View style={{ gap: 16 }}>
         <Text variant="medium" size={14} color={theme.colors.gray900}>
           {t('main.bookings.list.writeReason')}
         </Text>
@@ -219,22 +218,22 @@ const Bookings = ({ navigation }: any) => {
         </View>
 
         {cancelReason === 'others' && (
-          <View style={{ marginTop: SH(8) }}>
-            <Text variant="medium" size={12} color={theme.colors.gray900} style={{ marginBottom: SH(8) }}>
+          <View style={{ marginTop: 8 }}>
+            <Text variant="medium" size={12} color={theme.colors.gray900} style={{ marginBottom: 8 }}>
               {t('main.bookings.list.others')}
             </Text>
             <Input
               placeholder={t('main.bookings.list.othersPlaceholder')}
               value={otherReasonText}
               onChangeText={setOtherReasonText}
-              style={{ height: SH(50) }}
+              style={{ height: 50 }}
             />
           </View>
         )}
 
         <Button
           title={t('main.bookings.list.cancelBooking')}
-          style={{ backgroundColor: theme.colors.danger, marginTop: SH(10) }}
+          style={{ backgroundColor: theme.colors.danger, marginTop: 10 }}
           onPress={() => setCancelModalVisible(false)}
           disabled={!cancelReason || (cancelReason === 'others' && !otherReasonText.trim())}
         />

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
+
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -12,31 +12,32 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: theme.colors.primary,
-      paddingVertical: SH(12),
-      paddingHorizontal: SW(20),
+      paddingVertical: 12,
+      paddingHorizontal: 20,
     },
     headerIconContainer: {
-      width: SW(24),
-      height: SW(24),
-      borderRadius: SW(12),
+      width: 24,
+      height: 24,
+      borderRadius: 12,
       backgroundColor: theme.colors.white + '33',
       justifyContent: 'center',
       alignItems: 'center',
-      marginRight: SW(12),
+      marginRight: 12,
     },
     headerBannerText: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     content: {
-      flex: 1,
-      paddingHorizontal: SW(20),
-      paddingTop: SH(20),
+      flexGrow: 1,
+      paddingHorizontal: 20,
+      paddingTop: 20,
+      paddingBottom: 40,
     },
     formContainer: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(16),
-      padding: SW(16),
+      borderRadius: 16,
+      padding: 16,
       borderWidth: 1,
       borderColor: theme.colors.borderLight,
       // Shadow for iOS/Android
@@ -55,7 +56,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     button: {
       backgroundColor: theme.colors.brandGreen,
-      borderRadius: SW(10),
-      marginVertical: SH(80),
+      borderRadius: 10,
+      marginVertical: 80,
     },
   });

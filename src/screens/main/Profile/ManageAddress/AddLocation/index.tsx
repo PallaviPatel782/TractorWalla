@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Input,
+  ScreenFooter,
 } from '@components';
 import {
   requestLocationPermission,
@@ -19,11 +20,11 @@ import {
   LocationData,
 } from '@utils/locationHelper';
 import { useTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 
 import { createStyles } from './styles';
 import { useCreateAddress, useUpdateAddress } from '../../../hooks/useAddress';
 import { CustomerAddress } from '@appTypes';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -43,6 +44,7 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
+  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
 
   const mapRef = useRef<MapView>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
@@ -206,26 +208,50 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
     if (addressToEdit?.id || addressToEdit?._id) {
       updateAddress(
         { addressId: (addressToEdit.id || addressToEdit._id) as string, data: addressData },
-        { onSuccess: () => navigation.navigate('ManageAddress', { ...route.params }) },
+        {
+          onSuccess: (response: any) => {
+            showSnackbar({
+              type: 'success',
+              title: 'Success',
+              description: response.message || response.data?.message || 'Address updated successfully'
+            });
+            navigation.navigate('ManageAddress', { ...route.params });
+          },
+          onError: (error: any) => {
+            showSnackbar({
+              type: 'error',
+              title: 'Error',
+              description: error.message || 'Failed to update address'
+            });
+          }
+        },
       );
     } else {
       createAddress(addressData, {
         onSuccess: (response: any) => {
+          showSnackbar({
+            type: 'success',
+            title: 'Success',
+            description: response.message || response.data?.message || 'Address created successfully'
+          });
           const newId = response?.address?._id || response?.data?._id;
-          if (route.params?.isSelectionMode && newId) {
-            navigation.navigate('ServiceCheckout', {
-              serviceId: route.params.serviceId,
-              category: route.params.category,
-              selectedAddress: { ...addressData, id: newId, _id: newId },
-            });
+          if (newId) {
+            navigation.goBack();
           } else {
-            navigation.navigate('ManageAddress', { ...route.params });
+            navigation.goBack();
           }
         },
+        onError: (error: any) => {
+          showSnackbar({
+            type: 'error',
+            title: 'Error',
+            description: error.message || 'Failed to create address'
+          });
+        }
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addressLine, pincode, landmark, selectedLabel, geoLocation, addressToEdit, createAddress, updateAddress, navigation, route.params]);
+  }, [addressLine, pincode, landmark, selectedLabel, geoLocation, addressToEdit, createAddress, updateAddress, navigation, route.params, showSnackbar]);
 
   return (
     <ScreenWrapper>
@@ -256,7 +282,7 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
           )}
 
           {/* Map */}
-          <View style={[styles.mapWrapper, { height: SH(210), flex: 0 }]}>
+          <View style={[styles.mapWrapper, { height: 210, flex: 0 }]}>
             <MapView
               ref={mapRef}
               provider={PROVIDER_DEFAULT}
@@ -301,20 +327,20 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
           </View>
 
           {/* Form */}
-          <View style={{ padding: SW(16), paddingBottom: SH(30) }}>
+          <View style={{ padding: 16, paddingBottom: 30 }}>
             {/* Address Type */}
-            <Text variant="medium" size={14} style={{ color: theme.colors.textSecondary, marginBottom: SH(6) }}>
+            <Text variant="medium" size={14} style={{ color: theme.colors.textSecondary, marginBottom: 6 }}>
               Address Type
             </Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SW(8), marginBottom: SH(14) }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
               {LABEL_OPTIONS.map(opt => (
                 <TouchableOpacity
                   key={opt}
                   onPress={() => setSelectedLabel(opt)}
                   style={{
-                    paddingHorizontal: SW(14),
-                    paddingVertical: SH(6),
-                    borderRadius: SW(20),
+                    paddingHorizontal: 14,
+                    paddingVertical: 6,
+                    borderRadius: 20,
                     borderWidth: 1.5,
                     backgroundColor: selectedLabel === opt ? theme.colors.DeepGreen : theme.colors.gray100,
                     borderColor: selectedLabel === opt ? theme.colors.DeepGreen : theme.colors.gray200,
@@ -341,7 +367,7 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
             />
 
             {/* City + State auto-detected */}
-            <View style={{ flexDirection: 'row', gap: SW(10) }}>
+            <View style={{ flexDirection: 'row', gap: 10 }}>
               <View style={{ flex: 1 }}>
                 <Input
                   label="City"
@@ -382,14 +408,14 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
           </View>
         </ScrollView>
 
-        <View style={styles.confirmWrapper}>
+        <ScreenFooter>
           <Button
             title={addressToEdit ? 'Update Address' : t('main.location.confirm')}
             onPress={handleConfirm}
             disabled={isCreating || isUpdating}
             loading={isCreating || isUpdating}
           />
-        </View>
+        </ScreenFooter>
       </KeyboardAvoidingView>
     </ScreenWrapper>
   );

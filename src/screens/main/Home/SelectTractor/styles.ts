@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -9,29 +8,29 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background,
     },
     content: {
-      paddingHorizontal: SW(20),
-      paddingTop: SH(20),
-      paddingBottom: SH(40),
+      paddingHorizontal: 20,
+      paddingTop: 20,
+      paddingBottom: 40,
     },
     dropdownButton: {
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.borderLight,
       borderWidth: 1.5,
-      paddingHorizontal: SH(10),
-      paddingVertical: SH(5),
-      borderRadius: SW(12),
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 12,
     },
     brandDisplayContainer: {
       flexDirection: 'row',
-      gap: SW(12),
+      gap: 12,
       alignItems: 'center',
       justifyContent: 'center',
-      paddingHorizontal: SW(10),
-      marginBottom: SH(20),
+      paddingHorizontal: 10,
+      marginBottom: 20,
     },
     brandLogoBox: {
-      width: SW(60),
-      height: SW(60),
+      width: 60,
+      height: 60,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -45,8 +44,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     formContainer: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(16),
-      padding: SW(16),
+      borderRadius: 16,
+      padding: 16,
       borderWidth: 1,
       borderColor: theme.colors.borderLight,
       elevation: 3,
@@ -62,10 +61,10 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.borderLight,
       borderWidth: 1.5,
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(10),
-      borderRadius: SW(10),
-      marginTop: SH(8),
+      paddingHorizontal: 12,
+      paddingVertical: 10,
+      borderRadius: 10,
+      marginTop: 8,
     },
     typeTriggerText: {
       color: theme.colors.textPrimary,
@@ -75,10 +74,10 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: SH(16),
+      paddingVertical: 16,
       borderBottomWidth: 1.5,
       borderBottomColor: theme.colors.gray100,
-      paddingHorizontal: SW(8),
+      paddingHorizontal: 8,
     },
     bottomSheetItemText: {
       color: theme.colors.textPrimary,
@@ -89,9 +88,9 @@ export const createStyles = (theme: AppTheme) =>
       fontFamily: theme.fontfamily.poppinsSemiBold,
     },
     radioCircle: {
-      width: SW(16),
-      height: SW(16),
-      borderRadius: SW(8),
+      width: 16,
+      height: 16,
+      borderRadius: 8,
       borderWidth: 1.5,
       borderColor: theme.colors.gray300,
       justifyContent: 'center',
@@ -101,18 +100,17 @@ export const createStyles = (theme: AppTheme) =>
       borderColor: theme.colors.DeepGreen,
     },
     radioInner: {
-      width: SW(8),
-      height: SW(8),
-      borderRadius: SW(4),
+      width: 8,
+      height: 8,
+      borderRadius: 4,
       backgroundColor: theme.colors.DeepGreen,
     },
     submitButton: {
-      marginTop: SH(30),
+      marginTop: 30,
       backgroundColor: theme.colors.DeepGreen,
-      borderRadius: SW(10),
+      borderRadius: 10,
     },
     label: {
-      // marginBottom: SH(4),
       color: theme.colors.textPrimary,
       fontFamily: theme.fontfamily.poppinsSemiBold,
     },

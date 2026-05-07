@@ -4,7 +4,6 @@ import { HomeScreen, ProfileScreen, BuyPartsScreen, BookServiceScreen } from '@s
 import { View, TouchableOpacity, Text } from '@components';
 import { MainTabParamList } from '@navigation/NavigationTypes';
 import { useTheme } from '@theme';
-import { SF, SH, SW } from '@utils/Dimensions';
 import { useTranslation } from 'react-i18next';
 import {
   HomeIcon,
@@ -23,8 +22,8 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       tabBar={({ state, descriptors, navigation }) => {
-        const bottomInset = insets.bottom > 0 ? insets.bottom : SH(5);
-        const tabHeight = SH(56) + (insets.bottom > 0 ? insets.bottom : 0);
+        const bottomInset = insets.bottom > 0 ? insets.bottom : 5;
+        const tabHeight = 56 + (insets.bottom > 0 ? insets.bottom : 0);
 
         return (
           <View style={{
@@ -67,14 +66,14 @@ const TabNavigator = () => {
                     <View style={{
                       position: 'absolute',
                       top: -1, // Exactly on the top border
-                      width: SW(40),
-                      height: SH(4),
+                      width: 40,
+                      height: 4,
                       backgroundColor: theme.colors.primary,
-                      borderBottomLeftRadius: SW(8),
-                      borderBottomRightRadius: SW(8),
+                      borderBottomLeftRadius: 8,
+                      borderBottomRightRadius: 8,
                     }} />
                   )}
-                  <View style={{ marginTop: SH(8) }}>
+                  <View style={{ marginTop: 8 }}>
                     {options.tabBarIcon?.({
                       focused: isFocused,
                       color: isFocused ? theme.colors.primary : theme.colors.gray600,
@@ -82,10 +81,10 @@ const TabNavigator = () => {
                     })}
                   </View>
                   <Text style={{
-                    fontSize: SF(11),
+                    fontSize: 11,
                     fontFamily: theme.fontfamily.poppinsMedium,
                     color: isFocused ? theme.colors.primary : theme.colors.gray600,
-                    marginTop: SH(2),
+                    marginTop: 2,
                   }}>
                     {label as string}
                   </Text>

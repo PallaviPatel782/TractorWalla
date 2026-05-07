@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 import Text from '../Text';
 import View from '../View';
 import TouchableOpacity from '../TouchableOpacity';
@@ -32,20 +31,20 @@ const SecondaryHeader: React.FC<SecondaryHeaderProps> = ({
           onPress={onBack}
           activeOpacity={0.7}
         >
-          <ChevronBackwardIcon size={SF(24)} color={backIconColor || titleColor || theme.colors.black} />
+          <ChevronBackwardIcon size={24} color={backIconColor || titleColor || theme.colors.black} />
         </TouchableOpacity>
       )}
       <View style={styles.titleContainer}>
         <Text
-          variant="medium"
-          size={15}
+          variant="semiBold"
+          size={16}
           style={[styles.titleText, titleColor ? { color: titleColor } : undefined]}
         >
           {title}
         </Text>
       </View>
-      {/* Empty view to balance the header if back button exists */}
-      {onBack && <View style={styles.placeholder} />}
+      {/* Invisible placeholder for symmetry if needed, but absolute positioning works too */}
+      {onBack && <View style={styles.rightPlaceholder} />}
     </View>
   );
 };
@@ -54,24 +53,28 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: SW(16),
-    paddingVertical: SH(10),
-    paddingBottom: 0
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    minHeight: 56,
+    backgroundColor: 'transparent',
   },
   backButton: {
-    padding: SW(5),
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 1,
   },
   titleContainer: {
     flex: 1,
     alignItems: 'center',
-    marginRight: SW(30), // Offset to balance the back button
+    justifyContent: 'center',
   },
   titleText: {
     textAlign: 'center',
   },
-  placeholder: {
-    width: SW(30),
+  rightPlaceholder: {
+    width: 40, // Same as backButton width for perfect centering
   },
 });
 

@@ -4,7 +4,6 @@ import View from '../View';
 import Text from '../Text';
 import TouchableOpacity from '../TouchableOpacity';
 import { useTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 import { ChevronBackwardIcon } from '@assets/icons';
 
 interface ProfileOptionItemProps {
@@ -38,7 +37,7 @@ const ProfileOptionItem = ({
           <View style={styles.iconContainer}>
             {icon}
           </View>
-          <Text variant="regular" size={14} color={theme.colors.gray800}>
+          <Text variant="regular" size={15} color={theme.colors.gray800}>
             {title}
           </Text>
         </View>
@@ -64,21 +63,21 @@ const createStyles = (theme: any) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: SH(8),
-      paddingHorizontal: SW(16),
+      paddingVertical: 8,
+      paddingHorizontal: 16,
     },
     leftContainer: {
       flexDirection: 'row',
       alignItems: 'center',
     },
     iconContainer: {
-      width: SW(32),
-      height: SW(32),
-      borderRadius: SW(10),
+      width: 32,
+      height: 32,
+      borderRadius: 10,
       backgroundColor: theme.colors.backgroundTertiary,
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: SW(14),
+      marginRight: 14,
     },
     chevronIcon: {
       // Styling for chevron if needed
@@ -86,6 +85,6 @@ const createStyles = (theme: any) =>
     bottomLine: {
       height: 1,
       backgroundColor: theme.colors.gray200,
-      marginHorizontal: SW(16),
+      marginHorizontal: 16,
     }
   });

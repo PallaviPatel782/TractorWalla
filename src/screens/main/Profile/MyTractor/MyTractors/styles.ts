@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -11,70 +10,70 @@ export const createStyles = (theme: AppTheme) =>
     header: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: SW(16),
-      paddingVertical: SH(16),
+      paddingHorizontal: 16,
+      paddingVertical: 16,
       justifyContent: 'space-between',
     },
     headerTitle: {
       flex: 1,
       textAlign: 'center',
-      marginRight: SW(24),
+      marginRight: 24,
     },
     content: {
       flex: 1,
-      paddingHorizontal: SW(16),
+      paddingHorizontal: 16,
     },
     listContent: {
-      paddingBottom: SH(100),
-      paddingTop: SH(10),
+      paddingBottom: 100,
+      paddingTop: 10,
     },
     emptyContainer: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: SH(100),
+      marginTop: 100,
     },
     emptyText: {
-      marginTop: SH(16),
+      marginTop: 16,
       textAlign: 'center',
-      paddingHorizontal: SW(40),
+      paddingHorizontal: 40,
     },
     footer: {
       position: 'absolute',
-      bottom: SH(30),
-      left: SW(16),
-      right: SW(16),
+      bottom: 30,
+      left: 16,
+      right: 16,
     },
     modalOverlay: {
       flex: 1,
       backgroundColor: theme.colors.overlay,
       justifyContent: 'center',
       alignItems: 'center',
-      paddingHorizontal: SW(20),
+      paddingHorizontal: 20,
     },
     modalContent: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(16),
-      padding: SW(24),
+      borderRadius: 16,
+      padding: 24,
       width: '100%',
     },
     modalTitle: {
-      marginBottom: SH(8),
+      marginBottom: 8,
       textAlign: 'center',
     },
     modalSubtitle: {
-      marginBottom: SH(24),
+      marginBottom: 24,
       textAlign: 'center',
-      lineHeight: SH(20),
+      lineHeight: 20,
     },
     modalButtons: {
       flexDirection: 'row',
-      gap: SW(12),
+      gap: 12,
     },
     cancelButton: {
       flex: 1,
-      paddingVertical: SH(5),
-      borderRadius: SW(8),
+      paddingVertical: 5,
+      borderRadius: 8,
       borderWidth: 1,
       borderColor: theme.colors.gray300,
       alignItems: 'center',
@@ -82,8 +81,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     deleteButton: {
       flex: 1,
-      paddingVertical: SH(5),
-      borderRadius: SW(8),
+      paddingVertical: 5,
+      borderRadius: 8,
       backgroundColor: theme.colors.danger,
       alignItems: 'center',
       fontFamily: theme.fontfamily.poppinsRegular

@@ -44,8 +44,8 @@ const BookServiceScreen = () => {
       <ScrollView
         ref={scrollRef}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.listContent}
         scrollEventThrottle={16}
+        contentContainerStyle={{ paddingBottom: 10 }}
       >
         {SERVICES_DATA.filter(s => SERVICES_CATEGORIES.some(c => c.id === s.category)).map((section) => (
           <View

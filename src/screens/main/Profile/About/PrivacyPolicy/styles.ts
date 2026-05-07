@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -12,8 +11,8 @@ export const createStyles = (theme: AppTheme) =>
       flexGrow: 1,
     },
     textContent: {
-      paddingHorizontal: SW(20),
-      paddingTop: SH(10),
-      paddingBottom: SH(20),
+      paddingHorizontal: 20,
+      paddingTop: 10,
+      paddingBottom: 20,
     },
   });

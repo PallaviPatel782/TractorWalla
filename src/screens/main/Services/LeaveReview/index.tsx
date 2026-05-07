@@ -10,11 +10,12 @@ import {
   Button,
   Input,
   SecondaryHeader,
+  ScreenFooter,
 } from '@components';
 import { createStyles } from './styles';
 import { LeaveReviewImage } from '@assets/images';
-import { SW, SH } from '@utils/Dimensions';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Modal } from 'react-native';
+import { SucessIcon } from '@assets/icons';
 
 const LeaveReview = () => {
   const { t } = useTranslation();
@@ -22,8 +23,9 @@ const LeaveReview = () => {
   const styles = createStyles(theme);
   const navigation = useNavigation<any>();
 
-  const [rating, setRating] = useState(3);
+  const [rating, setRating] = useState(4);
   const [feedback, setFeedback] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const ratings = [1, 2, 3, 4, 5];
   const ratingLabels = [
@@ -35,8 +37,11 @@ const LeaveReview = () => {
   ];
 
   const onSubmit = () => {
-    // Implement submission logic
-    navigation.navigate('Main');
+    setShowSuccessModal(true);
+    setTimeout(() => {
+      setShowSuccessModal(false);
+      navigation.navigate('Main');
+    }, 2000);
   };
 
   return (
@@ -49,7 +54,7 @@ const LeaveReview = () => {
 
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.illustrationContainer}>
-            <LeaveReviewImage width={SW(240)} height={SH(200)} />
+            <LeaveReviewImage width={240} height={200} />
           </View>
 
           <View style={styles.formCard}>
@@ -85,13 +90,27 @@ const LeaveReview = () => {
           </View>
         </ScrollView>
 
-        <View style={styles.footer}>
+        <ScreenFooter>
           <Button
             title={t('common.submit')}
             onPress={onSubmit}
             backgroundColor={theme.colors.DeepGreen}
           />
-        </View>
+        </ScreenFooter>
+
+        <Modal visible={showSuccessModal} transparent animationType="fade">
+          <View style={styles.successOverlay}>
+            <View style={styles.successContent}>
+              <View style={[styles.successIconCircle, { backgroundColor: theme.colors.DeepGreen + '20' }]}>
+                <SucessIcon size={50} color={theme.colors.DeepGreen} />
+              </View>
+              <Text style={styles.successTitle}>{t('main.serviceFlow.thankYou')}</Text>
+              <Text style={[styles.successSubTitle, { color: theme.colors.DeepGreen }]}>
+                {t('main.review.successMsg', 'Review Submitted Successfully')}
+              </Text>
+            </View>
+          </View>
+        </Modal>
       </View>
     </ScreenWrapper>
   );

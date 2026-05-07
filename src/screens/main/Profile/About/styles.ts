@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -10,12 +9,12 @@ export const createStyles = (theme: AppTheme) =>
     },
     menuContent: {
       flex: 1,
-      paddingHorizontal: SW(20),
-      paddingTop: SH(20),
+      paddingHorizontal: 20,
+      paddingTop: 20,
     },
     card: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(16),
+      borderRadius: 16,
       overflow: 'hidden',
       elevation: 2,
       shadowColor: theme.colors.black,
@@ -30,54 +29,54 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.primary,
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: SH(20),
+      paddingVertical: 20,
     },
     logoTextContainer: {
       alignItems: 'center',
-      marginTop: SH(10),
+      marginTop: 10,
     },
     logoTitle: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsBold,
-      fontSize: SF(28),
+      fontSize: 28,
       letterSpacing: 1,
-      lineHeight: SF(34),
+      lineHeight: 34,
     },
     textContent: {
-      paddingHorizontal: SW(20),
-      paddingTop: SH(10),
-      paddingBottom: SH(20),
+      paddingHorizontal: 20,
+      paddingTop: 10,
+      paddingBottom: 20,
     },
     description: {
       color: theme.colors.gray700,
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(14),
-      lineHeight: SH(20),
-      marginBottom: SH(20),
+      fontSize: 14,
+      lineHeight: 20,
+      marginBottom: 20,
     },
     whyChooseTitle: {
       color: theme.colors.primary,
       fontFamily: theme.fontfamily.poppinsSemiBold,
-      fontSize: SF(14),
-      marginBottom: SH(12),
+      fontSize: 14,
+      marginBottom: 12,
       flexDirection: 'row',
       alignItems: 'center',
     },
     listItem: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: SH(10),
+      marginBottom: 10,
     },
     listIcon: {
-      marginRight: SW(8),
+      marginRight: 8,
     },
     listText: {
       color: theme.colors.gray800,
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(14),
+      fontSize: 14,
     },
     footer: {
-      padding: SW(20),
+      padding: 20,
       backgroundColor: theme.colors.white,
       borderTopWidth: 1,
       borderTopColor: theme.colors.borderFaint,

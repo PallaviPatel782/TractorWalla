@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -9,36 +8,37 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.white,
     },
     content: {
-      paddingHorizontal: SW(20),
-      paddingBottom: SH(100),
+      paddingHorizontal: 20,
+      paddingBottom: 10,
     },
     illustrationContainer: {
       alignItems: 'center',
-      marginVertical: SH(20),
+      marginVertical: 20,
     },
     formCard: {
       backgroundColor: theme.colors.white,
     },
     label: {
-      fontSize: SF(14),
+      fontSize: 14,
       fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.black,
-      marginBottom: SH(12),
+      marginBottom: 12,
     },
     textInput: {
-      height: SH(120),
+      height: 120,
       textAlignVertical: 'top',
-      padding: SW(12),
-      borderRadius: SW(12),
-      fontSize: SF(14),
+      paddingVertical: 12,
+      paddingHorizontal: 5,
+      borderRadius: 12,
+      fontSize: 14,
       color: theme.colors.black,
     },
     experienceLabel: {
-      fontSize: SF(14),
+      fontSize: 14,
       fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.black,
-      marginTop: SH(24),
-      marginBottom: SH(8),
+      marginTop: 24,
+      marginBottom: 8,
     },
     ratingValueText: {
       fontFamily: theme.fontfamily.poppinsMedium,
@@ -46,19 +46,41 @@ export const createStyles = (theme: AppTheme) =>
     },
     starsRow: {
       flexDirection: 'row',
-      gap: SW(8),
+      gap: 8,
     },
     star: {
-      fontSize: SF(32),
+      fontSize: 32,
     },
-    footer: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      padding: SW(20),
+    successOverlay: {
+      flex: 1,
+      backgroundColor: theme.colors.overlay,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    successContent: {
       backgroundColor: theme.colors.white,
-      borderTopWidth: 1,
-      borderTopColor: theme.colors.gray100,
+      padding: 30,
+      borderRadius: 20,
+      alignItems: 'center',
+      width: '80%',
+    },
+    successIconCircle: {
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    successTitle: {
+      fontSize: 22,
+      fontFamily: theme.fontfamily.poppinsMedium,
+      color: theme.colors.black,
+    },
+    successSubTitle: {
+      fontSize: 16,
+      fontFamily: theme.fontfamily.poppinsMedium,
+      textAlign: 'center',
+      marginTop: 5,
     },
   });

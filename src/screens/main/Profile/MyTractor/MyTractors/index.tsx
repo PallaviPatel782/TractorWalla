@@ -16,24 +16,24 @@ import { useAuthStore } from '@store/useAuthStore';
 import { useGetVehiclesByCustomerId, useDeleteVehicle } from '@screens/main/hooks/useVehicle';
 import { createStyles } from './styles';
 import { TractorImage } from '@assets/images';
-import { SW, SH } from '@utils/Dimensions';
 import { Loader } from '@components';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 
 const MyTractorsScreen = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-  
+  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
   const user = useAuthStore((state) => state.user);
   const isSelectionMode = route.params?.isSelectionMode;
 
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedTractor, setSelectedTractor] = useState<any>(null);
 
-  const { 
-    data: vehiclesData, 
-    isLoading: isLoadingVehicles, 
-    isFetching, 
+  const {
+    data: vehiclesData,
+    isLoading: isLoadingVehicles,
+    isFetching,
     refetch
   } = useGetVehiclesByCustomerId(user?._id || '');
   const { mutate: deleteVehicle, isPending: isDeleting } = useDeleteVehicle();
@@ -54,6 +54,22 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
     _original: t
   }));
 
+  // Refetch when a new tractor is added or when screen gains focus
+  React.useEffect(() => {
+    if (route.params?.newTractorAdded) {
+      refetch();
+      navigation.setParams({ newTractorAdded: undefined });
+    }
+  }, [route.params?.newTractorAdded, refetch, navigation]);
+
+  // Ensure data is fresh when returning to this screen
+  const { useFocusEffect } = require('@react-navigation/native');
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
+
   const handleDeletePress = (tractor: any) => {
     setSelectedTractor(tractor);
     setDeleteModalVisible(true);
@@ -62,9 +78,21 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
   const confirmDelete = () => {
     if (selectedTractor) {
       deleteVehicle(selectedTractor.id || selectedTractor._id, {
-        onSuccess: () => {
+        onSuccess: (response: any) => {
+          showSnackbar({
+            type: 'success',
+            title: 'Success',
+            description: response.message || response.data?.message || 'Vehicle deleted successfully'
+          });
           setDeleteModalVisible(false);
           setSelectedTractor(null);
+        },
+        onError: (error: any) => {
+          showSnackbar({
+            type: 'error',
+            title: 'Error',
+            description: error.message || 'Failed to delete vehicle'
+          });
         }
       });
     }
@@ -74,7 +102,7 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
     if (isLoadingVehicles) return null;
     return (
       <View style={styles.emptyContainer}>
-        <TractorImage width={SW(127)} height={SH(127)} opacity={0.3} />
+        <TractorImage width={127} height={127} opacity={0.3} />
         <Text variant="medium" size={16} color={theme.colors.gray400} style={styles.emptyText}>
           {t('main.myTractor.emptyText')}
         </Text>
@@ -98,19 +126,34 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
               <FlatList
                 data={tractors}
                 keyExtractor={(item: any) => item.id || item._id}
-                renderItem={({ item }: { item: any }) => (
+                renderItem={({ item, index }: { item: any; index: number }) => (
                   <TractorCard
                     tractor={item}
                     isSelectionMode={isSelectionMode}
-                    selected={route.params?.selectedTractorId === item.id}
+                    selected={
+                      route.params?.selectedTractorId === item.id ||
+                      (route.params?.newTractorAdded && index === 0)
+                    }
                     onPress={() => {
                       if (isSelectionMode) {
-                        navigation.navigate('ServiceCheckout', { 
-                          ...route.params,
-                          selectedTractor: item 
-                        });
+                        // In selection mode, clicking card also selects
+                        const { DeviceEventEmitter } = require('react-native');
+                        DeviceEventEmitter.emit('TRACTOR_SELECTED', item);
+                        navigation.goBack();
                       } else {
-                        navigation.navigate('TractorDetails', { tractor: item });
+                        // Card press goes to edit/update form ONLY from Profile
+                        navigation.navigate('TractorDetails', {
+                          tractor: item,
+                          ...route.params
+                        });
+                      }
+                    }}
+                    onSelect={() => {
+                      // Select button press goes back to checkout
+                      if (isSelectionMode) {
+                        const { DeviceEventEmitter } = require('react-native');
+                        DeviceEventEmitter.emit('TRACTOR_SELECTED', item);
+                        navigation.goBack();
                       }
                     }}
                     onDelete={() => handleDeletePress(item)}

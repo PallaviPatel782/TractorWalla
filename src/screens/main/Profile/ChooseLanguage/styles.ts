@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -10,43 +9,43 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flexGrow: 1,
-      paddingHorizontal: SW(20),
-      paddingTop: SH(20),
+      paddingHorizontal: 20,
+      paddingTop: 20,
     },
     optionContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: SH(16),
+      paddingVertical: 16,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.gray100,
     },
     radioCircle: {
-      width: SW(20),
-      height: SW(20),
-      borderRadius: SW(10),
+      width: 20,
+      height: 20,
+      borderRadius: 10,
       borderWidth: 2,
       borderColor: theme.colors.gray300,
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: SW(16),
+      marginRight: 16,
     },
     radioCircleSelected: {
       borderColor: theme.colors.brandGreen,
     },
     radioInner: {
-      width: SW(10),
-      height: SW(10),
-      borderRadius: SW(5),
+      width: 10,
+      height: 10,
+      borderRadius: 5,
       backgroundColor: theme.colors.brandGreen,
     },
     languageText: {
       color: theme.colors.gray900,
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(16),
+      fontSize: 16,
     },
     bottomContainer: {
-      paddingHorizontal: SW(20),
-      paddingBottom: SH(30),
-      paddingTop: SH(10),
+      paddingHorizontal: 20,
+      paddingBottom: 30,
+      paddingTop: 10,
     },
   });

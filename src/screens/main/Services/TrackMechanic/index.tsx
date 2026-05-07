@@ -15,7 +15,6 @@ import { createStyles } from './styles';
 import { LocationIcon, PhoneIcon } from '@assets/icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-import { SH, SW } from '@utils/Dimensions';
 const TrackMechanic = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -107,12 +106,12 @@ const TrackMechanic = () => {
           >
             <View style={styles.cardContent}>
               <View style={styles.textContainer}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: SW(4) }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                   <Text variant="semiBold" size={14} color={theme.colors.gray900}>
                     {reached ? t('main.serviceFlow.reached', 'Reached...') : t('main.serviceFlow.onTheWay', 'Service Engineer On the way...')}
                   </Text>
                 </View>
-                <Text variant="regular" size={14} color={theme.colors.gray500} style={{ marginTop: SH(2) }}>
+                <Text variant="regular" size={14} color={theme.colors.gray500} style={{ marginTop: 2 }}>
                   Rajat Tiwari
                 </Text>
 

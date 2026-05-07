@@ -15,7 +15,6 @@ import {
 import { createStyles } from './styles';
 import { BookingDetailBannerImage } from '@assets/images';
 import { ChevronBackwardIcon, CheckIcon, CloseIcon } from '@assets/icons';
-import { SW, SH } from '@utils/Dimensions';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
@@ -101,7 +100,7 @@ const BookingStatus = () => {
 
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.illustrationContainer}>
-            <BookingDetailBannerImage width={SW(300)} height={SH(250)} />
+            <BookingDetailBannerImage width={300} height={250} />
           </View>
 
           <View style={styles.statusContainer}>

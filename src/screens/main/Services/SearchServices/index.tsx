@@ -14,10 +14,9 @@ import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { useTranslation } from 'react-i18next';
 import { SERVICES_DATA, IService } from '../dummyData';
-import { SW } from '@utils/Dimensions';
 import { ChevronBackwardIcon } from '@assets/icons';
 
-const RECENT_SEARCHES = ['Engine Oil', 'Brake Service', 'Hydraulic Oil'];
+// const RECENT_SEARCHES = ['Engine Oil', 'Brake Service', 'Hydraulic Oil'];
 
 const SearchServicesScreen = () => {
   const navigation = useNavigation<any>();
@@ -26,7 +25,7 @@ const SearchServicesScreen = () => {
   const styles = createStyles(theme);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [recentSearches, setRecentSearches] = useState(RECENT_SEARCHES);
+  // const [recentSearches, setRecentSearches] = useState(RECENT_SEARCHES);
 
   const allServices = SERVICES_DATA.flatMap(cat =>
     cat.services.map(svc => ({ ...svc, category: cat.category }))
@@ -38,7 +37,7 @@ const SearchServicesScreen = () => {
     )
     : allServices.slice(0, 5); // Popular Services placeholder
 
-  const handleClearRecent = () => setRecentSearches([]);
+  // const handleClearRecent = () => setRecentSearches([]);
 
   const renderServiceItem = ({ item }: { item: IService & { category: string } }) => (
     <ServiceCard
@@ -53,7 +52,7 @@ const SearchServicesScreen = () => {
       <View style={styles.root}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <ChevronBackwardIcon size={SW(24)} color={theme.colors.black} />
+            <ChevronBackwardIcon size={24} color={theme.colors.black} />
           </TouchableOpacity>
           <SearchInput
             placeholder={t('main.services.searchPlaceholder', 'Search Services')}
@@ -63,8 +62,8 @@ const SearchServicesScreen = () => {
           />
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {recentSearches.length > 0 && !searchQuery && (
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 10 }}>
+          {/* {recentSearches.length > 0 && !searchQuery && (
             <View style={styles.section}>
               <View style={styles.sectionHeader}>
                 <Text style={styles.sectionTitle}>{t('main.services.recentlySearched', 'Recently searched')}</Text>
@@ -85,7 +84,7 @@ const SearchServicesScreen = () => {
                 ))}
               </View>
             </View>
-          )}
+          )} */}
 
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>

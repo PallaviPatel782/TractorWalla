@@ -14,11 +14,11 @@ import {
   ScrollView,
   GlobalBottomSheet,
   Image,
+  ScreenFooter,
 } from '@components';
 import { useAddVehicle, useModels } from '@screens/auth/hooks/useAuth';
 import { createStyles } from './styles';
-import { SW, SH } from '@utils/Dimensions';
-import { BikeIcon } from '@assets/icons';
+import { BikeIcon, KeyboardArrowUpIcon } from '@assets/icons';
 
 
 const TractorBrandRegister = ({ navigation, route }: any) => {
@@ -87,14 +87,14 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
             contentContainerStyle={styles.content}
             showsVerticalScrollIndicator={false}
           >
-            <View style={{ gap: SH(12) }}>
+            <View style={{ gap: 12 }}>
               {!isOthers && (
                 <View style={styles.brandDisplayContainer}>
                   <View style={styles.brandLogoBox}>
                     {logoUrl && (
                       <Image
                         source={{ uri: logoUrl }}
-                        style={{ width: SW(40), height: SW(40) }}
+                        style={{ width: 40, height: 40 }}
                         resizeMode="contain"
                       />
                     )}
@@ -107,7 +107,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
 
               {!isOthers && (
                 <Dropdown
-                  label={t('main.register.modelNameLabel')}
+                  // label={t('main.register.modelNameLabel')}
                   required
                   options={modelOptions}
                   selectedValue={formData.model}
@@ -116,7 +116,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                     handleInputChange('modelId', opt.id?.toString() || '');
                   }}
                   placeholder={t('main.register.placeholderModel')}
-                  leftIcon={<BikeIcon width={SW(20)} height={SW(20)} color={theme.colors.brandRed} />}
+                  leftIcon={<BikeIcon width={20} height={20} color={theme.colors.brandRed} />}
                   loading={isLoadingModels}
                 />
               )}
@@ -168,29 +168,38 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                   onChangeText={(val) => handleInputChange('yearOfPurchase', val)}
                 />
 
-                <Dropdown
-                  label={t('main.register.typeLabel')}
-                  required
-                  options={[
-                    { label: t('main.register.agricultural'), value: 'agricultural' },
-                    { label: t('main.register.commercial'), value: 'commercial' },
-                  ]}
-                  selectedValue={formData.tractorType}
-                  onSelect={(opt) => handleInputChange('tractorType', opt.value)}
-                  placeholder="Select type"
-                />
+                <View style={{ marginBottom: 12 }}>
+                  <Text style={[styles.label, { fontSize: 12, marginBottom: 4 }]}>
+                    {t('main.register.typeLabel')} <Text style={{ color: theme.colors.error }}>*</Text>
+                  </Text>
+                  <TouchableOpacity
+                    style={styles.typeTriggerButton}
+                    onPress={() => setShowTypeSheet(true)}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.typeTriggerText}>
+                      {formData.tractorType ? t(`main.register.${formData.tractorType}`) : 'Select type'}
+                    </Text>
+                    <View style={{ transform: [{ rotate: '180deg' }] }}>
+                      <KeyboardArrowUpIcon size={16} color={theme.colors.gray400} />
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
 
-            <Button
-              title={isOthers ? t('main.register.button') : t('common.continue')}
-              onPress={handleContinue}
-              loading={isAddingVehicle}
-              style={styles.button}
-              disabled={!formData.registrationNo || !formData.model || (isOthers && !formData.customBrand)}
-            />
           </ScrollView>
         </KeyboardWrapper>
+
+        <ScreenFooter>
+          <Button
+            title={isOthers ? t('main.register.button') : t('common.continue')}
+            onPress={handleContinue}
+            loading={isAddingVehicle}
+            disabled={!formData.registrationNo || !formData.model || (isOthers && !formData.customBrand)}
+          />
+        </ScreenFooter>
+
 
         <GlobalBottomSheet
           visible={showTypeSheet}

@@ -8,13 +8,12 @@ import {
   View,
   TouchableOpacity,
   SearchInput,
-  ScrollView,
+  FlatList,
   Image,
+  Loader,
 } from '@components';
 import { createStyles } from './styles';
-import { SW, SH } from '@utils/Dimensions';
 import { useBrands } from '@screens/auth/hooks/useAuth';
-import { ActivityIndicator } from 'react-native';
 import { BikeIcon } from '@assets/icons';
 
 const TractorBrand = ({ navigation }: any) => {
@@ -62,41 +61,37 @@ const TractorBrand = ({ navigation }: any) => {
             />
           </View>
 
-          <ScrollView
+          <Loader visible={isLoading} inline />
+
+          <FlatList
+            data={filteredBrands}
+            numColumns={4}
+            keyExtractor={(item: any) => item._id}
+            contentContainerStyle={{ paddingBottom: 20, marginTop: 20, paddingHorizontal: 12 }}
+            columnWrapperStyle={{ marginBottom: 20 }}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: SH(20) }}
-          >
-            {isLoading ? (
-              <ActivityIndicator size="large" color={theme.colors.brandRed} style={{ marginTop: SH(50) }} />
-            ) : (
-              <View style={styles.brandGrid}>
-                {filteredBrands.map((brand: any) => {
-                  return (
-                    <TouchableOpacity
-                      key={brand._id}
-                      style={styles.brandItem}
-                      onPress={() => handleBrandSelect(brand)}
-                    >
-                      <View style={styles.logoContainer}>
-                        {brand._id === 'others' ? (
-                          <BikeIcon width={SW(40)} height={SW(40)} color={theme.colors.brandRed} />
-                        ) : brand.logoUrl ? (
-                          <Image 
-                            source={{ uri: brand.logoUrl }} 
-                            style={{ width: SW(44), height: SW(44) }}
-                            resizeMode="contain"
-                          />
-                        ) : null}
-                      </View>
-                      <Text variant="medium" size={11} style={styles.brandName}>
-                        {brand.name}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
+            renderItem={({ item }: { item: any }) => (
+              <TouchableOpacity
+                style={styles.brandItem}
+                onPress={() => handleBrandSelect(item)}
+              >
+                <View style={styles.logoContainer}>
+                  {item._id === 'others' ? (
+                    <BikeIcon width={40} height={40} color={theme.colors.brandRed} />
+                  ) : item.logoUrl ? (
+                    <Image
+                      source={{ uri: item.logoUrl }}
+                      style={{ width: 44, height: 44 }}
+                      resizeMode="contain"
+                    />
+                  ) : null}
+                </View>
+                <Text variant="medium" size={11} style={styles.brandName}>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
             )}
-          </ScrollView>
+          />
         </View>
       </View>
     </ScreenWrapper>

@@ -1,5 +1,5 @@
-import { StyleSheet, Platform } from 'react-native';
-import { SH, SW, SF } from '@utils/Dimensions';
+import { StyleSheet } from 'react-native';
+
 import { AppTheme } from '@theme';
 
 export const createStyles = (theme: AppTheme) =>
@@ -7,23 +7,23 @@ export const createStyles = (theme: AppTheme) =>
     container: {
       flex: 1,
       backgroundColor: theme.colors.white,
-      paddingBottom: SH(30),
+      paddingBottom: 30,
     },
     currentLocRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: SW(16),
-      paddingVertical: SH(11),
+      paddingHorizontal: 16,
+      paddingVertical: 11,
       backgroundColor: theme.colors.white,
     },
     currentLocIcon: {
-      fontSize: SF(18),
+      fontSize: 18,
       color: theme.colors.cyan,
-      marginRight: SW(8),
-      lineHeight: SH(22),
+      marginRight: 8,
+      lineHeight: 22,
     },
     currentLocText: {
-      fontSize: SF(14),
+      fontSize: 14,
       color: theme.colors.cyan,
       fontFamily: theme.fontfamily.poppinsMedium,
     },
@@ -34,51 +34,46 @@ export const createStyles = (theme: AppTheme) =>
       position: 'absolute',
       left: '51%',
       top: '55%',
-      transform: [{ translateX: SW(-16) }, { translateY: SH(-42) }],
+      transform: [{ translateX: -16 }, { translateY: -42 }],
     },
     addressCard: {
       backgroundColor: theme.colors.teal,
-      paddingHorizontal: SW(16),
-      paddingVertical: SH(14),
+      paddingHorizontal: 16,
+      paddingVertical: 14,
     },
     addressInner: {
       flexDirection: 'row',
       alignItems: 'flex-start',
     },
     addressPinIcon: {
-      fontSize: SF(22),
-      marginRight: SW(10),
-      marginTop: SH(1),
+      fontSize: 22,
+      marginRight: 10,
+      marginTop: 1,
     },
     addressTextWrap: {
       flex: 1,
     },
     addressTitle: {
-      fontSize: SF(16),
+      fontSize: 16,
       fontFamily: theme.fontfamily.poppinsSemiBold,
       color: theme.colors.white,
-      marginBottom: SH(3),
+      marginBottom: 3,
     },
     addressLoadRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(6),
+      gap: 6,
     },
     addressLoadText: {
-      fontSize: SF(13),
+      fontSize: 13,
       fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.white + 'BF',
     },
     addressSubtitle: {
-      fontSize: SF(13),
+      fontSize: 13,
       fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.white + 'E0',
-      lineHeight: SH(18),
-    },
-    confirmWrapper: {
-      paddingHorizontal: SW(14),
-      paddingTop: SH(40),
-      paddingBottom: Platform.OS === 'ios' ? SH(34) : SH(14),
-      backgroundColor: theme.colors.white,
+      lineHeight: 18,
     },
   });
+

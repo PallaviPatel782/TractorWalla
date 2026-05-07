@@ -19,10 +19,8 @@ import {
     ObBoardingSlider3Image
 } from '@images';
 import { useSendOtp, useVerifyOtp } from '@screens/auth/hooks/useAuth';
-import { useAuthStore } from '@store/useAuthStore';
 import { useSnackbarStore } from '@store/useSnackbarStore';
 import { createStyles } from './styles';
-import { SW, SH } from '@utils/Dimensions';
 
 const { width } = Dimensions.get('window');
 
@@ -37,8 +35,6 @@ const OtpVerification = ({ navigation, route }: any) => {
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const flatListRef = useRef<any>(null);
 
-    const setTokens = useAuthStore(state => state.setTokens);
-    const setUser = useAuthStore(state => state.setUser);
     const showSnackbar = useSnackbarStore(state => state.showSnackbar);
 
     const { mutate: verifyOtp, isPending: isVerifying } = useVerifyOtp();
@@ -79,17 +75,24 @@ const OtpVerification = ({ navigation, route }: any) => {
     ], [t]);
 
     useEffect(() => {
+        if (isKeyboardVisible) return;
         const autoScroll = setInterval(() => {
             const nextIndex = (activeIndex + 1) % SLIDER_DATA.length;
             setActiveIndex(nextIndex);
-            flatListRef.current?.scrollToIndex({
-                index: nextIndex,
-                animated: true,
-            });
+            if (flatListRef.current) {
+                try {
+                    flatListRef.current.scrollToIndex({
+                        index: nextIndex,
+                        animated: true,
+                    });
+                } catch {
+                    // Ignore layout errors if FlatList is unmounting
+                }
+            }
         }, 4000);
 
         return () => clearInterval(autoScroll);
-    }, [activeIndex, SLIDER_DATA.length]);
+    }, [activeIndex, SLIDER_DATA.length, isKeyboardVisible]);
 
     useEffect(() => {
         let interval: any;
@@ -109,12 +112,20 @@ const OtpVerification = ({ navigation, route }: any) => {
                 role: 'customer',
                 otp: otp
             }, {
-                onSuccess: (data: any) => {
-                    setTokens(data.accessToken, data.refreshToken);
-                    const userData = data.user || data.data?.user;
-                    if (userData) setUser(userData);
-                    showSnackbar({ type: 'success', title: 'Welcome', description: 'Login successful' });
+                onSuccess: (response: any) => {
+                    showSnackbar({
+                        type: 'success',
+                        title: 'Welcome',
+                        description: response.message || response.data?.message || 'Login successful'
+                    });
                     navigation.navigate('LocationAccess');
+                },
+                onError: (error: any) => {
+                    showSnackbar({
+                        type: 'error',
+                        title: 'Error',
+                        description: error.message || 'Invalid OTP'
+                    });
                 }
             });
         }
@@ -122,12 +133,27 @@ const OtpVerification = ({ navigation, route }: any) => {
 
     const handleResendOTP = () => {
         setTimer(30);
-        sendOtp({ phone: mobileNumber, countryCode: '91', role: 'customer' });
+        sendOtp({ phone: mobileNumber, countryCode: '91', role: 'customer' }, {
+            onSuccess: (response: any) => {
+                showSnackbar({
+                    type: 'success',
+                    title: 'Success',
+                    description: response.message || response.data?.message || 'OTP resent successfully'
+                });
+            },
+            onError: (error: any) => {
+                showSnackbar({
+                    type: 'error',
+                    title: 'Error',
+                    description: error.message || 'Failed to resend OTP'
+                });
+            }
+        });
     };
 
     const renderSlide = ({ item }: { item: any }) => (
         <View style={styles.slide}>
-            <item.image width={SW(170)} height={SH(110)} />
+            <item.image width={170} height={110} />
             <Text variant="regular" size={16} style={styles.serviceText}>
                 {item.title}
             </Text>
@@ -144,12 +170,12 @@ const OtpVerification = ({ navigation, route }: any) => {
                     end={{ x: 0, y: 1 }}
                 />
                 <Header onPressLogo={() => navigation.goBack()} />
-                <KeyboardWrapper keyboardVerticalOffset={Platform.OS === 'ios' ? SH(60) : 0}>
+                <KeyboardWrapper keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
                     <View style={styles.content}>
 
                         <View style={[
                             styles.sliderSection,
-                            isKeyboardVisible && { height: SH(100), marginTop: SH(10) }
+                            isKeyboardVisible && { height: 100, marginTop: 10 }
                         ]}>
                             {!isKeyboardVisible ? (
                                 <FlatList
@@ -161,7 +187,7 @@ const OtpVerification = ({ navigation, route }: any) => {
                                     showsHorizontalScrollIndicator={false}
                                     keyExtractor={(item) => item.id}
                                     onMomentumScrollEnd={(e) => {
-                                        const index = Math.round(e.nativeEvent.contentOffset.x / (width - SW(48)));
+                                        const index = Math.round(e.nativeEvent.contentOffset.x / (width - 48));
                                         setActiveIndex(index);
                                     }}
                                 />
@@ -181,7 +207,7 @@ const OtpVerification = ({ navigation, route }: any) => {
                                             style={[
                                                 styles.dot,
                                                 {
-                                                    width: index === activeIndex ? SW(18) : SW(6),
+                                                    width: index === activeIndex ? 18 : 6,
                                                     backgroundColor: index === activeIndex
                                                         ? theme.colors.brandRed
                                                         : theme.colors.gray300
@@ -195,8 +221,8 @@ const OtpVerification = ({ navigation, route }: any) => {
 
 
 
-                        <View style={[styles.inputCard, { marginTop: SH(20) }]}>
-                            <View style={[styles.textSection, isKeyboardVisible && { marginTop: SH(10) }]}>
+                        <View style={[styles.inputCard, { marginTop: 20 }]}>
+                            <View style={[styles.textSection, isKeyboardVisible && { marginTop: 10 }]}>
                                 <Text variant="bold" size={isKeyboardVisible ? 18 : 24} align="center" style={styles.title}>
                                     {t('auth.otp.title')}
                                 </Text>
@@ -239,8 +265,7 @@ const OtpVerification = ({ navigation, route }: any) => {
                                     </TouchableOpacity>
                                 )}
                             </View>
-                        </View>
-                        <View style={styles.footer}>
+
                             <Button
                                 title={t('common.continue')}
                                 onPress={handleContinue}
@@ -248,7 +273,9 @@ const OtpVerification = ({ navigation, route }: any) => {
                                 disabled={otp.length !== 6}
 
                             />
+
                         </View>
+
                     </View>
                 </KeyboardWrapper>
             </View>

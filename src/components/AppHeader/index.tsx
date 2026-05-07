@@ -1,11 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 import { AppLogoImage } from '@images';
-import Text from '../Text';
-import View from '../View';
-import TouchableOpacity from '../TouchableOpacity';
+import { Text, View, TouchableOpacity } from '@components';
 
 interface HeaderProps {
   onPressLogo?: () => void;
@@ -13,6 +10,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onPressLogo }) => {
   const { theme } = useTheme();
+  const styles = createStyles(theme);
 
   return (
     <View style={styles.container}>
@@ -21,11 +19,12 @@ const Header: React.FC<HeaderProps> = ({ onPressLogo }) => {
         onPress={onPressLogo}
         activeOpacity={0.7}
       >
-        <AppLogoImage width={SW(50)} height={SH(26)} />
+        <AppLogoImage width={50} height={26} />
+
         <Text
-          variant="medium"
+          variant="bold"
           size={theme.typography.sizes.lg}
-          style={[styles.brandText, { fontFamily: theme.typography.fonts.poppinsMedium }]}
+          style={styles.brandText}
         >
           TractorWalla
         </Text>
@@ -34,23 +33,25 @@ const Header: React.FC<HeaderProps> = ({ onPressLogo }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: SW(16),
-    paddingVertical: SH(10),
-    paddingTop: SH(20)
-  },
-  logoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  brandText: {
-    marginLeft: SW(10),
-    letterSpacing: 0.5,
-  },
-});
+const createStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      paddingVertical: 10,
+      paddingTop: 20,
+      // backgroundColor: theme.colors.white,
+    },
+    logoContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    brandText: {
+      marginLeft: 10,
+      letterSpacing: 0.5,
+      color: theme.colors.black,
+    },
+  });
 
 export default Header;
-

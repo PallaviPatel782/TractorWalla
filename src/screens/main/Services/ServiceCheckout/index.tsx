@@ -14,13 +14,16 @@ import {
   Button,
   PaymentModal,
   Input,
+  Image,
+  BillSummary,
+  ScreenFooter,
+  ServiceCard,
 } from '@components';
 import { useAuthStore } from '@store/useAuthStore';
 import * as Brands from '@assets/images';
-import { CheckIcon, LocationIcon, BillIcon, BikeIcon, ChevronArrowIcon } from '@assets/icons';
+import { LocationIcon, ChevronArrowIcon, BikeIcon, BillIcon } from '@assets/icons';
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
-import { SW, SH, SF } from '@utils/Dimensions';
 import { useGetAllAddresses } from '../../hooks/useAddress';
 import { useGetVehiclesByCustomerId } from '../../hooks/useVehicle';
 
@@ -69,51 +72,52 @@ const ServiceCheckoutScreen = () => {
 
   const [selectedAddress, setSelectedAddress] = useState<any>(null);
 
+  // Address Selection Logic
   React.useEffect(() => {
+    // Listen for manual selection from ManageAddress screen
+    const { DeviceEventEmitter } = require('react-native');
+    const subscription = DeviceEventEmitter.addListener('ADDRESS_SELECTED', (address: any) => {
+      setSelectedAddress(address);
+    });
+
     if (route.params?.selectedAddress) {
       setSelectedAddress(route.params.selectedAddress);
     } else if (!selectedAddress && addresses.length > 0) {
       const defaultAddress = addresses.find((addr: any) => addr.isDefault);
-      setSelectedAddress(defaultAddress || addresses[addresses.length - 1]);
+      setSelectedAddress(defaultAddress || addresses[0]);
     }
+
+    return () => subscription.remove();
   }, [route.params?.selectedAddress, addresses, selectedAddress]);
 
-  // Get selected tractor from params or default to first tractor
   const [selectedTractor, setSelectedTractor] = useState<any>(null);
-  const prevTractorsLength = React.useRef(tractors.length);
 
+  // Tractor Selection Logic
+  const prevTractorsLength = React.useRef(tractors.length);
   React.useEffect(() => {
+    // Listen for manual selection from MyTractors screen
+    const { DeviceEventEmitter } = require('react-native');
+    const subscription = DeviceEventEmitter.addListener('TRACTOR_SELECTED', (tractor: any) => {
+      setSelectedTractor(tractor);
+    });
+
     if (route.params?.selectedTractor) {
       setSelectedTractor(route.params.selectedTractor);
     } else if (tractors.length > 0) {
-      const isSelectedStillAvailable = selectedTractor && tractors.some((tr: any) => (tr.id || tr._id) === (selectedTractor.id || selectedTractor._id));
+      const currentSelectionInList = selectedTractor ? tractors.find((t: any) => (t.id || t._id) === (selectedTractor.id || selectedTractor._id)) : null;
 
-      if (!selectedTractor || tractors.length > prevTractorsLength.current || !isSelectedStillAvailable) {
+      if (!selectedTractor || !currentSelectionInList) {
         setSelectedTractor(tractors[tractors.length - 1]);
+      } else if (currentSelectionInList && JSON.stringify(currentSelectionInList) !== JSON.stringify(selectedTractor)) {
+        setSelectedTractor(currentSelectionInList);
       }
     }
     prevTractorsLength.current = tractors.length;
+
+    return () => subscription.remove();
   }, [route.params?.selectedTractor, tractors, selectedTractor]);
 
-  const BRAND_LOGOS: Record<string, any> = {
-    Mahindra: Brands.MahindraImage,
-    Swaraj: Brands.SwarajImage,
-    'John Deere': Brands.JohnDeereImage,
-    Eicher: Brands.EicherImage,
-    Sonalika: Brands.SonalikaImage,
-    Solis: Brands.SolisImage,
-    Captain: Brands.CaptainImage,
-    VST: Brands.VstImage,
-    Force: Brands.ForceImage,
-    'New Holland': Brands.NewHollandImage,
-    Farmtrac: Brands.FarmtracImage,
-    Powertrac: Brands.PowertracImage,
-    Kubota: Brands.KubotaImage,
-    'Massey Ferguson': Brands.MasseyFergusonImage,
-    Others: Brands.OthersImage,
-  };
 
-  const SelectedBrandLogo = selectedTractor ? (BRAND_LOGOS[selectedTractor.brand] || Brands.OthersImage) : Brands.OthersImage;
 
   const currentCategory = SERVICES_DATA.find(c => c.category === category);
   const service = currentCategory?.services.find(s => s.id === serviceId) as IService | undefined;
@@ -132,7 +136,7 @@ const ServiceCheckoutScreen = () => {
 
   const appliedCoupon = route.params?.appliedCoupon;
 
-  const billSummary = {
+  const billData = {
     itemTotal: parseFloat(service.price) || 0,
     addons: 500,
     labor: 500,
@@ -141,18 +145,18 @@ const ServiceCheckoutScreen = () => {
 
   // Calculate discount based on applied coupon
   if (appliedCoupon?.code === 'STEAL50') {
-    billSummary.discount = Math.min((billSummary.itemTotal + billSummary.addons + billSummary.labor) * 0.5, 500);
+    billData.discount = Math.min((billData.itemTotal + billData.addons + billData.labor) * 0.5, 500);
   } else if (appliedCoupon?.code === 'FLAT100') {
-    billSummary.discount = 100;
+    billData.discount = 100;
   } else if (appliedCoupon?.code === 'DIWALI500') {
-    billSummary.discount = 500;
+    billData.discount = 500;
   }
 
-  const totalEstimate = billSummary.itemTotal + billSummary.addons + billSummary.labor - billSummary.discount;
+  const totalEstimate = billData.itemTotal + billData.addons + billData.labor - billData.discount;
   const payableNow = paymentType === 'partial' ? totalEstimate * 0.3 : totalEstimate;
 
   return (
-    <ScreenWrapper style={styles.container}>
+    <ScreenWrapper style={styles.container} withBottomInset={false}>
       <SecondaryHeader
         title={t('main.home.services.bookingDetails', 'Booking Details')}
         onBack={() => navigation.goBack()}
@@ -160,38 +164,22 @@ const ServiceCheckoutScreen = () => {
         titleColor={theme.colors.white}
       />
 
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={[styles.content, { paddingBottom: 10 }]}>
         <Text style={styles.bookingId}>#{t('main.bookings.details.id')}: ID1234</Text>
 
-        {/* Service Card */}
         <View style={styles.sectionCard}>
           <Text style={styles.serviceType}>{t('main.home.services.bookService_card', 'Book Service')}</Text>
-          <View style={styles.serviceInfoRow}>
-            <View style={styles.serviceDetails}>
-              <Text style={styles.serviceTitle}>{service.title}</Text>
-              {service.bullets?.slice(0, 3).map((bullet, idx) => (
-                <View key={idx} style={styles.bulletRow}>
-                  <CheckIcon size={14} color={theme.colors.success} />
-                  <Text style={styles.bulletText}>{bullet}</Text>
-                </View>
-              ))}
-              <View style={styles.ratingPriceRow}>
-                <Text style={{ color: theme.colors.GoldenYellow }}>★</Text>
-                <Text style={styles.ratingText}>{service.rating}</Text>
-                <Text style={styles.priceText}>₹{service.price}</Text>
-                <Text style={styles.strikePrice}>₹{service.mrp}</Text>
-              </View>
-            </View>
-            <View style={styles.serviceImageWrapper}>
-              {ServiceImage && <ServiceImage width={SW(130)} height={SH(105)} style={styles.serviceImage} />}
-              <View style={styles.addedBadge}>
-                <View style={styles.circle}>
-                  <CheckIcon size={10} color={theme.colors.greenSuccess} />
-                </View>
-                <Text style={styles.addedText}>{t('common.added')}</Text>
-              </View>
-            </View>
-          </View>
+          <ServiceCard
+            item={{
+              ...service,
+              image: ServiceImage,
+              strikePrice: service.mrp
+            }}
+            onPress={() => { }}
+            onBookPress={() => { }}
+            containerStyle={{ borderWidth: 0, padding: 0 }}
+            isAdded={true}
+          />
         </View>
 
         {/* Issue Description */}
@@ -229,7 +217,16 @@ const ServiceCheckoutScreen = () => {
           </View>
           {selectedTractor ? (
             <View style={styles.selectionBox}>
-              <SelectedBrandLogo width={SW(40)} height={SH(30)} />
+              {selectedTractor?.logoUrl ? (
+                <Image
+                  source={{ uri: selectedTractor.logoUrl }}
+                  style={{ width: 40, height: 30 }}
+                  resizeMode="contain"
+                  showLoader={false}
+                />
+              ) : (
+                <Brands.OthersImage width={40} height={30} />
+              )}
               <View style={styles.selectionInfo}>
                 <Text style={styles.selectionTitle}>
                   {t(`common.brands.${selectedTractor.brand}`) === `common.brands.${selectedTractor.brand}` ? selectedTractor.brand : t(`common.brands.${selectedTractor.brand}`)} {selectedTractor.model}
@@ -267,7 +264,7 @@ const ServiceCheckoutScreen = () => {
                 : 'Select an address'}
             </Text>
             <TouchableOpacity style={styles.addAddressBtn} onPress={() => navigation.navigate('AddLocation')}>
-              <Text style={{ color: theme.colors.danger, fontSize: SF(16) }}>+</Text>
+              <Text style={{ color: theme.colors.danger, fontSize: 16 }}>+</Text>
               <Text style={styles.addAddressText}>{t('main.manageAddress.addNewFooter')}</Text>
             </TouchableOpacity>
           </View>
@@ -294,44 +291,20 @@ const ServiceCheckoutScreen = () => {
             color: theme.colors.red
           }]}>%</Text>
           <Text style={styles.savingText}>
-            {billSummary.discount > 0
-              ? t('main.home.services.savedMessage', { amount: billSummary.discount.toFixed(0) })
+            {billData.discount > 0
+              ? t('main.home.services.savedMessage', { amount: billData.discount.toFixed(0) })
               : t('main.home.services.applyCouponToSave')}
           </Text>
         </View>
 
         {/* Bill Summary */}
-        <View style={styles.sectionCard}>
-          <View style={styles.sectionTitleRow}>
-            <BillIcon size={20} />
-            <Text style={styles.sectionTitle}>{t('main.home.services.billSummary')}</Text>
-          </View>
-          <View style={styles.billRow}>
-            <Text style={styles.billLabel}>{t('main.bookings.invoice.itemTotal')}</Text>
-            <Text style={styles.billValue}>₹{billSummary.itemTotal.toFixed(2)}</Text>
-          </View>
-          <View style={styles.billRow}>
-            <Text style={styles.billLabel}>{t('main.bookings.invoice.serviceFee')}</Text>
-            <Text style={styles.billValue}>₹{billSummary.labor.toFixed(2)}</Text>
-          </View>
-          {appliedCoupon && (
-            <View style={styles.billRow}>
-              <Text style={[styles.billLabel, styles.discountLabel]}>{appliedCoupon.code}</Text>
-              <Text style={[styles.billValue, styles.discountValue]}>-₹{billSummary.discount.toFixed(2)}</Text>
-            </View>
-          )}
-          <View style={styles.billRow}>
-            <Text style={styles.taxNote}>{t('main.bookings.invoice.taxNotice')}</Text>
-            <Text style={styles.taxNote}>{t('common.included', 'Included')}</Text>
-          </View>
-
-          <View style={styles.divider} />
-
-          <View style={styles.totalRow}>
-            <Text style={styles.totalLabel}>{t('main.bookings.invoice.estimate')}</Text>
-            <Text style={styles.totalValue}>₹{totalEstimate.toFixed(2)}</Text>
-          </View>
-        </View>
+        <BillSummary
+          itemTotal={billData.itemTotal}
+          serviceFee={billData.labor}
+          discount={billData.discount}
+          couponCode={appliedCoupon?.code}
+          totalEstimate={totalEstimate}
+        />
 
         {/* Payment Type */}
         <View style={styles.sectionCard}>
@@ -377,12 +350,12 @@ const ServiceCheckoutScreen = () => {
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
+      <ScreenFooter>
         <Button
           title={t('main.home.services.proceedToPay')}
           onPress={onProceedToPay}
         />
-      </View>
+      </ScreenFooter>
 
       <PaymentModal
         visible={paymentModalVisible}

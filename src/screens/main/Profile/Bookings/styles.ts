@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -10,19 +9,19 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flex: 1,
-      paddingHorizontal: SW(16),
+      paddingHorizontal: 16,
       overflow: 'visible',
     },
     listContent: {
-      paddingTop: SH(10),
-      paddingBottom: SH(30),
+      paddingTop: 10,
+      paddingBottom: 30,
       overflow: 'visible',
     },
     bookingCard: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(12),
-      padding: SW(16),
-      marginBottom: SH(16),
+      borderRadius: 12,
+      padding: 16,
+      marginBottom: 16,
       elevation: 2,
       shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
@@ -34,15 +33,15 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: SH(12),
+      marginBottom: 12,
     },
     bookingId: {
       fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.gray500,
-      fontSize: SF(11),
+      fontSize: 11,
     },
     optionsIcon: {
-      padding: SW(4),
+      padding: 4,
       borderColor: theme.colors.gray100,
       borderWidth: 1,
       borderRadius: 50,
@@ -51,19 +50,19 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginBottom: SH(16),
+      marginBottom: 16,
     },
     engineerInfo: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(10),
+      gap: 10,
       flex: 1,
-      marginRight: SW(10),
+      marginRight: 10,
     },
     avatar: {
-      width: SW(36),
-      height: SW(36),
-      borderRadius: SW(18),
+      width: 36,
+      height: 36,
+      borderRadius: 18,
       backgroundColor: theme.colors.gray100,
       justifyContent: 'center',
       alignItems: 'center',
@@ -77,16 +76,16 @@ export const createStyles = (theme: AppTheme) =>
     statusContainer: {
       alignItems: 'flex-end',
       flexShrink: 0,
-      minWidth: SW(80),
+      minWidth: 80,
     },
     statusLabel: {
       color: theme.colors.gray500,
-      marginBottom: SH(2),
+      marginBottom: 2,
     },
     statusValueRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(4),
+      gap: 4,
     },
     statusValue: {
       fontFamily: theme.fontfamily.poppinsMedium,
@@ -94,7 +93,7 @@ export const createStyles = (theme: AppTheme) =>
     divider: {
       height: 1,
       backgroundColor: theme.colors.borderFaint,
-      marginBottom: SH(12),
+      marginBottom: 12,
     },
     cardFooter: {
       flexDirection: 'row',
@@ -102,7 +101,7 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
     },
     amountSection: {
-      gap: SH(2),
+      gap: 2,
     },
     amountLabel: {
       color: theme.colors.gray500,
@@ -113,9 +112,9 @@ export const createStyles = (theme: AppTheme) =>
     },
     viewDetailsButton: {
       backgroundColor: theme.colors.iconBgYellow,
-      paddingHorizontal: SW(16),
-      paddingVertical: SH(8),
-      borderRadius: SW(6),
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 6,
     },
     viewDetailsText: {
       color: theme.colors.gray900,
@@ -124,10 +123,10 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.brandGreen,
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(8),
-      borderRadius: SW(6),
-      gap: SW(6),
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderRadius: 6,
+      gap: 6,
     },
     invoiceText: {
       color: theme.colors.white,
@@ -136,9 +135,9 @@ export const createStyles = (theme: AppTheme) =>
       position: 'absolute',
       top: '100%',
       right: 0,
-      marginTop: SH(4),
+      marginTop: 4,
       backgroundColor: theme.colors.white,
-      borderRadius: SW(8),
+      borderRadius: 8,
       borderWidth: 1,
       borderColor: theme.colors.gray100,
       elevation: 3,
@@ -147,23 +146,23 @@ export const createStyles = (theme: AppTheme) =>
       shadowOpacity: 0.1,
       shadowRadius: 4,
       zIndex: 100,
-      width: SW(140),
+      width: 140,
     },
     invoiceMenuItem: {
-      paddingVertical: SH(10),
-      paddingHorizontal: SW(12),
+      paddingVertical: 10,
+      paddingHorizontal: 12,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.gray50,
     },
     reasonChipsContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: SW(8),
+      gap: 8,
     },
     reasonChip: {
-      paddingVertical: SH(6),
-      paddingHorizontal: SW(12),
-      borderRadius: SW(20),
+      paddingVertical: 6,
+      paddingHorizontal: 12,
+      borderRadius: 20,
       borderWidth: 1,
       borderColor: theme.colors.gray300,
       backgroundColor: theme.colors.white,

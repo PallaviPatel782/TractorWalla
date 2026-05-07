@@ -18,12 +18,10 @@ import {
   LoudspeakerIcon,
   WarrantyBadgeIcon,
 } from '@assets/icons';
-import { Button, ScreenWrapper, ServiceCard } from '@components';
+import { Button, ScreenWrapper, ServiceCard, RatingPriceRow, ScreenFooter } from '@components';
 import { createStyles } from './styles';
 import { CATEGORY_OVERVIEW_DATA, SERVICES_DATA } from '../dummyData';
 import { categoryOverViewBanner } from '@assets/images';
-import { SH } from '@utils/Dimensions';
-// import { SH, SW } from '@utils/Dimensions';
 
 const CategoryOverviewScreen = () => {
   const { t } = useTranslation();
@@ -33,8 +31,12 @@ const CategoryOverviewScreen = () => {
   const data = CATEGORY_OVERVIEW_DATA;
 
   return (
-    <ScreenWrapper style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+    <ScreenWrapper style={styles.container} withBottomInset={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      >
         {/* Header/Hero */}
         <View style={styles.heroSection}>
           <Image
@@ -58,10 +60,11 @@ const CategoryOverviewScreen = () => {
             <View style={styles.badgePill}>
               <Text style={styles.badgeText}>{t('main.home.services.topRated', 'TOP RATED SERVICE')}</Text>
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ color: theme.colors.GoldenYellow }}>★ </Text>
-              <Text style={styles.ratingText}>{data.rating}</Text>
-            </View>
+            <RatingPriceRow
+              rating={data.rating}
+              price={data.price}
+              mrp={data.mrp}
+            />
           </View>
 
           <Text style={styles.title}>{data.title}</Text>
@@ -85,10 +88,6 @@ const CategoryOverviewScreen = () => {
             </View>
           </View>
 
-          <View style={styles.priceRow}>
-            <Text style={styles.price}>₹{data.price}</Text>
-            <Text style={styles.mrp}>₹{data.mrp}</Text>
-          </View>
 
           {/* Service Includes */}
           <Text style={[styles.sectionHeading, { marginHorizontal: 0 }]}>{t('main.home.services.includes', 'Service Includes')}</Text>
@@ -117,16 +116,15 @@ const CategoryOverviewScreen = () => {
       </ScrollView>
 
       {/* Footer Action */}
-      <View style={styles.footer}>
+      <ScreenFooter>
         <Button
           title={t('main.home.services.bookService', 'Book Service')}
           onPress={() => navigation.navigate('ServiceCheckout', {
             serviceId: data.id,
             category: 'general'
           })}
-          style={{ marginBottom: SH(20) }}
         />
-      </View>
+      </ScreenFooter>
     </ScreenWrapper>
   );
 };

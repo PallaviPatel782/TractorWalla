@@ -1,11 +1,9 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
-import { Text, SecondaryHeader, ScreenWrapper, View, ScrollView, Button } from '@components';
+import { Text, SecondaryHeader, ScreenWrapper, View, ScrollView, BillSummary, ServiceCard } from '@components';
 import { createStyles } from './styles';
 import { OilImage, OilcheckImage, MahindraImage } from '@assets/images';
-import { SW, SH } from '@utils/Dimensions';
-import { CheckIcon, BillIcon, CheckedIcon } from '@assets/icons';
 
 const BookingDetailsScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
@@ -85,13 +83,13 @@ const BookingDetailsScreen = ({ navigation }: any) => {
     };
   }, [t]);
 
-  const renderServiceImage = (imageType: string) => {
+  const getServiceImage = (imageType: string) => {
     switch (imageType) {
-      case 'oil': return <OilImage width={SW(80)} height={SW(80)} />;
-      case 'oilcheck': return <OilcheckImage width={SW(80)} height={SW(80)} />;
+      case 'oil': return OilImage;
+      case 'oilcheck': return OilcheckImage;
       case 'brake':
       default:
-        return <OilImage width={SW(80)} height={SW(80)} />;
+        return OilImage;
     }
   };
 
@@ -110,7 +108,7 @@ const BookingDetailsScreen = ({ navigation }: any) => {
             <Text style={styles.bookingId}>#{t('main.bookings.details.id')}: {bookingData.id}</Text>
 
             <View style={styles.tractorRow}>
-              <MahindraImage width={SW(40)} height={SH(30)} />
+              <MahindraImage width={40} height={30} />
               <Text style={styles.tractorName}>{bookingData.tractorBrand} {bookingData.tractorModel}</Text>
             </View>
 
@@ -118,33 +116,16 @@ const BookingDetailsScreen = ({ navigation }: any) => {
               <>
                 <Text style={styles.serviceTypeTitle}>{bookingData.sections[0].title}</Text>
                 {bookingData.sections[0].items.map((item) => (
-                  <View key={item.id} style={styles.serviceItem}>
-                    <View style={styles.itemDetails}>
-                      <Text style={styles.itemTitle}>{item.title}</Text>
-                      {item.features.map((feat, i) => (
-                        <View key={i} style={styles.featureRow}>
-                          <CheckIcon width={SW(16)} height={SW(16)} />
-                          <Text style={styles.featureText}>{feat}</Text>
-                        </View>
-                      ))}
-                      <View style={styles.priceRow}>
-                        <Text style={styles.starIcon}>★</Text>
-                        <Text style={styles.ratingText}>{item.rating}</Text>
-                        <Text style={styles.priceText}>₹{item.price}</Text>
-                        <Text style={styles.strikePrice}>₹{item.strikePrice}</Text>
-                      </View>
-                    </View>
-
-                    <View style={styles.imageContainer}>
-                      <View style={[styles.itemImage, { overflow: 'hidden', alignItems: 'center', justifyContent: 'center' }]}>
-                        {renderServiceImage(item.image)}
-                      </View>
-                      <View style={styles.addedBadge}>
-                        <CheckedIcon width={SW(16)} height={SW(16)} color={theme.colors.white} />
-                        <Text style={styles.addedText}>{t('common.added')}</Text>
-                      </View>
-                    </View>
-                  </View>
+                  <ServiceCard
+                    key={item.id}
+                    item={{
+                      ...item,
+                      image: getServiceImage(item.image)
+                    }}
+                    onPress={() => { }}
+                    isAdded={true}
+                    containerStyle={{ borderWidth: 0, padding: 0, marginBottom: 16 }}
+                  />
                 ))}
               </>
             )}
@@ -155,85 +136,33 @@ const BookingDetailsScreen = ({ navigation }: any) => {
             <View style={styles.sectionCard}>
               <Text style={styles.serviceTypeTitle}>{bookingData.sections[1].title}</Text>
               {bookingData.sections[1].items.map((item) => (
-                <View key={item.id} style={styles.serviceItem}>
-                  <View style={styles.itemDetails}>
-                    <Text style={styles.itemTitle}>{item.title}</Text>
-                    {item.features.map((feat, i) => (
-                      <View key={i} style={styles.featureRow}>
-                        <CheckIcon width={SW(16)} height={SW(16)} />
-                        <Text style={styles.featureText}>{feat}</Text>
-                      </View>
-                    ))}
-                    <View style={styles.priceRow}>
-                      <Text style={styles.starIcon}>★</Text>
-                      <Text style={styles.ratingText}>{item.rating}</Text>
-                      <Text style={styles.priceText}>₹{item.price}</Text>
-                      <Text style={styles.strikePrice}>₹{item.strikePrice}</Text>
-                    </View>
-                  </View>
-
-                  <View style={styles.imageContainer}>
-                    <View style={[styles.itemImage, { overflow: 'hidden', alignItems: 'center', justifyContent: 'center' }]}>
-                      {renderServiceImage(item.image)}
-                    </View>
-                    <View style={styles.addedBadge}>
-                      <CheckedIcon width={SW(16)} height={SW(16)} />
-                      <Text style={styles.addedText}>{t('common.added')}</Text>
-                    </View>
-                  </View>
-                </View>
+                <ServiceCard
+                  key={item.id}
+                  item={{
+                    ...item,
+                    image: getServiceImage(item.image)
+                  }}
+                  onPress={() => { }}
+                  isAdded={true}
+                  containerStyle={{ borderWidth: 0, padding: 0, marginBottom: 12 }}
+                />
               ))}
             </View>
           )}
 
-          {/* Bill Summary Section */}
-          <View style={[styles.sectionCard, styles.billSummaryCard]}>
-            <View style={styles.billTitleRow}>
-              <BillIcon width={SW(20)} height={SW(20)} color={theme.colors.gray900} />
-              <Text style={styles.sectionTitle}>Bill Summary</Text>
-            </View>
-
-            <View style={styles.billDivider} />
-
-            <View style={styles.billRow}>
-              <Text style={styles.billLabel}>Item Total</Text>
-              <Text style={styles.billValue}>₹{bookingData.billing.itemTotal.toFixed(2)}</Text>
-            </View>
-
-            <View style={styles.billRow}>
-              <Text style={styles.billLabel}>Service Fee (Labor)</Text>
-              <Text style={styles.billValue}>₹{bookingData.billing.serviceFee.toFixed(2)}</Text>
-            </View>
-
-            {bookingData.billing.discounts.map((discount, idx) => (
-              <View key={idx} style={styles.billRow}>
-                <Text style={styles.billDiscountLabel}>{discount.name}</Text>
-                <Text style={styles.billDiscountValue}>-₹{discount.amount.toFixed(2)}</Text>
-              </View>
-            ))}
-
-            <View style={styles.billRow}>
-              <Text style={styles.billTaxLabel}>* Taxes applicable at checkout</Text>
-              <Text style={styles.billTaxLabel}>Included</Text>
-            </View>
-
-            <View style={styles.billDividerDashed} />
-
-            <View style={styles.billTotalRow}>
-              <Text style={styles.billTotalLabel}>Total Estimate</Text>
-              <Text style={styles.billTotalValue}>₹{bookingData.billing.totalEstimate.toFixed(2)}</Text>
-            </View>
-          </View>
+          <BillSummary
+            itemTotal={bookingData.billing.itemTotal}
+            serviceFee={bookingData.billing.serviceFee}
+            discount={bookingData.billing.discounts.find(d => d.name === 'STEAL50')?.amount}
+            couponCode="STEAL50"
+            partialPayment={bookingData.billing.discounts.find(d => d.name === 'Partial Payment')?.amount}
+            totalEstimate={bookingData.billing.totalEstimate}
+            containerStyle={styles.billSummaryCard}
+          />
 
         </ScrollView>
 
-        <View style={styles.footer}>
-          <Button
-            title={t('main.bookings.list.invoice')}
-            onPress={() => navigation.navigate('Invoice', { bookingId: bookingData.id, type: 'General' })}
-            style={styles.invoiceButton}
-          />
-        </View>
+
       </View>
     </ScreenWrapper>
   );

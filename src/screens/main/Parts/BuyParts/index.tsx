@@ -14,13 +14,13 @@ import {
   GlobalBottomSheet,
   Button,
   FilterBottomSheet,
+  ServiceCard,
 } from '@components';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
-import { CheckIcon, CartIcon, CloseIcon, FilterIcon } from '@assets/icons';
+import { CloseIcon, FilterIcon } from '@assets/icons';
 import { ServiceModalImageImage } from '@assets/images';
 import { PARTS_DATA, PARTS_CATEGORIES } from '../dummyData';
-import { SW, SH } from '@utils/Dimensions';
 const BuyPartsScreen = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -41,36 +41,13 @@ const BuyPartsScreen = () => {
   };
 
   const renderKitCard = (kit: any) => (
-    <TouchableOpacity
+    <ServiceCard
       key={kit.id}
-      style={styles.kitCard}
-    // onPress={() => navigation.navigate('PartsOverview', { kitId: kit.id })}
-    >
-      <View style={styles.kitLeft}>
-        <Text style={styles.kitTitle}>{kit.title}</Text>
-        {kit.bullets.map((bullet: string, idx: number) => (
-          <View key={idx} style={styles.bulletRow}>
-            <CheckIcon size={15} color={theme.colors.DeepGreen} />
-            <Text style={styles.bulletText}>{bullet}</Text>
-          </View>
-        ))}
-        <View style={styles.kitFooter}>
-          <Text style={styles.ratingText}>★ {kit.rating}</Text>
-          <Text style={styles.price}>₹{kit.price}</Text>
-          <Text style={styles.mrp}>₹{kit.price}</Text>
-        </View>
-      </View>
-      <View style={styles.kitRight}>
-        <kit.image width={SW(100)} height={SW(90)} style={styles.kitImage} />
-        <TouchableOpacity
-          style={styles.purchaseBtn}
-          onPress={() => setModalVisible(true)}
-        >
-          <CartIcon size={SW(14)} color="#1E633F" />
-          <Text style={styles.purchaseText}>{t('main.home.buyParts.purchase', 'Purchase')}</Text>
-        </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
+      item={kit}
+      onPress={() => { }} // navigation.navigate('PartsOverview', { kitId: kit.id })
+      onBookPress={() => setModalVisible(true)}
+      buttonTitle={t('main.home.buyParts.purchase', 'Purchase')}
+    />
   );
 
   return (
@@ -88,7 +65,7 @@ const BuyPartsScreen = () => {
             placeholder={t('main.home.buyParts.searchPlaceholder', 'Search for Kits')}
             rightIcon={
               <TouchableOpacity onPress={() => setFilterVisible(true)}>
-                <FilterIcon size={SW(24)} color={theme.colors.gray500} />
+                <FilterIcon size={24} color={theme.colors.gray500} />
               </TouchableOpacity>
             }
           />
@@ -98,8 +75,8 @@ const BuyPartsScreen = () => {
       <ScrollView
         ref={scrollRef}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={[styles.listContent, { paddingBottom: SH(20) }]}
         scrollEventThrottle={16}
+        contentContainerStyle={{ paddingBottom: 10 }}
       >
         {PARTS_DATA.map((section) => (
           <View
@@ -135,7 +112,7 @@ const BuyPartsScreen = () => {
           </Text>
 
           <View style={styles.modalImageWrapper}>
-            <ServiceModalImageImage width={SW(280)} height={SH(180)} />
+            <ServiceModalImageImage width={280} height={180} />
           </View>
 
           <Button

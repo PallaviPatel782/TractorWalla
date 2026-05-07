@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { SW, SH, SF } from '@utils/Dimensions';
 import { AppTheme } from '@theme';
 
 export const createStyles = (theme: AppTheme) =>
@@ -8,28 +7,24 @@ export const createStyles = (theme: AppTheme) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-    scrollContent: {
-      paddingBottom: SH(60),
-    },
     heroSection: {
-      height: SH(280),
-      position: 'relative',
+      height: 280,
       alignItems: 'center',
       overflow: 'hidden',
     },
     headerRow: {
       position: 'absolute',
-      top: SH(20),
-      left: SW(16),
-      right: SW(16),
+      top: 20,
+      left: 16,
+      right: 16,
       flexDirection: 'row',
       justifyContent: 'space-between',
       zIndex: 10,
     },
     iconCircle: {
-      width: SW(36),
-      height: SW(36),
-      borderRadius: SW(18),
+      width: 36,
+      height: 36,
+      borderRadius: 18,
       backgroundColor: theme.colors.white,
       alignItems: 'center',
       justifyContent: 'center',
@@ -42,99 +37,63 @@ export const createStyles = (theme: AppTheme) =>
       width: '100%',
       height: '100%',
     },
-    cardHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: SH(15),
-    },
     contentCard: {
       backgroundColor: theme.colors.white,
-      marginTop: SH(-30),
-      marginHorizontal: SW(10),
-      borderRadius: SW(20),
-      paddingHorizontal: SW(20),
-      paddingVertical: SH(15),
+      marginTop: -30,
+      marginHorizontal: 8,
+      borderRadius: 20,
+      paddingHorizontal: 20,
+      paddingVertical: 16,
       shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.1,
       elevation: 5,
     },
     budgeSection: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: SH(5)
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 4,
     },
     badgePill: {
       backgroundColor: theme.colors.DeepGreen,
-      paddingHorizontal: SW(10),
-      paddingVertical: SH(4),
-      borderRadius: SW(6),
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 6,
     },
     badgeText: {
-      fontSize: SF(11),
+      fontSize: 11,
       fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.white,
       textTransform: 'uppercase',
     },
     title: {
-      fontSize: SF(15),
+      fontSize: 15,
       fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
-      marginBottom: SH(10),
-    },
-    ratingRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: SH(15),
-    },
-    ratingText: {
-      fontSize: SF(14),
-      fontFamily: theme.fontfamily.poppinsMedium,
-      color: theme.colors.GoldenYellow,
-      marginLeft: SW(4),
-    },
-    priceRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: SH(20),
-    },
-    price: {
-      fontSize: SF(15),
-      fontFamily: theme.fontfamily.poppinsMedium,
-      color: theme.colors.textPrimary,
-    },
-    mrp: {
-      fontSize: SF(14),
-      fontFamily: theme.fontfamily.poppinsRegular,
-      color: theme.colors.textMuted,
-      textDecorationLine: 'line-through',
-      marginLeft: SW(10),
+      marginBottom: 8,
     },
     highlights: {
-
-      borderRadius: SW(12),
-      paddingBottom: SH(15),
-
+      borderRadius: 12,
+      paddingBottom: 16,
     },
     highlightItem: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: SH(2),
+      marginBottom: 4,
     },
     highlightText: {
-      fontSize: SF(14),
+      fontSize: 14,
       fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.textPrimary,
-      marginLeft: SW(10),
+      marginLeft: 16,
     },
     sectionHeading: {
-      fontSize: SF(16),
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontSize: 16,
+      fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.textPrimary,
-      marginBottom: SH(15),
-      marginHorizontal: SW(12)
+      marginVertical: 8,
+      marginHorizontal: 12,
     },
     includesGrid: {
       flexDirection: 'row',
@@ -145,30 +104,16 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       width: '48%',
-      marginBottom: SH(20)
-
+      marginBottom: 20,
     },
     detailBulletText: {
-      fontSize: SF(12),
+      fontSize: 12,
       fontFamily: theme.fontfamily.poppinsRegular,
       color: theme.colors.gray600,
       flex: 1,
-      marginLeft: SW(5),
+      marginLeft: 4,
     },
     otherServicesSection: {
-      marginTop: SH(10),
-      marginBottom: SH(20)
-    },
-    footer: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: theme.colors.white,
-      paddingHorizontal: SW(20),
-      paddingBottom: 0,
-      paddingVertical: SH(15),
-      borderTopWidth: 1,
-      borderTopColor: theme.colors.borderFaint,
+      marginTop: 8,
     },
   });

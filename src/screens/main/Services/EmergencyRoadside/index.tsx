@@ -7,12 +7,10 @@ import {
   Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import {
   ChevronBackwardIcon,
   ShareIcon,
-  // CheckIcon,
   CheckedIcon,
   EmergencybellIcon,
   TimeLineIcon,
@@ -20,11 +18,11 @@ import {
   LoudspeakerIcon,
   WarrantyBadgeIcon,
 } from '@assets/icons';
-import { Button, ScreenWrapper, ServiceCard } from '@components';
+import { useTranslation } from 'react-i18next';
+import { Button, ScreenWrapper, ServiceCard, RatingPriceRow, ScreenFooter } from '@components';
 import { createStyles } from './styles';
 import { EMERGENCY_SERVICE, SERVICES_DATA } from '../dummyData';
 import { ServiceEmergencyBanner } from '@assets/images';
-import { SH } from '@utils/Dimensions';
 
 const EmergencyRoadsideScreen = () => {
   const { t } = useTranslation();
@@ -34,8 +32,12 @@ const EmergencyRoadsideScreen = () => {
   const data = EMERGENCY_SERVICE;
 
   return (
-    <ScreenWrapper style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+    <ScreenWrapper style={styles.container} withBottomInset={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      >
         {/* Header/Hero */}
         <View style={styles.heroSection}>
           <Image
@@ -60,10 +62,11 @@ const EmergencyRoadsideScreen = () => {
               <EmergencybellIcon size={14} color={theme.colors.white} />
               <Text style={styles.priorityText}>{t('main.home.services.priorityService', 'Priority Service')}</Text>
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ color: theme.colors.GoldenYellow }}>★ </Text>
-              <Text style={styles.ratingText}>{data.rating}</Text>
-            </View>
+            <RatingPriceRow
+              rating={data.rating}
+              price={data.price}
+              mrp={data.mrp}
+            />
           </View>
 
           <Text style={styles.title}>{data.title}</Text>
@@ -87,10 +90,6 @@ const EmergencyRoadsideScreen = () => {
             </View>
           </View>
 
-          <View style={styles.priceRow}>
-            <Text style={styles.price}>₹{data.price}</Text>
-            <Text style={styles.mrp}>₹{data.mrp}</Text>
-          </View>
 
           {/* Service Includes */}
           <Text style={[styles.sectionHeading, { marginHorizontal: 0 }]}>{t('main.home.services.includes', 'Service Includes')}</Text>
@@ -119,16 +118,15 @@ const EmergencyRoadsideScreen = () => {
       </ScrollView>
 
       {/* Footer Action */}
-      <View style={styles.footer}>
+      <ScreenFooter>
         <Button
           title={t('main.home.services.bookNow', 'Book Now')}
           onPress={() => navigation.navigate('ServiceCheckout', {
             serviceId: data.id,
             category: 'emergency'
           })}
-          style={{ marginBottom: SH(20) }}
         />
-      </View>
+      </ScreenFooter>
     </ScreenWrapper>
   );
 };

@@ -1,7 +1,6 @@
 import { apiService } from '@api';
 import { useAuthStore } from '@store/useAuthStore';
-import { useSnackbarStore } from '@store/useSnackbarStore';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import {
   SendOtpRequest,
@@ -33,27 +32,25 @@ const addVehicle = (data: OnboardingVehicleRequest) => apiService.post('/custome
 // 🎣 AUTH HOOKS
 // ==============================
 
-export const useSendOtp = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useSendOtp = (
+  options?: UseMutationOptions<SendOtpResponse, Error, SendOtpRequest>
+) => {
   return useMutation({
     mutationFn: sendOtp,
-    onSuccess: (response: any) => {
-      showSnackbar({ type: 'success', title: 'Success', description: response.message || response.data?.message || 'OTP sent successfully' });
-    },
-    onError: (error: any) => {
-      showSnackbar({ type: 'error', title: 'Error', description: error.message || 'Failed to send OTP' });
-    }
+    ...options,
   });
 };
 
-export const useVerifyOtp = () => {
+export const useVerifyOtp = (
+  options?: UseMutationOptions<VerifyOtpResponse, Error, VerifyOtpRequest>
+) => {
   const setTokens = useAuthStore(state => state.setTokens);
   const setUser = useAuthStore(state => state.setUser);
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
 
   return useMutation({
     mutationFn: verifyOtp,
-    onSuccess: (data: any) => {
+    onSuccess: (...args) => {
+      const [data] = args;
       setTokens(data.accessToken, data.refreshToken);
       let userData = data.user || data.data?.user || data.customer || data.data?.customer;
       if (userData) {
@@ -61,11 +58,9 @@ export const useVerifyOtp = () => {
         console.log('--- useVerifyOtp: Setting User ---', userData);
         setUser(userData);
       }
-      showSnackbar({ type: 'success', title: 'Welcome', description: data.message || data.data?.message || 'Login successful' });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => {
-      showSnackbar({ type: 'error', title: 'Error', description: error.message || 'Invalid OTP' });
-    }
+    ...options,
   });
 };
 
@@ -91,30 +86,30 @@ export const useGetMe = () => {
 // 🎣 ONBOARDING HOOKS
 // ==============================
 
-export const useUpdateLocation = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useUpdateLocation = (
+  options?: UseMutationOptions<any, Error, OnboardingLocationRequest>
+) => {
   return useMutation({
     mutationFn: updateLocation,
-    onSuccess: (response: any) => {
-      showSnackbar({ type: 'success', title: 'Success', description: response.message || response.data?.message || 'Location updated' });
-    },
-    onError: (error: any) => showSnackbar({ type: 'error', title: 'Error', description: error.message || 'Update failed' })
+    ...options,
   });
 };
 
-export const useUpdateProfile = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useUpdateProfile = (
+  options?: UseMutationOptions<any, Error, OnboardingProfileRequest>
+) => {
   return useMutation({
     mutationFn: updateProfile,
-    onSuccess: (response: any) => {
+    onSuccess: (...args) => {
+      const [response] = args;
       const updateUser = useAuthStore.getState().updateUser;
       const userData = response.user || response.data?.user || response.customer || response.data?.customer;
       if (userData) {
         updateUser(userData);
       }
-      showSnackbar({ type: 'success', title: 'Success', description: response.message || response.data?.message || 'Profile updated' });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => showSnackbar({ type: 'error', title: 'Error', description: error.message || 'Update failed' })
+    ...options,
   });
 };
 
@@ -126,21 +121,23 @@ export const useModels = (brandId: string) => useQuery({
   enabled: !!brandId
 });
 
-export const useAddVehicle = () => {
-  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+export const useAddVehicle = (
+  options?: UseMutationOptions<any, Error, OnboardingVehicleRequest>
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: addVehicle,
-    onSuccess: (response: any) => {
+    onSuccess: (...args) => {
+      const [response] = args;
       console.log('Vehicle add success, response:', response);
       const state = useAuthStore.getState();
       const user = state.user;
-      
+
       if (user?._id) {
         // Invalidate the vehicles list for this customer
         queryClient.invalidateQueries({ queryKey: ['vehicles', user._id] });
-        
+
         // Optionally update the local store as well
         const newVehicle = response.vehicle || response.data?.vehicle;
         const currentTractors = user.tractors || [];
@@ -152,11 +149,8 @@ export const useAddVehicle = () => {
         };
         state.setUser(updatedUser);
       }
-      showSnackbar({ type: 'success', title: 'Success', description: response.message || response.data?.message || 'Vehicle added' });
+      options?.onSuccess?.(...args);
     },
-    onError: (error: any) => {
-      console.log('Vehicle add error:', error);
-      showSnackbar({ type: 'error', title: 'Error', description: error.message || 'Failed to add vehicle' });
-    }
+    ...options,
   });
 };

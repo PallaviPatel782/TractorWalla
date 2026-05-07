@@ -9,7 +9,7 @@ import {
     BuyIcon,
     BillIcon,
 } from '@assets/icons';
-import { SW } from '@utils/Dimensions';
+
 
 const NotificationItem = ({ item }: any) => {
     const { theme } = useTheme();
@@ -17,7 +17,7 @@ const NotificationItem = ({ item }: any) => {
     return (
         <View style={styles.card}>
             <View style={[styles.iconBox, { backgroundColor: item.color }]}>
-                <item.Icon size={SW(20)} color={theme.colors.white} />
+                <item.Icon size={20} color={theme.colors.white} />
             </View>
             <View style={{ flex: 1 }}>
                 <Text style={styles.title}>{item.title}</Text>

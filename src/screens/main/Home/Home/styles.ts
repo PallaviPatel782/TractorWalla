@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -8,61 +7,58 @@ export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     root: {
       flex: 1,
-      backgroundColor: theme.colors.background, // Light gray background like SS
+      backgroundColor: theme.colors.background,
     },
-
-    // ── Header ────────────────────────────────────────────────────────
     header: {
       backgroundColor: theme.colors.DeepGreen,
-      paddingTop: SH(12),
-      paddingBottom: SH(16),
-      paddingHorizontal: SW(16),
-      marginBottom: SH(10)
+      paddingTop: 12,
+      paddingBottom: 16,
+      paddingHorizontal: 16,
+      marginBottom: 10
     },
     searchRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(10),
-      marginBottom: SH(12),
+      gap: 10,
+      marginBottom: 12,
     },
     searchBox: {
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(10), // Fully rounded as in SS
-      paddingHorizontal: SW(16),
-      paddingLeft: SW(5),
-      gap: SW(10),
-      height: SH(34),
+      borderRadius: 10,
+      paddingHorizontal: 16,
+      paddingLeft: 5,
+      gap: 10,
+      height: 34,
     },
     searchInput: {
       flex: 1,
-      fontSize: SF(13),
+      fontSize: 13,
       color: theme.colors.textPrimary,
       fontFamily: theme.fontfamily.poppinsRegular,
       padding: 0
-
     },
     headerActions: {
       flexDirection: 'row',
-      gap: SW(10),
+      gap: 10,
     },
     iconCircle: {
-      width: SW(34),
-      height: SW(34),
-      borderRadius: SW(17),
-      backgroundColor: theme.colors.white + '26', // Glass effect
+      width: 34,
+      height: 34,
+      borderRadius: 17,
+      backgroundColor: theme.colors.white + '26',
       alignItems: 'center',
       justifyContent: 'center',
     },
     notifDot: {
       position: 'absolute',
-      top: SW(8),
-      right: SW(8),
-      width: SW(8),
-      height: SW(8),
-      borderRadius: SW(4),
+      top: 8,
+      right: 8,
+      width: 8,
+      height: 8,
+      borderRadius: 4,
       backgroundColor: theme.colors.primaryRed,
       borderWidth: 1.5,
       borderColor: theme.colors.white,
@@ -70,40 +66,34 @@ export const createStyles = (theme: AppTheme) =>
     addressRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(6),
+      gap: 6,
     },
     addressText: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
+      fontSize: 12,
     },
     addressBold: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
     },
-
-    // ── Scroll Content ────────────────────────────────────────────────
     scrollContent: {
-      paddingBottom: SH(20),
+      paddingBottom: 10,
     },
-
-    // ── Slider Sections ───────────────────────────────────────────────
     sliderSection: {
-      marginBottom: SH(16),
-      marginHorizontal: SW(10),
-      overflow: 'hidden',
+      marginVertical: 5,
+      marginTop: 0
     },
     heroCardContainer: {
-      width: SW(355),
-      height: SH(180),
-      borderRadius: SW(20),
+      height: 190,
+      borderRadius: 20,
       overflow: 'hidden',
       backgroundColor: 'transparent',
     },
     heroCard: {
       height: '100%',
       width: '100%',
-      borderRadius: SW(20),
+      borderRadius: 20,
       overflow: 'hidden',
       position: 'relative',
       backgroundColor: 'transparent',
@@ -113,13 +103,12 @@ export const createStyles = (theme: AppTheme) =>
       bottom: 0,
       left: 0,
       right: 0,
-      height: '100%', // Fade from middle to bottom
+      height: '100%',
       justifyContent: 'flex-end',
-      paddingHorizontal: SW(20),
-      paddingBottom: SH(20),
+      paddingHorizontal: 20,
+      paddingBottom: 20,
     },
     heroOverlay: {
-      // Background color fallback if gradient not used
       backgroundColor: theme.colors.black + '4D',
       position: 'absolute',
       top: 0, left: 0, right: 0, bottom: 0,
@@ -127,109 +116,100 @@ export const createStyles = (theme: AppTheme) =>
     heroTitle: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(15),
-      marginBottom: SH(12),
-      lineHeight: SF(24),
+      fontSize: 15,
+      marginBottom: 12,
+      lineHeight: 24,
     },
     heroCta: {
       alignSelf: 'flex-start',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(25), // Pill shape
-      paddingHorizontal: SW(24),
-      paddingVertical: SH(5),
+      borderRadius: 25,
+      paddingHorizontal: 24,
+      paddingVertical: 5,
     },
     heroCtaText: {
       color: theme.colors.black,
       fontFamily: theme.fontfamily.poppinsSemiBold,
-      fontSize: SF(14),
+      fontSize: 14,
     },
-    // Middle Slider Container
     middleCardContainer: {
-      width: SW(355),
-      height: SH(180),
-      borderRadius: SW(20),
+      height: 200,
+      borderRadius: 20,
       overflow: 'hidden',
     },
-    // Network Slider Container
     networkCardContainer: {
-      width: SW(355),
-      height: SH(180),
-      borderRadius: SW(20),
+      height: 180,
+      borderRadius: 20,
       overflow: 'hidden',
     },
     dots: {
       flexDirection: 'row',
       justifyContent: 'center',
-      gap: SW(8),
-      marginTop: SH(12),
+      gap: 8,
+      marginVertical: 12,
     },
     heroDot: {
-      width: SW(8),
-      height: SW(8),
-      borderRadius: SW(4),
+      width: 8,
+      height: 8,
+      borderRadius: 4,
       backgroundColor: theme.colors.gray200,
     },
     heroDotActive: {
       backgroundColor: theme.colors.DeepGreen,
-      width: SW(24),
+      width: 24,
     },
     middleDot: {
-      width: SW(8),
-      height: SW(8),
-      borderRadius: SW(4),
+      width: 8,
+      height: 8,
+      borderRadius: 4,
       backgroundColor: theme.colors.gray200,
     },
     middleDotActive: {
-      backgroundColor: theme.colors.brightRed, // Red as requested
-      width: SW(24),
+      backgroundColor: theme.colors.brightRed,
+      width: 24,
     },
     networkDot: {
-      width: SW(8),
-      height: SW(8),
-      borderRadius: SW(4),
+      width: 8,
+      height: 8,
+      borderRadius: 4,
       backgroundColor: theme.colors.gray200,
     },
     networkDotActive: {
       backgroundColor: theme.colors.red,
-      width: SW(24),
+      width: 24,
     },
-
-    // ── Generic Section ───────────────────────────────────────────────
     section: {
-      paddingHorizontal: SW(16),
-      marginBottom: SH(24),
+      paddingHorizontal: 16,
+      marginBottom: 24,
     },
     sectionHeader: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: SH(14),
+      marginBottom: 14,
     },
     sectionTitle: {
-      fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontSize: 14,
       color: theme.colors.black,
-      marginBottom: SH(10)
+      marginBottom: 10
     },
     seeMore: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontSize: 14,
       color: theme.colors.DeepGreen,
       textDecorationLine: 'underline',
     },
-
-    // ── Service Cards 2x2 Grid ────────────────────────────────────────
     serviceGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: SW(12),
+      gap: 12,
     },
-
     serviceCard: {
-      width: SW(164),
-      borderRadius: SW(20),
-      padding: SW(16),
-      minHeight: SH(90),
+      width: "48%",
+      borderRadius: 20,
+      padding: 16,
+      minHeight: 80,
       overflow: 'hidden',
       position: 'relative',
       elevation: 3,
@@ -240,168 +220,157 @@ export const createStyles = (theme: AppTheme) =>
     },
     serviceCardDecorator: {
       position: 'absolute',
-      top: SH(-9), // Exact from SS layout
-      left: SW(-18), // Exact from SS layout
-      width: SW(94), // Exact from SS layout
-      height: SW(94), // Exact from SS layout
-      borderRadius: SW(47), // Half of width for perfect circle
+      top: -9,
+      left: -18,
+      width: 94,
+      height: 94,
+      borderRadius: 47,
     },
     serviceTopRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(8),
-      marginBottom: SH(12),
+      gap: 8,
+      marginBottom: 12,
       zIndex: 1,
     },
     serviceIconWrap: {
-      paddingHorizontal: SW(6),
-      paddingVertical: SH(6),
-      borderRadius: SW(10),
+      paddingHorizontal: 6,
+      paddingVertical: 6,
+      borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
     },
     serviceLabel: {
       flex: 1,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
+      fontSize: 12,
     },
     serviceSub: {
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(10),
+      fontSize: 11,
       color: theme.colors.textSecondary,
     },
-
-    // ── Parts Card ────────────────────────────────────────────────────
     partCard: {
-      width: SW(170),
+      width: 170,
       backgroundColor: theme.colors.white,
-      borderRadius: SW(16),
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(12),
+      borderRadius: 16,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
       borderWidth: 1,
       borderColor: theme.colors.faintGray,
     },
     partImageWrap: {
       alignItems: 'center',
-      marginBottom: SH(10),
+      marginBottom: 10,
     },
     partName: {
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
+      fontSize: 12,
       color: theme.colors.gray800,
-      marginBottom: SH(8),
-      lineHeight: SF(18),
+      marginBottom: 8,
+      lineHeight: 18,
     },
     partPriceRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(8),
-      marginBottom: SH(6),
+      gap: 8,
+      marginBottom: 6,
     },
     partPrice: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(15),
+      fontSize: 15,
       color: theme.colors.black,
     },
     partMrp: {
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(14),
+      fontSize: 14,
       color: theme.colors.gray400,
       textDecorationLine: 'line-through',
     },
     partDiscount: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
+      fontSize: 12,
       color: theme.colors.greenSuccess,
     },
-
-    // ── Categories ────────────────────────────────────────────────────
     categoryGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'flex-start',
-      rowGap: SH(20),
-      columnGap: SW(10),
+      marginTop: 10,
     },
     categoryItem: {
-      width: (SCREEN_WIDTH - SW(32) - SW(20)) / 3, // 3 columns, 2 gaps of SW(10)
+      width: (SCREEN_WIDTH - 32 - 24) / 3, // (Total width - Section padding - gaps) / 3
       alignItems: 'center',
+      marginBottom: 20,
     },
     categoryImageWrap: {
-      width: SW(72),
-      height: SW(72),
-      borderRadius: SW(14),
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: SH(6),
+      marginBottom: 6,
       overflow: 'hidden',
     },
     categoryLabel: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(11),
+      fontSize: 10,
       color: theme.colors.gray700,
       textAlign: 'center',
-      lineHeight: SF(15),
+      lineHeight: 15,
     },
-
-    // ── Ad Banner ─────────────────────────────────────────────────────
     adBannerWrap: {
-      marginHorizontal: SW(16),
-      marginBottom: SH(24),
-      borderRadius: SW(16),
+      marginHorizontal: 16,
+      marginBottom: 24,
+      borderRadius: 16,
       overflow: 'hidden',
     },
-
-    // ── Pro Banner Card (TOP ASSIST / BEST DEALS style) ───────────────
     proBannerCard: {
-      borderRadius: SW(16),
+      borderRadius: 16,
       overflow: 'hidden',
-      minHeight: SH(154),
+      minHeight: 154,
     },
     proBannerContent: {
       flexDirection: 'row',
       alignItems: 'center',
       flex: 1,
-      paddingLeft: SW(16),
+      paddingLeft: 16,
     },
     proBannerLeft: {
       flex: 1,
-      paddingRight: SW(8),
-      marginRight: SW(15)
+      paddingRight: 8,
+      marginRight: 15
     },
     proBannerBadge: {
       alignSelf: 'flex-start',
       backgroundColor: theme.colors.white + '38',
-      borderRadius: SW(6),
-      paddingHorizontal: SW(8),
-      paddingVertical: SH(3),
-      marginBottom: SH(8),
+      borderRadius: 6,
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      marginBottom: 8,
     },
     proBannerBadgeText: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(11),
+      fontSize: 11,
       letterSpacing: 1,
     },
     proBannerTitle: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
-      lineHeight: SF(22),
-      marginBottom: SH(8),
+      fontSize: 12,
+      lineHeight: 22,
+      marginBottom: 8,
     },
     proBannerTitleDark: {
       color: theme.colors.navyBlue,
     },
     proBannerBullets: {
-      marginBottom: SH(12),
-      gap: SH(4),
+      marginBottom: 12,
+      gap: 4,
     },
     proBannerBullet: {
       color: theme.colors.white + 'E6',
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
-      lineHeight: SF(15),
+      fontSize: 12,
+      lineHeight: 15,
     },
     proBannerBulletDark: {
       color: theme.colors.gray600,
@@ -409,26 +378,24 @@ export const createStyles = (theme: AppTheme) =>
     proBannerBtn: {
       alignSelf: 'flex-start',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(6),
-      paddingHorizontal: SW(14),
-      paddingVertical: SH(6),
+      borderRadius: 6,
+      paddingHorizontal: 14,
+      paddingVertical: 6,
     },
     proBannerBtnText: {
       color: theme.colors.darkRed,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
+      fontSize: 12,
     },
     proBannerImageWrap: {
       alignItems: 'center',
       justifyContent: 'flex-end',
-      paddingRight: SW(4),
+      paddingRight: 4,
     },
-
-    // ── Middle Banner Styles ──────────────────────────────────────────
     middleBannerCard: {
       width: '100%',
       height: '100%',
-      borderRadius: SW(16),
+      borderRadius: 16,
       overflow: 'hidden',
       backgroundColor: 'transparent',
     },
@@ -436,45 +403,41 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       flex: 1,
-      paddingLeft: SW(16),
+      paddingLeft: 16,
     },
     middleBannerLeft: {
       flex: 1,
-      paddingRight: SW(8),
-      marginRight: SW(15),
+      paddingRight: 8,
+      marginRight: 15,
     },
     middleBannerBadge: {
       alignSelf: 'flex-start',
-
-      borderRadius: SW(6),
-      // paddingHorizontal: SW(8),
-      paddingVertical: SH(5),
-      // marginBottom: SH(8),
+      borderRadius: 6,
+      paddingVertical: 5,
     },
     middleBannerBadgeText: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsBold,
-      fontSize: SF(13),
+      fontSize: 13,
       letterSpacing: 1,
     },
     middleBannerTitle: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
-
+      fontSize: 12,
     },
     middleBannerTitleDark: {
       color: theme.colors.navyBlue,
     },
     middleBannerBullets: {
-      marginBottom: SH(12),
-      gap: SH(4),
+      marginBottom: 12,
+      gap: 4,
     },
     middleBannerBullet: {
       color: theme.colors.white + 'E6',
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
-      lineHeight: SF(15),
+      fontSize: 12,
+      lineHeight: 15,
     },
     middleBannerBulletDark: {
       color: theme.colors.gray600,
@@ -482,27 +445,25 @@ export const createStyles = (theme: AppTheme) =>
     middleBannerBtn: {
       alignSelf: 'flex-start',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(6),
-      paddingHorizontal: SW(14),
-      paddingVertical: SH(6),
+      borderRadius: 6,
+      paddingHorizontal: 14,
+      paddingVertical: 6,
     },
     middleBannerBtnText: {
       color: theme.colors.darkRed,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
+      fontSize: 12,
     },
     middleBannerImageWrap: {
-      width: SW(120),
+      width: 120,
       height: '100%',
-      overflow: 'hidden',
-      backgroundColor: 'transparent',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
-
-    // ── Network Banner Styles ─────────────────────────────────────────
     networkBannerCard: {
       width: '100%',
       height: '100%',
-      borderRadius: SW(16),
+      borderRadius: 16,
       overflow: 'hidden',
       backgroundColor: 'transparent',
     },
@@ -510,127 +471,116 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       flex: 1,
-      paddingLeft: SW(16),
+      paddingLeft: 16,
     },
     networkBannerLeft: {
       flex: 1,
-      paddingRight: SW(8),
-      marginRight: SW(15),
+      paddingRight: 8,
+      marginRight: 15,
     },
     networkBannerBadge: {
       alignSelf: 'flex-start',
       backgroundColor: theme.colors.white + '38',
-      borderRadius: SW(6),
-      paddingHorizontal: SW(8),
-      paddingVertical: SH(3),
-      marginBottom: SH(8),
+      borderRadius: 6,
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      marginBottom: 8,
     },
     networkBannerBadgeText: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(11),
+      fontSize: 11,
       letterSpacing: 1,
     },
     networkBannerTitle: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
-      lineHeight: SF(22),
-      marginBottom: SH(8),
+      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontSize: 14,
+      lineHeight: 22,
+      marginBottom: 8,
     },
     networkBannerTitleDark: {
       color: theme.colors.navyBlue,
     },
     networkBannerBullets: {
-      marginBottom: SH(12),
-      gap: SH(4),
+      marginBottom: 12,
+      gap: 4,
     },
     networkBannerBullet: {
       color: theme.colors.white + 'E6',
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
-      lineHeight: SF(15),
+      fontSize: 12,
+      lineHeight: 15,
     },
     networkBannerBulletDark: {
       color: theme.colors.gray600,
-    },
-    networkBannerBtn: {
-      alignSelf: 'flex-start',
-      backgroundColor: theme.colors.white,
-      borderRadius: SW(6),
-      paddingHorizontal: SW(14),
-      paddingVertical: SH(6),
-    },
-    networkBannerBtnText: {
-      color: theme.colors.darkRed,
-      fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
-    },
-    networkBannerImageWrap: {
-      width: SW(120),
-      height: '100%',
-      overflow: 'hidden',
-      backgroundColor: 'transparent',
+      fontSize: 12,
+      fontFamily: theme.fontfamily.poppinsRegular,
     },
 
-    // ── How It Works ──────────────────────────────────────────────────
+    networkBannerImageWrap: {
+      width: 120,
+      height: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     videoThumb: {
-      width: SW(200),
-      height: SH(120),
-      borderRadius: SW(16),
+      width: 200,
+      height: 120,
+      borderRadius: 16,
       overflow: 'hidden',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'transparent',
     },
     playButton: {
-      width: SW(48),
-      height: SW(48),
-      borderRadius: SW(24),
+      width: 48,
+      height: 48,
+      borderRadius: 24,
       backgroundColor: theme.colors.white + 'E6',
       alignItems: 'center',
       justifyContent: 'center',
     },
     playIcon: {
-      fontSize: SF(18),
+      fontSize: 18,
       color: theme.colors.black,
-      marginLeft: SW(4),
+      marginLeft: 4,
     },
     stepsCard: {
       backgroundColor: theme.colors.white,
-      borderRadius: SW(20),
-      padding: SW(24),
+      borderRadius: 20,
+      padding: 24,
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
     },
     stepsHeader: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(12),
-      marginBottom: SH(24),
+      gap: 12,
+      marginBottom: 24,
     },
     stepsBorderLeft: {
-      width: SW(3),
-      height: SH(28),
+      width: 3,
+      height: 28,
       backgroundColor: theme.colors.primaryRed,
-      borderRadius: SW(2),
+      borderRadius: 2,
     },
     stepsTitle: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(16),
+      fontSize: 16,
       color: theme.colors.black,
     },
     stepRow: {
       flexDirection: 'row',
-      gap: SW(16),
-      marginBottom: SH(20),
+      gap: 16,
+      marginBottom: 20,
       alignItems: 'flex-start',
     },
     stepBadge: {
-      width: SW(34),
-      height: SW(34),
-      borderRadius: SW(17),
-      backgroundColor: theme.colors.darkSlaty, // Dark gray/black badge
+      width: 34,
+      height: 34,
+      borderRadius: 17,
+      backgroundColor: theme.colors.darkSlaty,
       alignItems: 'center',
       justifyContent: 'center',
       flexShrink: 0,
@@ -638,41 +588,37 @@ export const createStyles = (theme: AppTheme) =>
     stepNum: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontSize: 14,
     },
     stepContent: {
       flex: 1,
     },
     stepTitle: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontSize: 14,
       color: theme.colors.black,
-      marginBottom: SH(6),
+      marginBottom: 6,
     },
     stepDesc: {
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
+      fontSize: 12,
       color: theme.colors.textSecondary,
-      lineHeight: SF(18),
+      lineHeight: 18,
     },
-
-    // ── Brands ────────────────────────────────────────────────────────
     brandItem: {
       alignItems: 'center',
-      gap: SH(8),
+      gap: 8,
     },
     brandLabel: {
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
+      fontSize: 12,
       color: theme.colors.gray600,
     },
-
-    // ── Mechanic Bar ──────────────────────────────────────────────────
     mechanicBar: {
-      marginHorizontal: SW(16),
+      marginHorizontal: 16,
       backgroundColor: theme.colors.white,
-      borderRadius: SW(18),
-      padding: SW(16),
+      borderRadius: 18,
+      padding: 16,
       flexDirection: 'row',
       alignItems: 'center',
       elevation: 4,
@@ -685,67 +631,67 @@ export const createStyles = (theme: AppTheme) =>
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(14),
+      gap: 14,
     },
     mechanicAvatar: {
-      width: SW(52),
-      height: SW(52),
-      borderRadius: SW(26),
+      width: 52,
+      height: 52,
+      borderRadius: 26,
       backgroundColor: theme.colors.faintGray,
     },
     mechanicName: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontSize: 14,
       color: theme.colors.black,
-      marginBottom: SH(4),
+      marginBottom: 4,
     },
     mechanicMeta: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(6),
-      marginBottom: SH(4),
+      gap: 6,
+      marginBottom: 4,
     },
     mechanicJobs: {
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
+      fontSize: 12,
       color: theme.colors.gray500,
     },
     mechanicPrice: {
       backgroundColor: theme.colors.black,
-      borderRadius: SW(20),
-      paddingHorizontal: SW(16),
-      paddingVertical: SH(8),
-      marginRight: SW(12),
+      borderRadius: 20,
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      marginRight: 12,
     },
     mechanicPriceText: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontSize: 14,
     },
     mechanicArrow: {
-      width: SW(40),
-      height: SW(40),
-      borderRadius: SW(20),
+      width: 40,
+      height: 40,
+      borderRadius: 20,
       backgroundColor: theme.colors.darkGray,
       alignItems: 'center',
       justifyContent: 'center',
     },
     mechanicArrowText: {
       color: theme.colors.white,
-      fontSize: SF(18),
+      fontSize: 18,
     },
     ratingRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(4),
+      gap: 4,
     },
     starIcon: {
       color: theme.colors.GoldenYellow,
-      fontSize: SF(14),
+      fontSize: 14,
     },
     ratingText: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontSize: 14,
       color: theme.colors.textSecondary,
     },
   });

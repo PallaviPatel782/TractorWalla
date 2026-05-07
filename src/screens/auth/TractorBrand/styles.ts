@@ -1,9 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
-const { width } = Dimensions.get('window');
-const ITEM_WIDTH = (width - SW(60)) / 4; // 4 items per row
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -12,39 +9,38 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background,
     },
     header: {
-      borderBottomLeftRadius: SW(20),
-      borderBottomRightRadius: SW(20),
+      borderBottomLeftRadius: 20,
+      borderBottomRightRadius: 20,
     },
     content: {
       flex: 1,
     },
     searchContainer: {
-      paddingHorizontal: SW(16),
-      marginTop: SH(10),
+      paddingHorizontal: 16,
+      marginTop: 10,
     },
     brandGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'flex-start',
-      paddingHorizontal: SW(20),
-      marginTop: SH(20),
+      marginTop: 20,
+      marginHorizontal: 12
     },
     brandItem: {
-      width: ITEM_WIDTH,
+      width: '25%',
       alignItems: 'center',
-      marginBottom: SH(20),
-      marginHorizontal: SW(2.5),
+      marginBottom: 20,
     },
     logoContainer: {
-      width: SW(64),
-      height: SW(64),
-      borderRadius: SW(8),
+      width: 64,
+      height: 64,
+      borderRadius: 8,
       backgroundColor: theme.colors.white,
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
       borderColor: theme.colors.borderLight,
-      marginBottom: SH(8),
+      marginBottom: 8,
       // Shadow
       elevation: 2,
       shadowColor: theme.colors.black,
@@ -56,6 +52,6 @@ export const createStyles = (theme: AppTheme) =>
       textAlign: 'center',
       color: theme.colors.textPrimary,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(11),
+      fontSize: 11,
     },
   });

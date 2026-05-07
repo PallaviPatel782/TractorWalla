@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -10,51 +9,50 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flexGrow: 1,
-      paddingHorizontal: SW(20),
-      paddingTop: SH(20),
-      paddingBottom: SH(40),
+      paddingHorizontal: 20,
+      paddingTop: 20,
+      paddingBottom: 40,
     },
     formContainer: {
-      gap: SH(16),
-      // marginBottom: SH(24),
+      gap: 16,
     },
     photoSection: {
-      marginTop: SH(8),
+      marginTop: 8,
     },
     addPhotoLabelContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(8),
-      marginBottom: SH(12),
+      gap: 8,
+      marginBottom: 12,
     },
     addPhotoLabel: {
       color: theme.colors.gray900,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontSize: 14,
     },
     photoBox: {
-      width: SW(72),
-      height: SW(72),
-      borderRadius: SW(10),
+      width: 72,
+      height: 72,
+      borderRadius: 10,
       position: 'relative',
       borderWidth: 1,
       borderColor: theme.colors.gray200,
-      marginRight: SW(10),
+      marginRight: 10,
     },
     photoImage: {
       width: '100%',
       height: '100%',
       resizeMode: 'cover',
-      borderRadius: SW(10),
+      borderRadius: 10,
     },
     removePhotoButton: {
       position: 'absolute',
-      top: -SH(8),
-      right: -SW(8),
+      top: -8,
+      right: -8,
       backgroundColor: theme.colors.gray700,
-      borderRadius: SW(12),
-      width: SW(20),
-      height: SW(20),
+      borderRadius: 12,
+      width: 20,
+      height: 20,
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 10,
@@ -62,38 +60,38 @@ export const createStyles = (theme: AppTheme) =>
     photosRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: SW(10),
-      marginTop: SH(8),
+      gap: 10,
+      marginTop: 8,
     },
     supportContainer: {
       alignItems: 'center',
-      marginBottom: SH(20),
+      marginBottom: 20,
     },
     supportText: {
       color: theme.colors.gray600,
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
-      marginBottom: SH(4),
+      fontSize: 12,
+      marginBottom: 4,
     },
     supportEmailContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(6),
+      gap: 6,
     },
     supportEmailText: {
       color: theme.colors.brandGreen,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
+      fontSize: 12,
     },
     bottomContainer: {
-      paddingHorizontal: SW(20),
-      paddingBottom: SH(30),
+      paddingHorizontal: 20,
+      paddingBottom: 30,
     },
     dropdownButton: {
       backgroundColor: theme.colors.white,
       borderColor: theme.colors.borderLight,
       borderWidth: 1.5,
-      paddingVertical: SH(10),
-      borderRadius: SW(12),
+      paddingVertical: 10,
+      borderRadius: 12,
     },
   });

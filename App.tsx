@@ -1,35 +1,47 @@
 import React from 'react';
-import {SafeAreaProvider, initialWindowMetrics} from 'react-native-safe-area-context';
+import { SafeAreaProvider, initialWindowMetrics, SafeAreaView } from 'react-native-safe-area-context';
 import RootNavigator from '@navigation/RootNavigator';
-import '@localization'; // Initialize i18n
-import {ThemeProvider} from '@theme';
-import {StatusBar} from 'react-native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {Snackbar} from '@components';
+import '@localization';
+import { ThemeProvider } from '@theme';
+import { StatusBar } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Snackbar } from '@components';
+import { useNetworkMonitor } from '@hooks';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      staleTime: 1000 * 60 * 5,
       retry: 1,
-      staleTime: 1000 * 60 * 5, // 5 minutes
+      refetchOnReconnect: true,
+    },
+    mutations: {
+      retry: 0,
     },
   },
 });
 
 function App(): React.JSX.Element {
+  useNetworkMonitor();
+
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+          <ThemeProvider>
             <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true} />
-            <RootNavigator />
+            <SafeAreaView
+              style={{ flex: 1, backgroundColor: 'transparent' }}
+              edges={['bottom']}
+            >
+              <RootNavigator />
+            </SafeAreaView>
             <Snackbar />
-          </SafeAreaProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </GestureHandlerRootView>
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   );
 }
 

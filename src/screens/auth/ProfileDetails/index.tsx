@@ -9,7 +9,7 @@ import {
   ScreenWrapper,
   KeyboardWrapper,
   View,
-  ScrollView,
+  ScreenFooter,
 } from '@components';
 import { useUpdateProfile } from '@screens/auth/hooks/useAuth';
 import { createStyles } from './styles';
@@ -44,7 +44,7 @@ const ProfileDetails = ({ navigation, route }: any) => {
 
   const handleInputChange = (key: string, value: string) => {
     setFormData(prev => ({ ...prev, [key]: value }));
-    
+
     // Clear error for this field as soon as user starts typing
     if (errors[key]) {
       setErrors(prev => {
@@ -120,10 +120,7 @@ const ProfileDetails = ({ navigation, route }: any) => {
         </View>
 
         <KeyboardWrapper>
-          <ScrollView
-            contentContainerStyle={styles.content}
-            showsVerticalScrollIndicator={false}
-          >
+          <View style={styles.content}>
             <View style={styles.formContainer}>
               <Input
                 label={t('main.profileDetails.fullName')}
@@ -174,19 +171,21 @@ const ProfileDetails = ({ navigation, route }: any) => {
                 required
               />
             </View>
-
-            <Button
-              title={t('common.submit')}
-              onPress={handleSubmit}
-              loading={isPending}
-              style={styles.button}
-            />
-          </ScrollView>
+          </View>
         </KeyboardWrapper>
+
+        <ScreenFooter>
+          <Button
+            title={t('common.submit')}
+            onPress={handleSubmit}
+            loading={isPending}
+          />
+        </ScreenFooter>
       </View>
     </ScreenWrapper>
   );
 };
+
 
 export default ProfileDetails;
 

@@ -6,7 +6,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import MapView, { Region, PROVIDER_DEFAULT } from 'react-native-maps';
 import { CurrentLocationIcon, LocationIcon } from '@assets/icons';
-import { Button, Text, ScreenWrapper, View, TouchableOpacity } from '@components';
+import { Button, Text, ScreenWrapper, View, TouchableOpacity, ScreenFooter } from '@components';
 import { requestLocationPermission, getCurrentLocation, reverseGeocodeLocation, LocationData } from '@utils/locationHelper';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
@@ -219,16 +219,18 @@ const LocationScreen = ({ navigation }: LocationScreenProps) => {
           </View>
         </View>
 
-        <View style={styles.confirmWrapper}>
+        <ScreenFooter>
           <Button
             title={t('main.location.confirm')}
             onPress={handleConfirm}
             loading={isUpdating}
+            style={{ marginTop: 30 }}
           />
-        </View>
+        </ScreenFooter>
       </View>
     </ScreenWrapper>
   );
 };
+
 
 export default LocationScreen;

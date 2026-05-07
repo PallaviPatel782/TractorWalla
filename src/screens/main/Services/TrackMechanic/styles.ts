@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -13,8 +12,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     mechanicMarker: {
       backgroundColor: theme.colors.white,
-      padding: SW(5),
-      borderRadius: SW(20),
+      padding: 5,
+      borderRadius: 20,
       elevation: 5,
       shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
@@ -26,27 +25,27 @@ export const createStyles = (theme: AppTheme) =>
     },
     storeBadge: {
       backgroundColor: theme.colors.white,
-      paddingHorizontal: SW(8),
-      paddingVertical: SH(4),
-      borderRadius: SW(4),
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 4,
       elevation: 3,
-      marginBottom: SH(4),
+      marginBottom: 4,
       borderWidth: 1,
       borderColor: theme.colors.gray200,
     },
     storeText: {
-      fontSize: SF(10),
+      fontSize: 10,
       color: theme.colors.black,
       fontFamily: theme.fontfamily.poppinsMedium,
     },
     bottomCard: {
       position: 'absolute',
-      bottom: SH(30),
-      left: SW(20),
-      right: SW(20),
+      bottom: 30,
+      left: 20,
+      right: 20,
       backgroundColor: theme.colors.white,
-      borderRadius: SW(16),
-      padding: SW(16),
+      borderRadius: 16,
+      padding: 16,
       elevation: 10,
       shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 4 },
@@ -63,31 +62,31 @@ export const createStyles = (theme: AppTheme) =>
     },
     etaBadge: {
       backgroundColor: theme.colors.success,
-      paddingHorizontal: SW(10),
-      paddingVertical: SH(6),
-      borderRadius: SW(8),
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      borderRadius: 8,
       alignItems: 'center',
       justifyContent: 'center',
     },
     etaText: {
       color: theme.colors.white,
-      fontSize: SF(14),
+      fontSize: 14,
       fontFamily: theme.fontfamily.poppinsBold,
     },
     etaUnit: {
       color: theme.colors.white,
-      fontSize: SF(8),
+      fontSize: 8,
     },
     callBtn: {
-      width: SW(36),
-      height: SW(36),
-      borderRadius: SW(18),
+      width: 36,
+      height: 36,
+      borderRadius: 18,
       backgroundColor: theme.colors.white,
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
       borderColor: theme.colors.gray200,
-      marginTop: SH(8)
+      marginTop: 8
     },
   });
 

@@ -3,7 +3,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useTheme } from '@theme';
 import { AppLogoImage } from '@images';
-import { SW, SH } from '@utils/Dimensions';
 import { View, StatusBar } from '@components';
 import { createStyles } from './styles';
 
@@ -19,7 +18,7 @@ const LoadingScreen = () => {
           entering={FadeIn.duration(500)}
           style={styles.logoWrapper}
         >
-          <AppLogoImage width={SW(150)} height={SH(150)} />
+          <AppLogoImage width={150} height={150} />
         </Animated.View>
       </View>
     </SafeAreaView>

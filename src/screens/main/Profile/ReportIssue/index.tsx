@@ -12,13 +12,19 @@ import {
   View,
   ScrollView,
   ImagePicker,
+  ScreenFooter,
 } from '@components';
 import { createStyles } from './styles';
+import { useReportIssue } from '../../hooks/useReportIssue';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 
 const ReportIssue = ({ navigation }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
+  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
+
+  const { mutate: reportIssue, isPending } = useReportIssue();
 
   const ISSUE_OPTIONS = useMemo(() => [
     { label: t('main.profile.report.options.report_issue'), value: 'report_issue' },
@@ -33,7 +39,30 @@ const ReportIssue = ({ navigation }: any) => {
   const [photos, setPhotos] = useState<string[]>([]);
 
   const handleSubmit = () => {
-    navigation.goBack();
+    const payload = {
+      category: issueType,
+      message: message,
+      photos: photos,
+      reporterType: 'customer',
+    };
+
+    reportIssue(payload, {
+      onSuccess: (response: any) => {
+        showSnackbar({
+          type: 'success',
+          title: 'Success',
+          description: response.message || response.data?.message || 'Issue reported successfully',
+        });
+        navigation.goBack();
+      },
+      onError: (error: any) => {
+        showSnackbar({
+          type: 'error',
+          title: 'Error',
+          description: error.message || 'Failed to report issue',
+        });
+      }
+    });
   };
 
   return (
@@ -84,7 +113,7 @@ const ReportIssue = ({ navigation }: any) => {
             </View>
           </ScrollView>
 
-          <View style={styles.bottomContainer}>
+          <ScreenFooter>
             <View style={styles.supportContainer}>
               <Text style={styles.supportText}>{t('main.profile.report.needHelp')}</Text>
               <Text style={styles.supportText}>{t('main.profile.report.urgentHelp')}</Text>
@@ -96,9 +125,10 @@ const ReportIssue = ({ navigation }: any) => {
             <Button
               title={t('common.submit')}
               onPress={handleSubmit}
-              disabled={!message.trim()}
+              disabled={!message.trim() || isPending}
+              loading={isPending}
             />
-          </View>
+          </ScreenFooter>
         </KeyboardAvoidingView>
       </View>
     </ScreenWrapper>
@@ -106,4 +136,5 @@ const ReportIssue = ({ navigation }: any) => {
 };
 
 export default ReportIssue;
+
 

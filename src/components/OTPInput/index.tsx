@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { useTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 interface OTPInputProps {
   length?: number;
@@ -66,19 +65,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    marginVertical: SH(20),
+    marginVertical: 20,
   },
   input: {
-    width: SW(44),
-    height: SW(44),
+    width: 44,
+    height: 44,
     borderWidth: 1.5,
-    borderRadius: SW(10),
+    borderRadius: 10,
     textAlign: 'center',
     textAlignVertical: 'center',
-    fontSize: SF(20),
+    fontSize: 20,
     padding: 0,
-    marginHorizontal: SW(2),
-    marginVertical: SH(2),
+    marginHorizontal: 2,
+    marginVertical: 2,
     includeFontPadding: false,
   },
 });

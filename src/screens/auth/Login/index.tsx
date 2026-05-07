@@ -3,7 +3,6 @@ import { Platform, Keyboard } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 import {
   Text,
   Button,
@@ -16,11 +15,13 @@ import {
 import { LoginImage } from '@images';
 import { useSendOtp } from '@screens/auth/hooks/useAuth';
 import { createStyles } from './styles';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 
 const LoginScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
+  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
   const [mobileNumber, setMobileNumber] = useState('');
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const { mutate: sendOtp, isPending } = useSendOtp();
@@ -46,9 +47,21 @@ const LoginScreen = ({ navigation }: any) => {
       sendOtp(
         { phone: mobileNumber, countryCode: '91', role: 'customer' },
         {
-          onSuccess: () => {
+          onSuccess: (response: any) => {
+            showSnackbar({
+              type: 'success',
+              title: 'Success',
+              description: response.message || response.data?.message || 'OTP sent successfully'
+            });
             navigation.navigate('OtpVerification', { mobileNumber });
           },
+          onError: (error: any) => {
+            showSnackbar({
+              type: 'error',
+              title: 'Error',
+              description: error.message || 'Failed to send OTP'
+            });
+          }
         }
       );
     }
@@ -64,24 +77,23 @@ const LoginScreen = ({ navigation }: any) => {
           end={{ x: 0, y: 1 }}
         />
         <Header onPressLogo={() => { }} />
-        <KeyboardWrapper keyboardVerticalOffset={Platform.OS === 'ios' ? SH(60) : 0}>
+        <KeyboardWrapper keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
           <View style={styles.content}>
             <View style={[
               styles.illustrationContainer,
-              isKeyboardVisible && { marginTop: SH(10) }
+              isKeyboardVisible && { marginTop: 10 }
             ]}>
               <View style={[
-
-                isKeyboardVisible && { width: SW(80), height: SW(80), borderRadius: SW(40) }
+                isKeyboardVisible && { width: 80, height: 80, borderRadius: 40 }
               ]}>
                 <LoginImage
-                  width={isKeyboardVisible ? SW(60) : SW(120)}
-                  height={isKeyboardVisible ? SH(60) : SH(120)}
+                  width={isKeyboardVisible ? 60 : 120}
+                  height={isKeyboardVisible ? 60 : 120}
                 />
               </View>
             </View>
 
-            <View style={[styles.textSection, isKeyboardVisible && { marginTop: SH(10) }]}>
+            <View style={[styles.textSection, isKeyboardVisible && { marginTop: 10 }]}>
               <Text variant="bold" size={isKeyboardVisible ? 18 : 24} align="center" style={styles.title}>
                 {t('auth.login.title')}
               </Text>
@@ -97,7 +109,7 @@ const LoginScreen = ({ navigation }: any) => {
               )}
             </View>
 
-            <View style={[styles.inputCard, isKeyboardVisible && { marginTop: SH(10) }]}>
+            <View style={[styles.inputCard, isKeyboardVisible && { marginTop: 10 }]}>
               <View>
                 <Input
                   label={t('auth.login.mobileLabel')}
@@ -109,16 +121,18 @@ const LoginScreen = ({ navigation }: any) => {
                   onChangeText={setMobileNumber}
                 />
               </View>
-            </View>
 
-            <View style={styles.footerContainer}>
               <Button
                 title={t('common.getOtp')}
                 onPress={handleGetOtp}
                 disabled={mobileNumber.length !== 10}
                 loading={isPending}
-                style={[styles.button, { width: '100%', marginBottom: SH(20) }]}
+                style={[styles.button, { width: '100%', marginTop: 20 }]}
               />
+
+            </View>
+
+            <View style={styles.footerContainer}>
               <Text size={12} align="center" color={theme.colors.gray500} style={styles.agreementText}>
                 {t('auth.login.agreementText')}{' '}
                 <Text size={12} variant="bold" style={styles.linkText}>{t('auth.login.terms')}</Text>

@@ -22,13 +22,12 @@ import {
   FacebookIcon,
   YoutubeIcon,
   ThreadsIcon,
-  TractorIcon,
   LocationEditIcon,
   UserIcon,
-  ChevronBackwardIcon
+  ChevronBackwardIcon,
+  BikeIcon
 } from '@assets/icons';
 import { useTranslation } from 'react-i18next';
-import { SW } from '@utils/Dimensions';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '@theme';
 
@@ -61,7 +60,7 @@ const ProfileScreen = ({ navigation }: any) => {
             />
             <View style={styles.imageContainer}>
               <View style={styles.avatarPlaceholder}>
-                <UserIcon size={SW(65)} color={theme.colors.DeepGreen} />
+                <UserIcon size={65} color={theme.colors.DeepGreen} />
               </View>
             </View>
             <View style={styles.userInfo}>
@@ -74,7 +73,7 @@ const ProfileScreen = ({ navigation }: any) => {
               </Text>
             </View>
             <ChevronBackwardIcon
-              size={SW(24)}
+              size={24}
               color={theme.colors.textPrimary}
               style={{ transform: [{ rotate: '180deg' }] }}
             />
@@ -90,14 +89,14 @@ const ProfileScreen = ({ navigation }: any) => {
           <View style={styles.myTractorContent}>
             <View style={styles.myTractorLeft}>
               <View style={styles.tractorIconContainer}>
-                <TractorIcon size={SW(20)} color={theme.colors.brandRed} />
+                <BikeIcon size={20} color={theme.colors.brandRed} />
               </View>
               <Text variant="regular" size={16} color={theme.colors.textPrimary}>
                 {t('main.profile.myTractor')}
               </Text>
             </View>
             <ChevronBackwardIcon
-              size={SW(22)}
+              size={22}
               color={theme.colors.gray400}
               style={{ transform: [{ rotate: '180deg' }] }}
             />
@@ -111,17 +110,17 @@ const ProfileScreen = ({ navigation }: any) => {
           </Text>
           <ProfileOptionItem
             title={t('main.profile.manageAddress')}
-            icon={<LocationEditIcon size={SW(18)} color={theme.colors.gray600} />}
+            icon={<LocationEditIcon size={18} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('ManageAddress')}
           />
           <ProfileOptionItem
             title={t('main.profile.language')}
-            icon={<ChangelanguageIcon size={SW(18)} color={theme.colors.gray600} />}
+            icon={<ChangelanguageIcon size={18} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('ChooseLanguage')}
           />
           <ProfileOptionItem
             title={t('main.profile.myBookings')}
-            icon={<BookingIcon size={SW(20)} color={theme.colors.gray600} />}
+            icon={<BookingIcon size={20} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('Bookings')}
             showBorder={false}
           />
@@ -133,27 +132,27 @@ const ProfileScreen = ({ navigation }: any) => {
           </Text>
           <ProfileOptionItem
             title={t('main.profile.about')}
-            icon={<AboutIcon size={SW(18)} color={theme.colors.gray600} />}
+            icon={<AboutIcon size={18} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('About')}
           />
           <ProfileOptionItem
             title={t('main.profile.faq') || 'FAQs'}
-            icon={<FaqIcon size={SW(18)} color={theme.colors.gray600} />}
+            icon={<FaqIcon size={18} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('FAQ')}
           />
           <ProfileOptionItem
             title={t('main.profile.sendFeedback')}
-            icon={<FeedbackIcon size={SW(18)} color={theme.colors.gray600} />}
+            icon={<FeedbackIcon size={18} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('SendFeedback')}
           />
           <ProfileOptionItem
             title={t('main.profile.reportIssue')}
-            icon={<ReportIcon size={SW(18)} color={theme.colors.gray600} />}
+            icon={<ReportIcon size={18} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('ReportIssue')}
           />
           <ProfileOptionItem
             title={t('main.profile.logout')}
-            icon={<LogoutIcon size={SW(18)} color={theme.colors.error} />}
+            icon={<LogoutIcon size={18} color={theme.colors.error} />}
             onPress={handleLogout}
             showBorder={false}
           />
@@ -167,7 +166,7 @@ const ProfileScreen = ({ navigation }: any) => {
           <View style={styles.socialIconsRow}>
             <TouchableOpacity style={styles.socialItem} activeOpacity={0.7}>
               <View style={styles.socialIconWrapper}>
-                <InstagramIcon size={SW(24)} />
+                <InstagramIcon size={24} />
               </View>
               <Text variant="regular" size={11} color={theme.colors.textMuted}>
                 {t('main.profile.instagram')}
@@ -176,7 +175,7 @@ const ProfileScreen = ({ navigation }: any) => {
 
             <TouchableOpacity style={styles.socialItem} activeOpacity={0.7}>
               <View style={styles.socialIconWrapper}>
-                <FacebookIcon size={SW(24)} />
+                <FacebookIcon size={24} />
               </View>
               <Text variant="regular" size={11} color={theme.colors.textMuted}>
                 {t('main.profile.facebook')}
@@ -185,7 +184,7 @@ const ProfileScreen = ({ navigation }: any) => {
 
             <TouchableOpacity style={styles.socialItem} activeOpacity={0.7}>
               <View style={styles.socialIconWrapper}>
-                <YoutubeIcon size={SW(24)} />
+                <YoutubeIcon size={24} />
               </View>
               <Text variant="regular" size={11} color={theme.colors.textMuted}>
                 {t('main.profile.youtube')}
@@ -194,7 +193,7 @@ const ProfileScreen = ({ navigation }: any) => {
 
             <TouchableOpacity style={styles.socialItem} activeOpacity={0.7}>
               <View style={styles.socialIconWrapper}>
-                <ThreadsIcon size={SW(24)} />
+                <ThreadsIcon size={24} />
               </View>
               <Text variant="regular" size={11} color={theme.colors.textMuted}>
                 {t('main.profile.threads')}

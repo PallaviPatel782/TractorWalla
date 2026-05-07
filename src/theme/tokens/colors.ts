@@ -33,7 +33,7 @@ export const lightColors = {
   gray200: '#EBEBEB',
   gray300: '#BBBBBB',
   gray400: '#9CA3AF',
-  gray500: '#8C8C8C',
+  gray500: '#6B6B6B',
   gray600: '#555555',
   gray700: '#444444',
   gray800: '#333333',

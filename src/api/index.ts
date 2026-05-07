@@ -50,6 +50,7 @@ api.interceptors.request.use(
     }
 
     const token = useAuthStore.getState().token;
+    console.log("token", token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -116,7 +117,7 @@ api.interceptors.response.use(
         processQueue(refreshError, null);
         isRefreshing = false;
         useAuthStore.getState().logout();
-        
+
         useSnackbarStore.getState().showSnackbar({
           type: 'error',
           title: 'Session Expired',

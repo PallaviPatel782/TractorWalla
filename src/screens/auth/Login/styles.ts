@@ -1,6 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -13,38 +12,37 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flex: 1,
-      paddingHorizontal: SW(24),
-      paddingBottom: SH(20),
+      paddingHorizontal: 24,
+      paddingBottom: 20,
     },
     illustrationContainer: {
-      marginTop: SH(60),
+      marginTop: 60,
       alignItems: 'center',
       justifyContent: 'center',
     },
 
     textSection: {
-      marginTop: SH(30),
+      marginTop: 30,
       alignItems: 'center',
     },
     title: {
-      color: theme.colors.textPrimary,
-
-      fontSize: SF(16)
+      color: theme.colors.black,
+      fontSize: 16
     },
     subText: {
-      fontFamily: theme.fontfamily.poppinsRegular,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
       color: theme.colors.gray500,
-      paddingHorizontal: SW(20),
-      fontSize: SF(12)
+      paddingHorizontal: 20,
+      fontSize: 12
     },
     inputCard: {
       width: '100%',
-      paddingHorizontal: SW(24),
-      paddingVertical: SH(25),
-      borderRadius: SW(24),
+      paddingHorizontal: 24,
+      paddingVertical: 25,
+      borderRadius: 24,
       backgroundColor: theme.colors.white,
-      marginTop: SH(30),
-      marginBottom: SH(10),
+      marginTop: 30,
+      marginBottom: 10,
       ...Platform.select({
         ios: {
           shadowColor: theme.colors.black,
@@ -59,20 +57,16 @@ export const createStyles = (theme: AppTheme) =>
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
     },
-    // inputWrapper: {
-    //   marginBottom: SH(20),
-    // },
     button: {
-      // marginTop: SH(5),
-      borderRadius: SW(12),
+      borderRadius: 12,
     },
     footerContainer: {
-      marginTop: 'auto',
-      paddingBottom: SH(20),
+      marginTop: 180,
+      paddingBottom: 20,
       alignItems: 'center',
     },
     agreementText: {
-      lineHeight: SH(18),
+      lineHeight: 18,
     },
     linkText: {
       color: theme.colors.AzureBlue,

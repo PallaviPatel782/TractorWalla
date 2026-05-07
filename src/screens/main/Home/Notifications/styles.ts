@@ -1,5 +1,3 @@
-// styles.ts
-import { SW, SH, SF } from '@utils/Dimensions';
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
 
@@ -12,9 +10,9 @@ export const createStyles = (theme: AppTheme) =>
         card: {
             flexDirection: 'row',
             backgroundColor: theme.colors.background,
-            padding: SW(12),
-            borderRadius: SW(12),
-            marginBottom: SH(12),
+            padding: 12,
+            borderRadius: 12,
+            marginBottom: 12,
             alignItems: 'center',
             borderWidth: 1,
             borderColor: theme.colors.gray100,
@@ -25,28 +23,28 @@ export const createStyles = (theme: AppTheme) =>
             elevation: 2,
         },
         iconBox: {
-            width: SW(40),
-            height: SW(40),
-            borderRadius: SW(8),
+            width: 40,
+            height: 40,
+            borderRadius: 8,
             alignItems: 'center',
             justifyContent: 'center',
-            marginRight: SW(12),
+            marginRight: 12,
         },
         title: {
-            fontSize: SF(14),
+            fontSize: 14,
             fontFamily: theme.fontfamily.poppinsSemiBold,
             color: theme.colors.gray900,
         },
         desc: {
-            fontSize: SF(12),
+            fontSize: 12,
             fontFamily: theme.fontfamily.poppinsRegular,
             color: theme.colors.gray600,
-            marginTop: SH(2),
+            marginTop: 2,
         },
         time: {
-            fontSize: SF(10),
+            fontSize: 10,
             fontFamily: theme.fontfamily.poppinsRegular,
             color: theme.colors.gray400,
-            marginLeft: SW(8),
+            marginLeft: 8,
         },
     });

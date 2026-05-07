@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -10,19 +9,19 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flexGrow: 1,
-      paddingHorizontal: SW(20),
-      paddingTop: SH(20),
-      paddingBottom: SH(30),
+      paddingHorizontal: 20,
+      paddingTop: 20,
+      paddingBottom: 30,
     },
     invoiceCard: {
       backgroundColor: theme.colors.YellowLight, // Match the light beige background from design
-      borderRadius: SW(16),
-      padding: SW(20),
+      borderRadius: 16,
+      padding: 20,
     },
     headerRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: SH(24),
+      marginBottom: 24,
     },
     invoiceTitleBlock: {
       flex: 1,
@@ -33,25 +32,25 @@ export const createStyles = (theme: AppTheme) =>
     },
     invoiceMainTitle: {
       fontFamily: theme.fontfamily.poppinsSemiBold,
-      fontSize: SF(20),
+      fontSize: 20,
       color: theme.colors.gray900,
       letterSpacing: 0.5,
     },
     divider: {
       height: 1,
       backgroundColor: theme.colors.gray200,
-      marginBottom: SH(20),
+      marginBottom: 20,
     },
     tractorInfoRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: SH(24),
-      gap: SW(12),
+      marginBottom: 24,
+      gap: 12,
     },
     billingContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: SH(24),
+      marginBottom: 24,
     },
     billingColumn: {
       flex: 1,
@@ -63,21 +62,21 @@ export const createStyles = (theme: AppTheme) =>
     billSummaryHeader: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(8),
-      marginBottom: SH(12),
+      gap: 8,
+      marginBottom: 12,
     },
     tableHeaderRow: {
       flexDirection: 'row',
       backgroundColor: theme.colors.brandGreen,
-      paddingVertical: SH(8),
-      paddingHorizontal: SW(12),
-      borderRadius: SW(6),
-      marginBottom: SH(10),
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      borderRadius: 6,
+      marginBottom: 10,
     },
     tableRow: {
       flexDirection: 'row',
-      paddingVertical: SH(8),
-      paddingHorizontal: SW(12),
+      paddingVertical: 8,
+      paddingHorizontal: 12,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.beigeBorder,
     },
@@ -88,31 +87,31 @@ export const createStyles = (theme: AppTheme) =>
     tableTextWhite: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(12),
+      fontSize: 12,
     },
     tableText: {
       color: theme.colors.gray800,
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(12),
+      fontSize: 12,
     },
     summaryRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingVertical: SH(6),
+      paddingVertical: 6,
     },
     taxNotice: {
       color: theme.colors.gray400,
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: SF(10),
-      marginTop: SH(8),
-      marginBottom: SH(16),
+      fontSize: 10,
+      marginTop: 8,
+      marginBottom: 16,
     },
     totalEstimateContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       borderTopWidth: 1,
       borderTopColor: theme.colors.beigeBorder,
-      paddingTop: SH(16),
-      marginBottom: SH(32),
+      paddingTop: 16,
+      marginBottom: 32,
     },
   });

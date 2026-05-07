@@ -12,11 +12,11 @@ import {
   ScrollView,
   KeyboardWrapper,
   GlobalBottomSheet,
+  ScreenFooter,
 } from '@components';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { SW, SH, SF } from '@utils/Dimensions';
 import CustomDatePickerModal from '@components/DatePicker';
 import { useModels } from '@screens/auth/hooks/useAuth';
 import { ActivityIndicator, Image as RNImage } from 'react-native';
@@ -86,9 +86,9 @@ const SelectTractorScreen = () => {
               <View style={styles.brandDisplayContainer}>
                 <View style={styles.brandLogoBox}>
                   {brandLogo ? (
-                    <RNImage source={{ uri: brandLogo }} style={{ width: SW(60), height: SW(60) }} resizeMode="contain" />
+                    <RNImage source={{ uri: brandLogo }} style={{ width: 60, height: 60 }} resizeMode="contain" />
                   ) : (
-                    <Text style={{ fontSize: SF(40) }}>🚜</Text>
+                    <Text style={{ fontSize: 40 }}>🚜</Text>
                   )}
                 </View>
                 <View style={styles.brandInfo}>
@@ -102,7 +102,7 @@ const SelectTractorScreen = () => {
               </View>
             )}
 
-            <View style={{ gap: SH(16), marginTop: SH(10) }}>
+            <View style={{ gap: 16, marginTop: 10 }}>
               {!isOthers && (
                 isModelsLoading ? (
                   <ActivityIndicator color={theme.colors.brandRed} />
@@ -113,14 +113,14 @@ const SelectTractorScreen = () => {
                     onSelect={(item) => setSelectedModel(item.value)}
                     buttonStyle={styles.dropdownButton}
                     placeholder={t('main.home.selectModel', 'Select Model')}
-                    leftIcon={<BikeIcon width={SW(20)} height={SW(20)} color={theme.colors.brandRed} />}
+                    leftIcon={<BikeIcon width={20} height={20} color={theme.colors.brandRed} />}
                   />
                 )
               )}
 
               <View style={styles.formContainer}>
                 {!isOthers && (
-                  <Text variant="medium" size={14} color={theme.colors.textPrimary} style={{ marginBottom: SH(16) }}>
+                  <Text variant="medium" size={14} color={theme.colors.textPrimary} style={{ marginBottom: 16 }}>
                     {t('common.generalInquiry')}
                   </Text>
                 )}
@@ -204,15 +204,18 @@ const SelectTractorScreen = () => {
               </View>
             </View>
 
-            <Button
-              title={t('common.submit', 'Submit')}
-              onPress={handleSubmit}
-              disabled={(isOthers ? (!customBrand || !customModel) : !selectedModel) || !name || !contact || !date || !city}
-              loading={isSubmitting}
-              style={styles.submitButton}
-            />
           </ScrollView>
         </KeyboardWrapper>
+
+        <ScreenFooter>
+          <Button
+            title={t('common.submit', 'Submit')}
+            onPress={handleSubmit}
+            disabled={(isOthers ? (!customBrand || !customModel) : !selectedModel) || !name || !contact || !date || !city}
+            loading={isSubmitting}
+          />
+        </ScreenFooter>
+
 
         <GlobalBottomSheet
           visible={showTypeSheet}
@@ -251,6 +254,7 @@ const SelectTractorScreen = () => {
           onClose={() => setIsDatePickerVisible(false)}
           mode="single"
           onApply={(start) => setDate(start)}
+          minDate={new Date()}
         />
       </View>
     </ScreenWrapper>

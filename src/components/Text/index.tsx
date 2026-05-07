@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text as RNText, TextProps as RNTextProps } from 'react-native';
 import { useTheme } from '@theme';
-import { SF } from '@utils/Dimensions';
 
 export interface TextProps extends RNTextProps {
   variant?: 'thin' | 'light' | 'regular' | 'medium' | 'semiBold' | 'bold' | 'extraBold' | 'black';
@@ -31,7 +30,7 @@ const Text: React.FC<TextProps> = ({
 
   const textStyle = {
     fontFamily: getFontFamily(),
-    fontSize: SF(size),
+    fontSize: size,
     color: color || theme.colors.textPrimary,
     textAlign: align,
   };

@@ -7,7 +7,6 @@ import {
   StyleProp,
 } from 'react-native';
 import { useTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 import Text from '../Text';
 import TouchableOpacity from '../TouchableOpacity';
 
@@ -76,7 +75,7 @@ const Button: React.FC<ButtonProps> = ({
           size={14}
           color={getTextColor()}
           align="center"
-          style={[{ lineHeight: SH(20) }, textStyle]}
+          style={[styles.text, textStyle]}
         >
           {title}
         </Text>
@@ -90,11 +89,14 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: SW(10),
-    paddingVertical: SH(10),
-    paddingHorizontal: SW(16),
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
+
+  text: {
+    lineHeight: 20,
   },
 });
 
 export default Button;
-

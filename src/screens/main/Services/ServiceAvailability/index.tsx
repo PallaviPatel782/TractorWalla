@@ -7,11 +7,11 @@ import {
   ScreenWrapper,
   Button,
   SecondaryHeader,
+  ScreenFooter,
 } from '@components';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { useTranslation } from 'react-i18next';
-import { SW } from '@utils/Dimensions';
 import { CheckIcon, LocationIcon, CloseIcon } from '@assets/icons';
 
 const ServiceAvailabilityScreen = () => {
@@ -43,9 +43,9 @@ const ServiceAvailabilityScreen = () => {
           <View style={styles.emptyContainer}>
             <View style={styles.iconWrapper}>
               <View style={styles.locationCircle}>
-                <LocationIcon size={SW(40)} color={theme.colors.white} />
+                <LocationIcon size={40} color={theme.colors.white} />
                 <View style={styles.closeBadge}>
-                  <CloseIcon size={SW(12)} color={theme.colors.white} />
+                  <CloseIcon size={12} color={theme.colors.white} />
                 </View>
               </View>
             </View>
@@ -59,13 +59,13 @@ const ServiceAvailabilityScreen = () => {
           </View>
         </View>
 
-        <View style={styles.footer}>
+        <ScreenFooter>
           <Button
             title={t('main.services.voteButton', 'Vote to get TractorWalla in your area')}
             onPress={handleVote}
-            style={styles.voteButton}
           />
-        </View>
+        </ScreenFooter>
+
 
         {/* Success Popup */}
         <Modal
@@ -79,7 +79,7 @@ const ServiceAvailabilityScreen = () => {
               <TouchableWithoutFeedback>
                 <RNView style={styles.popupCard}>
                   <View style={styles.successIconWrapper}>
-                    <CheckIcon size={SW(40)} color={theme.colors.white} />
+                    <CheckIcon size={40} color={theme.colors.white} />
                   </View>
                   <Text style={styles.popupTitle}>
                     {t('main.services.votedTitle', 'Successfully Voted!')}

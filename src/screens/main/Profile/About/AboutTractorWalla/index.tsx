@@ -4,7 +4,6 @@ import { useTheme } from '@theme';
 import { Text, SecondaryHeader, ScreenWrapper, View, ScrollView } from '@components';
 import { createStyles } from './styles';
 import { AppLogoWhiteImage } from '@assets/images';
-import { SW, SH } from '@utils/Dimensions';
 
 const AboutTractorWalla = ({ navigation }: any) => {
   const { theme } = useTheme();
@@ -24,7 +23,7 @@ const AboutTractorWalla = ({ navigation }: any) => {
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.logoContainer}>
             <View style={styles.logoTextContainer}>
-              <AppLogoWhiteImage width={SW(140)} height={SH(80)} />
+              <AppLogoWhiteImage width={140} height={80} />
             </View>
           </View>
 

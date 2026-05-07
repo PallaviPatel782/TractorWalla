@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -10,9 +9,10 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       flexGrow: 1,
-      paddingHorizontal: SW(20),
+      paddingHorizontal: 20,
       alignItems: 'center',
-      justifyContent: "center"
+      justifyContent: "center",
+      paddingBottom: 10,
     },
     successContainer: {
       alignItems: 'center',
@@ -22,26 +22,26 @@ export const createStyles = (theme: AppTheme) =>
     },
     successSubText: {
       color: theme.colors.DeepGreen,
-      marginVertical: SH(10)
+      marginVertical: 10
     },
     otpSection: {
       width: '100%',
       alignItems: 'center',
-      marginBottom: SH(40),
+      marginBottom: 40,
     },
     otpLabel: {
       color: theme.colors.gray500,
-      marginBottom: SH(16),
+      marginBottom: 16,
       textAlign: 'center',
     },
     otpRow: {
       flexDirection: 'row',
-      gap: SW(10),
+      gap: 10,
     },
     otpBox: {
-      width: SW(44),
-      height: SH(54),
-      borderRadius: SW(8),
+      width: 44,
+      height: 54,
+      borderRadius: 8,
       backgroundColor: theme.colors.gray50,
       borderWidth: 1,
       borderColor: theme.colors.gray200,
@@ -49,34 +49,34 @@ export const createStyles = (theme: AppTheme) =>
       justifyContent: 'center',
     },
     otpDigit: {
-      fontSize: SF(18),
+      fontSize: 18,
       fontFamily: theme.fontfamily.poppinsMedium,
       color: theme.colors.black,
     },
     modalContent: {
-      padding: SW(20),
+      padding: 20,
       alignItems: 'center',
-      paddingBottom: SH(30),
+      paddingBottom: 30,
     },
     modalIconContainer: {
-      width: SW(80),
-      height: SW(80),
-      borderRadius: SW(40),
+      width: 80,
+      height: 80,
+      borderRadius: 40,
       backgroundColor: theme.colors.DeepGreen + '15',
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: SH(20),
+      marginBottom: 20,
     },
     modalTitle: {
       color: theme.colors.black,
-      marginBottom: SH(8),
+      marginBottom: 8,
       textAlign: 'center',
     },
     modalSubText: {
       color: theme.colors.gray500,
       textAlign: 'center',
-      marginBottom: SH(24),
-      paddingHorizontal: SW(20),
-      lineHeight: SH(18),
+      marginBottom: 24,
+      paddingHorizontal: 20,
+      lineHeight: 18,
     },
   });

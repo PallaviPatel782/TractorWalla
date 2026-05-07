@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, StyleSheet, Platform, PermissionsAndroid, Alert } from 'react-native';
 import { launchImageLibrary, PhotoQuality } from 'react-native-image-picker';
 import { useTheme, AppTheme } from '@theme';
-import { SW, SH, SF } from '@utils/Dimensions';
 import { CloseIcon, CameraIcon } from '@assets/icons';
 import View from '../View';
 import TouchableOpacity from '../TouchableOpacity';
@@ -103,7 +102,7 @@ const ImagePickerComponent: React.FC<ImagePickerProps> = ({
   return (
     <View>
       <TouchableOpacity style={styles.labelRow} onPress={pickImage}>
-        <CameraIcon size={SW(20)} color={theme.colors.gray700} />
+        <CameraIcon size={20} color={theme.colors.gray700} />
         <Text style={styles.label}>{label}</Text>
       </TouchableOpacity>
 
@@ -116,7 +115,7 @@ const ImagePickerComponent: React.FC<ImagePickerProps> = ({
                 style={styles.removeButton}
                 onPress={() => removePhoto(index)}
               >
-                <CloseIcon size={SW(11)} color={theme.colors.white} />
+                <CloseIcon size={11} color={theme.colors.white} />
               </TouchableOpacity>
             </View>
           ))}
@@ -131,24 +130,24 @@ const createStyles = (theme: AppTheme) =>
     labelRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: SW(8),
-      marginBottom: SH(4),
+      gap: 8,
+      marginBottom: 4,
     },
     label: {
       color: theme.colors.gray900,
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: SF(14),
+      fontSize: 14,
     },
     photosRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: SW(10),
-      marginTop: SH(8),
+      gap: 10,
+      marginTop: 8,
     },
     photoBox: {
-      width: SW(72),
-      height: SW(72),
-      borderRadius: SW(10),
+      width: 72,
+      height: 72,
+      borderRadius: 10,
       position: 'relative',
       borderWidth: 1,
       borderColor: theme.colors.gray200,
@@ -157,16 +156,16 @@ const createStyles = (theme: AppTheme) =>
       width: '100%',
       height: '100%',
       resizeMode: 'cover',
-      borderRadius: SW(10),
+      borderRadius: 10,
     },
     removeButton: {
       position: 'absolute',
-      top: -SH(8),
-      right: -SW(8),
+      top: -8,
+      right: -8,
       backgroundColor: theme.colors.gray700,
-      borderRadius: SW(12),
-      width: SW(20),
-      height: SW(20),
+      borderRadius: 12,
+      width: 20,
+      height: 20,
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 10,

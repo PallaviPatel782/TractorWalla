@@ -12,7 +12,6 @@ import {
 import { createStyles } from './styles';
 import { MahindraImage } from '@assets/images';
 import { BillIcon } from '@assets/icons';
-import { SW } from '@utils/Dimensions';
 
 const InvoiceScreen = ({ navigation, route }: any) => {
   const { theme } = useTheme();
@@ -76,7 +75,7 @@ const InvoiceScreen = ({ navigation, route }: any) => {
 
             {/* Tractor Info */}
             <View style={styles.tractorInfoRow}>
-              <MahindraImage width={SW(40)} height={SW(40)} />
+              <MahindraImage width={40} height={40} />
               <Text variant="medium" size={14} color={theme.colors.gray900}>
                 Mahindra 575 DI
               </Text>

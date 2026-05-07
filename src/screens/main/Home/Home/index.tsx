@@ -4,6 +4,7 @@ import {
   NativeScrollEvent,
   Linking,
   FlatList as RNFlatList,
+  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -14,7 +15,9 @@ import {
   View,
   Text,
   ScreenWrapper,
-  SearchInput
+  SearchInput,
+  Image,
+  Loader
 } from '@components';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
@@ -29,8 +32,8 @@ import {
   EmergencybellIcon,
   KeyboardArrowUpIcon,
   LangauageIcon,
-  NextIcon,
-  BagtimerIcon,
+  // NextIcon,
+  // BagtimerIcon,
   Tractor2Icon
 } from '@assets/icons';
 
@@ -50,12 +53,11 @@ import {
   DentingPaintingImage,
   EngineServicesImage,
   VedioImage,
-  DummyUserImage,
+  // DummyUserImage,
 } from '@assets/images';
 
-import { SW, SH } from '@utils/Dimensions';
 import { useBrands } from '@screens/auth/hooks/useAuth';
-import { ActivityIndicator, Image as RNImage } from 'react-native';
+import { ImageSourcePropType } from 'react-native';
 import { BikeIcon } from '@assets/icons';
 import { Brand } from '@appTypes/api.types';
 
@@ -64,6 +66,7 @@ const HomeScreen = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
+  const SCREEN_WIDTH = Dimensions.get('window').width;
 
   const { data: brandsData, isLoading: isBrandsLoading } = useBrands();
   const brands: Brand[] = useMemo(() => {
@@ -266,34 +269,31 @@ const HomeScreen = () => {
     const autoScroll = setInterval(() => {
       setHeroIndex(prev => {
         const nextIndex = (prev + 1) % HERO_SLIDERS.length;
-        heroFlatListRef.current?.scrollToIndex({
-          index: nextIndex,
+        heroFlatListRef.current?.scrollToOffset({
+          offset: nextIndex * SCREEN_WIDTH,
           animated: true,
         });
         return nextIndex;
       });
     }, 4000);
     return () => clearInterval(autoScroll);
-  }, [HERO_SLIDERS.length]);
+  }, [HERO_SLIDERS.length, SCREEN_WIDTH]);
 
   const onHeroScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const interval = SW(343) + SW(15);
-    const idx = Math.round(x / interval);
+    const idx = Math.round(x / SCREEN_WIDTH);
     if (idx !== heroIndex && idx >= 0 && idx < HERO_SLIDERS.length) setHeroIndex(idx);
   };
 
   const onMiddleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const interval = SW(343) + SW(15);
-    const idx = Math.round(x / interval);
+    const idx = Math.round(x / SCREEN_WIDTH);
     if (idx !== middleIndex && idx >= 0 && idx < MIDDLE_BANNERS.length) setMiddleIndex(idx);
   };
 
   const onNetworkScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const interval = SW(343) + SW(15);
-    const idx = Math.round(x / interval);
+    const idx = Math.round(x / SCREEN_WIDTH);
     if (idx !== networkIndex && idx >= 0 && idx < NETWORK_BANNERS.length) setNetworkIndex(idx);
   };
 
@@ -311,7 +311,7 @@ const HomeScreen = () => {
               <View pointerEvents="none" style={{ flex: 1 }}>
                 <SearchInput
                   placeholder={t('main.home.searchPlaceholder')}
-                  containerStyle={{ marginBottom: 0, height: SH(34) }}
+                  containerStyle={{ marginBottom: 0, height: 34 }}
                   inputStyle={styles.searchInput}
                   value={searchQuery}
                   onChangeText={setSearchQuery}
@@ -327,14 +327,14 @@ const HomeScreen = () => {
                 style={styles.iconCircle}
                 onPress={() => navigation.navigate('NotificationScreen')}
               >
-                <BellIcon size={SW(18)} color={theme.colors.white} />
+                <BellIcon size={18} color={theme.colors.white} />
                 <View style={styles.notifDot} />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.iconCircle}
                 onPress={() => navigation.navigate('ChooseLanguage')}
               >
-                <LangauageIcon size={SW(24)} color={theme.colors.white} />
+                <LangauageIcon size={24} color={theme.colors.white} />
               </TouchableOpacity>
             </View>
           </View>
@@ -344,12 +344,12 @@ const HomeScreen = () => {
             onPress={() => navigation.navigate('ManageAddress')}
             activeOpacity={0.7}
           >
-            <LocationIcon size={SW(14)} color={theme.colors.white} />
+            <LocationIcon size={14} color={theme.colors.white} />
             <Text style={styles.addressText}>
               {t('main.home.deliverTo')}{' '}
               <Text style={styles.addressBold}>3517 W. Gray St...</Text>
             </Text>
-            <KeyboardArrowUpIcon size={SW(14)} color={theme.colors.white} />
+            <KeyboardArrowUpIcon size={14} color={theme.colors.white} />
           </TouchableOpacity>
         </View>
 
@@ -361,22 +361,18 @@ const HomeScreen = () => {
               ref={heroFlatListRef}
               data={HERO_SLIDERS}
               horizontal
+              pagingEnabled
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: SW(15) }}
-              snapToInterval={SW(355) + SW(15)}
-              snapToAlignment="start"
-              decelerationRate="fast"
               onScroll={onHeroScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}
               renderItem={({ item }: { item: any }) => (
-                <View style={styles.heroCardContainer}>
+                <View style={{ width: SCREEN_WIDTH, paddingHorizontal: 16, height: 190 }}>
                   <View style={styles.heroCard}>
-                    <item.Image
-                      width="110%"
-                      height="110%"
-                      preserveAspectRatio="xMidYMid slice"
-                      style={{ position: 'absolute', left: '-5%', top: '-5%' }}
+                    <Image
+                      source={item.Image as ImageSourcePropType}
+                      style={{ width: '100%', height: '100%', position: 'absolute', left: 0, top: 0 }}
+                      resizeMode="cover"
                     />
                     <LinearGradient
                       colors={['transparent', 'rgba(0,0,0,0.87)']}
@@ -426,7 +422,7 @@ const HomeScreen = () => {
                   />
                   <View style={styles.serviceTopRow}>
                     <View style={[styles.serviceIconWrap, { backgroundColor: svc.iconBg }]}>
-                      <svc.Icon size={SW(16)} color={theme.colors.white} />
+                      <svc.Icon size={16} color={theme.colors.white} />
                     </View>
                     <Text style={[styles.serviceLabel, { color: svc.iconBg }]}>{svc.label}</Text>
                   </View>
@@ -442,16 +438,13 @@ const HomeScreen = () => {
               ref={middleFlatListRef}
               data={MIDDLE_BANNERS}
               horizontal
+              pagingEnabled
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: SW(15) }}
-              snapToInterval={SW(355) + SW(15)}
-              snapToAlignment="start"
-              decelerationRate="fast"
               onScroll={onMiddleScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}
               renderItem={({ item }) => (
-                <View style={[styles.middleCardContainer, { backgroundColor: item.bgColor }]}>
+                <View style={[{ width: SCREEN_WIDTH, paddingHorizontal: 16, height: 154 }]}>
                   <View style={[styles.middleBannerCard, { backgroundColor: item.bgColor }]}>
                     <View style={styles.middleBannerContent}>
                       <View style={styles.middleBannerLeft}>
@@ -480,11 +473,10 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                       </View>
                       <View style={styles.middleBannerImageWrap}>
-                        <item.Image
-                          width="110%"
-                          height="110%"
-                          preserveAspectRatio="xMidYMid slice"
-                          style={{ position: 'absolute', left: '-5%', top: '-5%' }}
+                        <Image
+                          source={item.Image}
+                          style={{ width: 120, height: 120 }}
+                          resizeMode="contain"
                         />
                       </View>
                     </View>
@@ -500,8 +492,8 @@ const HomeScreen = () => {
           </View>
 
           {/* Parts & Accessories */}
-          <View style={{ backgroundColor: theme.colors.YellowLight, paddingVertical: SH(15), marginBottom: SH(24) }}>
-            <View style={[styles.sectionHeader, { paddingHorizontal: SW(16), marginBottom: SH(10) }]}>
+          <View style={{ backgroundColor: theme.colors.YellowLight, paddingVertical: 15, marginBottom: 24 }}>
+            <View style={[styles.sectionHeader, { paddingHorizontal: 16, marginBottom: 10 }]}>
               <Text style={styles.sectionTitle}>{t('main.home.partsAccessories')}</Text>
               <TouchableOpacity onPress={() => navigation.navigate('Parts')}>
                 <Text style={styles.seeMore}>{t('main.home.seeMore')}</Text>
@@ -511,7 +503,7 @@ const HomeScreen = () => {
               data={PARTS_LIST}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: SW(10), gap: SW(8) }}
+              contentContainerStyle={{ paddingHorizontal: 10, gap: 8 }}
               keyExtractor={(i: any) => i.id}
               renderItem={({ item }: { item: any }) => (
                 <TouchableOpacity
@@ -519,17 +511,13 @@ const HomeScreen = () => {
                   onPress={() => navigation.navigate('Parts')}
                 >
                   <View style={styles.partImageWrap}>
-                    <item.Image width={SW(90)} height={SW(100)} />
+                    <item.Image width={90} height={100} />
                   </View>
                   <Text style={styles.partName} numberOfLines={2}>{item.name}</Text>
                   <View style={styles.partPriceRow}>
                     <Text style={styles.partPrice}>₹{item.price}</Text>
                     <Text style={styles.partMrp}>₹{item.mrp}</Text>
                     <Text style={styles.partDiscount}>{item.discount}</Text>
-                  </View>
-                  <View style={styles.ratingRow}>
-                    <Text style={styles.starIcon}>★</Text>
-                    <Text style={styles.ratingText}>{item.rating}</Text>
                   </View>
                 </TouchableOpacity>
               )}
@@ -539,20 +527,24 @@ const HomeScreen = () => {
           {/* Categories */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('main.home.categories')}</Text>
-            <View style={styles.categoryGrid}>
-              {CATEGORIES.map((cat: any) => (
+            <FlatList
+              data={CATEGORIES}
+              numColumns={3}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item: any) => item.id}
+              contentContainerStyle={{ gap: 12, paddingHorizontal: 2, marginTop: 10 }}
+              renderItem={({ item }: { item: any }) => (
                 <TouchableOpacity
-                  key={cat.id}
                   style={styles.categoryItem}
-                  onPress={() => navigation.navigate('CategoryOverview', { categoryId: cat.id })}
+                  onPress={() => navigation.navigate('CategoryOverview', { categoryId: item.id })}
                 >
                   <View style={styles.categoryImageWrap}>
-                    <cat.Image width={SW(52)} height={SW(52)} />
+                    <item.Image width={100} height={60} />
                   </View>
-                  <Text style={styles.categoryLabel}>{cat.label}</Text>
+                  <Text style={styles.categoryLabel}>{item.label}</Text>
                 </TouchableOpacity>
-              ))}
-            </View>
+              )}
+            />
           </View>
 
           {/* Network Banner Slider */}
@@ -561,24 +553,16 @@ const HomeScreen = () => {
               ref={networkFlatListRef}
               data={NETWORK_BANNERS}
               horizontal
+              pagingEnabled
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: SW(15) }}
-              snapToInterval={SW(355) + SW(15)}
-              snapToAlignment="start"
-              decelerationRate="fast"
               onScroll={onNetworkScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}
               renderItem={({ item }) => (
-                <View style={[styles.networkCardContainer, { backgroundColor: item.bgColor }]}>
+                <View style={[{ width: SCREEN_WIDTH, paddingHorizontal: 16, height: 118, backgroundColor: 'transparent' }]}>
                   <View style={[styles.networkBannerCard, { backgroundColor: item.bgColor }]}>
                     <View style={styles.networkBannerContent}>
                       <View style={styles.networkBannerLeft}>
-                        {item.badge ? (
-                          <View style={styles.networkBannerBadge}>
-                            <Text style={styles.networkBannerBadgeText}>{item.badge}</Text>
-                          </View>
-                        ) : null}
                         <Text style={[styles.networkBannerTitle, item.isDark && styles.networkBannerTitleDark]}>
                           {item.title}
                         </Text>
@@ -592,18 +576,12 @@ const HomeScreen = () => {
                             </Text>
                           ))}
                         </View>
-                        <TouchableOpacity style={[styles.networkBannerBtn, { backgroundColor: item.btnColor }]}>
-                          <Text style={[styles.networkBannerBtnText, { color: item.btnTextColor }]}>
-                            {item.buttonText} ▶
-                          </Text>
-                        </TouchableOpacity>
                       </View>
                       <View style={styles.networkBannerImageWrap}>
-                        <item.Image
-                          width="110%"
-                          height="110%"
-                          preserveAspectRatio="xMidYMid slice"
-                          style={{ position: 'absolute', left: '-5%', top: '-5%' }}
+                        <Image
+                          source={item.Image}
+                          style={{ width: 100, height: 80 }}
+                          resizeMode="contain"
                         />
                       </View>
                     </View>
@@ -625,7 +603,7 @@ const HomeScreen = () => {
               data={HOW_IT_WORKS_STEPS}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: SW(12), marginBottom: SH(16) }}
+              contentContainerStyle={{ gap: 12, marginBottom: 16 }}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <TouchableOpacity
@@ -663,28 +641,28 @@ const HomeScreen = () => {
           </View>
 
           {/* Brands */}
-          <View style={styles.section}>
+          <View style={[styles.section, { marginBottom: 0 }]}>
             <Text style={styles.sectionTitle}>{t('main.home.brandsTitle')}</Text>
             {isBrandsLoading ? (
-              <ActivityIndicator color={theme.colors.brandRed} />
+              <Loader visible inline color={theme.colors.brandRed} size="small" />
             ) : (
               <FlatList
                 data={brands}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ gap: SW(16) }}
+                contentContainerStyle={{ gap: 16 }}
                 keyExtractor={(i: any) => i._id}
                 renderItem={({ item }: { item: any }) => (
                   <View style={styles.brandItem}>
-                    <View style={{ width: SW(60), height: SW(36), alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center' }}>
                       {item.logoUrl ? (
-                        <RNImage
+                        <Image
                           source={{ uri: item.logoUrl }}
-                          style={{ width: '100%', height: '100%', borderRadius: 50 }}
+                          style={{ width: "100%", height: "100%", borderRadius: 10 }}
                           resizeMode="contain"
                         />
                       ) : (
-                        <BikeIcon width={SW(40)} height={SW(24)} color={theme.colors.gray300} />
+                        <BikeIcon width={40} height={40} color={theme.colors.gray300} />
                       )}
                     </View>
                     <Text style={styles.brandLabel}>{item.name}</Text>

@@ -20,12 +20,12 @@ import {
   ScreenWrapper,
   ServiceCard,
   Image,
+  RatingPriceRow,
+  ScreenFooter,
 } from '@components';
 import { createStyles } from './styles';
 import { SERVICES_DATA, IService } from '../dummyData';
-// import { SH, SW } from '@utils/Dimensions';
 import { ServiceOverviewBanner } from '@assets/images';
-import { SH } from '@utils/Dimensions';
 
 const ServiceOverviewScreen = () => {
   const { t } = useTranslation();
@@ -37,7 +37,6 @@ const ServiceOverviewScreen = () => {
 
   const currentCategory = SERVICES_DATA.find(c => c.category === category);
   const service = currentCategory?.services.find(s => s.id === serviceId) as IService | undefined;
-  // const ServiceImage = service?.image;
 
   const otherServices = currentCategory?.services.filter(s => s.id !== serviceId) || [];
 
@@ -50,8 +49,12 @@ const ServiceOverviewScreen = () => {
   }
 
   return (
-    <ScreenWrapper style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+    <ScreenWrapper style={styles.container} withBottomInset={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      >
         {/* Header/Hero */}
         <View style={styles.heroSection}>
           <Image
@@ -75,18 +78,15 @@ const ServiceOverviewScreen = () => {
             <View style={styles.badgePill}>
               <Text style={styles.badgeText}>{t('main.home.services.topRated', 'TOP RATED SERVICE')}</Text>
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ color: theme.colors.GoldenYellow }}>★ </Text>
-              <Text style={styles.ratingText}>{service.rating}</Text>
-            </View>
+            <RatingPriceRow
+              rating={service.rating}
+              price={service.price}
+              mrp={service.mrp}
+            />
           </View>
 
           <Text style={styles.title}>{service.title}</Text>
 
-          <View style={styles.priceRow}>
-            <Text style={styles.price}>₹{service.price}</Text>
-            <Text style={styles.mrp}>₹{service.mrp}</Text>
-          </View>
 
           <View style={styles.highlights}>
             {service.highlight && (
@@ -116,7 +116,7 @@ const ServiceOverviewScreen = () => {
           </View>
 
           {/* Service Includes */}
-          <Text style={[styles.sectionHeading, { marginHorizontal: 0 }]}>{t('main.home.services.includes', 'Service Includes')}</Text>
+          <Text style={[styles.sectionHeading, { marginHorizontal: 0, marginTop: 0 }]}>{t('main.home.services.includes', 'Service Includes')}</Text>
           <View style={styles.includesGrid}>
             {service.bullets?.map((bullet: string, idx: number) => (
               <View key={idx} style={styles.detailBulletRow}>
@@ -145,13 +145,12 @@ const ServiceOverviewScreen = () => {
       </ScrollView>
 
       {/* Footer Action */}
-      <View style={styles.footer}>
+      <ScreenFooter>
         <Button
           title={t('main.home.services.bookNow', 'Book Now')}
           onPress={() => navigation.push('ServiceCheckout', { serviceId, category })}
-          style={{ marginBottom: SH(20) }}
         />
-      </View>
+      </ScreenFooter>
     </ScreenWrapper>
   );
 };

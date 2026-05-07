@@ -3,10 +3,9 @@ import { Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { Input } from '@components';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
-import { Text, ScreenWrapper, View, ScrollView, TouchableOpacity, GlobalBottomSheet } from '@components';
+import { Text, ScreenWrapper, View, ScrollView, TouchableOpacity, GlobalBottomSheet, ScreenFooter } from '@components';
 import { createStyles } from './styles';
 import { CameraIcon, UserIcon, DeleteIcon } from '@assets/icons';
-import { SW, SH } from '@utils/Dimensions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useAuthStore } from '@store/useAuthStore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -14,6 +13,7 @@ import { RootStackParamList } from '@navigation/NavigationTypes';
 import { useUpdateProfile } from '@screens/auth/hooks/useAuth';
 import LinearGradient from 'react-native-linear-gradient';
 import { SecondaryHeader } from '@components';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 type Props = NativeStackScreenProps<RootStackParamList, 'UpdateProfile'>;
 
 const UpdateProfileScreen = ({ navigation }: Props) => {
@@ -22,6 +22,7 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
   const styles = createStyles(theme);
   const user = useAuthStore((state) => state.user);
   const { mutate: updateProfile, isPending } = useUpdateProfile();
+  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
 
   const [fullName, setFullName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
@@ -36,8 +37,20 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
       state: user?.state || '',
       pincode: user?.pincode || '',
     }, {
-      onSuccess: () => {
+      onSuccess: (response: any) => {
+        showSnackbar({
+          type: 'success',
+          title: 'Success',
+          description: response.message || response.data?.message || 'Profile updated successfully'
+        });
         navigation.goBack();
+      },
+      onError: (error: any) => {
+        showSnackbar({
+          type: 'error',
+          title: 'Error',
+          description: error.message || 'Failed to update profile'
+        });
       }
     });
   };
@@ -73,7 +86,7 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : SH(20)}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
         >
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -93,7 +106,7 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
                   />
                 ) : (
                   <View style={[styles.avatarImage, { alignItems: 'center', justifyContent: 'center' }]}>
-                    <UserIcon size={SW(45)} color={theme.colors.gray300} />
+                    <UserIcon size={45} color={theme.colors.gray300} />
                   </View>
                 )}
                 <TouchableOpacity
@@ -101,7 +114,7 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
                   activeOpacity={0.8}
                   onPress={handlePickImage}
                 >
-                  <CameraIcon size={SW(14)} color={theme.colors.white} />
+                  <CameraIcon size={14} color={theme.colors.white} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -133,27 +146,27 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
               />
             </View>
           </ScrollView>
-
-          {/* Footer Buttons */}
-          <View style={styles.footer}>
-            <TouchableOpacity
-              style={[styles.saveButton, { opacity: isPending || !fullName.trim() ? 0.7 : 1 }]}
-              onPress={handleUpdate}
-              disabled={isPending || !fullName.trim()}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.saveButtonText}>{t('main.profile.updateProfile.button')}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.deleteButton}
-              activeOpacity={0.8}
-              onPress={() => setShowDeleteModal(true)}
-            >
-              <Text style={styles.deleteButtonText}>{t('main.profile.updateProfile.deleteAccount') || 'Delete Account'}</Text>
-            </TouchableOpacity>
-          </View>
         </KeyboardAvoidingView>
+
+        <ScreenFooter containerStyle={styles.footer}>
+          <TouchableOpacity
+            style={[styles.saveButton, { opacity: isPending || !fullName.trim() ? 0.7 : 1 }]}
+            onPress={handleUpdate}
+            disabled={isPending || !fullName.trim()}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.saveButtonText}>{t('main.profile.updateProfile.button')}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.deleteButton}
+            activeOpacity={0.8}
+            onPress={() => setShowDeleteModal(true)}
+          >
+            <Text style={styles.deleteButtonText}>{t('main.profile.updateProfile.deleteAccount') || 'Delete Account'}</Text>
+          </TouchableOpacity>
+        </ScreenFooter>
+
 
         {/* Delete Confirmation Bottom Sheet */}
         <GlobalBottomSheet
@@ -163,7 +176,7 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
         >
           <View style={styles.modalContent}>
             <View style={styles.modalIcon}>
-              <DeleteIcon size={SW(30)} color={theme.colors.error} />
+              <DeleteIcon size={30} color={theme.colors.error} />
             </View>
             <Text variant="semiBold" size={18} color={theme.colors.textPrimary} style={styles.modalTitle}>
               {t('main.profile.updateProfile.areYouSure') || 'Are you sure?'}

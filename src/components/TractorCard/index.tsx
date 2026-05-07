@@ -6,7 +6,6 @@ import Text from '../Text';
 import TouchableOpacity from '../TouchableOpacity';
 import Image from '../Image';
 import { useTheme } from '@theme';
-import { SW, SH } from '@utils/Dimensions';
 import { DeleteIcon } from '@assets/icons';
 import { TractorImage } from '@assets/images';
 
@@ -22,12 +21,13 @@ interface TractorCardProps {
     logoUrl?: string;
   };
   onPress: () => void;
+  onSelect?: () => void;
   onDelete?: () => void;
   isSelectionMode?: boolean;
   selected?: boolean;
 }
 
-const TractorCard = ({ tractor, onPress, onDelete, isSelectionMode, selected }: TractorCardProps) => {
+const TractorCard = ({ tractor, onPress, onSelect, onDelete, isSelectionMode, selected }: TractorCardProps) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -42,19 +42,19 @@ const TractorCard = ({ tractor, onPress, onDelete, isSelectionMode, selected }: 
         {tractor.logoUrl ? (
           <Image
             source={{ uri: tractor.logoUrl }}
-            style={{ width: SW(80), height: SW(60) }}
+            style={{ width: 80, height: 60 }}
             resizeMode="contain"
             showLoader={false}
           />
         ) : (
-          <TractorImage width={SW(80)} height={SH(60)} />
+          <TractorImage width={80} height={60} />
         )}
       </View>
       <View style={styles.detailsContainer}>
         <Text variant="medium" size={12} color={theme.colors.gray900}>
           {t(`common.brands.${tractor.brand}`) === `common.brands.${tractor.brand}` ? tractor.brand : t(`common.brands.${tractor.brand}`)}
         </Text>
-        <Text variant="medium" size={12} color={theme.colors.gray600} style={{ marginBottom: SH(4) }}>
+        <Text variant="medium" size={12} color={theme.colors.gray600} style={{ marginBottom: 4 }}>
           {tractor.model}
         </Text>
         <View style={styles.infoRow}>
@@ -66,11 +66,18 @@ const TractorCard = ({ tractor, onPress, onDelete, isSelectionMode, selected }: 
 
       <View style={styles.actionContainer}>
         {isSelectionMode ? (
-          <View style={[styles.selectButton, selected && { backgroundColor: theme.colors.primary, borderColor: theme.colors.primary }]}>
+          <TouchableOpacity 
+            style={[styles.selectButton, selected && { backgroundColor: theme.colors.primary, borderColor: theme.colors.primary }]}
+            onPress={(e) => {
+              e.stopPropagation();
+              onSelect?.();
+            }}
+            activeOpacity={0.7}
+          >
             <Text variant="semiBold" size={12} color={selected ? theme.colors.white : theme.colors.primary}>
               {selected ? 'Selected' : 'Select'}
             </Text>
-          </View>
+          </TouchableOpacity>
         ) : (
           onDelete && (
             <TouchableOpacity
@@ -95,9 +102,9 @@ const createStyles = (theme: any) =>
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: theme.colors.white,
-      borderRadius: SW(16),
-      padding: SW(12),
-      marginBottom: SH(12),
+      borderRadius: 16,
+      padding: 12,
+      marginBottom: 12,
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
       elevation: 2,
@@ -111,31 +118,31 @@ const createStyles = (theme: any) =>
       backgroundColor: theme.colors.backgroundFaint,
     },
     imageContainer: {
-      width: SW(80),
-      height: SH(60),
+      width: 80,
+      height: 60,
       backgroundColor: theme.colors.backgroundFaint,
-      borderRadius: SW(10),
+      borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
     },
     detailsContainer: {
       flex: 1,
-      marginLeft: SW(15),
+      marginLeft: 15,
     },
     infoRow: {
-      marginTop: SH(2),
+      marginTop: 2,
     },
     actionContainer: {
       justifyContent: 'center',
-      marginLeft: SW(8),
+      marginLeft: 8,
     },
     deleteButton: {
-      padding: SW(8),
+      padding: 8,
     },
     selectButton: {
-      paddingHorizontal: SW(12),
-      paddingVertical: SH(6),
-      borderRadius: SW(20),
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 20,
       borderWidth: 1,
       borderColor: theme.colors.primary,
     },

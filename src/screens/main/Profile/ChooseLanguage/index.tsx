@@ -8,7 +8,8 @@ import {
   ScreenWrapper,
   View,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  ScreenFooter,
 } from '@components';
 import { createStyles } from './styles';
 
@@ -57,15 +58,16 @@ const ChooseLanguage = ({ navigation }: any) => {
           })}
         </ScrollView>
 
-        <View style={styles.bottomContainer}>
+        <ScreenFooter>
           <Button
             title={t('common.apply')}
             onPress={handleApply}
           />
-        </View>
+        </ScreenFooter>
       </View>
     </ScreenWrapper>
   );
 };
+
 
 export default ChooseLanguage;

@@ -14,7 +14,6 @@ import {
   ScreenWrapper,
 } from '@components';
 import { createStyles } from './styles';
-import { SH } from '@utils/Dimensions';
 
 const COUPONS = [
   {
@@ -92,6 +91,7 @@ const ApplyCouponsScreen = () => {
             value={couponCode}
             onChangeText={setCouponCode}
             autoCapitalize="characters"
+            placeholderTextColor={theme.colors.gray300}
           />
           <TouchableOpacity style={styles.applyBtn} onPress={onManualApply}>
             <Text style={styles.applyBtnText}>{t('main.home.services.apply', 'Apply')}</Text>
@@ -107,7 +107,7 @@ const ApplyCouponsScreen = () => {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: SH(100) }}
+          contentContainerStyle={{ paddingBottom: 10 }}
         />
       </View>
     </ScreenWrapper>
