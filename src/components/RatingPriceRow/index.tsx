@@ -37,7 +37,7 @@ const RatingPriceRow: React.FC<RatingPriceRowProps> = ({
           ₹{price}
         </Text>
         {mrp && (
-          <Text size={13} color={theme.colors.textMuted} style={[styles.mrpText, mrpTextStyle]}>
+          <Text size={13} color={theme.colors.black} style={[styles.mrpText, mrpTextStyle]}>
             ₹{mrp}
           </Text>
         )}

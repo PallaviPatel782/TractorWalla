@@ -391,7 +391,7 @@ const LocationScreen = ({ navigation, route }: { navigation: any; route: any }) 
               label="Pincode"
               required
               placeholder="6-digit pincode"
-              keyboardType="numeric"
+              keyboardType="number-pad"
               maxLength={6}
               value={pincode}
               onChangeText={v => { setPincode(v); setErrors(e => ({ ...e, pincode: undefined })); }}

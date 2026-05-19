@@ -85,22 +85,25 @@ const HomeScreen = () => {
     {
       id: '1',
       Image: HomeTopbanner1Image,
-      title: t('main.home.hero.slider1'),
-      cta: t('main.home.hero.cta'),
+      title: "Genuine parts, affordable pricing, lower than market rates",
+      cta: "Book Service Now",
+      onPress: () => navigation.navigate('Services'),
     },
     {
       id: '2',
       Image: HomeTopbanner2Image,
-      title: t('main.home.hero.slider2'),
-      cta: t('main.home.hero.cta'),
+      title: "GET ₹100 Off on your first repair",
+      subtitle: "USE CODE: TRACTOR100",
+      cta: "View Offer",
+      onPress: () => navigation.navigate('ApplyCoupons'),
     },
     {
       id: '3',
       Image: HomeTopbanner3Image,
-      title: t('main.home.hero.slider3'),
-      cta: t('main.home.hero.cta'),
+      title: "Certified service engineer, parts supplier.",
+      subtitle: "The mechanic diagnoses the issue, explains the problem, and performs the required repair.",
     },
-  ], [t]);
+  ], [navigation]);
 
   const SERVICE_CARDS = [
     {
@@ -156,21 +159,6 @@ const HomeScreen = () => {
 
   const MIDDLE_BANNERS = useMemo(() => [
     {
-      id: '1',
-      Image: Homemiddlebanner1Image,
-      bgColor: '#E84040',
-      badge: 'TOP ASSIST',
-      title: t('main.home.banners.assist.title'),
-      bullets: [
-        t('main.home.banners.assist.bullet1'),
-        t('main.home.banners.assist.bullet2'),
-      ],
-      buttonText: t('main.home.banners.assist.cta'),
-      btnColor: theme.colors.white,
-      btnTextColor: '#E84040',
-      isDark: false,
-    },
-    {
       id: '2',
       Image: HomeTopbanner2Image,
       bgColor: '#1A2744',
@@ -183,6 +171,7 @@ const HomeScreen = () => {
       btnColor: '#E84040',
       btnTextColor: theme.colors.white,
       isDark: false,
+      onPress: () => navigation.navigate('Services'),
     },
     {
       id: '3',
@@ -197,8 +186,9 @@ const HomeScreen = () => {
       btnColor: theme.colors.white,
       btnTextColor: '#2563EB',
       isDark: false,
+      onPress: () => navigation.navigate('EmergencyRoadside'),
     },
-  ], [t, theme.colors.white]);
+  ], [t, theme.colors.white, navigation]);
 
   const NETWORK_BANNERS = useMemo(() => [
     {
@@ -366,26 +356,47 @@ const HomeScreen = () => {
               onScroll={onHeroScroll}
               scrollEventThrottle={16}
               keyExtractor={(i) => i.id}
-              renderItem={({ item }: { item: any }) => (
-                <View style={{ width: SCREEN_WIDTH, paddingHorizontal: 16, height: 190 }}>
-                  <View style={styles.heroCard}>
-                    <Image
-                      source={item.Image as ImageSourcePropType}
-                      style={{ width: '100%', height: '100%', position: 'absolute', left: 0, top: 0 }}
-                      resizeMode="cover"
-                    />
-                    <LinearGradient
-                      colors={['transparent', 'rgba(0,0,0,0.87)']}
-                      style={styles.heroGradient}
+              renderItem={({ item }: { item: any }) => {
+                const CardComponent = item.onPress ? TouchableOpacity : View;
+                return (
+                  <View style={{ width: SCREEN_WIDTH, alignItems: 'center', height: 199 }}>
+                    <CardComponent
+                      onPress={item.onPress}
+                      activeOpacity={item.onPress ? 0.9 : undefined}
+                      style={styles.heroCard}
                     >
-                      <Text style={styles.heroTitle}>{item.title}</Text>
-                      <TouchableOpacity style={styles.heroCta}>
-                        <Text style={styles.heroCtaText}>{item.cta}</Text>
-                      </TouchableOpacity>
-                    </LinearGradient>
+                      <Image
+                        source={item.Image as ImageSourcePropType}
+                        style={{ width: '100%', height: '100%', position: 'absolute', left: 0, top: 0 }}
+                        resizeMode="cover"
+                      />
+                      <View style={styles.heroOverlay} />
+                      <LinearGradient
+                        colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)']}
+                        style={styles.heroGradient}
+                      >
+                        <Text style={styles.heroTitle}>{item.title}</Text>
+                        {item.subtitle && (
+                          <Text style={{
+                            color: '#E5E7EB',
+                            fontSize: 12,
+                            fontFamily: theme.typography.fonts.poppinsRegular,
+                            marginBottom: 8,
+                            marginTop: -4
+                          }}>
+                            {item.subtitle}
+                          </Text>
+                        )}
+                        {item.cta ? (
+                          <TouchableOpacity style={styles.heroCta} onPress={item.onPress}>
+                            <Text style={styles.heroCtaText}>{item.cta}</Text>
+                          </TouchableOpacity>
+                        ) : null}
+                      </LinearGradient>
+                    </CardComponent>
                   </View>
-                </View>
-              )}
+                );
+              }}
             />
             <View style={styles.dots}>
               {HERO_SLIDERS.map((_, i: number) => (
@@ -422,7 +433,7 @@ const HomeScreen = () => {
                   />
                   <View style={styles.serviceTopRow}>
                     <View style={[styles.serviceIconWrap, { backgroundColor: svc.iconBg }]}>
-                      <svc.Icon size={16} color={theme.colors.white} />
+                      <svc.Icon size={20} color={theme.colors.white} />
                     </View>
                     <Text style={[styles.serviceLabel, { color: svc.iconBg }]}>{svc.label}</Text>
                   </View>
@@ -432,7 +443,7 @@ const HomeScreen = () => {
             </View>
           </View>
 
-          {/* Middle Banner — 3 slide FlatList */}
+          {/* Middle Banner — 2 slide FlatList */}
           <View style={styles.sliderSection}>
             <FlatList
               ref={middleFlatListRef}
@@ -445,7 +456,11 @@ const HomeScreen = () => {
               keyExtractor={(i) => i.id}
               renderItem={({ item }) => (
                 <View style={[{ width: SCREEN_WIDTH, paddingHorizontal: 16, height: 154 }]}>
-                  <View style={[styles.middleBannerCard, { backgroundColor: item.bgColor }]}>
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    onPress={item.onPress}
+                    style={[styles.middleBannerCard, { backgroundColor: item.bgColor }]}
+                  >
                     <View style={styles.middleBannerContent}>
                       <View style={styles.middleBannerLeft}>
                         {item.badge ? (
@@ -466,7 +481,10 @@ const HomeScreen = () => {
                             </Text>
                           ))}
                         </View>
-                        <TouchableOpacity style={[styles.middleBannerBtn, { backgroundColor: item.btnColor }]}>
+                        <TouchableOpacity
+                          style={[styles.middleBannerBtn, { backgroundColor: item.btnColor }]}
+                          onPress={item.onPress}
+                        >
                           <Text style={[styles.middleBannerBtnText, { color: item.btnTextColor }]}>
                             {item.buttonText} ▶
                           </Text>
@@ -480,7 +498,7 @@ const HomeScreen = () => {
                         />
                       </View>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               )}
             />
@@ -511,9 +529,9 @@ const HomeScreen = () => {
                   onPress={() => navigation.navigate('Parts')}
                 >
                   <View style={styles.partImageWrap}>
-                    <item.Image width={90} height={100} />
+                    <item.Image width={80} height={80} />
                   </View>
-                  <Text style={styles.partName} numberOfLines={2}>{item.name}</Text>
+                  <Text style={styles.partName} numberOfLines={2} ellipsizeMode="tail">{item.name}</Text>
                   <View style={styles.partPriceRow}>
                     <Text style={styles.partPrice}>₹{item.price}</Text>
                     <Text style={styles.partMrp}>₹{item.mrp}</Text>
@@ -528,22 +546,27 @@ const HomeScreen = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('main.home.categories')}</Text>
             <FlatList
+              key={3}
               data={CATEGORIES}
               numColumns={3}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item: any) => item.id}
               contentContainerStyle={{ gap: 12, paddingHorizontal: 2, marginTop: 10 }}
-              renderItem={({ item }: { item: any }) => (
-                <TouchableOpacity
-                  style={styles.categoryItem}
-                  onPress={() => navigation.navigate('CategoryOverview', { categoryId: item.id })}
-                >
-                  <View style={styles.categoryImageWrap}>
-                    <item.Image width={100} height={60} />
-                  </View>
-                  <Text style={styles.categoryLabel}>{item.label}</Text>
-                </TouchableOpacity>
-              )}
+              columnWrapperStyle={{ justifyContent: 'flex-start', gap: 12 }}
+              renderItem={({ item }: { item: any }) => {
+                const itemWidth = (SCREEN_WIDTH - 32 - 24) / 3;
+                return (
+                  <TouchableOpacity
+                    style={styles.categoryItem}
+                    onPress={() => navigation.navigate('CategoryOverview', { categoryId: item.id })}
+                  >
+                    <View style={styles.categoryImageWrap}>
+                      <item.Image width={itemWidth * 0.8} height={itemWidth * 0.5} />
+                    </View>
+                    <Text style={styles.categoryLabel}>{item.label}</Text>
+                  </TouchableOpacity>
+                );
+              }}
             />
           </View>
 
@@ -626,8 +649,8 @@ const HomeScreen = () => {
                   {t('main.home.howTractorWallaWorks', 'How TractorWalla Works?')}
                 </Text>
               </View>
-              {TRACTOR_WORKS_STEPS.map((s: any) => (
-                <View key={s.id} style={styles.stepRow}>
+              {TRACTOR_WORKS_STEPS.map((s: any, idx: number) => (
+                <View key={s.id} style={[styles.stepRow, idx === TRACTOR_WORKS_STEPS.length - 1 && { marginBottom: 0 }]}>
                   <View style={styles.stepBadge}>
                     <Text style={styles.stepNum}>{s.id}</Text>
                   </View>

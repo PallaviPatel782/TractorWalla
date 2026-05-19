@@ -10,7 +10,6 @@ export const createStyles = (theme: AppTheme) =>
     content: {
       flexGrow: 1,
       paddingHorizontal: 20,
-      paddingTop: 20,
       paddingBottom: 40,
     },
     formContainer: {
@@ -23,7 +22,7 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 8,
-      marginBottom: 12,
+      marginBottom: 10,
     },
     addPhotoLabel: {
       color: theme.colors.gray900,

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import {
   View,
@@ -10,7 +10,6 @@ import {
   Input,
   Button,
   ScrollView,
-  KeyboardWrapper,
   GlobalBottomSheet,
   ScreenFooter,
 } from '@components';
@@ -56,13 +55,13 @@ const SelectTractorScreen = () => {
   const handleSubmit = () => {
     const payload = {
       purchaseKind: type === 'New Tractor' ? 'new' : 'old',
-      brandName: isOthers ? customBrand : brand,
-      modelName: isOthers ? customModel : selectedModel,
-      name: name,
-      contactNumber: contact,
+      brandName: (isOthers ? customBrand : brand).trim(),
+      modelName: (isOthers ? customModel : selectedModel).trim(),
+      name: name.trim(),
+      contactNumber: contact.trim(),
       wantToBuyDate: date ? date.toISOString().split('T')[0] : '',
       tractorType: tractorType,
-      city: city,
+      city: city.trim(),
     };
 
     createLead(payload, {
@@ -80,19 +79,26 @@ const SelectTractorScreen = () => {
           onBack={() => navigation.goBack()}
         />
 
-        <KeyboardWrapper>
-          <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
+          <ScrollView
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
             {!isOthers && (
               <View style={styles.brandDisplayContainer}>
                 <View style={styles.brandLogoBox}>
                   {brandLogo ? (
-                    <RNImage source={{ uri: brandLogo }} style={{ width: 60, height: 60 }} resizeMode="contain" />
+                    <RNImage source={{ uri: brandLogo }} style={{ width: 40, height: 33 }} resizeMode="contain" />
                   ) : (
                     <Text style={{ fontSize: 40 }}>🚜</Text>
                   )}
                 </View>
                 <View style={styles.brandInfo}>
-                  <Text variant="bold" size={18} style={styles.brandDisplayName}>
+                  <Text variant="medium" size={12} style={styles.brandDisplayName}>
                     {brand}
                   </Text>
                   <Text variant="regular" size={14} color={theme.colors.gray500}>
@@ -102,7 +108,7 @@ const SelectTractorScreen = () => {
               </View>
             )}
 
-            <View style={{ gap: 16, marginTop: 10 }}>
+            <View style={{ gap: 5, marginTop: 10 }}>
               {!isOthers && (
                 isModelsLoading ? (
                   <ActivityIndicator color={theme.colors.brandRed} />
@@ -153,10 +159,12 @@ const SelectTractorScreen = () => {
 
                 <Input
                   label={t('common.contactNumber', 'Contact Number')}
-                  placeholder="+91- 123456789"
+                  placeholder={t('auth.login.mobilePlaceholder')}
                   value={contact}
                   onChangeText={setContact}
-                  keyboardType="phone-pad"
+                  keyboardType="number-pad"
+                  maxLength={10}
+                  isMobile={true}
                   required
                 />
 
@@ -184,8 +192,6 @@ const SelectTractorScreen = () => {
                 </TouchableOpacity>
 
                 <View>
-
-
                   <Text variant="semiBold" size={12} color={theme.colors.textPrimary} style={styles.label}>
                     {t('main.register.typeLabel', 'Type of Tractor')}
                     <Text style={{ color: theme.colors.error }}> *</Text>
@@ -203,18 +209,17 @@ const SelectTractorScreen = () => {
                 </View>
               </View>
             </View>
-
           </ScrollView>
-        </KeyboardWrapper>
 
-        <ScreenFooter>
-          <Button
-            title={t('common.submit', 'Submit')}
-            onPress={handleSubmit}
-            disabled={(isOthers ? (!customBrand || !customModel) : !selectedModel) || !name || !contact || !date || !city}
-            loading={isSubmitting}
-          />
-        </ScreenFooter>
+          <ScreenFooter>
+            <Button
+              title={t('common.submit', 'Submit')}
+              onPress={handleSubmit}
+              disabled={(isOthers ? (!customBrand || !customModel) : !selectedModel) || !name || !contact || !date || !city}
+              loading={isSubmitting}
+            />
+          </ScreenFooter>
+        </KeyboardAvoidingView>
 
 
         <GlobalBottomSheet

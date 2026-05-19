@@ -18,7 +18,7 @@ const generateIndex = (dirPath, suffix = 'Icon') => {
       .filter(isSVG)
       .map(removeExtension);
 
-    const indexContent = [
+    let indexContent = [
       '/**',
       '* AUTO GENERATED FILE — DO NOT EDIT',
       '*/',
@@ -49,6 +49,28 @@ const generateIndex = (dirPath, suffix = 'Icon') => {
         .join('\n'),
       '',
     ].join('\n');
+
+    // Automatically append custom manual PNG exports for src/assets/images/ directory
+    if (dirPath.includes('images')) {
+      indexContent += `
+export const Homebottombanner1Image = require('./homebottombanner1.png');
+export const Homebottombanner2Image = require('./homebottombanner2.png');
+export const Homemiddlebanner1Image = require('./homemiddlebanner1.png');
+export const Homemiddlebanner2Image = require('./homemiddlebanner2.png');
+
+// Re-export missing deleted SVGs as aliases of existing SVG components to keep all file imports intact as requested
+export const HomeTopbanner1Image = require('./homeTopbanner1.png');
+export const HomeTopbanner2Image = require('./homeTopbanner2.png');
+export const HomeTopbanner3Image = require('./homeTopbanner3.png');
+export const EmergencyAssistBannerImage = TractorImage;
+export const CategoryOverviewBannerImage = TractorImage;
+export const BookingDetailBannerImage = require('./BookingDetailBanner.png');
+
+export const categoryOverViewBanner = require('./categoryOverViewBanner.png');
+export const ServiceEmergencyBanner = require('./ServiceEmergencyBanner.png');
+export const ServiceOverviewBanner = require('./ServiceOverviewBanner.png');
+`;
+    }
 
     writeFileSync(path.join(dirPath, 'index.tsx'), indexContent);
     console.log(`✅ Generated: ${path.join(dirPath, 'index.tsx')}`);

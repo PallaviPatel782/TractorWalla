@@ -14,7 +14,8 @@ export const createStyles = (theme: AppTheme) =>
     sectionCard: {
       backgroundColor: theme.colors.white,
       borderRadius: 12,
-      padding: 16,
+      paddingHorizontal: 16,
+      paddingVertical: 10,
       marginBottom: 8,
       shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 2 },
@@ -230,8 +231,8 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
     },
     paymentOptionSelected: {
-      borderColor: theme.colors.brightRed,
-      backgroundColor: theme.colors.brandRedLight,
+      borderColor: theme.colors.DeepGreen,
+      backgroundColor: theme.colors.lightGreenSuccess,
     },
     paymentOptionTitle: {
       fontSize: 14,
@@ -240,7 +241,7 @@ export const createStyles = (theme: AppTheme) =>
       textAlign: 'center',
     },
     paymentOptionTitleSelected: {
-      color: theme.colors.brightRed,
+      color: theme.colors.DeepGreen,
     },
     paymentOptionSub: {
       fontSize: 11,
@@ -250,7 +251,7 @@ export const createStyles = (theme: AppTheme) =>
       textAlign: 'center',
     },
     paymentOptionSubSelected: {
-      color: theme.colors.brightRed,
+      color: theme.colors.DeepGreen,
     },
     payableCard: {
       backgroundColor: theme.colors.YellowLight,

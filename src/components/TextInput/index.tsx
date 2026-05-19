@@ -50,6 +50,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
       onFocus,
       onBlur,
       labelStyle,
+      onChangeText,
       ...rest
     },
     ref,
@@ -57,6 +58,18 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
     const { theme } = useTheme();
     const themedStyles = createStyles(theme);
     const [focused, setFocused] = useState(false);
+
+    const handleChangeText = useCallback(
+      (text: string) => {
+        if (isMobile || rest.keyboardType === 'number-pad' || rest.keyboardType === 'phone-pad') {
+          const filteredText = text.replace(/[^0-9]/g, '');
+          onChangeText?.(filteredText);
+        } else {
+          onChangeText?.(text);
+        }
+      },
+      [isMobile, rest.keyboardType, onChangeText],
+    );
 
     const handleFocus = useCallback(
       (e: any) => {
@@ -98,7 +111,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
               minHeight: multiline ? 80 : undefined,
               backgroundColor: theme.colors.white,
               borderWidth: hasBorder ? (containerStyle as any)?.borderWidth ?? 1.5 : 0,
-              borderColor: error ? theme.colors.error : focused ? theme.colors.primary : theme.colors.borderLight,
+              borderColor: error ? theme.colors.error : focused ? theme.colors.DeepGreen : theme.colors.border,
               alignItems: multiline ? 'flex-start' : 'center',
             },
             containerStyle,
@@ -115,7 +128,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
               <Text variant="medium" style={themedStyles.countryCodeText}>
                 {countryCode}
               </Text>
-              <View style={[themedStyles.divider, { backgroundColor: theme.colors.borderLight }]} />
+              <View style={themedStyles.divider} />
             </View>
           )}
 
@@ -139,6 +152,7 @@ const TextInputComponent = forwardRef<RNTextInput, TextInputProps>(
               inputStyle,
               style,
             ]}
+            onChangeText={handleChangeText}
             {...rest}
           />
 
@@ -195,16 +209,15 @@ const createStyles = (theme: AppTheme) =>
     },
     countryCodeText: {
       marginLeft: 8,
-      paddingRight: 10,
+      paddingRight: 8,
       fontSize: 13,
       color: theme.colors.textPrimary,
-      borderRightWidth: 1,
-      borderRightColor: theme.colors.gray300
     },
     divider: {
       width: 1,
-      height: '60%',
-      marginHorizontal: 5,
+      height: '50%',
+      backgroundColor: theme.colors.gray300,
+      marginRight: 8,
     },
     errorText: {
       marginTop: 4,

@@ -6,7 +6,7 @@ import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 // ==============================
 
 const createTractorLead = (data: any) =>
-  apiService.post('/v1/customer/tractor-leads', data);
+  apiService.post('/api/v1/customer/tractor-leads', data);
 
 // ==============================
 // 🎣 TRACTOR LEAD HOOKS

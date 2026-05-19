@@ -553,6 +553,7 @@
       "thankYou": "Thank You!",
       "paymentSuccess": "Payment done Successfully",
       "shareOtp": "Share OTP with Mechanic for Completion Status",
+      "shareOTPWithSupplier": "Share this OTP with Supplier for completion Status",
       "serviceCompleted": "Service Completed Successfully!",
       "verifiedMsg": "The otp has been verified and your tractor service has been marked as completed.",
       "downloadInvoice": "Download Invoice",

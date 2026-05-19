@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Keyboard } from 'react-native';
+import { Platform, Keyboard, Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '@theme';
@@ -16,6 +16,9 @@ import { LoginImage } from '@images';
 import { useSendOtp } from '@screens/auth/hooks/useAuth';
 import { createStyles } from './styles';
 import { useSnackbarStore } from '@store/useSnackbarStore';
+
+const TERMS_URL = 'https://tractorwalla.com/terms-and-conditions';
+const PRIVACY_URL = "https://tractorwalla.com/privacy-policy";
 
 const LoginScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
@@ -43,9 +46,10 @@ const LoginScreen = ({ navigation }: any) => {
   }, []);
 
   const handleGetOtp = () => {
-    if (mobileNumber.length === 10) {
+    const trimmedNumber = mobileNumber.trim();
+    if (trimmedNumber.length === 10) {
       sendOtp(
-        { phone: mobileNumber, countryCode: '91', role: 'customer' },
+        { phone: trimmedNumber, countryCode: '91', role: 'customer' },
         {
           onSuccess: (response: any) => {
             showSnackbar({
@@ -53,13 +57,13 @@ const LoginScreen = ({ navigation }: any) => {
               title: 'Success',
               description: response.message || response.data?.message || 'OTP sent successfully'
             });
-            navigation.navigate('OtpVerification', { mobileNumber });
+            navigation.navigate('OtpVerification', { mobileNumber: trimmedNumber });
           },
           onError: (error: any) => {
             showSnackbar({
               type: 'error',
               title: 'Error',
-              description: error.message || 'Failed to send OTP'
+              description: error.error || error.message || 'Failed to send OTP'
             });
           }
         }
@@ -135,9 +139,9 @@ const LoginScreen = ({ navigation }: any) => {
             <View style={styles.footerContainer}>
               <Text size={12} align="center" color={theme.colors.gray500} style={styles.agreementText}>
                 {t('auth.login.agreementText')}{' '}
-                <Text size={12} variant="bold" style={styles.linkText}>{t('auth.login.terms')}</Text>
+                <Text size={12} variant="bold" style={styles.linkText} onPress={() => Linking.openURL(TERMS_URL)} >{t('auth.login.terms')}</Text>
                 {' '}{t('auth.login.and')}{' '}
-                <Text size={12} variant="bold" style={styles.linkText}>{t('auth.login.privacy')}</Text>.
+                <Text size={12} variant="bold" style={styles.linkText} onPress={() => Linking.openURL(PRIVACY_URL)}>{t('auth.login.privacy')}</Text>.
               </Text>
             </View>
           </View>

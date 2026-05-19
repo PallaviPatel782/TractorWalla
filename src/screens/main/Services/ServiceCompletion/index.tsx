@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BackHandler } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -33,6 +34,23 @@ const ServiceCompletion = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.reset({
+        index: 1,
+        routes: [{ name: 'Main' }, { name: 'Bookings' }],
+      });
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation]);
 
   const handleGoToSummary = () => {
     setBottomSheetVisible(false);
@@ -70,7 +88,13 @@ const ServiceCompletion = () => {
 
       <GlobalBottomSheet
         visible={bottomSheetVisible}
-        onClose={() => setBottomSheetVisible(false)}
+        onClose={() => {
+          setBottomSheetVisible(false);
+          navigation.reset({
+            index: 1,
+            routes: [{ name: 'Main' }, { name: 'Bookings' }],
+          });
+        }}
       >
         <View style={styles.modalContent}>
           <View style={styles.modalIconContainer}>

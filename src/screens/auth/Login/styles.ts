@@ -16,7 +16,7 @@ export const createStyles = (theme: AppTheme) =>
       paddingBottom: 20,
     },
     illustrationContainer: {
-      marginTop: 60,
+      marginTop: Platform.OS === 'ios' ? 80 : 60,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -61,8 +61,9 @@ export const createStyles = (theme: AppTheme) =>
       borderRadius: 12,
     },
     footerContainer: {
-      marginTop: 180,
-      paddingBottom: 20,
+      marginTop: 'auto',
+      paddingTop: 40,
+      paddingBottom: 24,
       alignItems: 'center',
     },
     agreementText: {

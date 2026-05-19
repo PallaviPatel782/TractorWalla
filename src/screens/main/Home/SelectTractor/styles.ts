@@ -9,8 +9,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       paddingHorizontal: 20,
-      paddingTop: 20,
-      paddingBottom: 40,
+      paddingBottom: 10,
     },
     dropdownButton: {
       backgroundColor: theme.colors.white,
@@ -26,11 +25,9 @@ export const createStyles = (theme: AppTheme) =>
       alignItems: 'center',
       justifyContent: 'center',
       paddingHorizontal: 10,
-      marginBottom: 20,
+      marginBottom: 10,
     },
     brandLogoBox: {
-      width: 60,
-      height: 60,
       justifyContent: 'center',
       alignItems: 'center',
     },

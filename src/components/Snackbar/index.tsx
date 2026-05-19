@@ -29,7 +29,7 @@ const SnackbarItem = ({
   const insets = useSafeAreaInsets();
   const themeColors = isDark ? darkColors : lightColors;
 
-  const bottomOffset = insets.bottom + (Platform.OS === 'ios' ? 20 : 30);
+  const topOffset = insets.top + (Platform.OS === 'ios' ? 10 : 20);
 
   const translateY = useSharedValue(100);
   const opacity = useSharedValue(0);
@@ -124,7 +124,7 @@ const SnackbarItem = ({
           styles.snackbarContainer,
           animatedStyle,
           {
-            bottom: bottomOffset,
+            top: topOffset,
             backgroundColor: getBackgroundColor(),
           },
         ]}

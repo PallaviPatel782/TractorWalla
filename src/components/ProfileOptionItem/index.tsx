@@ -37,13 +37,13 @@ const ProfileOptionItem = ({
           <View style={styles.iconContainer}>
             {icon}
           </View>
-          <Text variant="regular" size={15} color={theme.colors.gray800}>
+          <Text variant="regular" size={14} color={theme.colors.gray800}>
             {title}
           </Text>
         </View>
         {showChevron && (
           <View style={styles.chevronIcon}>
-            <ChevronBackwardIcon size={25} color={theme.colors.gray500} style={{ transform: [{ rotate: '180deg' }] }} />
+            <ChevronBackwardIcon size={24} color={theme.colors.gray500} style={{ transform: [{ rotate: '180deg' }] }} />
           </View>
         )}
       </TouchableOpacity>

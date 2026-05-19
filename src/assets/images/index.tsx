@@ -6,7 +6,6 @@ import { SvgProps } from 'react-native-svg';
 
 import AppLogo from './AppLogo.svg';
 import AppLogoWhite from './AppLogoWhite.svg';
-import BookingDetailBanner from './BookingDetailBanner.svg';
 import BrakeServices from './BrakeServices.svg';
 import Captain from './Captain.svg';
 import DentingPainting from './DentingPainting.svg';
@@ -34,16 +33,6 @@ import TransmissionClutch from './TransmissionClutch.svg';
 import TyreWheelServices from './TyreWheelServices.svg';
 import Vst from './VST.svg';
 import DummyUser from './dummyUser.svg';
-import HomeTopbanner1Png from './homeTopbanner1.png';
-import HomeTopbanner2Png from './homeTopbanner2.png';
-import HomeTopbanner3Png from './homeTopbanner3.png';
-
-import Homebottombanner1Png from './homebottombanner1.png';
-import Homebottombanner2Png from './homebottombanner2.png';
-
-import Homemiddlebanner1Png from './homemiddlebanner1.png';
-import Homemiddlebanner2Png from './homemiddlebanner2.png';
-
 import ObBoardingSlider1 from './obBoardingSlider1.svg';
 import ObBoardingSlider2 from './obBoardingSlider2.svg';
 import ObBoardingSlider3 from './obBoardingSlider3.svg';
@@ -53,9 +42,6 @@ import Product1 from './product1.svg';
 import Product2 from './product2.svg';
 import ServiceModalImage from './serviceModalImage.svg';
 import Vedio from './vedio.svg';
-import categoryOverViewBanner from './categoryOverViewBanner.png';
-import ServiceEmergencyBanner from './ServiceEmergencyBanner.png';
-import ServiceOverviewBanner from './ServiceOverviewBanner.png';
 
 export interface ISVGProps extends SvgProps {
   size?: number;
@@ -72,7 +58,6 @@ const resolveSize = (props: ISVGProps) => {
 
 export const AppLogoImage = (props: ISVGProps) => <AppLogo {...resolveSize(props)} />;
 export const AppLogoWhiteImage = (props: ISVGProps) => <AppLogoWhite {...resolveSize(props)} />;
-export const BookingDetailBannerImage = (props: ISVGProps) => <BookingDetailBanner {...resolveSize(props)} />;
 export const BrakeServicesImage = (props: ISVGProps) => <BrakeServices {...resolveSize(props)} />;
 export const CaptainImage = (props: ISVGProps) => <Captain {...resolveSize(props)} />;
 export const DentingPaintingImage = (props: ISVGProps) => <DentingPainting {...resolveSize(props)} />;
@@ -100,15 +85,6 @@ export const TransmissionClutchImage = (props: ISVGProps) => <TransmissionClutch
 export const TyreWheelServicesImage = (props: ISVGProps) => <TyreWheelServices {...resolveSize(props)} />;
 export const VstImage = (props: ISVGProps) => <Vst {...resolveSize(props)} />;
 export const DummyUserImage = (props: ISVGProps) => <DummyUser {...resolveSize(props)} />;
-export const HomeTopbanner1Image = HomeTopbanner1Png;
-export const HomeTopbanner2Image = HomeTopbanner2Png;
-export const HomeTopbanner3Image = HomeTopbanner3Png;
-
-export const Homebottombanner1Image = Homebottombanner1Png;
-export const Homebottombanner2Image = Homebottombanner2Png;
-export const Homemiddlebanner1Image = Homemiddlebanner1Png;
-export const Homemiddlebanner2Image = Homemiddlebanner2Png;
-
 export const ObBoardingSlider1Image = (props: ISVGProps) => <ObBoardingSlider1 {...resolveSize(props)} />;
 export const ObBoardingSlider2Image = (props: ISVGProps) => <ObBoardingSlider2 {...resolveSize(props)} />;
 export const ObBoardingSlider3Image = (props: ISVGProps) => <ObBoardingSlider3 {...resolveSize(props)} />;
@@ -118,8 +94,20 @@ export const Product1Image = (props: ISVGProps) => <Product1 {...resolveSize(pro
 export const Product2Image = (props: ISVGProps) => <Product2 {...resolveSize(props)} />;
 export const ServiceModalImageImage = (props: ISVGProps) => <ServiceModalImage {...resolveSize(props)} />;
 export const VedioImage = (props: ISVGProps) => <Vedio {...resolveSize(props)} />;
-export {
-  categoryOverViewBanner,
-  ServiceEmergencyBanner,
-  ServiceOverviewBanner,
-};
+
+export const Homebottombanner1Image = require('./homebottombanner1.png');
+export const Homebottombanner2Image = require('./homebottombanner2.png');
+export const Homemiddlebanner1Image = require('./homemiddlebanner1.png');
+export const Homemiddlebanner2Image = require('./homemiddlebanner2.png');
+
+// Re-export missing deleted SVGs as aliases of existing SVG components to keep all file imports intact as requested
+export const HomeTopbanner1Image = require('./homeTopbanner1.png');
+export const HomeTopbanner2Image = require('./homeTopbanner2.png');
+export const HomeTopbanner3Image = require('./homeTopbanner3.png');
+export const EmergencyAssistBannerImage = TractorImage;
+export const CategoryOverviewBannerImage = TractorImage;
+export const BookingDetailBannerImage = require('./BookingDetailBanner.png');
+
+export const categoryOverViewBanner = require('./categoryOverViewBanner.png');
+export const ServiceEmergencyBanner = require('./ServiceEmergencyBanner.png');
+export const ServiceOverviewBanner = require('./ServiceOverviewBanner.png');

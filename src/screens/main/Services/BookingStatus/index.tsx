@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
@@ -100,7 +101,10 @@ const BookingStatus = () => {
 
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.illustrationContainer}>
-            <BookingDetailBannerImage width={300} height={250} />
+            <Image
+              source={BookingDetailBannerImage}
+              style={{ width: 333, height: 222, resizeMode: 'cover' }}
+            />
           </View>
 
           <View style={styles.statusContainer}>

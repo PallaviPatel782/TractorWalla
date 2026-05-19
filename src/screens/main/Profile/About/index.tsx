@@ -19,27 +19,27 @@ const AboutScreen = ({ navigation }: any) => {
   const menuItems = [
     {
       title: t('main.about_menu.about_tractorwalla'),
-      icon: <AboutinfoIcon size={20} color={theme.colors.primary} />,
+      icon: <AboutinfoIcon size={16} color={theme.colors.primary} />,
       route: 'AboutTractorWalla',
     },
     {
       title: t('main.about_menu.join_team'),
-      icon: <TeamIcon size={20} color={theme.colors.primary} />,
+      icon: <TeamIcon size={16} color={theme.colors.primary} />,
       route: 'JoinTeam',
     },
     {
       title: t('main.about_menu.privacy_policy'),
-      icon: <ReportIcon size={20} color={theme.colors.primary} />,
+      icon: <ReportIcon size={16} color={theme.colors.primary} />,
       route: 'PrivacyPolicy',
     },
     {
       title: t('main.about_menu.terms_conditions'),
-      icon: <FaqIcon size={20} color={theme.colors.primary} />,
+      icon: <FaqIcon size={16} color={theme.colors.primary} />,
       route: 'TermsConditions',
     },
     {
       title: t('main.about_menu.contact_us'),
-      icon: <ContactusIcon size={20} color={theme.colors.primary} />,
+      icon: <ContactusIcon size={16} color={theme.colors.primary} />,
       route: 'ContactUs',
     },
   ];

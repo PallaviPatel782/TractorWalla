@@ -28,7 +28,7 @@ const ReportIssue = ({ navigation }: any) => {
 
   const ISSUE_OPTIONS = useMemo(() => [
     { label: t('main.profile.report.options.report_issue'), value: 'report_issue' },
-    { label: t('main.profile.report.options.general_inquiry'), value: 'general_inquiry' },
+    { label: t('main.profile.report.options.general_inquiry'), value: 'general_inquiry_buy_sell_tractor' },
     { label: t('main.profile.report.options.report_incident'), value: 'report_incident' },
     { label: t('main.profile.report.options.report_mechanic'), value: 'report_mechanic' },
   ], [t]);
@@ -39,14 +39,25 @@ const ReportIssue = ({ navigation }: any) => {
   const [photos, setPhotos] = useState<string[]>([]);
 
   const handleSubmit = () => {
-    const payload = {
-      category: issueType,
-      message: message,
-      photos: photos,
-      reporterType: 'customer',
-    };
+    const formData = new FormData();
+    formData.append('category', issueType);
+    formData.append('message', message.trim());
 
-    reportIssue(payload, {
+    if (photos && photos.length > 0) {
+      photos.forEach((photoUri, index) => {
+        const filename = photoUri.split('/').pop() || `photo_${index}.jpg`;
+        const match = /\.(\w+)$/.exec(filename);
+        const type = match ? `image/${match[1]}` : 'image/jpeg';
+        
+        formData.append('photos', {
+          uri: Platform.OS === 'android' ? photoUri : photoUri.replace('file://', ''),
+          name: filename,
+          type: type,
+        } as any);
+      });
+    }
+
+    reportIssue(formData, {
       onSuccess: (response: any) => {
         showSnackbar({
           type: 'success',
@@ -59,7 +70,7 @@ const ReportIssue = ({ navigation }: any) => {
         showSnackbar({
           type: 'error',
           title: 'Error',
-          description: error.message || 'Failed to report issue',
+          description: error.error || error.message || 'Failed to report issue',
         });
       }
     });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import { useNavigation } from '@react-navigation/native';
@@ -14,7 +14,7 @@ import {
 } from '@components';
 import { createStyles } from './styles';
 import { LeaveReviewImage } from '@assets/images';
-import { TouchableOpacity, Modal } from 'react-native';
+import { TouchableOpacity, Modal, BackHandler } from 'react-native';
 import { SucessIcon } from '@assets/icons';
 
 const LeaveReview = () => {
@@ -36,6 +36,23 @@ const LeaveReview = () => {
     t('main.review.labels.excellent')
   ];
 
+  useEffect(() => {
+    const backAction = () => {
+      navigation.reset({
+        index: 1,
+        routes: [{ name: 'Main' }, { name: 'Bookings' }],
+      });
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation]);
+
   const onSubmit = () => {
     setShowSuccessModal(true);
     setTimeout(() => {
@@ -49,7 +66,7 @@ const LeaveReview = () => {
       <View style={styles.container}>
         <SecondaryHeader
           title={t('main.review.title')}
-          onBack={() => navigation.goBack()}
+          onBack={() => navigation.reset({ index: 1, routes: [{ name: 'Main' }, { name: 'Bookings' }] })}
         />
 
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>

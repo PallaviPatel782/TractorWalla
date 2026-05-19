@@ -31,7 +31,7 @@ const KeyboardWrapper: React.FC<KeyboardWrapperProps> = ({
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        <View>
+        <View style={{ flex: 1 }}>
           {children}
         </View>
       </ScrollView>

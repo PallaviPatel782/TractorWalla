@@ -11,7 +11,6 @@ export const createStyles = (theme: AppTheme) =>
     content: {
       flex: 1,
       paddingHorizontal: 16,
-      paddingTop: 20,
     },
     searchContainer: {
       marginBottom: 10,

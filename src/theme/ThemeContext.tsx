@@ -24,12 +24,13 @@ const ThemeContext = createContext<ThemeContextType | null>(null);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const systemScheme = useColorScheme(); // device theme
-  const [mode, setMode] = useState<ThemeMode>(systemScheme ?? 'light');
+  const initialMode: ThemeMode = systemScheme === 'dark' ? 'dark' : 'light';
+  const [mode, setMode] = useState<ThemeMode>(initialMode);
 
   // sync with system change
   useEffect(() => {
     if (systemScheme) {
-      setMode(systemScheme);
+      setMode(systemScheme === 'dark' ? 'dark' : 'light');
     }
   }, [systemScheme]);
 

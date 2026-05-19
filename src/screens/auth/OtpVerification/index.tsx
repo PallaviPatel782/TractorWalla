@@ -20,6 +20,7 @@ import {
 } from '@images';
 import { useSendOtp, useVerifyOtp } from '@screens/auth/hooks/useAuth';
 import { useSnackbarStore } from '@store/useSnackbarStore';
+import { useAuthStore } from '@store/useAuthStore';
 import { createStyles } from './styles';
 
 const { width } = Dimensions.get('window');
@@ -32,6 +33,7 @@ const OtpVerification = ({ navigation, route }: any) => {
     const [timer, setTimer] = useState(30);
     const [activeIndex, setActiveIndex] = useState(0);
     const [otp, setOtp] = useState('');
+    const [hasError, setHasError] = useState(false);
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const flatListRef = useRef<any>(null);
 
@@ -106,6 +108,7 @@ const OtpVerification = ({ navigation, route }: any) => {
 
     const handleContinue = () => {
         if (otp.length === 6) {
+            setHasError(false);
             verifyOtp({
                 phone: mobileNumber,
                 countryCode: '91',
@@ -113,6 +116,12 @@ const OtpVerification = ({ navigation, route }: any) => {
                 otp: otp
             }, {
                 onSuccess: (response: any) => {
+                    const { setTokens, setUser } = useAuthStore.getState();
+                    setTokens(response.accessToken, response.refreshToken);
+                    const user = response.user || response.customer || response.data?.user || response.data?.customer;
+                    if (user) {
+                        setUser({ ...user, _id: user.id || user._id });
+                    }
                     showSnackbar({
                         type: 'success',
                         title: 'Welcome',
@@ -121,10 +130,11 @@ const OtpVerification = ({ navigation, route }: any) => {
                     navigation.navigate('LocationAccess');
                 },
                 onError: (error: any) => {
+                    setHasError(true);
                     showSnackbar({
                         type: 'error',
                         title: 'Error',
-                        description: error.message || 'Invalid OTP'
+                        description: error.error || error.message || 'Invalid OTP'
                     });
                 }
             });
@@ -145,7 +155,7 @@ const OtpVerification = ({ navigation, route }: any) => {
                 showSnackbar({
                     type: 'error',
                     title: 'Error',
-                    description: error.message || 'Failed to resend OTP'
+                    description: error.error || error.message || 'Failed to resend OTP'
                 });
             }
         });
@@ -240,7 +250,15 @@ const OtpVerification = ({ navigation, route }: any) => {
                             <View style={styles.otpWrapper}>
                                 <OTPInput
                                     length={6}
-                                    onComplete={(value) => setOtp(value)}
+                                    onComplete={(value) => {
+                                        setOtp(value);
+                                        setHasError(false);
+                                    }}
+                                    onChange={(value) => {
+                                        setOtp(value);
+                                        setHasError(false);
+                                    }}
+                                    error={hasError}
                                 />
                             </View>
 

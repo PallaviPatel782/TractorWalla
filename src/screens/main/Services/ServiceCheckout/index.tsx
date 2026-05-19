@@ -49,7 +49,7 @@ const ServiceCheckoutScreen = () => {
   };
 
   const user = useAuthStore((state) => state.user);
-  const { data: vehiclesData } = useGetVehiclesByCustomerId(user?._id || '');
+  const { data: vehiclesData } = useGetVehiclesByCustomerId();
 
   const tractors = useMemo(() => {
     const rawTractors = vehiclesData?.vehicles || vehiclesData?.data || user?.tractors || [];
@@ -319,7 +319,7 @@ const ServiceCheckoutScreen = () => {
                   {t('main.home.services.partialPayment')}
                 </Text>
                 <Text style={[styles.paymentOptionSub, paymentType === 'partial' && styles.paymentOptionSubSelected]}>
-                  (30% Advance)
+                  {t('main.home.services.advanceText', '(Advance)')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -330,7 +330,7 @@ const ServiceCheckoutScreen = () => {
                   {t('main.home.services.fullPayment')}
                 </Text>
                 <Text style={[styles.paymentOptionSub, paymentType === 'full' && styles.paymentOptionSubSelected]}>
-                  (100%)
+                  {t('main.home.services.fullText', '(Full)')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -338,9 +338,7 @@ const ServiceCheckoutScreen = () => {
             <View style={styles.payableCard}>
               <View>
                 <Text style={styles.payableLabel}>
-                  {paymentType === 'full'
-                    ? t('main.home.services.payableNowFull', 'Payable Now (100%)')
-                    : t('main.home.services.payableNowPartial', 'Payable Now (30%)')}
+                  {t('main.home.services.payableNowText', 'Payable Now')}
                 </Text>
                 <Text style={styles.payableSub}>{t('main.home.services.balanceAtService', 'Balance at service')}</Text>
               </View>

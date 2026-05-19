@@ -46,7 +46,7 @@ const SuccessOTPModal: React.FC<SuccessOTPModalProps> = ({
           </Text>
 
           <Text size={12} color={theme.colors.gray600} align="center" style={styles.otpLabel}>
-            {t('main.serviceFlow.shareOTP', 'Share this OTP with mechanic for completion Status')}
+            {t('main.serviceFlow.shareOTPWithSupplier', 'Share this OTP with Supplier for completion Status')}
           </Text>
 
           <View style={styles.otpRow}>

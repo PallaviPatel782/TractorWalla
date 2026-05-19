@@ -35,7 +35,7 @@ const MyTractorsScreen = ({ navigation, route }: any) => {
     isLoading: isLoadingVehicles,
     isFetching,
     refetch
-  } = useGetVehiclesByCustomerId(user?._id || '');
+  } = useGetVehiclesByCustomerId();
   const { mutate: deleteVehicle, isPending: isDeleting } = useDeleteVehicle();
 
   // If the API call returns an array of vehicles, use it; otherwise fallback to user state

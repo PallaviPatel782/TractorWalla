@@ -12,6 +12,8 @@ import {
   ScreenFooter,
 } from '@components';
 import { useUpdateProfile } from '@screens/auth/hooks/useAuth';
+import { useAuthStore } from '@store/useAuthStore';
+import { useSnackbarStore } from '@store/useSnackbarStore';
 import { createStyles } from './styles';
 import { UserIcon } from '@icons';
 
@@ -19,6 +21,7 @@ const ProfileDetails = ({ navigation, route }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
+  const showSnackbar = useSnackbarStore(state => state.showSnackbar);
   const [formData, setFormData] = useState({
     fullName: '',
     emailId: '',
@@ -93,14 +96,25 @@ const ProfileDetails = ({ navigation, route }: any) => {
     }
 
     updateProfile({
-      name: formData.fullName,
-      email: formData.emailId,
-      address: formData.address,
-      state: formData.state,
-      pincode: formData.pincode,
+      name: formData.fullName.trim(),
+      email: formData.emailId.trim(),
+      address: formData.address.trim(),
+      state: formData.state.trim(),
+      pincode: formData.pincode.trim(),
     }, {
-      onSuccess: () => {
+      onSuccess: (response: any) => {
+        const user = response?.user || response?.customer || response?.data?.user || response?.data?.customer;
+        if (user) {
+          useAuthStore.getState().updateUser({ ...user, _id: user.id || user._id });
+        }
         navigation.navigate('TractorBrand');
+      },
+      onError: (error: any) => {
+        showSnackbar({
+          type: 'error',
+          title: 'Error',
+          description: error.error || error.message || 'Failed to set up profile'
+        });
       }
     });
   };

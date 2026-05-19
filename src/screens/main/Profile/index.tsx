@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Image } from 'react-native';
 import {
   Text,
   View,
@@ -31,12 +31,33 @@ import { useTranslation } from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '@theme';
 
+import { useGetProfile } from '../hooks/useProfile';
+
 const ProfileScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const styles = createStyles(theme);
-  const user = useAuthStore(state => state.user);
+  const user = useAuthStore(state => state.user) as any;
   const logout = useAuthStore(state => state.logout);
+
+  const { data: profileData } = useGetProfile();
+  const userProfile = (profileData as any)?.profile || (profileData as any)?.data?.profile || user;
+
+  useEffect(() => {
+    const freshUser = (profileData as any)?.profile || (profileData as any)?.data?.profile;
+    if (freshUser) {
+      useAuthStore.getState().updateUser({ ...freshUser, _id: freshUser.id || freshUser._id });
+    }
+  }, [profileData]);
+
+  const getAbsoluteUrl = (url: string | null | undefined) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('file://')) {
+      return url;
+    }
+    const baseUrl = 'https://tractorwalla-backend.onrender.com';
+    return url.startsWith('/') ? `${baseUrl}${url}` : `${baseUrl}/${url}`;
+  };
 
   const handleLogout = () => {
     logout();
@@ -60,16 +81,24 @@ const ProfileScreen = ({ navigation }: any) => {
             />
             <View style={styles.imageContainer}>
               <View style={styles.avatarPlaceholder}>
-                <UserIcon size={65} color={theme.colors.DeepGreen} />
+                {userProfile?.profilePhotoUrl || userProfile?.profileImage ? (
+                  <Image
+                    source={{ uri: getAbsoluteUrl(userProfile.profilePhotoUrl || userProfile.profileImage) }}
+                    style={{ width: 54, height: 54, borderRadius: 27 }}
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <UserIcon size={35} color={theme.colors.DeepGreen} />
+                )}
               </View>
             </View>
             <View style={styles.userInfo}>
               <Text variant="medium" size={18} color={theme.colors.textPrimary} style={styles.userName}>
-                {user?.name || 'User'}
+                {userProfile?.name || 'User'}
               </Text>
 
               <Text variant="regular" size={14} color={theme.colors.textMuted} style={styles.userEmail}>
-                {user?.phone || '+91 0000000000'}
+                {userProfile?.phoneDisplay || userProfile?.phone || '+91 0000000000'}
               </Text>
             </View>
             <ChevronBackwardIcon
@@ -91,7 +120,7 @@ const ProfileScreen = ({ navigation }: any) => {
               <View style={styles.tractorIconContainer}>
                 <BikeIcon size={20} color={theme.colors.brandRed} />
               </View>
-              <Text variant="regular" size={16} color={theme.colors.textPrimary}>
+              <Text variant="medium" size={14} color={theme.colors.textPrimary}>
                 {t('main.profile.myTractor')}
               </Text>
             </View>
@@ -110,17 +139,17 @@ const ProfileScreen = ({ navigation }: any) => {
           </Text>
           <ProfileOptionItem
             title={t('main.profile.manageAddress')}
-            icon={<LocationEditIcon size={18} color={theme.colors.gray600} />}
+            icon={<LocationEditIcon size={16} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('ManageAddress')}
           />
           <ProfileOptionItem
             title={t('main.profile.language')}
-            icon={<ChangelanguageIcon size={18} color={theme.colors.gray600} />}
+            icon={<ChangelanguageIcon size={16} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('ChooseLanguage')}
           />
           <ProfileOptionItem
             title={t('main.profile.myBookings')}
-            icon={<BookingIcon size={20} color={theme.colors.gray600} />}
+            icon={<BookingIcon size={16} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('Bookings')}
             showBorder={false}
           />
@@ -132,27 +161,27 @@ const ProfileScreen = ({ navigation }: any) => {
           </Text>
           <ProfileOptionItem
             title={t('main.profile.about')}
-            icon={<AboutIcon size={18} color={theme.colors.gray600} />}
+            icon={<AboutIcon size={16} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('About')}
           />
           <ProfileOptionItem
             title={t('main.profile.faq') || 'FAQs'}
-            icon={<FaqIcon size={18} color={theme.colors.gray600} />}
+            icon={<FaqIcon size={16} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('FAQ')}
           />
           <ProfileOptionItem
             title={t('main.profile.sendFeedback')}
-            icon={<FeedbackIcon size={18} color={theme.colors.gray600} />}
+            icon={<FeedbackIcon size={16} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('SendFeedback')}
           />
           <ProfileOptionItem
             title={t('main.profile.reportIssue')}
-            icon={<ReportIcon size={18} color={theme.colors.gray600} />}
+            icon={<ReportIcon size={16} color={theme.colors.gray600} />}
             onPress={() => navigation.navigate('ReportIssue')}
           />
           <ProfileOptionItem
             title={t('main.profile.logout')}
-            icon={<LogoutIcon size={18} color={theme.colors.error} />}
+            icon={<LogoutIcon size={16} color={theme.colors.error} />}
             onPress={handleLogout}
             showBorder={false}
           />

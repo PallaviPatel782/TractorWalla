@@ -64,11 +64,12 @@ const MainTractorBrand = ({ navigation, route }: any) => {
           <Loader visible={isLoading} inline />
 
           <FlatList
+            key={4}
             data={filteredBrands}
             numColumns={4}
             keyExtractor={(item: any) => item._id}
             contentContainerStyle={{ paddingBottom: 20, marginTop: 20, paddingHorizontal: 12 }}
-            columnWrapperStyle={{ marginBottom: 20 }}
+            columnWrapperStyle={{ marginBottom: 20, justifyContent: 'flex-start' }}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }: { item: any }) => (
               <TouchableOpacity

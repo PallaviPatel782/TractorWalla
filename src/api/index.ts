@@ -6,7 +6,7 @@ import { useSnackbarStore } from '@store/useSnackbarStore';
 // ==============================
 // 🔧 CONFIG
 // ==============================
-const BASE_URL = 'https://tractorwalla-backend.onrender.com/api';
+export const BASE_URL = 'https://tractorwalla-backend.onrender.com';
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -101,7 +101,7 @@ api.interceptors.response.use(
       }
 
       try {
-        const response = await axios.post(`${BASE_URL}/auth/customer/refresh`, {
+        const response = await axios.post(`${BASE_URL}/api/v1/customer/auth/refresh`, {
           refreshToken,
         });
 
@@ -146,5 +146,7 @@ export const apiService = {
   patch: <T = any>(url: string, data?: any, config?: any): Promise<T> => api.patch(url, data, config),
   delete: <T = any>(url: string, config?: any): Promise<T> => api.delete(url, config),
 };
+
+export { queryClient } from './queryClient';
 
 export default api;

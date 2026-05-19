@@ -9,7 +9,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     content: {
       paddingHorizontal: 20,
-      paddingTop: 20,
+      // paddingTop: 20,
       paddingBottom: 80,
     },
     formContainer: {
@@ -89,16 +89,15 @@ export const createStyles = (theme: AppTheme) =>
     },
     topSection: {
       alignItems: 'center',
+      marginBottom: 10
     },
     largeImageContainer: {
-      width: 90,
-      height: 90,
       justifyContent: 'center',
       alignItems: 'center',
     },
     largeLogo: {
-      width: 90,
-      height: 90
+      width: 40,
+      height: 33
     },
     brandInfo: {
       alignItems: 'center',

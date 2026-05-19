@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { mmkvStorage } from './storage';
+import { queryClient } from '@api';
 
 export interface Address {
   id: string;
@@ -65,7 +66,14 @@ export const useAuthStore = create<AuthState>()(
         console.log('--- Store UpdateUser ---', { updates, result: newUser });
         return { user: newUser };
       }),
-      logout: () => set({ token: null, refreshToken: null, user: null }),
+      logout: () => {
+        try {
+          queryClient.clear();
+        } catch (e) {
+          console.log('Error clearing queryClient cache', e);
+        }
+        set({ token: null, refreshToken: null, user: null });
+      },
     }),
     {
       name: 'auth-storage',

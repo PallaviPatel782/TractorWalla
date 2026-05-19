@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Image, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import { Input } from '@components';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
@@ -10,10 +10,11 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { useAuthStore } from '@store/useAuthStore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-import { useUpdateProfile } from '@screens/auth/hooks/useAuth';
+import { useGetProfile, usePatchProfile, usePatchProfilePhoto } from '../../hooks/useProfile';
 import LinearGradient from 'react-native-linear-gradient';
 import { SecondaryHeader } from '@components';
 import { useSnackbarStore } from '@store/useSnackbarStore';
+import { BASE_URL } from '@api';
 type Props = NativeStackScreenProps<RootStackParamList, 'UpdateProfile'>;
 
 const UpdateProfileScreen = ({ navigation }: Props) => {
@@ -21,49 +22,116 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
   const { t } = useTranslation();
   const styles = createStyles(theme);
   const user = useAuthStore((state) => state.user);
-  const { mutate: updateProfile, isPending } = useUpdateProfile();
+  const { data: profileData } = useGetProfile();
+  const { mutate: updateProfile, isPending: isUpdatingProfile } = usePatchProfile();
+  const { mutate: uploadPhoto, isPending: isUploadingPhoto } = usePatchProfilePhoto();
   const showSnackbar = useSnackbarStore(state => state.showSnackbar);
 
-  const [fullName, setFullName] = useState(user?.name || '');
-  const [email, setEmail] = useState(user?.email || '');
-  const [profileImage, setProfileImage] = useState(user?.profileImage || '');
+  const isPending = isUpdatingProfile || isUploadingPhoto;
+
+  const userProfile = (profileData as any)?.profile || (profileData as any)?.data?.profile || user;
+
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [profileImage, setProfileImage] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  useEffect(() => {
+    if (userProfile) {
+      setFullName(userProfile.name || '');
+      setEmail(userProfile.email || '');
+      setProfileImage(userProfile.profilePhotoUrl || userProfile.profileImage || '');
+    }
+  }, [userProfile]);
+
+  const getAbsoluteUrl = (url: string | null | undefined) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('file://')) {
+      return url;
+    }
+    const baseUrl = BASE_URL;
+    return url.startsWith('/') ? `${baseUrl}${url}` : `${baseUrl}/${url}`;
+  };
+
   const handleUpdate = () => {
+    if (!fullName.trim()) return;
+
     updateProfile({
-      name: fullName,
-      email: email,
-      address: user?.address || '',
-      state: user?.state || '',
-      pincode: user?.pincode || '',
+      name: fullName.trim(),
+      email: email.trim(),
     }, {
       onSuccess: (response: any) => {
+        const freshUser = response?.profile || response?.data?.profile || response?.user || response?.data?.user || response?.customer || response?.data?.customer;
+        if (freshUser) {
+          useAuthStore.getState().updateUser({ ...freshUser, _id: freshUser.id || freshUser._id });
+        }
         showSnackbar({
           type: 'success',
           title: 'Success',
-          description: response.message || response.data?.message || 'Profile updated successfully'
+          description: t('main.profile.updateProfile.successProfile', 'Profile updated successfully'),
         });
         navigation.goBack();
       },
-      onError: (error: any) => {
+      onError: (err: any) => {
         showSnackbar({
           type: 'error',
           title: 'Error',
-          description: error.message || 'Failed to update profile'
+          description: err.error || err.message || 'Failed to update profile',
         });
       }
     });
   };
 
   const handlePickImage = async () => {
-    const result = await launchImageLibrary({
-      mediaType: 'photo',
-      quality: 1,
-      includeBase64: false,
-    });
+    try {
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        quality: 1,
+        includeBase64: false,
+      });
 
-    if (result.assets && result.assets.length > 0) {
-      setProfileImage(result.assets[0].uri || '');
+      if (result.assets && result.assets.length > 0) {
+        const selectedUri = result.assets[0].uri || '';
+        if (!selectedUri) return;
+
+        // Set local preview first
+        setProfileImage(selectedUri);
+
+        const formData = new FormData();
+
+        formData.append('profilePhoto', {
+          uri: selectedUri,
+          name: 'profilePhoto.jpg',
+          type: 'image/jpeg',
+        } as any);
+
+        uploadPhoto(formData, {
+          onSuccess: (res: any) => {
+            const freshUser = res?.profile || res?.data?.profile || res?.user || res?.data?.user || res?.customer || res?.data?.customer;
+            if (freshUser) {
+              useAuthStore.getState().updateUser({ ...freshUser, _id: freshUser.id || freshUser._id });
+            }
+            showSnackbar({
+              type: 'success',
+              title: 'Success',
+              description: t('main.profile.updateProfile.photoSuccess', 'Profile photo updated successfully'),
+            });
+            const newPhotoUrl = res?.profilePhotoUrl || res?.data?.profilePhotoUrl || res?.customer?.profilePhotoUrl || res?.data?.customer?.profilePhotoUrl;
+            if (newPhotoUrl) {
+              setProfileImage(newPhotoUrl);
+            }
+          },
+          onError: (err: any) => {
+            showSnackbar({
+              type: 'error',
+              title: 'Error',
+              description: err.error || err.message || 'Failed to upload photo',
+            });
+          }
+        });
+      }
+    } catch (error) {
+      console.log('Error selecting image:', error);
     }
   };
 
@@ -101,7 +169,7 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
               <View style={styles.avatarWrapper}>
                 {profileImage ? (
                   <Image
-                    source={{ uri: profileImage }}
+                    source={{ uri: getAbsoluteUrl(profileImage) }}
                     style={styles.avatarImage}
                   />
                 ) : (
@@ -109,10 +177,26 @@ const UpdateProfileScreen = ({ navigation }: Props) => {
                     <UserIcon size={45} color={theme.colors.gray300} />
                   </View>
                 )}
+                {isUploadingPhoto && (
+                  <View style={[styles.avatarImage, {
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    backgroundColor: 'rgba(0,0,0,0.6)',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }]}>
+                    <ActivityIndicator size="small" color={theme.colors.white} />
+                    <Text style={{ color: theme.colors.white, fontSize: 10, marginTop: 4, fontFamily: theme.typography.fonts.poppinsMedium }}>
+                      {t('main.profile.updateProfile.uploading', 'Uploading...')}
+                    </Text>
+                  </View>
+                )}
                 <TouchableOpacity
                   style={styles.editBadge}
                   activeOpacity={0.8}
                   onPress={handlePickImage}
+                  disabled={isUploadingPhoto}
                 >
                   <CameraIcon size={14} color={theme.colors.white} />
                 </TouchableOpacity>

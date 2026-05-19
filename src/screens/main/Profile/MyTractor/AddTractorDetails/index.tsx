@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import {
   Button,
   Input,
-  KeyboardWrapper,
   ScreenWrapper,
   SecondaryHeader,
   Text,
@@ -19,6 +19,7 @@ import {
 import { useAddVehicle, useModels } from '@screens/auth/hooks/useAuth';
 import { BikeIcon } from '@assets/icons';
 import { useUpdateVehicle } from '@screens/main/hooks/useVehicle';
+import { useAuthStore } from '@store/useAuthStore';
 import { useTheme } from '@theme';
 import { createStyles } from './styles';
 import { TractorImage } from '@assets/images';
@@ -62,20 +63,62 @@ const AddTractorDetails = ({ navigation, route }: any) => {
     return data.map((m: any) => ({ label: m.name, value: m.name, id: m._id || m.id }));
   }, [modelsData]);
 
+  const yearErrors = React.useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    let mError = '';
+    let pError = '';
+
+    const mYear = parseInt(formData.yearOfManufacture);
+    const pYear = parseInt(formData.yearOfPurchase);
+
+    if (formData.yearOfManufacture.length > 0) {
+      if (formData.yearOfManufacture.length < 4) {
+        mError = t('main.register.errorManufactureIncomplete', 'Year must be 4 digits');
+      } else {
+        if (isNaN(mYear) || mYear > currentYear) {
+          mError = t('main.register.errorManufactureFuture', 'Manufacture year cannot be in the future');
+        } else if (mYear < 1900) {
+          mError = t('main.register.errorManufactureTooOld', 'Enter a valid year (1900 or later)');
+        }
+      }
+    }
+
+    if (formData.yearOfPurchase.length > 0) {
+      if (formData.yearOfPurchase.length < 4) {
+        pError = t('main.register.errorPurchaseIncomplete', 'Year must be 4 digits');
+      } else {
+        if (isNaN(pYear) || pYear > currentYear) {
+          pError = t('main.register.errorPurchaseFuture', 'Purchase year cannot be in the future');
+        } else if (pYear < 1900) {
+          pError = t('main.register.errorPurchaseTooOld', 'Enter a valid year (1900 or later)');
+        } else if (!isNaN(mYear) && pYear < mYear) {
+          pError = t('main.register.errorPurchaseBeforeManufacture', 'Purchase year cannot be earlier than manufacture year');
+        }
+      }
+    }
+
+    return {
+      manufactureError: mError,
+      purchaseError: pError,
+      hasErrors: !!mError || !!pError
+    };
+  }, [formData.yearOfManufacture, formData.yearOfPurchase, t]);
+
   const handleInputChange = (key: string, value: string) => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
   const handleSave = () => {
+    if (yearErrors.hasErrors) return;
     const payload = {
       brandId: formData.brandId,
       modelId: formData.modelId,
-      registrationNo: formData.registrationNo,
+      registrationNo: formData.registrationNo.trim(),
       yearOfManufacture: parseInt(formData.yearOfManufacture),
       yearOfPurchase: parseInt(formData.yearOfPurchase),
       tractorType: formData.tractorType,
-      customBrandName: formData.customBrand || '',
-      customModelName: formData.model || '',
+      customBrandName: (formData.customBrand || '').trim(),
+      customModelName: (formData.model || '').trim(),
     };
 
     const onSuccessAction = () => {
@@ -91,7 +134,19 @@ const AddTractorDetails = ({ navigation, route }: any) => {
       });
     } else {
       addVehicle(payload, {
-        onSuccess: onSuccessAction
+        onSuccess: (response: any) => {
+          const state = useAuthStore.getState();
+          const user = state.user;
+          if (user?._id) {
+            const newVehicle = response?.vehicle || response?.data?.vehicle;
+            state.setUser({
+              ...user,
+              onboardingCompleted: true,
+              tractors: newVehicle ? [...(user.tractors || []), newVehicle] : (user.tractors || []),
+            });
+          }
+          onSuccessAction();
+        }
       });
     }
   };
@@ -104,10 +159,14 @@ const AddTractorDetails = ({ navigation, route }: any) => {
           onBack={() => navigation.goBack()}
         />
 
-        <KeyboardWrapper>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
           <ScrollView
             contentContainerStyle={styles.content}
             showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
           >
             {!isOthers && (
               <View style={styles.topSection}>
@@ -119,16 +178,16 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                       resizeMode="contain"
                     />
                   ) : (
-                    <TractorImage width={90} height={90} />
+                    <TractorImage width={40} height={33} />
                   )}
                 </View>
                 <View style={styles.brandInfo}>
-                  <Text variant="bold" size={20} color={theme.colors.textPrimary}>
+                  <Text variant="medium" size={12} color={theme.colors.textPrimary}>
                     {initialBrand}
                   </Text>
-                  <Text variant="medium" size={14} color={theme.colors.textSecondary} style={{ marginTop: 4 }}>
+                  {/* <Text variant="medium" size={14} color={theme.colors.textSecondary} style={{ marginTop: 4 }}>
                     {formData.model}
-                  </Text>
+                  </Text> */}
                 </View>
               </View>
             )}
@@ -173,7 +232,6 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                 placeholder={t('main.register.placeholderRegistration')}
                 value={formData.registrationNo}
                 onChangeText={(val) => handleInputChange('registrationNo', val)}
-                required
               />
 
               <Input
@@ -183,6 +241,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                 maxLength={4}
                 value={formData.yearOfManufacture}
                 onChangeText={(val) => handleInputChange('yearOfManufacture', val)}
+                error={yearErrors.manufactureError}
                 required
               />
 
@@ -193,6 +252,7 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                 maxLength={4}
                 value={formData.yearOfPurchase}
                 onChangeText={(val) => handleInputChange('yearOfPurchase', val)}
+                error={yearErrors.purchaseError}
               />
 
               <View>
@@ -208,21 +268,20 @@ const AddTractorDetails = ({ navigation, route }: any) => {
                   <Text variant="regular" size={14} style={styles.typeTriggerText}>
                     {formData.tractorType ? t(`main.register.${formData.tractorType}`) : 'Select type of tractor'}
                   </Text>
-                  {/* <ChevronArrowIcon width={SW(15)} height={SW(15)} color={theme.colors.gray400} /> */}
                 </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
-        </KeyboardWrapper>
 
-        <ScreenFooter>
-          <Button
-            title={isEdit ? t('main.register.updateButton', 'Update Details') : t('main.register.addTractor', 'Add Tractor')}
-            onPress={handleSave}
-            loading={isAddingVehicle || isUpdatingVehicle}
-            disabled={!formData.registrationNo || !formData.model || !formData.brand || (isOthers && !formData.customBrand)}
-          />
-        </ScreenFooter>
+          <ScreenFooter>
+            <Button
+              title={isEdit ? t('main.register.updateButton', 'Update Details') : t('main.register.addTractor', 'Add Tractor')}
+              onPress={handleSave}
+              loading={isAddingVehicle || isUpdatingVehicle}
+              disabled={!formData.model || !formData.brand || (isOthers && !formData.customBrand) || yearErrors.hasErrors || !formData.yearOfManufacture}
+            />
+          </ScreenFooter>
+        </KeyboardAvoidingView>
 
         <GlobalBottomSheet
           visible={showTypeSheet}

@@ -109,7 +109,7 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: 12,
+      paddingVertical: 8,
       gap: 10,
       borderRadius: 12,
       paddingHorizontal: 20,
@@ -117,7 +117,7 @@ export const createStyles = (theme: AppTheme) =>
     },
     footerText: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontFamily: theme.fontfamily.poppinsMedium,
     },
     defaultBadge: {
       marginLeft: 8,

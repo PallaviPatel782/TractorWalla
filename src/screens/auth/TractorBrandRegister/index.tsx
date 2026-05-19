@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { useTheme } from '@theme';
 import {
   Text,
@@ -7,7 +8,6 @@ import {
   Input,
   SecondaryHeader,
   ScreenWrapper,
-  KeyboardWrapper,
   View,
   TouchableOpacity,
   Dropdown,
@@ -17,6 +17,7 @@ import {
   ScreenFooter,
 } from '@components';
 import { useAddVehicle, useModels } from '@screens/auth/hooks/useAuth';
+import { useAuthStore } from '@store/useAuthStore';
 import { createStyles } from './styles';
 import { BikeIcon, KeyboardArrowUpIcon } from '@assets/icons';
 
@@ -50,23 +51,74 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
     return data.map((m: any) => ({ label: m.name, value: m.name, id: m._id || m.id }));
   }, [modelsData]);
 
+  const yearErrors = useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    let mError = '';
+    let pError = '';
+
+    const mYear = parseInt(formData.yearOfManufacture);
+    const pYear = parseInt(formData.yearOfPurchase);
+
+    if (formData.yearOfManufacture.length > 0) {
+      if (formData.yearOfManufacture.length < 4) {
+        mError = t('main.register.errorManufactureIncomplete', 'Year must be 4 digits');
+      } else {
+        if (isNaN(mYear) || mYear > currentYear) {
+          mError = t('main.register.errorManufactureFuture', 'Manufacture year cannot be in the future');
+        } else if (mYear < 1900) {
+          mError = t('main.register.errorManufactureTooOld', 'Enter a valid year (1900 or later)');
+        }
+      }
+    }
+
+    if (formData.yearOfPurchase.length > 0) {
+      if (formData.yearOfPurchase.length < 4) {
+        pError = t('main.register.errorPurchaseIncomplete', 'Year must be 4 digits');
+      } else {
+        if (isNaN(pYear) || pYear > currentYear) {
+          pError = t('main.register.errorPurchaseFuture', 'Purchase year cannot be in the future');
+        } else if (pYear < 1900) {
+          pError = t('main.register.errorPurchaseTooOld', 'Enter a valid year (1900 or later)');
+        } else if (!isNaN(mYear) && pYear < mYear) {
+          pError = t('main.register.errorPurchaseBeforeManufacture', 'Purchase year cannot be earlier than manufacture year');
+        }
+      }
+    }
+
+    return {
+      manufactureError: mError,
+      purchaseError: pError,
+      hasErrors: !!mError || !!pError
+    };
+  }, [formData.yearOfManufacture, formData.yearOfPurchase, t]);
+
   const handleInputChange = (key: string, value: string) => {
     setFormData(prev => ({ ...prev, [key]: value }));
   };
 
   const handleContinue = () => {
+    if (yearErrors.hasErrors) return;
     addVehicle({
       brandId: brandId,
       modelId: formData.modelId,
-      registrationNo: formData.registrationNo,
+      registrationNo: formData.registrationNo.trim(),
       yearOfManufacture: parseInt(formData.yearOfManufacture),
       yearOfPurchase: parseInt(formData.yearOfPurchase),
       tractorType: formData.tractorType,
-      customBrandName: formData.customBrand || '',
-      customModelName: formData.model || '',
+      customBrandName: (formData.customBrand || '').trim(),
+      customModelName: (formData.model || '').trim(),
     }, {
-      onSuccess: () => {
-        // RootNavigator will switch to Main stack automatically
+      onSuccess: (response: any) => {
+        const state = useAuthStore.getState();
+        const user = state.user;
+        if (user?._id) {
+          const newVehicle = response?.vehicle || response?.data?.vehicle;
+          state.setUser({
+            ...user,
+            onboardingCompleted: true,
+            tractors: newVehicle ? [...(user.tractors || []), newVehicle] : (user.tractors || []),
+          });
+        }
       }
     });
   };
@@ -82,10 +134,14 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
       <View style={styles.container}>
         <SecondaryHeader title={t('main.register.title')} onBack={() => navigation.goBack()} />
 
-        <KeyboardWrapper>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
           <ScrollView
             contentContainerStyle={styles.content}
             showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
           >
             <View style={{ gap: 12 }}>
               {!isOthers && (
@@ -146,7 +202,6 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                   placeholder={t('main.register.placeholderRegistration')}
                   value={formData.registrationNo}
                   onChangeText={(val) => handleInputChange('registrationNo', val)}
-                  required
                 />
 
                 <Input
@@ -156,6 +211,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                   maxLength={4}
                   value={formData.yearOfManufacture}
                   onChangeText={(val) => handleInputChange('yearOfManufacture', val)}
+                  error={yearErrors.manufactureError}
                   required
                 />
 
@@ -166,6 +222,7 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                   maxLength={4}
                   value={formData.yearOfPurchase}
                   onChangeText={(val) => handleInputChange('yearOfPurchase', val)}
+                  error={yearErrors.purchaseError}
                 />
 
                 <View style={{ marginBottom: 12 }}>
@@ -187,18 +244,17 @@ const TractorBrandRegister = ({ navigation, route }: any) => {
                 </View>
               </View>
             </View>
-
           </ScrollView>
-        </KeyboardWrapper>
 
-        <ScreenFooter>
-          <Button
-            title={isOthers ? t('main.register.button') : t('common.continue')}
-            onPress={handleContinue}
-            loading={isAddingVehicle}
-            disabled={!formData.registrationNo || !formData.model || (isOthers && !formData.customBrand)}
-          />
-        </ScreenFooter>
+          <ScreenFooter>
+            <Button
+              title={isOthers ? t('main.register.button') : t('common.continue')}
+              onPress={handleContinue}
+              loading={isAddingVehicle}
+              disabled={!formData.model || (isOthers && !formData.customBrand) || yearErrors.hasErrors || !formData.yearOfManufacture}
+            />
+          </ScreenFooter>
+        </KeyboardAvoidingView>
 
 
         <GlobalBottomSheet

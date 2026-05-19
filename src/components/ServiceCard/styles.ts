@@ -4,12 +4,17 @@ import { AppTheme } from '@theme';
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     serviceCard: {
-      flexDirection: 'row',
+      flexDirection: 'column',
       backgroundColor: theme.colors.white,
       marginBottom: 10,
       padding: 12,
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
+    },
+    cardMainRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
     },
     serviceLeft: {
       flex: 1,
@@ -31,7 +36,9 @@ export const createStyles = (theme: AppTheme) =>
     kitFooter: {
       flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'space-between',
       marginTop: 10,
+      marginLeft: 10,
     },
     ratingText: {
       marginRight: 8,
@@ -59,14 +66,19 @@ export const createStyles = (theme: AppTheme) =>
       width: '100%',
       height: '100%',
     },
+    buttonWrapper: {
+      width: 100,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     bookBtn: {
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: 'rgba(30, 99, 63, 0.08)',
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-      borderRadius: 20,
-      borderWidth: 1.2,
+      paddingHorizontal: 12,
+      paddingVertical: 4,
+      borderRadius: 10,
+      borderWidth: 1,
       borderColor: theme.colors.successDeep,
     },
     bookText: {

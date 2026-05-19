@@ -2,82 +2,69 @@ import { apiService } from '@api';
 import { useAuthStore } from '@store/useAuthStore';
 import { useMutation, useQuery, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
 
-// ==============================
-// 🚀 API FUNCTIONS
-// ==============================
-
+// API Endpoints
 const getSingleVehicle = (vehicleId: string) =>
-  apiService.get(`/customer-vehicle/get-single/${vehicleId}`);
+  apiService.get(`/api/v1/customer/vehicles/get-single/${vehicleId}`);
 
 const updateVehicle = ({ vehicleId, data }: { vehicleId: string; data: any }) =>
-  apiService.put(`/customer-vehicle/update/${vehicleId}`, data);
+  apiService.put(`/api/v1/customer/vehicles/update/${vehicleId}`, data);
 
 const deleteVehicle = (vehicleId: string) =>
-  apiService.delete(`/customer-vehicle/delete/${vehicleId}`);
+  apiService.delete(`/api/v1/customer/vehicles/delete/${vehicleId}`);
 
-const getVehiclesByCustomerId = (customerId: string) =>
-  apiService.get(`/customer-vehicle/by-customer-id/${customerId}`);
+const getAllVehicles = () =>
+  apiService.get('/api/v1/customer/vehicles/get-all');
 
-// ==============================
-// 🎣 VEHICLE HOOKS
-// ==============================
+// Vehicle Hooks
+export const useGetSingleVehicle = (vehicleId: string) => useQuery({
+  queryKey: ['vehicle', vehicleId],
+  queryFn: () => getSingleVehicle(vehicleId),
+  enabled: !!vehicleId,
+});
 
-export const useGetSingleVehicle = (vehicleId: string) => {
-  return useQuery({
-    queryKey: ['vehicle', vehicleId],
-    queryFn: () => getSingleVehicle(vehicleId),
-    enabled: !!vehicleId,
-  });
-};
+export const useGetAllVehicles = () => useQuery({
+  queryKey: ['vehicles'],
+  queryFn: getAllVehicles,
+});
 
-export const useGetVehiclesByCustomerId = (customerId: string) => {
-  return useQuery({
-    queryKey: ['vehicles', customerId],
-    queryFn: () => getVehiclesByCustomerId(customerId),
-    enabled: !!customerId,
-  });
-};
+export const useGetVehiclesByCustomerId = () => useQuery({
+  queryKey: ['vehicles'],
+  queryFn: getAllVehicles,
+});
 
-export const useUpdateVehicle = (
-  options?: UseMutationOptions<any, Error, { vehicleId: string; data: any }>
-) => {
+export const useUpdateVehicle = (options?: UseMutationOptions<any, Error, { vehicleId: string; data: any }>) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: updateVehicle,
-    onSuccess: (...args) => {
-      const [, variables] = args;
+    onSuccess: (data, variables, ...args) => {
       queryClient.invalidateQueries({ queryKey: ['vehicle', variables.vehicleId] });
+      queryClient.invalidateQueries({ queryKey: ['vehicles'] });
       const user = useAuthStore.getState().user;
       if (user?._id) {
         queryClient.invalidateQueries({ queryKey: ['vehicles', user._id] });
       }
-      options?.onSuccess?.(...args);
+      options?.onSuccess?.(data, variables, ...args);
     },
     ...options,
   });
 };
 
-export const useDeleteVehicle = (
-  options?: UseMutationOptions<any, Error, string>
-) => {
+export const useDeleteVehicle = (options?: UseMutationOptions<any, Error, string>) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: deleteVehicle,
-    onSuccess: (...args) => {
-      const [, variables] = args;
+    onSuccess: (data, vehicleId, ...args) => {
       const state = useAuthStore.getState();
       const user = state.user;
-
+      queryClient.invalidateQueries({ queryKey: ['vehicles'] });
       if (user?._id) {
         if (user.tractors) {
-          const updatedTractors = user.tractors.filter((t: any) => t.id !== variables && t._id !== variables);
+          const updatedTractors = user.tractors.filter((t: any) => t.id !== vehicleId && t._id !== vehicleId);
           state.setUser({ ...user, tractors: updatedTractors });
         }
         queryClient.invalidateQueries({ queryKey: ['vehicles', user._id] });
       }
-      options?.onSuccess?.(...args);
+      options?.onSuccess?.(data, vehicleId, ...args);
     },
     ...options,
   });

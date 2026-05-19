@@ -10,7 +10,7 @@ export const createStyles = (theme: AppTheme) =>
     menuContent: {
       flex: 1,
       paddingHorizontal: 20,
-      paddingTop: 20,
+      // paddingTop: 20,
     },
     card: {
       backgroundColor: theme.colors.white,

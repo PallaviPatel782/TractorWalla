@@ -15,7 +15,7 @@ import { ServiceModalImageImage, DummyUserImage } from '@assets/images';
 import { CheckedIcon, ChevronBackwardIcon, DownloadIcon } from '@assets/icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet, BackHandler } from 'react-native';
 const ServiceInvoiceSummary = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -25,6 +25,23 @@ const ServiceInvoiceSummary = () => {
   const { bookingId = 'ID1234' } = route.params || {};
 
   const [invoiceMenuVisible, setInvoiceMenuVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const backAction = () => {
+      navigation.reset({
+        index: 1,
+        routes: [{ name: 'Main' }, { name: 'Bookings' }],
+      });
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation]);
 
   const handleInvoiceOptionSelect = (type: 'General' | 'Inventory') => {
     setInvoiceMenuVisible(false);
@@ -39,7 +56,7 @@ const ServiceInvoiceSummary = () => {
     <ScreenWrapper>
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <TouchableOpacity onPress={() => navigation.reset({ index: 1, routes: [{ name: 'Main' }, { name: 'Bookings' }] })} style={styles.backBtn}>
             <ChevronBackwardIcon size={24} color={theme.colors.black} />
           </TouchableOpacity>
         </View>

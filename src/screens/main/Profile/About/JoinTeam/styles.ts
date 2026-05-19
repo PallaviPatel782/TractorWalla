@@ -12,7 +12,6 @@ export const createStyles = (theme: AppTheme) =>
     },
     textContent: {
       paddingHorizontal: 20,
-      paddingTop: 10,
       paddingBottom: 20,
     },
     footer: {

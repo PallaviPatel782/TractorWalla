@@ -10,13 +10,12 @@ export const createStyles = (theme: AppTheme) =>
     content: {
       flexGrow: 1,
       paddingHorizontal: 20,
-      paddingTop: 20,
     },
     description: {
       color: theme.colors.gray600,
       fontFamily: theme.fontfamily.poppinsRegular,
       fontSize: 14,
-      marginBottom: 24,
+      marginBottom: 10,
       lineHeight: 22,
     },
     inputContainer: {
@@ -43,5 +42,20 @@ export const createStyles = (theme: AppTheme) =>
       paddingHorizontal: 20,
       paddingBottom: 30,
       paddingTop: 10,
+    },
+    starsRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+      marginVertical: 10,
+    },
+    star: {
+      fontSize: 36,
+    },
+    experienceLabel: {
+      fontFamily: theme.fontfamily.poppinsMedium,
+      fontSize: 14,
+      color: theme.colors.textPrimary,
+      marginTop: 10,
     },
   });

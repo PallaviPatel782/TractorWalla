@@ -91,8 +91,8 @@ export const createStyles = (theme: AppTheme) =>
       backgroundColor: 'transparent',
     },
     heroCard: {
-      height: '100%',
-      width: '100%',
+      height: 199,
+      width: SCREEN_WIDTH - 32,
       borderRadius: 20,
       overflow: 'hidden',
       position: 'relative',
@@ -115,8 +115,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     heroTitle: {
       color: theme.colors.white,
-      fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: 15,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontSize: 21,
       marginBottom: 12,
       lineHeight: 24,
     },
@@ -208,7 +208,8 @@ export const createStyles = (theme: AppTheme) =>
     serviceCard: {
       width: "48%",
       borderRadius: 20,
-      padding: 16,
+      paddingHorizontal: 16,
+      paddingVertical: 8,
       minHeight: 80,
       overflow: 'hidden',
       position: 'relative',
@@ -242,8 +243,8 @@ export const createStyles = (theme: AppTheme) =>
     },
     serviceLabel: {
       flex: 1,
-      fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: 12,
+      fontFamily: theme.fontfamily.poppinsSemiBold,
+      fontSize: 14,
     },
     serviceSub: {
       fontFamily: theme.fontfamily.poppinsRegular,
@@ -251,11 +252,12 @@ export const createStyles = (theme: AppTheme) =>
       color: theme.colors.textSecondary,
     },
     partCard: {
-      width: 170,
+      width: 136,
       backgroundColor: theme.colors.white,
       borderRadius: 16,
       paddingHorizontal: 12,
-      paddingVertical: 12,
+      paddingTop: 12,
+      paddingBottom: 8,
       borderWidth: 1,
       borderColor: theme.colors.faintGray,
     },
@@ -273,23 +275,23 @@ export const createStyles = (theme: AppTheme) =>
     partPriceRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 8,
+      gap: 4,
       marginBottom: 6,
     },
     partPrice: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: 15,
+      fontSize: 13,
       color: theme.colors.black,
     },
     partMrp: {
       fontFamily: theme.fontfamily.poppinsRegular,
-      fontSize: 14,
+      fontSize: 11,
       color: theme.colors.gray400,
       textDecorationLine: 'line-through',
     },
     partDiscount: {
       fontFamily: theme.fontfamily.poppinsMedium,
-      fontSize: 12,
+      fontSize: 10,
       color: theme.colors.greenSuccess,
     },
     categoryGrid: {
@@ -549,7 +551,9 @@ export const createStyles = (theme: AppTheme) =>
     stepsCard: {
       backgroundColor: theme.colors.white,
       borderRadius: 20,
-      padding: 24,
+      paddingHorizontal: 20,
+      paddingTop: 20,
+      paddingBottom: 16,
       borderWidth: 1,
       borderColor: theme.colors.borderFaint,
     },
