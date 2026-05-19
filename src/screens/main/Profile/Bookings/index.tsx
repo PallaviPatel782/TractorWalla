@@ -11,6 +11,7 @@ import {
   GlobalBottomSheet,
   Input,
   Button,
+  BookingCancelledModal,
 } from '@components';
 import { createStyles } from './styles';
 import { DownloadIcon, ThreedotsIcon, UserIcon } from '@icons';
@@ -49,9 +50,11 @@ const Bookings = ({ navigation }: any) => {
 
   const [activeInvoiceMenuId, setActiveInvoiceMenuId] = React.useState<string | null>(null);
   const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
+  const [cancelSuccessVisible, setCancelSuccessVisible] = React.useState(false);
   const [selectedCancelBooking, setSelectedCancelBooking] = React.useState<any>(null);
   const [cancelReason, setCancelReason] = React.useState('');
   const [otherReasonText, setOtherReasonText] = React.useState('');
+
 
   const CANCEL_REASONS = useMemo(() => [
     { label: t('main.bookings.list.reasons.plan_change'), value: 'plan_change' },
@@ -218,23 +221,24 @@ const Bookings = ({ navigation }: any) => {
         </View>
 
         {cancelReason === 'others' && (
-          <View style={{ marginTop: 8 }}>
-            <Text variant="medium" size={12} color={theme.colors.gray900} style={{ marginBottom: 8 }}>
-              {t('main.bookings.list.others')}
-            </Text>
-            <Input
-              placeholder={t('main.bookings.list.othersPlaceholder')}
-              value={otherReasonText}
-              onChangeText={setOtherReasonText}
-              style={{ height: 50 }}
-            />
-          </View>
+          <Input
+            label={t('main.bookings.list.others')}
+            placeholder={t('main.bookings.list.othersPlaceholder')}
+            value={otherReasonText}
+            onChangeText={setOtherReasonText}
+            multiline
+            containerStyle={{ marginBottom: 20, marginTop: 8 }}
+          />
         )}
+
 
         <Button
           title={t('main.bookings.list.cancelBooking')}
           style={{ backgroundColor: theme.colors.danger, marginTop: 10 }}
-          onPress={() => setCancelModalVisible(false)}
+          onPress={() => {
+            setCancelModalVisible(false);
+            setCancelSuccessVisible(true);
+          }}
           disabled={!cancelReason || (cancelReason === 'others' && !otherReasonText.trim())}
         />
       </View>
@@ -278,7 +282,17 @@ const Bookings = ({ navigation }: any) => {
         </View>
       </View>
       {renderCancelBottomSheet()}
+      <BookingCancelledModal
+        visible={cancelSuccessVisible}
+        onClose={() => setCancelSuccessVisible(false)}
+        onBookAgain={() => {
+          setCancelSuccessVisible(false);
+          (navigation as any).navigate('Main', { screen: 'Services' });
+        }}
+      />
+
     </ScreenWrapper>
+
   );
 };
 

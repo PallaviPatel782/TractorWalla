@@ -20,7 +20,7 @@ import { createStyles } from './styles';
 import { ServiceCard } from '@components';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/NavigationTypes';
-import { DummyUserImage, Product1Image, Product2Image } from '@assets/images';
+import { DummyUserImage, Product1Image, Product2Image, MahindraImage } from '@assets/images';
 import { CheckIcon } from '@assets/icons';
 
 const ServiceProgress = () => {
@@ -51,7 +51,9 @@ const ServiceProgress = () => {
       price: 2883,
       mrp: 3139,
       image: Product1Image,
-      quantity: 1
+      quantity: 1,
+      tractorModel: 'Mahindra 575 DI',
+      tractorLogo: MahindraImage,
     },
     {
       id: '2',
@@ -67,9 +69,12 @@ const ServiceProgress = () => {
       price: 2883,
       mrp: 3139,
       image: Product2Image,
-      quantity: 1
+      quantity: 1,
+      tractorModel: 'Mahindra 575 DI',
+      tractorLogo: MahindraImage,
     }
   ]);
+
 
   const totalPartsPrice = parts.reduce((sum, p) => sum + (p.price * p.quantity), 0);
 

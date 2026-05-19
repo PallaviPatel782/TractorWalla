@@ -37,7 +37,7 @@ export const createStyles = (theme: AppTheme) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: 10,
+      // marginTop: 10,
       marginLeft: 10,
     },
     ratingText: {
@@ -109,5 +109,26 @@ export const createStyles = (theme: AppTheme) =>
     addedText: {
       fontFamily: theme.fontfamily.poppinsMedium,
     },
+    tractorRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 8,
+      gap: 6,
+    },
+    tractorLogo: {
+      width: 20,
+      height: 20,
+    },
+    tractorText: {
+      fontFamily: theme.fontfamily.poppinsRegular,
+      fontSize: 12,
+    },
+    quantityText: {
+      fontFamily: theme.fontfamily.poppinsRegular,
+      fontSize: 12,
+      color: theme.colors.black,
+      textAlign: 'right',
+    },
   });
+
 

@@ -31,6 +31,8 @@ export { default as Snackbar } from './Snackbar';
 export { default as FilterBottomSheet } from './FilterBottomSheet';
 export { default as ServiceCard } from './ServiceCard';
 export { default as SuccessOTPModal } from './SuccessOTPModal';
+export { default as BookingCancelledModal } from './BookingCancelledModal';
 export { default as RatingPriceRow } from './RatingPriceRow';
 export { default as BillSummary } from './BillSummary';
 export { default as ScreenFooter } from './ScreenFooter';
+

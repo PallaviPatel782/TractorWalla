@@ -191,7 +191,7 @@ const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: 480,
   },
 
   searchWrapper: {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Image } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@theme';
 import {
@@ -12,6 +12,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Input as TextInput,
+  BookingCancelledModal,
 } from '@components';
 import { createStyles } from './styles';
 import { BookingDetailBannerImage } from '@assets/images';
@@ -29,10 +30,27 @@ const BookingStatus = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'BookingStatus'>>();
   const { bookingId, paymentType } = route.params || { bookingId: 'ID1234' };
+  const isFocused = useIsFocused();
 
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
+  const [otherReason, setOtherReason] = useState('');
+  const [cancelSuccessVisible, setCancelSuccessVisible] = useState(false);
   const [status, setStatus] = useState(1); // 1: Request Sent, 2: Mechanic Reviewing, 3: Awaiting Confirmation
+
+  const timer1Ref = useRef<any>(null);
+  const timer2Ref = useRef<any>(null);
+  const timer3Ref = useRef<any>(null);
+
+  const cancelModalVisibleRef = useRef(cancelModalVisible);
+  const cancelSuccessVisibleRef = useRef(cancelSuccessVisible);
+  const isFocusedRef = useRef(isFocused);
+
+  useEffect(() => {
+    cancelModalVisibleRef.current = cancelModalVisible;
+    cancelSuccessVisibleRef.current = cancelSuccessVisible;
+    isFocusedRef.current = isFocused;
+  }, [cancelModalVisible, cancelSuccessVisible, isFocused]);
 
   const reasons = [
     'Plan Change',
@@ -41,28 +59,51 @@ const BookingStatus = () => {
     'Others'
   ];
 
-  useEffect(() => {
-    const timer1 = setTimeout(() => {
-      setStatus(2);
-    }, 2000);
-    const timer2 = setTimeout(() => {
-      setStatus(3);
-    }, 4000);
-    const timer3 = setTimeout(() => {
-      navigation.navigate('TrackMechanic', { bookingId, paymentType });
-    }, 6000);
 
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-    };
-  }, [navigation, bookingId, paymentType]);
+  const clearAllTimers = () => {
+    if (timer1Ref.current) clearTimeout(timer1Ref.current);
+    if (timer2Ref.current) clearTimeout(timer2Ref.current);
+    if (timer3Ref.current) clearTimeout(timer3Ref.current);
+  };
+
+  useEffect(() => {
+    if (isFocused && !cancelModalVisible && !cancelSuccessVisible) {
+      clearAllTimers();
+
+      if (status === 1) {
+        timer1Ref.current = setTimeout(() => {
+          if (isFocusedRef.current && !cancelModalVisibleRef.current && !cancelSuccessVisibleRef.current) {
+            setStatus(2);
+          }
+        }, 2000);
+      } else if (status === 2) {
+        timer2Ref.current = setTimeout(() => {
+          if (isFocusedRef.current && !cancelModalVisibleRef.current && !cancelSuccessVisibleRef.current) {
+            setStatus(3);
+          }
+        }, 2000);
+      } else if (status === 3) {
+        timer3Ref.current = setTimeout(() => {
+          if (isFocusedRef.current && !cancelModalVisibleRef.current && !cancelSuccessVisibleRef.current) {
+            navigation.navigate('TrackMechanic', { bookingId, paymentType });
+          }
+        }, 2000);
+      }
+    } else {
+      clearAllTimers();
+    }
+
+    return () => clearAllTimers();
+  }, [isFocused, cancelModalVisible, cancelSuccessVisible, status, navigation, bookingId, paymentType]);
+
 
   const onCancelBooking = () => {
+    clearAllTimers();
     setCancelModalVisible(false);
-    navigation.goBack();
+    setCancelSuccessVisible(true);
   };
+
+
 
   const renderStep = (stepNumber: number, label: string, isCompleted: boolean, isActive: boolean) => (
     <View style={styles.stepItem}>
@@ -103,7 +144,7 @@ const BookingStatus = () => {
           <View style={styles.illustrationContainer}>
             <Image
               source={BookingDetailBannerImage}
-              style={{ width: 333, height: 222, resizeMode: 'cover' }}
+              style={{ width: 217, height: 268, resizeMode: 'contain' }}
             />
           </View>
 
@@ -152,24 +193,40 @@ const BookingStatus = () => {
               ))}
             </View>
 
-            <Text style={styles.othersLabel}>{t('main.serviceFlow.others')}</Text>
-            <TextInput
-              style={styles.othersInput}
-              placeholder={t('main.serviceFlow.othersPlaceholder')}
-              placeholderTextColor={theme.colors.gray400}
-              multiline
-              numberOfLines={3}
-            />
+            {cancelReason === 'Others' && (
+              <TextInput
+                label={t('main.serviceFlow.others')}
+                placeholder={t('main.serviceFlow.othersPlaceholder')}
+                placeholderTextColor={theme.colors.gray400}
+                multiline
+                value={otherReason}
+                onChangeText={setOtherReason}
+                containerStyle={{ marginBottom: 20 }}
+              />
+            )}
+
 
             <Button
               title={t('main.serviceFlow.cancelBooking')}
               onPress={onCancelBooking}
               style={styles.confirmCancelBtn}
               backgroundColor={theme.colors.red}
+              disabled={!cancelReason || (cancelReason === 'Others' && !otherReason.trim())}
             />
           </View>
         </GlobalBottomSheet>
+
+        <BookingCancelledModal
+          visible={cancelSuccessVisible}
+          onClose={() => setCancelSuccessVisible(false)}
+          onBookAgain={() => {
+            setCancelSuccessVisible(false);
+            (navigation as any).navigate('Main', { screen: 'Services' });
+          }}
+        />
+
       </View>
+
     </ScreenWrapper>
   );
 };

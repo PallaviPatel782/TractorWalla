@@ -359,7 +359,7 @@ const HomeScreen = () => {
               renderItem={({ item }: { item: any }) => {
                 const CardComponent = item.onPress ? TouchableOpacity : View;
                 return (
-                  <View style={{ width: SCREEN_WIDTH, alignItems: 'center', height: 199 }}>
+                  <View style={{ width: SCREEN_WIDTH, alignItems: 'center', height: 160 }}>
                     <CardComponent
                       onPress={item.onPress}
                       activeOpacity={item.onPress ? 0.9 : undefined}

@@ -168,7 +168,6 @@ export const createStyles = (theme: AppTheme) =>
       padding: 12,
       fontSize: 12,
       color: theme.colors.black,
-      backgroundColor: theme.colors.gray50,
       marginBottom: 24,
       textAlignVertical: 'top',
     },

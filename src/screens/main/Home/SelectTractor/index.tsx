@@ -187,9 +187,13 @@ const SelectTractorScreen = () => {
                       value={date ? date.toDateString() : ''}
                       required
                       leftIcon={<Text>📅</Text>}
+                      containerStyle={{
+                        borderColor: (isDatePickerVisible || date) ? theme.colors.DeepGreen : theme.colors.border
+                      }}
                     />
                   </View>
                 </TouchableOpacity>
+
 
                 <View>
                   <Text variant="semiBold" size={12} color={theme.colors.textPrimary} style={styles.label}>

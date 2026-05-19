@@ -45,6 +45,18 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               </Text>
             </View>
           ))}
+          {item.tractorModel && (
+            <View style={styles.tractorRow}>
+              {item.tractorLogo ? (
+                <item.tractorLogo width={20} height={20} style={styles.tractorLogo} />
+              ) : (
+                <Text style={{ fontSize: 16 }}>🚜</Text>
+              )}
+              <Text size={12} color={theme.colors.black} style={styles.tractorText}>
+                {item.tractorModel}
+              </Text>
+            </View>
+          )}
         </View>
         <View style={styles.serviceRight}>
           {item.image && (
@@ -89,7 +101,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             </TouchableOpacity>
           </View>
         )}
+        {!showButton && item.quantity !== undefined && (
+          <View style={styles.buttonWrapper}>
+            <Text size={12} color={theme.colors.black} style={styles.quantityText}>
+              Qty : {item.quantity}
+            </Text>
+          </View>
+        )}
       </View>
+
     </TouchableOpacity>
   );
 };

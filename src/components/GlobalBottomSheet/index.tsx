@@ -1,14 +1,14 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ReactNode } from 'react';
 import {
   Modal,
   KeyboardAvoidingView,
   Platform,
-  Animated,
   StyleSheet,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import { useTheme } from '@theme';
-import { View, Text, TouchableOpacity } from '@components';
+import { View, Text } from '@components';
 import { CloseIcon } from '@assets/icons';
 
 export interface GlobalBottomSheetProps {
@@ -27,74 +27,46 @@ const GlobalBottomSheet: React.FC<GlobalBottomSheetProps> = ({
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  const [showModal, setShowModal] = useState(visible);
-  const animatedValue = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    if (visible) {
-      setShowModal(true);
-      Animated.timing(animatedValue, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(animatedValue, {
-        toValue: 0,
-        duration: 250,
-        useNativeDriver: true,
-      }).start(() => setShowModal(false));
-    }
-  }, [visible, animatedValue]);
-
-  const backdropOpacity = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1],
-  });
-
-  const translateY = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [600, 0], // Using a fixed offset for slide animation
-  });
-
-  if (!showModal && !visible) return null;
+  const handleClose = () => {
+    Keyboard.dismiss();
+    setTimeout(() => {
+      onClose();
+    }, 150);
+  };
 
   return (
     <Modal
-      visible={showModal}
+      visible={visible}
       transparent
-      animationType="none"
-      onRequestClose={onClose}
+      animationType="fade"
+      onRequestClose={handleClose}
       statusBarTranslucent={true}
     >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
       >
-        <View style={{ flex: 1 }}>
-          <Animated.View style={[styles.backdrop, { opacity: backdropOpacity }]} />
+        <TouchableOpacity
+          style={styles.overlay}
+          activeOpacity={1}
+          onPress={handleClose}
+        >
           <TouchableOpacity
-            style={styles.overlay}
+            style={styles.container}
             activeOpacity={1}
-            onPress={onClose}
+            onPress={() => {}}
           >
-            <Animated.View style={[styles.container, { transform: [{ translateY }] }]}>
-              <TouchableWithoutFeedback>
-                <View>
-                  {title && (
-                    <View style={styles.header}>
-                      <Text variant="semiBold" size={16} style={styles.title}>{title}</Text>
-                      <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-                        <CloseIcon width={20} height={20} color={theme.colors.black} />
-                      </TouchableOpacity>
-                    </View>
-                  )}
-                  {children}
-                </View>
-              </TouchableWithoutFeedback>
-            </Animated.View>
+            {title && (
+              <View style={styles.header}>
+                <Text variant="semiBold" size={16} style={styles.title}>{title}</Text>
+                <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
+                  <CloseIcon width={20} height={20} color={theme.colors.black} />
+                </TouchableOpacity>
+              </View>
+            )}
+            {children}
           </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </Modal>
   );
@@ -102,13 +74,10 @@ const GlobalBottomSheet: React.FC<GlobalBottomSheetProps> = ({
 
 const createStyles = (theme: any) =>
   StyleSheet.create({
-    backdrop: {
-      ...StyleSheet.absoluteFill,
-      backgroundColor: 'rgba(0,0,0,0.5)',
-    },
     overlay: {
       flex: 1,
       justifyContent: 'flex-end',
+      backgroundColor: 'rgba(0,0,0,0.5)',
     },
     container: {
       backgroundColor: theme.colors.white,
@@ -117,7 +86,7 @@ const createStyles = (theme: any) =>
       paddingTop: 10,
       paddingBottom: 20,
       maxHeight: '90%',
-      paddingHorizontal: 10
+      paddingHorizontal: 10,
     },
     header: {
       flexDirection: 'row',
@@ -138,4 +107,3 @@ const createStyles = (theme: any) =>
   });
 
 export default GlobalBottomSheet;
-

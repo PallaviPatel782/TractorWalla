@@ -85,13 +85,13 @@ export const createStyles = (theme: AppTheme) =>
       marginTop: 0
     },
     heroCardContainer: {
-      height: 190,
+      height: 160,
       borderRadius: 20,
       overflow: 'hidden',
       backgroundColor: 'transparent',
     },
     heroCard: {
-      height: 199,
+      height: 160,
       width: SCREEN_WIDTH - 32,
       borderRadius: 20,
       overflow: 'hidden',
@@ -105,8 +105,8 @@ export const createStyles = (theme: AppTheme) =>
       right: 0,
       height: '100%',
       justifyContent: 'flex-end',
-      paddingHorizontal: 20,
-      paddingBottom: 20,
+      paddingHorizontal: 16,
+      paddingBottom: 16,
     },
     heroOverlay: {
       backgroundColor: theme.colors.black + '4D',
@@ -116,9 +116,9 @@ export const createStyles = (theme: AppTheme) =>
     heroTitle: {
       color: theme.colors.white,
       fontFamily: theme.fontfamily.poppinsSemiBold,
-      fontSize: 21,
-      marginBottom: 12,
-      lineHeight: 24,
+      fontSize: 18,
+      marginBottom: 8,
+      lineHeight: 21,
     },
     heroCta: {
       alignSelf: 'flex-start',
